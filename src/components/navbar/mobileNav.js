@@ -1137,7 +1137,7 @@ export function refreshMobileAccount() {
   );
 
 
-  bindMobileLogout();
+  
 }
 
 

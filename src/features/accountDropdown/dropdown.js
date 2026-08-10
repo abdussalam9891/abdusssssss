@@ -3,6 +3,9 @@
 let closeTimeout;
 
 export function initAccountDropdown() {
+
+   console.log("initAccountDropdown RAN"); 
+
   const wrapper = document.getElementById("accountWrapper");
   const dropdown = document.getElementById("accountDropdown");
 
@@ -43,13 +46,17 @@ export function initAccountDropdown() {
   wrapper.addEventListener("mouseenter", openDropdown);
   wrapper.addEventListener("mouseleave", closeDropdown);
 
-  // ← ye add karo
-  const logoutBtn = document.getElementById("logoutBtn");
-  logoutBtn?.addEventListener("click", async () => {
-    logoutBtn.disabled = true;      // double-click se do baar API call na ho
+ logoutBtn?.addEventListener("click", async () => {
+  logoutBtn.disabled = true;
+
+  try {
     await logout();
-    window.location.href = "/index.html";
-  });
+  } catch (error) {
+    console.error("Logout API failed, clearing session locally anyway:", error);
+  } finally {
+    window.location.href = "/index.html";   // ab ye HAMESHA chalega, chahe API fail ho ya pass
+  }
+});
 }
 
 
