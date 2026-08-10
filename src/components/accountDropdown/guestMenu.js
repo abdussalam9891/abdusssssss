@@ -20,6 +20,8 @@ export function createGuestMenu() {
   <!-- Login -->
 
   <a
+
+  id="loginBtn"
     href="/pages/login.html"
 
     class="

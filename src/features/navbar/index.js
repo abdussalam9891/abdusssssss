@@ -6,7 +6,10 @@ import { initMobileDrawer } from "./mobileDrawer.js";
 import { initSearchOverlay } from "./searchOverlay.js";
 
 import { initAccountDropdown } from "../accountDropdown/index.js";
-import { getCurrentUser } from "../accountDropdown/authState.js";
+
+
+import { getCurrentUser } from "../auth/authState.js";
+
 
 export function initNavbar() {
   const container = document.getElementById("navbar-container");

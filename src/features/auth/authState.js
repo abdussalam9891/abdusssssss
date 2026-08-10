@@ -1,36 +1,48 @@
-const STORAGE_KEY = "banshiwala_user";
+import { authService } from "../../services/authService.js";
+
+let currentUser = null;
 
 export function getCurrentUser() {
-  const raw = localStorage.getItem(STORAGE_KEY);
-
-  if (!raw) return null;
-
-  try {
-    return JSON.parse(raw);
-  } catch {
-    return null;
-  }
+  return currentUser;
 }
 
 export function isLoggedIn() {
-  return !!getCurrentUser();
+  return !!currentUser;
 }
 
-export function login(user) {
-  localStorage.setItem(
-    STORAGE_KEY,
-    JSON.stringify(user)
-  );
+export async function hydrateAuth() {
+
+  try {
+
+    const response =
+      await authService.getProfile();
+
+    currentUser =
+      response?.data || null;
+
+  } catch (error) {
+
+    currentUser = null;
+
+  }
 
   window.dispatchEvent(
     new CustomEvent("authChanged")
   );
+
+  return currentUser;
 }
 
 export function logout() {
-  localStorage.removeItem(STORAGE_KEY);
 
-  window.dispatchEvent(
-    new CustomEvent("authChanged")
-  );
+  return authService.logout().finally(() => {
+
+    currentUser = null;
+
+    window.dispatchEvent(
+      new CustomEvent("authChanged")
+    );
+
+  });
+
 }

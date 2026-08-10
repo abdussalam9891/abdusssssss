@@ -12,6 +12,8 @@ import {
   initGuestEngagement,
 } from "./features/auth/index.js";
 
+// import { hydrateAuth } from "./features/auth/authState.js";
+
 document.addEventListener("DOMContentLoaded", async () => {
   /* =========================================
      Global
@@ -19,8 +21,26 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   initNavbar();
   initToast();
+
+   // Resolve who's actually logged in BEFORE anything
+  // that reads auth state gets rendered.
+  // await hydrateAuth();
+
   initAuthModal();
   initGuestEngagement();
+
+
+
+
+
+
+
+  // If login/logout happens later (another tab submits a
+  // form, a token expires), re-render the navbar so the
+  // dropdown reflects it without a full page reload.
+  window.addEventListener("authChanged", () => {
+    initNavbar();
+  });
 
   /* =========================================
      Home
@@ -131,3 +151,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     initFooterAccordion();
   }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
