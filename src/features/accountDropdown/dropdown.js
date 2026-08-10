@@ -1,3 +1,5 @@
+ import { logout } from "../auth/authState.js";
+
 let closeTimeout;
 
 export function initAccountDropdown() {
@@ -6,7 +8,7 @@ export function initAccountDropdown() {
 
   if (!wrapper || !dropdown) return;
 
-  function openDropdown() {
+   function openDropdown() {
     clearTimeout(closeTimeout);
 
     dropdown.classList.remove(
@@ -40,4 +42,26 @@ export function initAccountDropdown() {
 
   wrapper.addEventListener("mouseenter", openDropdown);
   wrapper.addEventListener("mouseleave", closeDropdown);
+
+  // ← ye add karo
+  const logoutBtn = document.getElementById("logoutBtn");
+  logoutBtn?.addEventListener("click", async () => {
+    logoutBtn.disabled = true;      // double-click se do baar API call na ho
+    await logout();
+    window.location.href = "/index.html";
+  });
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
