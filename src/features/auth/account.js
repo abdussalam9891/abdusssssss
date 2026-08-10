@@ -7,22 +7,16 @@ import {
 import { createAccountDropdown } from "../../components/accountDropdown/dropdown.js";
 
 export function initAccount() {
-
-  const wrapper =
-    document.getElementById("accountWrapper");
-
-  const button =
-    document.getElementById("accountButton");
+  const wrapper = document.getElementById("accountWrapper");
+  const button = document.getElementById("accountButton");
 
   if (!wrapper || !button) return;
-
 
   // ========================================
   // Render dropdown
   // ========================================
 
   function render() {
-
     const existingDropdown =
       document.getElementById("accountDropdown");
 
@@ -32,74 +26,13 @@ export function initAccount() {
       "beforeend",
       createAccountDropdown(getCurrentUser())
     );
-
-    bindDropdownActions();
   }
 
-
   // ========================================
-  // Bind login / logout
-  // ========================================
-
-  function bindDropdownActions() {
-
-    const loginBtn =
-      document.getElementById("loginBtn");
-
-    const logoutBtn =
-      document.getElementById("logoutBtn");
-
-
-    // LOGIN
-
-    loginBtn?.addEventListener(
-      "click",
-      () => {
-
-        window.dispatchEvent(
-          new CustomEvent("openLogin")
-        );
-
-        closeDropdown();
-      }
-    );
-
-
-    // LOGOUT
-
-    logoutBtn?.addEventListener(
-      "click",
-      async () => {
-
-        logoutBtn.disabled = true;
-
-        try {
-
-          await logout();
-
-        } catch (error) {
-
-          console.error(
-            "Logout failed:",
-            error
-          );
-
-        }
-
-        closeDropdown();
-
-        render();
-      }
-    );
-  }
-
-
-  // ========================================
-  // Dropdown open / close
+  // Open
   // ========================================
 
   function openDropdown() {
-
     const dropdown =
       document.getElementById("accountDropdown");
 
@@ -118,9 +51,11 @@ export function initAccount() {
     );
   }
 
+  // ========================================
+  // Close
+  // ========================================
 
   function closeDropdown() {
-
     const dropdown =
       document.getElementById("accountDropdown");
 
@@ -139,73 +74,139 @@ export function initAccount() {
     );
   }
 
-
   // ========================================
-  // Toggle
+  // ACCOUNT BUTTON
   // ========================================
 
-  button.addEventListener(
-    "click",
-    (event) => {
+  button.addEventListener("click", (event) => {
+    event.stopPropagation();
 
-      event.stopPropagation();
+    const dropdown =
+      document.getElementById("accountDropdown");
 
-      const dropdown =
-        document.getElementById("accountDropdown");
+    if (!dropdown) return;
 
-      if (!dropdown) return;
+    const isOpen =
+      dropdown.classList.contains("visible");
 
-      const isOpen =
-        dropdown.classList.contains("visible");
-
-      if (isOpen) {
-        closeDropdown();
-      } else {
-        openDropdown();
-      }
+    if (isOpen) {
+      closeDropdown();
+    } else {
+      openDropdown();
     }
+  });
+
+  // ========================================
+  // DESKTOP LOGIN / LOGOUT
+  // Event Delegation
+  // ========================================
+
+  wrapper.addEventListener("click", async (event) => {
+
+
+    console.log(
+    "WRAPPER CLICK:",
+    event.target
+  );
+
+  const logoutBtn =
+    event.target.closest("#logoutBtn");
+
+  console.log(
+    "LOGOUT BTN FOUND:",
+    logoutBtn
   );
 
 
-  // ========================================
-  // Click outside
-  // ========================================
+  
 
-  document.addEventListener(
-    "click",
-    (event) => {
+    // --------------------------------------
+    // LOGIN
+    // --------------------------------------
 
-      if (!wrapper.contains(event.target)) {
-        closeDropdown();
-      }
+    const loginBtn =
+      event.target.closest("#loginBtn");
 
+    if (loginBtn) {
+      event.preventDefault();
+
+      window.dispatchEvent(
+        new CustomEvent("openLogin")
+      );
+
+      closeDropdown();
+
+      return;
     }
-  );
 
+    // --------------------------------------
+    // LOGOUT
+    // --------------------------------------
+
+    const logoutBtn =
+      event.target.closest("#logoutBtn");
+
+    if (!logoutBtn) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    console.log("DESKTOP LOGOUT CLICKED");
+
+    if (logoutBtn.disabled) return;
+
+    logoutBtn.disabled = true;
+
+    try {
+      await logout();
+
+      console.log("DESKTOP LOGOUT SUCCESS");
+
+      closeDropdown();
+
+      // authChanged will also trigger render()
+      // but keeping render here makes the UI immediate.
+      render();
+
+    } catch (error) {
+      console.error(
+        "Desktop logout failed:",
+        error
+      );
+
+      logoutBtn.disabled = false;
+    }
+  });
 
   // ========================================
-  // Auth changed
+  // Click Outside
+  // ========================================
+
+  document.addEventListener("click", (event) => {
+    if (!wrapper.contains(event.target)) {
+      closeDropdown();
+    }
+  });
+
+  // ========================================
+  // Auth Changed
   // ========================================
 
   window.addEventListener(
     "authChanged",
     () => {
-
       render();
-
     }
   );
 
-
   // ========================================
-  // Initial render
+  // Initial Render
   // ========================================
 
   render();
 
-
   // ========================================
-  // Check existing session
+  // Restore Existing Session
   // ========================================
 
   hydrateAuth();

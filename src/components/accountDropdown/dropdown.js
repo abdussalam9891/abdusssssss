@@ -1,6 +1,6 @@
 import { createGuestMenu } from "./guestMenu.js";
 import { createUserMenu } from "./userMenu.js";
- 
+
 
 export function createAccountDropdown(user = getCurrentUser()) {
 
@@ -9,29 +9,28 @@ export function createAccountDropdown(user = getCurrentUser()) {
     : createGuestMenu();
 
   return `
-    <div
-      id="accountDropdown"
-      class="
-        absolute
-        right-0
-        top-[calc(100%+18px)]
-        z-[120]
-        w-[320px]
-        overflow-hidden
-        rounded-[28px]
-        border
-        border-[#ECECEC]
-        bg-white
-        p-7
-        shadow-[0_35px_80px_rgba(0,0,0,.15)]
-        opacity-0
-        invisible
-        translate-y-3
-        transition-all
-        duration-300
-        ease-out
-      "
-    >
+   <div
+  id="accountDropdown"
+  class="
+    absolute
+    right-0
+    top-[calc(100%+18px)]
+    z-[120]
+    w-[320px]
+    overflow-hidden
+    rounded-[28px]
+    border
+    border-[#ECECEC]
+    bg-white
+    shadow-[0_35px_80px_rgba(0,0,0,.15)]
+    opacity-0
+    invisible
+    translate-y-3
+    transition-all
+    duration-300
+    ease-out
+  "
+>
 
       <!-- Arrow -->
 

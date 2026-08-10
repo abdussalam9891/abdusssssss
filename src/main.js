@@ -12,19 +12,21 @@ import {
   initGuestEngagement,
 } from "./features/auth/index.js";
 
-// import { hydrateAuth } from "./features/auth/authState.js";
+import { hydrateAuth } from "./features/auth/authState.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
   /* =========================================
      Global
   ========================================= */
 
+
+     // Resolve who's actually logged in BEFORE anything
+  // that reads auth state gets rendered.
+  await hydrateAuth();
   initNavbar();
   initToast();
 
-   // Resolve who's actually logged in BEFORE anything
-  // that reads auth state gets rendered.
-  // await hydrateAuth();
+
 
   initAuthModal();
   initGuestEngagement();

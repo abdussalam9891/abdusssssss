@@ -1,8 +1,17 @@
 import { NAVIGATION } from "../../constants/navigation.js";
 import { icon } from "../../utils/icon.js";
+import {
+  getCurrentUser,
+  logout,
+} from "../../features/auth/authState.js";
 
-export function createMobileNav() {
-  const navigation = NAVIGATION.map(
+
+// ========================================
+// Create Navigation Links
+// ========================================
+
+function createNavigationLinks() {
+  return NAVIGATION.map(
     (item) => `
       <li>
 
@@ -57,180 +66,26 @@ export function createMobileNav() {
       </li>
     `
   ).join("");
+}
 
+
+// ========================================
+// Create Guest Account Section
+// ========================================
+
+function createGuestAccount() {
   return `
-
-<div
-  id="mobileDrawer"
-
-  class="
-    fixed
-    inset-0
-
-    z-[999]
-
-    hidden
-  "
+    <div
+  data-mobile-account
+  class="border-b border-white/10 px-4 py-5"
 >
 
-  <!-- Backdrop -->
-
-  <div
-    id="mobileBackdrop"
-
-    class="
-      absolute
-      inset-0
-
-      bg-black/60
-      backdrop-blur-sm
-
-      opacity-0
-
-      transition-opacity
-      duration-300
-    "
-  ></div>
-
-  <!-- Drawer -->
-
-  <aside
-
-    id="mobilePanel"
-
-    class="
-  absolute
-
-  left-1/2
-  top-1/2
-
-  w-[92vw]
-  max-w-[380px]
-  max-h-[90vh]
-
-  -translate-x-1/2
-  -translate-y-1/2
-  scale-95
-
-  overflow-y-auto
-  no-scrollbar
-
-  rounded-[28px]
-
-  border
-  border-white/10
-
-  bg-[#181818]
-
-  shadow-[0_35px_90px_rgba(0,0,0,.45)]
-
-  opacity-0
-
-  transition-all
-  duration-300
-"
-
-  >
-
-    <!-- Header -->
-
-    <div
-      class="
-        flex
-        items-center
-        justify-between
-
-        border-b
-        border-white/10
-
-        px-6
-        py-6
-      "
-    >
-
-      <div>
-
-        <p
-          class="
-            text-[11px]
-
-            uppercase
-
-            tracking-[0.35em]
-
-            text-[#A07936]
-          "
-        >
-          Banshiwala
-        </p>
-
-        <h2
-          class="
-            mt-2
-
-            text-lg
-            font-medium
-
-            text-white
-          "
-        >
-          Navigation
-        </h2>
-
-      </div>
-
-      <button
-
-        id="closeDrawerBtn"
-
-        type="button"
-
-        aria-label="Close Menu"
-
-        class="
-          flex
-          h-10
-          w-10
-
-          items-center
-          justify-center
-
-          rounded-full
-
-          text-white
-
-          transition-all
-          duration-300
-
-          hover:bg-white/5
-          hover:text-[#A07936]
-        "
-
-      >
-
-        ${icon("x", "h-6 w-6")}
-
-      </button>
-
-    </div>
-
-    <!-- Account -->
-
-    <div
-      class="
-        border-b
-        border-white/10
-
-        px-4
-        py-5
-      "
-    >
-
       <a
-
         href="/pages/login.html"
 
         class="
+          group
+
           flex
           items-center
 
@@ -241,15 +96,14 @@ export function createMobileNav() {
           px-5
           py-4
 
+          text-white
+
           transition-all
           duration-300
-
-          text-white
 
           hover:bg-white/5
           hover:text-[#A07936]
         "
-
       >
 
         <div
@@ -258,20 +112,27 @@ export function createMobileNav() {
             h-12
             w-12
 
+            shrink-0
+
             items-center
             justify-center
 
             rounded-full
 
             bg-white/5
+
+            transition-all
+            duration-300
+
+            group-hover:bg-[#A07936]/10
           "
         >
 
-          ${icon("user")}
+          ${icon("user", "h-5 w-5")}
 
         </div>
 
-        <div>
+        <div class="min-w-0">
 
           <p
             class="
@@ -289,6 +150,11 @@ export function createMobileNav() {
               text-xs
 
               text-white/50
+
+              transition-colors
+              duration-300
+
+              group-hover:text-white/70
             "
           >
             Sign In / Register
@@ -296,48 +162,243 @@ export function createMobileNav() {
 
         </div>
 
+        <span
+          class="
+            ml-auto
+
+            text-white/30
+
+            transition-all
+            duration-300
+
+            group-hover:translate-x-1
+            group-hover:text-[#A07936]
+          "
+        >
+          ${icon("chevron-right", "h-4 w-4")}
+        </span>
+
       </a>
 
     </div>
+  `;
+}
 
-    <!-- Navigation -->
 
-    <nav
-      class="
-        px-4
-        py-6
-      "
-    >
+// ========================================
+// Create Logged-In Account Section
+// ========================================
 
-      <ul
+function createUserAccount(user) {
+
+  const fullName =
+    `${user?.firstName || ""} ${user?.lastName || ""}`.trim() ||
+    user?.fullName ||
+    user?.name ||
+    "My Account";
+
+  const initial =
+    fullName.charAt(0).toUpperCase();
+
+  return `
+   <div
+  data-mobile-account
+  class="border-b border-white/10 px-4 py-5"
+>
+
+      <!-- USER HEADER -->
+
+      <div
         class="
-          space-y-2
+          flex
+          items-center
+          gap-4
+
+          rounded-2xl
+
+          bg-white/5
+
+          px-5
+          py-4
         "
       >
 
-        ${navigation}
+        <div
+          class="
+            flex
+            h-12
+            w-12
 
-      </ul>
+            shrink-0
 
-    </nav>
+            items-center
+            justify-center
 
-    <!-- Quick Links -->
+            rounded-full
 
-<div
-  class="
-    border-t
-    border-white/10
+            bg-[#A07936]
 
-    px-4
-    py-6
-  "
->
+            text-sm
+            font-semibold
 
-  <ul class="space-y-2">
+            text-white
+          "
+        >
+          ${initial}
+        </div>
 
-    <!-- Wishlist -->
+        <div class="min-w-0">
 
-    <li>
+          <p
+            class="
+              text-[10px]
+
+              uppercase
+              tracking-[0.3em]
+
+              text-[#A07936]
+            "
+          >
+            Welcome Back
+          </p>
+
+          <p
+            class="
+              mt-1
+
+              truncate
+
+              text-sm
+              font-medium
+
+              text-white
+            "
+          >
+            ${fullName}
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <!-- PROFILE -->
+
+      <a
+        href="/pages/profile.html"
+
+        class="
+          group
+
+          mt-3
+
+          flex
+          items-center
+          gap-3
+
+          rounded-2xl
+
+          px-5
+          py-3
+
+          text-sm
+
+          text-white/70
+
+          transition-all
+          duration-300
+
+          hover:bg-white/5
+          hover:text-[#A07936]
+        "
+      >
+
+        ${icon(
+          "user-round",
+          "h-[17px] w-[17px] text-white/40 group-hover:text-[#A07936]"
+        )}
+
+        <span>
+          My Profile
+        </span>
+
+        <span
+          class="
+            ml-auto
+
+            text-white/20
+
+            transition-all
+            duration-300
+
+            group-hover:translate-x-1
+            group-hover:text-[#A07936]
+          "
+        >
+          ${icon("chevron-right", "h-4 w-4")}
+        </span>
+
+      </a>
+
+
+      <!-- ORDERS -->
+
+      <a
+        href="/pages/orders.html"
+
+        class="
+          group
+
+          flex
+          items-center
+          gap-3
+
+          rounded-2xl
+
+          px-5
+          py-3
+
+          text-sm
+
+          text-white/70
+
+          transition-all
+          duration-300
+
+          hover:bg-white/5
+          hover:text-[#A07936]
+        "
+      >
+
+        ${icon(
+          "package",
+          "h-[17px] w-[17px] text-white/40 group-hover:text-[#A07936]"
+        )}
+
+        <span>
+          Orders
+        </span>
+
+        <span
+          class="
+            ml-auto
+
+            text-white/20
+
+            transition-all
+            duration-300
+
+            group-hover:translate-x-1
+            group-hover:text-[#A07936]
+          "
+        >
+          ${icon("chevron-right", "h-4 w-4")}
+        </span>
+
+      </a>
+
+
+      <!-- WISHLIST -->
 
       <a
         href="/pages/wishlist.html"
@@ -347,17 +408,16 @@ export function createMobileNav() {
 
           flex
           items-center
-          justify-between
+          gap-3
 
           rounded-2xl
 
           px-5
-          py-4
+          py-3
 
           text-sm
-          font-medium
 
-          text-white
+          text-white/70
 
           transition-all
           duration-300
@@ -367,52 +427,54 @@ export function createMobileNav() {
         "
       >
 
-        <div class="flex items-center gap-3">
+        ${icon(
+          "heart",
+          "h-[17px] w-[17px] text-white/40 group-hover:text-[#A07936]"
+        )}
 
-          ${icon("heart")}
-
-          <span>Wishlist</span>
-
-        </div>
+        <span>
+          Wishlist
+        </span>
 
         <span
           class="
-            transition-transform
+            ml-auto
+
+            text-white/20
+
+            transition-all
             duration-300
 
             group-hover:translate-x-1
+            group-hover:text-[#A07936]
           "
         >
-          ${icon("chevron-right")}
+          ${icon("chevron-right", "h-4 w-4")}
         </span>
 
       </a>
 
-    </li>
 
-    <!-- Cart -->
-
-    <li>
+      <!-- CUSTOM JEWELLERY -->
 
       <a
-        href="/pages/cart.html"
+        href="/pages/custom-requests.html"
 
         class="
           group
 
           flex
           items-center
-          justify-between
+          gap-3
 
           rounded-2xl
 
           px-5
-          py-4
+          py-3
 
           text-sm
-          font-medium
 
-          text-white
+          text-white/70
 
           transition-all
           duration-300
@@ -422,188 +484,912 @@ export function createMobileNav() {
         "
       >
 
-        <div class="flex items-center gap-3">
+        ${icon(
+          "sparkles",
+          "h-[17px] w-[17px] text-white/40 group-hover:text-[#A07936]"
+        )}
 
-          ${icon("shopping-bag")}
-
-          <span>Cart</span>
-
-        </div>
+        <span>
+          Custom Jewellery
+        </span>
 
         <span
           class="
-            transition-transform
+            ml-auto
+
+            text-white/20
+
+            transition-all
             duration-300
 
             group-hover:translate-x-1
+            group-hover:text-[#A07936]
           "
         >
-          ${icon("chevron-right")}
+          ${icon("chevron-right", "h-4 w-4")}
         </span>
 
       </a>
 
-    </li>
 
-    <!-- About -->
+      <!-- LOGOUT -->
 
-    <li>
+      <button
+        id="mobileLogoutBtn"
 
-      <a
-        href="/pages/about.html"
+        type="button"
 
         class="
           group
 
+          mt-3
+
           flex
+          w-full
+
           items-center
-          justify-between
+          justify-center
 
-          rounded-2xl
+          gap-2
 
-          px-5
-          py-4
+          rounded-full
+
+          border
+          border-white/10
+
+          py-3
 
           text-sm
           font-medium
 
-          text-white
+          text-white/70
 
           transition-all
           duration-300
 
-          hover:bg-white/5
-          hover:text-[#A07936]
+          hover:border-[#A07936]
+          hover:bg-[#A07936]
+          hover:text-white
+
+          disabled:cursor-not-allowed
+          disabled:opacity-50
         "
       >
 
-        <div class="flex items-center gap-3">
+        ${icon(
+          "log-out",
+          "h-[15px] w-[15px]"
+        )}
 
-          ${icon("info")}
-
-          <span>About Us</span>
-
-        </div>
-
-        <span
-          class="
-            transition-transform
-            duration-300
-
-            group-hover:translate-x-1
-          "
-        >
-          ${icon("chevron-right")}
+        <span>
+          Sign Out
         </span>
 
-      </a>
+      </button>
 
-    </li>
+    </div>
+  `;
+}
 
-    <!-- Contact -->
 
-    <li>
+// ========================================
+// Create Account Section
+// ========================================
 
-      <a
-        href="/pages/contact.html"
+function createAccountSection() {
 
-        class="
-          group
+  const user = getCurrentUser();
 
-          flex
-          items-center
-          justify-between
+  if (user) {
+    return createUserAccount(user);
+  }
 
-          rounded-2xl
+  return createGuestAccount();
+}
 
-          px-5
-          py-4
 
-          text-sm
-          font-medium
+// ========================================
+// Create Mobile Navigation
+// ========================================
 
-          text-white
+export function createMobileNav() {
 
-          transition-all
-          duration-300
+  const navigation =
+    createNavigationLinks();
 
-          hover:bg-white/5
-          hover:text-[#A07936]
-        "
-      >
+  const accountSection =
+    createAccountSection();
 
-        <div class="flex items-center gap-3">
 
-          ${icon("mail")}
+  return `
+    <div
+      id="mobileDrawer"
 
-          <span>Contact</span>
-
-        </div>
-
-        <span
-          class="
-            transition-transform
-            duration-300
-
-            group-hover:translate-x-1
-          "
-        >
-          ${icon("chevron-right")}
-        </span>
-
-      </a>
-
-    </li>
-
-  </ul>
-
-  <!-- Footer -->
-
-  <div
-    class="
-      mt-8
-
-      border-t
-      border-white/10
-
-      pt-6
-
-      text-center
-    "
-  >
-
-    <p
       class="
-        text-xs
+        fixed
+        inset-0
 
-        tracking-[0.2em]
+        z-[999]
 
-        text-white/40
+        hidden
       "
     >
-      © 2026 Banshiwala
-    </p>
 
-    <p
-      class="
-        mt-2
+      <!-- BACKDROP -->
 
-        text-[11px]
+      <div
+        id="mobileBackdrop"
 
-        tracking-[0.08em]
+        class="
+          absolute
+          inset-0
 
-        text-white/25
-      "
-    >
-      Premium Sterling Silver Jewellery for Men
-    </p>
+          bg-black/60
+          backdrop-blur-sm
 
-  </div>
+          opacity-0
 
-</div>
+          transition-opacity
+          duration-300
+        "
+      ></div>
 
-  </aside>
 
-</div>
-`;
+      <!-- PANEL -->
+
+      <div
+        id="mobilePanel"
+
+        class="
+          absolute
+
+          left-1/2
+          top-1/2
+
+          w-[92vw]
+          max-w-[380px]
+
+          max-h-[90vh]
+
+          -translate-x-1/2
+          -translate-y-1/2
+
+          scale-95
+
+          overflow-y-auto
+          no-scrollbar
+
+          rounded-[28px]
+
+          border
+          border-white/10
+
+          bg-[#181818]
+
+          shadow-[0_35px_90px_rgba(0,0,0,.45)]
+
+          opacity-0
+
+          transition-all
+          duration-300
+        "
+      >
+
+
+        <!-- HEADER -->
+
+        <div
+          class="
+            flex
+            items-center
+            justify-between
+
+            border-b
+            border-white/10
+
+            px-6
+            py-6
+          "
+        >
+
+          <div>
+
+            <p
+              class="
+                text-[11px]
+
+                uppercase
+
+                tracking-[0.35em]
+
+                text-[#A07936]
+              "
+            >
+              Banshiwala
+            </p>
+
+            <h2
+              class="
+                mt-2
+
+                text-lg
+                font-medium
+
+                text-white
+              "
+            >
+              Navigation
+            </h2>
+
+          </div>
+
+
+          <!-- CLOSE -->
+
+          <button
+            id="closeDrawerBtn"
+
+            type="button"
+
+            aria-label="Close Menu"
+
+            class="
+              flex
+
+              h-10
+              w-10
+
+              items-center
+              justify-center
+
+              rounded-full
+
+              text-white
+
+              transition-all
+              duration-300
+
+              hover:bg-white/5
+              hover:text-[#A07936]
+            "
+          >
+
+            ${icon("x", "h-6 w-6")}
+
+          </button>
+
+        </div>
+
+
+        <!-- ACCOUNT -->
+
+        ${accountSection}
+
+
+        <!-- NAVIGATION -->
+
+        <nav
+          class="
+            px-4
+            py-6
+          "
+        >
+
+          <ul
+            class="
+              space-y-2
+            "
+          >
+
+            ${navigation}
+
+
+            <!-- WISHLIST -->
+
+            <li>
+
+              <a
+                href="/pages/wishlist.html"
+
+                class="
+                  group
+
+                  flex
+                  items-center
+                  justify-between
+
+                  rounded-2xl
+
+                  px-5
+                  py-4
+
+                  text-sm
+                  font-medium
+
+                  text-white
+
+                  transition-all
+                  duration-300
+
+                  hover:bg-white/5
+                  hover:text-[#A07936]
+                "
+              >
+
+                <div
+                  class="
+                    flex
+                    items-center
+                    gap-3
+                  "
+                >
+
+                  ${icon("heart")}
+
+                  <span>
+                    Wishlist
+                  </span>
+
+                </div>
+
+                <span
+                  class="
+                    transition-transform
+                    duration-300
+
+                    group-hover:translate-x-1
+                  "
+                >
+                  ${icon("chevron-right")}
+                </span>
+
+              </a>
+
+            </li>
+
+
+            <!-- CART -->
+
+            <li>
+
+              <a
+                href="/pages/cart.html"
+
+                class="
+                  group
+
+                  flex
+                  items-center
+                  justify-between
+
+                  rounded-2xl
+
+                  px-5
+                  py-4
+
+                  text-sm
+                  font-medium
+
+                  text-white
+
+                  transition-all
+                  duration-300
+
+                  hover:bg-white/5
+                  hover:text-[#A07936]
+                "
+              >
+
+                <div
+                  class="
+                    flex
+                    items-center
+                    gap-3
+                  "
+                >
+
+                  ${icon("shopping-bag")}
+
+                  <span>
+                    Cart
+                  </span>
+
+                </div>
+
+                <span
+                  class="
+                    transition-transform
+                    duration-300
+
+                    group-hover:translate-x-1
+                  "
+                >
+                  ${icon("chevron-right")}
+                </span>
+
+              </a>
+
+            </li>
+
+
+            <!-- ABOUT -->
+
+            <li>
+
+              <a
+                href="/pages/about.html"
+
+                class="
+                  group
+
+                  flex
+                  items-center
+                  justify-between
+
+                  rounded-2xl
+
+                  px-5
+                  py-4
+
+                  text-sm
+                  font-medium
+
+                  text-white
+
+                  transition-all
+                  duration-300
+
+                  hover:bg-white/5
+                  hover:text-[#A07936]
+                "
+              >
+
+                <div
+                  class="
+                    flex
+                    items-center
+                    gap-3
+                  "
+                >
+
+                  ${icon("info")}
+
+                  <span>
+                    About Us
+                  </span>
+
+                </div>
+
+                <span
+                  class="
+                    transition-transform
+                    duration-300
+
+                    group-hover:translate-x-1
+                  "
+                >
+                  ${icon("chevron-right")}
+                </span>
+
+              </a>
+
+            </li>
+
+
+            <!-- CONTACT -->
+
+            <li>
+
+              <a
+                href="/pages/contact.html"
+
+                class="
+                  group
+
+                  flex
+                  items-center
+                  justify-between
+
+                  rounded-2xl
+
+                  px-5
+                  py-4
+
+                  text-sm
+                  font-medium
+
+                  text-white
+
+                  transition-all
+                  duration-300
+
+                  hover:bg-white/5
+                  hover:text-[#A07936]
+                "
+              >
+
+                <div
+                  class="
+                    flex
+                    items-center
+                    gap-3
+                  "
+                >
+
+                  ${icon("mail")}
+
+                  <span>
+                    Contact
+                  </span>
+
+                </div>
+
+                <span
+                  class="
+                    transition-transform
+                    duration-300
+
+                    group-hover:translate-x-1
+                  "
+                >
+                  ${icon("chevron-right")}
+                </span>
+
+              </a>
+
+            </li>
+
+          </ul>
+
+        </nav>
+
+
+        <!-- FOOTER -->
+
+        <div
+          class="
+            border-t
+            border-white/10
+
+            px-6
+            pb-6
+            pt-6
+
+            text-center
+          "
+        >
+
+          <p
+            class="
+              text-xs
+
+              tracking-[0.2em]
+
+              text-white/40
+            "
+          >
+            © 2026 Banshiwala
+          </p>
+
+          <p
+            class="
+              mt-2
+
+              text-[11px]
+
+              tracking-[0.08em]
+
+              text-white/25
+            "
+          >
+            Premium Sterling Silver Jewellery for Men
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+  `;
+}
+
+
+// ========================================
+// Re-render Account Section After Auth
+// ========================================
+
+export function refreshMobileAccount() {
+
+  const drawer =
+    document.getElementById("mobileDrawer");
+
+  if (!drawer) return;
+
+  const panel =
+    document.getElementById("mobilePanel");
+
+  if (!panel) return;
+
+
+  /*
+   * We only replace the account section.
+   * The navigation and drawer state remain untouched.
+   */
+
+  const oldAccount =
+    panel.querySelector("[data-mobile-account]");
+
+  if (!oldAccount) return;
+
+  const wrapper =
+    document.createElement("div");
+
+  wrapper.setAttribute(
+    "data-mobile-account",
+    ""
+  );
+
+  wrapper.innerHTML =
+    createAccountSection();
+
+  oldAccount.replaceWith(
+    wrapper.firstElementChild
+  );
+
+
+  bindMobileLogout();
+}
+
+
+
+
+
+// ========================================
+// Auth State Listener
+// ========================================
+
+function initMobileAuthListener() {
+
+  window.addEventListener(
+    "authChanged",
+    () => {
+
+      refreshMobileAccount();
+
+    }
+  );
+}
+
+
+// ========================================
+// Drawer Controller
+// ========================================
+
+const PANEL_OPEN = [
+  "opacity-100",
+  "scale-100",
+  "-translate-x-1/2",
+  "-translate-y-1/2",
+];
+
+const PANEL_CLOSE = [
+  "opacity-0",
+  "scale-95",
+  "-translate-x-1/2",
+  "-translate-y-1/2",
+];
+
+const BACKDROP_VISIBLE =
+  "opacity-100";
+
+const BACKDROP_HIDDEN =
+  "opacity-0";
+
+let isOpen = false;
+
+
+// ========================================
+// Initialize Drawer
+// ========================================
+
+export function initMobileDrawer() {
+
+  const drawer =
+    document.getElementById("mobileDrawer");
+
+  const panel =
+    document.getElementById("mobilePanel");
+
+  const backdrop =
+    document.getElementById("mobileBackdrop");
+
+  const openBtn =
+    document.getElementById("menuBtn");
+
+  const closeBtn =
+    document.getElementById("closeDrawerBtn");
+
+
+  if (
+    !drawer ||
+    !panel ||
+    !backdrop ||
+    !openBtn ||
+    !closeBtn
+  ) {
+    return;
+  }
+
+
+  // ======================================
+  // Open
+  // ======================================
+
+  function openDrawer() {
+
+    if (isOpen) return;
+
+    isOpen = true;
+
+    /*
+     * Make sure the latest auth state is
+     * represented before opening.
+     */
+
+    refreshMobileAccount();
+
+    drawer.classList.remove("hidden");
+
+    document.body.classList.add(
+      "overflow-hidden"
+    );
+
+
+    requestAnimationFrame(() => {
+
+      backdrop.classList.remove(
+        BACKDROP_HIDDEN
+      );
+
+      backdrop.classList.add(
+        BACKDROP_VISIBLE
+      );
+
+
+      panel.classList.remove(
+        ...PANEL_CLOSE
+      );
+
+      panel.classList.add(
+        ...PANEL_OPEN
+      );
+
+    });
+  }
+
+
+  // ======================================
+  // Close
+  // ======================================
+
+  function closeDrawer() {
+
+    if (!isOpen) return;
+
+    isOpen = false;
+
+
+    backdrop.classList.remove(
+      BACKDROP_VISIBLE
+    );
+
+    backdrop.classList.add(
+      BACKDROP_HIDDEN
+    );
+
+
+    panel.classList.remove(
+      ...PANEL_OPEN
+    );
+
+    panel.classList.add(
+      ...PANEL_CLOSE
+    );
+
+
+    document.body.classList.remove(
+      "overflow-hidden"
+    );
+
+
+    panel.addEventListener(
+      "transitionend",
+      () => {
+
+        if (!isOpen) {
+
+          drawer.classList.add(
+            "hidden"
+          );
+
+        }
+
+      },
+      {
+        once: true,
+      }
+    );
+
+  }
+
+
+  // ======================================
+  // Buttons
+  // ======================================
+
+  openBtn.addEventListener(
+    "click",
+    openDrawer
+  );
+
+  closeBtn.addEventListener(
+    "click",
+    closeDrawer
+  );
+
+
+  backdrop.addEventListener(
+    "click",
+    closeDrawer
+  );
+
+
+  // ======================================
+  // Escape
+  // ======================================
+
+  document.addEventListener(
+    "keydown",
+    (event) => {
+
+      if (event.key === "Escape") {
+
+        closeDrawer();
+
+      }
+
+    }
+  );
+
+
+  // ======================================
+  // Desktop Resize
+  // ======================================
+
+  window.addEventListener(
+    "resize",
+    () => {
+
+      if (
+        window.innerWidth >= 1024 &&
+        isOpen
+      ) {
+
+        closeDrawer();
+
+      }
+
+    }
+  );
+
+
+
+
+
+  // ======================================
+  // Auth Listener
+  // ======================================
+
+  initMobileAuthListener();
+
 }

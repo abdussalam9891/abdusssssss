@@ -34,11 +34,23 @@ export function initLoginValidation() {
 
    try {
   const response = await authService.login({
-    email,
-    password,
-  });
+  email,
+  password,
+});
 
-  console.log("LOGIN RESPONSE:", response);
+console.log("LOGIN RESPONSE:", response);
+
+const token = response?.data?.token;
+
+if (!token) {
+  throw new Error("Login successful but token was not received.");
+}
+
+localStorage.setItem("token", token);
+
+window.dispatchEvent(
+  new CustomEvent("authChanged")
+);
 
   showToast({
     type: "success",

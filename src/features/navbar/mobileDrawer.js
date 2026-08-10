@@ -1,3 +1,6 @@
+import { logout } from "../../features/auth/authState.js";
+
+
 const PANEL_OPEN = [
   "opacity-100",
   "scale-100",
@@ -34,6 +37,33 @@ export function initMobileDrawer() {
   ) {
     return;
   }
+
+
+  panel.addEventListener("click", async (event) => {
+  const logoutBtn = event.target.closest("#mobileLogoutBtn");
+
+  if (!logoutBtn) return;
+
+  event.preventDefault();
+  event.stopPropagation();
+
+  logoutBtn.disabled = true;
+
+  try {
+    console.log("MOBILE LOGOUT CLICKED");
+
+    await logout();
+
+    console.log("LOGOUT SUCCESS");
+
+    closeDrawer();
+
+  } catch (error) {
+    console.error("Mobile logout failed:", error);
+  } finally {
+    logoutBtn.disabled = false;
+  }
+});
 
   function openDrawer() {
     if (isOpen) return;

@@ -9,22 +9,44 @@ async function request(endpoint, options = {}) {
 
   const isFormData = body instanceof FormData;
 
-  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-    method,
+  const token =
+    typeof window !== "undefined"
+      ? localStorage.getItem("token")
+      : null;
 
-    headers: {
-      ...(isFormData ? {} : { "Content-Type": "application/json" }),
-      ...headers,
-    },
+  const authHeaders = token
+    ? {
+        Authorization: `Bearer ${token}`,
+      }
+    : {};
 
-    credentials: "include",
+  const response = await fetch(
+    `${API_BASE_URL}${endpoint}`,
+    {
+      method,
 
-    ...(body !== undefined
-      ? {
-          body: isFormData ? body : JSON.stringify(body),
-        }
-      : {}),
-  });
+      headers: {
+        ...(isFormData
+          ? {}
+          : {
+              "Content-Type": "application/json",
+            }),
+
+        ...authHeaders,
+        ...headers,
+      },
+
+      credentials: "include",
+
+      ...(body !== undefined
+        ? {
+            body: isFormData
+              ? body
+              : JSON.stringify(body),
+          }
+        : {}),
+    }
+  );
 
   let data;
 
@@ -44,7 +66,6 @@ async function request(endpoint, options = {}) {
 
   return data;
 }
-
 export const apiClient = {
   get: (endpoint, options = {}) =>
     request(endpoint, {

@@ -11,19 +11,15 @@ export function isLoggedIn() {
 }
 
 export async function hydrateAuth() {
-
   try {
+    const response = await authService.getProfile();
 
-    const response =
-      await authService.getProfile();
-
-    currentUser =
-      response?.data || null;
+    currentUser = response?.data?.user || null;
 
   } catch (error) {
+    console.error("AUTH HYDRATION FAILED:", error);
 
     currentUser = null;
-
   }
 
   window.dispatchEvent(
@@ -34,15 +30,13 @@ export async function hydrateAuth() {
 }
 
 export function logout() {
-
   return authService.logout().finally(() => {
+    localStorage.removeItem("token");
 
     currentUser = null;
 
     window.dispatchEvent(
       new CustomEvent("authChanged")
     );
-
   });
-
 }
