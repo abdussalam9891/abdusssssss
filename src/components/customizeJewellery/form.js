@@ -2,36 +2,57 @@ export function createCustomizeJewelleryForm() {
   return `
 <form
   id="customJewelleryForm"
-  class="space-y-10"
+  class="space-y-7"
 >
 
-  <!-- Basic Information -->
+  <!-- PRODUCT ID -->
+  <input
+    type="hidden"
+    id="productId"
+    name="productId"
+    value=""
+  >
+
+
+  <!-- ==========================================
+       BASIC INFORMATION
+  =========================================== -->
 
   <section>
 
-    <h3
-      class="
-        mb-6
+    <div class="mb-5">
+      <h3
+        class="
+          font-serif
+          text-2xl
+          font-medium
+          tracking-[-0.02em]
+          text-[#181818]
+        "
+      >
+        Your Details
+      </h3>
 
-        font-serif
-        text-3xl
+      <div
+        class="
+          mt-2
+          h-px
+          w-10
+          bg-[#A07936]
+        "
+      ></div>
+    </div>
 
-        text-[#181818]
-      "
-    >
-      Your Details
-    </h3>
 
     <div
       class="
         grid
-        gap-6
-
+        gap-4
         md:grid-cols-2
       "
     >
 
-      <!-- Name -->
+      <!-- FULL NAME -->
 
       <div>
 
@@ -40,11 +61,10 @@ export function createCustomizeJewelleryForm() {
           class="
             mb-2
             block
-
-            text-sm
+            text-[13px]
             font-medium
-
-            text-[#181818]
+            tracking-wide
+            text-[#3A3632]
           "
         >
           Full Name
@@ -53,30 +73,28 @@ export function createCustomizeJewelleryForm() {
 
         <input
           id="customerName"
-          name="name"
+          name="fullName"
           type="text"
           autocomplete="name"
           placeholder="Enter your name"
-
+          required
           class="
+            h-12
             w-full
-
-            rounded-xl
-
+            rounded-lg
             border
-            border-[#DDDDDD]
-
+            border-[#DED8D0]
             bg-white
-
-            px-5
-            py-4
-
-            text-[15px]
-
+            px-4
+            text-sm
+            text-[#181818]
             outline-none
-
             transition-all
             duration-300
+
+            placeholder:text-[#A7A19A]
+
+            hover:border-[#C8B99F]
 
             focus:border-[#A07936]
             focus:ring-2
@@ -86,7 +104,8 @@ export function createCustomizeJewelleryForm() {
 
       </div>
 
-      <!-- Phone -->
+
+      <!-- PHONE -->
 
       <div>
 
@@ -95,11 +114,10 @@ export function createCustomizeJewelleryForm() {
           class="
             mb-2
             block
-
-            text-sm
+            text-[13px]
             font-medium
-
-            text-[#181818]
+            tracking-wide
+            text-[#3A3632]
           "
         >
           Phone Number
@@ -111,28 +129,26 @@ export function createCustomizeJewelleryForm() {
           name="phone"
           type="tel"
           autocomplete="tel"
-
-          placeholder="+91 XXXXX XXXXX"
-
+          inputmode="numeric"
+          placeholder="10-digit mobile number"
+          required
           class="
+            h-12
             w-full
-
-            rounded-xl
-
+            rounded-lg
             border
-            border-[#DDDDDD]
-
+            border-[#DED8D0]
             bg-white
-
-            px-5
-            py-4
-
-            text-[15px]
-
+            px-4
+            text-sm
+            text-[#181818]
             outline-none
-
             transition-all
             duration-300
+
+            placeholder:text-[#A7A19A]
+
+            hover:border-[#C8B99F]
 
             focus:border-[#A07936]
             focus:ring-2
@@ -142,7 +158,8 @@ export function createCustomizeJewelleryForm() {
 
       </div>
 
-      <!-- Email -->
+
+      <!-- EMAIL -->
 
       <div>
 
@@ -151,14 +168,14 @@ export function createCustomizeJewelleryForm() {
           class="
             mb-2
             block
-
-            text-sm
+            text-[13px]
             font-medium
-
-            text-[#181818]
+            tracking-wide
+            text-[#3A3632]
           "
         >
           Email Address
+          <span class="text-[#A07936]">*</span>
         </label>
 
         <input
@@ -166,28 +183,25 @@ export function createCustomizeJewelleryForm() {
           name="email"
           type="email"
           autocomplete="email"
-
-          placeholder="abc@example.com"
-
+          placeholder="you@example.com"
+          required
           class="
+            h-12
             w-full
-
-            rounded-xl
-
+            rounded-lg
             border
-            border-[#DDDDDD]
-
+            border-[#DED8D0]
             bg-white
-
-            px-5
-            py-4
-
-            text-[15px]
-
+            px-4
+            text-sm
+            text-[#181818]
             outline-none
-
             transition-all
             duration-300
+
+            placeholder:text-[#A7A19A]
+
+            hover:border-[#C8B99F]
 
             focus:border-[#A07936]
             focus:ring-2
@@ -197,19 +211,20 @@ export function createCustomizeJewelleryForm() {
 
       </div>
 
-      <!-- Jewellery Type -->
+
+      <!-- JEWELLERY TYPE -->
 
       <div>
 
         <label
+          for="jewelleryType"
           class="
             mb-2
             block
-
-            text-sm
+            text-[13px]
             font-medium
-
-            text-[#181818]
+            tracking-wide
+            text-[#3A3632]
           "
         >
           Jewellery Type
@@ -218,27 +233,25 @@ export function createCustomizeJewelleryForm() {
 
         <select
           id="jewelleryType"
-          name="type"
-
+          name="category"
+          required
           class="
+            h-12
             w-full
-
-            rounded-xl
-
+            cursor-pointer
+            appearance-none
+            rounded-lg
             border
-            border-[#DDDDDD]
-
+            border-[#DED8D0]
             bg-white
-
-            px-5
-            py-4
-
-            text-[15px]
-
+            px-4
+            text-sm
+            text-[#181818]
             outline-none
-
             transition-all
             duration-300
+
+            hover:border-[#C8B99F]
 
             focus:border-[#A07936]
             focus:ring-2
@@ -247,7 +260,7 @@ export function createCustomizeJewelleryForm() {
         >
 
           <option value="">
-            Select Jewellery
+            Select jewellery type
           </option>
 
           <option value="Ring">
@@ -270,15 +283,142 @@ export function createCustomizeJewelleryForm() {
             Earrings
           </option>
 
-          <option value="Anklet">
-            Anklet
-          </option>
-
-          <option value="Other">
-            Other
-          </option>
-
         </select>
+
+      </div>
+
+       </div>
+
+
+    <!-- ==========================================
+         PRODUCT SELECTION
+    =========================================== -->
+
+    <div
+      id="customizeProductSection"
+      class="
+        mt-6
+        hidden
+      "
+    >
+
+      <div
+        class="
+          mb-3
+          flex
+          items-end
+          justify-between
+        "
+      >
+
+        <div>
+
+          <h4
+            class="
+              text-[13px]
+              font-medium
+              tracking-wide
+              text-[#3A3632]
+            "
+          >
+            Select Product
+            <span class="text-[#A07936]">*</span>
+          </h4>
+
+          <p
+            class="
+              mt-1
+              text-[11px]
+              text-[#96908A]
+            "
+          >
+            Choose the piece you would like to customize.
+          </p>
+
+        </div>
+
+
+        <span
+          id="customizeProductCount"
+          class="
+            text-[11px]
+            text-[#96908A]
+          "
+        ></span>
+
+      </div>
+
+
+      <!-- ========================================
+           HORIZONTAL PRODUCT SCROLLER
+      ========================================= -->
+
+      <div
+        id="customizeProductList"
+        class="
+          flex
+          gap-4
+          overflow-x-auto
+          pb-4
+          snap-x
+          snap-mandatory
+          scroll-smooth
+
+          [&::-webkit-scrollbar]:h-1.5
+          [&::-webkit-scrollbar-track]:bg-[#F1ECE5]
+          [&::-webkit-scrollbar-thumb]:rounded-full
+          [&::-webkit-scrollbar-thumb]:bg-[#A07936]
+        "
+      ></div>
+
+
+      <!-- Loading -->
+
+      <div
+        id="customizeProductLoading"
+        class="
+          hidden
+          py-8
+          text-center
+        "
+      >
+
+        <span
+          class="
+            text-xs
+            text-[#8A847D]
+          "
+        >
+          Loading products...
+        </span>
+
+      </div>
+
+
+      <!-- Empty State -->
+
+      <div
+        id="customizeProductEmpty"
+        class="
+          hidden
+          rounded-lg
+          border
+          border-[#E8DED0]
+          bg-[#FBF9F6]
+          px-5
+          py-7
+          text-center
+        "
+      >
+
+        <p
+          class="
+            text-sm
+            text-[#6F6962]
+          "
+        >
+          No products are available in this category.
+        </p>
 
       </div>
 
@@ -288,552 +428,308 @@ export function createCustomizeJewelleryForm() {
 
 
 
-    <!-- Design Details -->
+  <!-- ==========================================
+       DESIGN DETAILS
+  =========================================== -->
 
   <section>
 
-    <h3
-      class="
-        mb-6
+    <div class="mb-5">
 
-        font-serif
-        text-3xl
+      <h3
+        class="
+          font-serif
+          text-2xl
+          font-medium
+          tracking-[-0.02em]
+          text-[#181818]
+        "
+      >
+        Design Details
+      </h3>
 
-        text-[#181818]
-      "
-    >
-      Design Details
-    </h3>
+      <div
+        class="
+          mt-2
+          h-px
+          w-10
+          bg-[#A07936]
+        "
+      ></div>
 
-    <!-- Budget -->
+    </div>
+
+
+    <!-- DESCRIPTION -->
 
     <div>
 
       <label
+        for="designDescription"
         class="
-          mb-4
+          mb-2
           block
-
-          text-sm
+          text-[13px]
           font-medium
-
-          text-[#181818]
+          tracking-wide
+          text-[#3A3632]
         "
       >
-        Budget
+        Tell Us About Your Vision
       </label>
 
-      <div
-        id="budgetGroup"
-
-        class="
-          flex
-          flex-wrap
-          gap-3
-        "
-      >
-
-        <label
-          class="
-            cursor-pointer
-          "
-        >
-
-          <input
-            type="radio"
-            name="budget"
-            value="Under ₹10k"
-            class="peer hidden"
-          >
-
-          <span
-            class="
-              inline-flex
-              rounded-full
-
-              border
-              border-[#D8D8D8]
-
-              px-5
-              py-3
-
-              text-sm
-
-              transition-all
-
-              peer-checked:border-[#A07936]
-              peer-checked:bg-[#A07936]
-              peer-checked:text-white
-
-              hover:border-[#A07936]
-            "
-          >
-            Under ₹10k
-          </span>
-
-        </label>
-
-        <label class="cursor-pointer">
-
-          <input
-            type="radio"
-            name="budget"
-            value="₹10k-25k"
-            class="peer hidden"
-          >
-
-          <span
-            class="
-              inline-flex
-              rounded-full
-
-              border
-              border-[#D8D8D8]
-
-              px-5
-              py-3
-
-              text-sm
-
-              transition-all
-
-              peer-checked:border-[#A07936]
-              peer-checked:bg-[#A07936]
-              peer-checked:text-white
-
-              hover:border-[#A07936]
-            "
-          >
-            ₹10k – ₹25k
-          </span>
-
-        </label>
-
-        <label class="cursor-pointer">
-
-          <input
-            type="radio"
-            name="budget"
-            value="₹25k-50k"
-            class="peer hidden"
-          >
-
-          <span
-            class="
-              inline-flex
-              rounded-full
-
-              border
-              border-[#D8D8D8]
-
-              px-5
-              py-3
-
-              text-sm
-
-              transition-all
-
-              peer-checked:border-[#A07936]
-              peer-checked:bg-[#A07936]
-              peer-checked:text-white
-
-              hover:border-[#A07936]
-            "
-          >
-            ₹25k – ₹50k
-          </span>
-
-        </label>
-
-        <label class="cursor-pointer">
-
-          <input
-            type="radio"
-            name="budget"
-            value="₹50k+"
-            class="peer hidden"
-          >
-
-          <span
-            class="
-              inline-flex
-              rounded-full
-
-              border
-              border-[#D8D8D8]
-
-              px-5
-              py-3
-
-              text-sm
-
-              transition-all
-
-              peer-checked:border-[#A07936]
-              peer-checked:bg-[#A07936]
-              peer-checked:text-white
-
-              hover:border-[#A07936]
-            "
-          >
-            ₹50k+
-          </span>
-
-        </label>
-
-      </div>
-
-    </div>
-
-    <!-- Occasion -->
-
-    <div class="mt-8">
-
-      <label
-        class="
-          mb-3
-          block
-
-          text-sm
-          font-medium
-
-          text-[#181818]
-        "
-      >
-        Occasion
-      </label>
-
-      <select
-        id="occasion"
-        name="occasion"
-
+      <textarea
+        id="designDescription"
+        name="description"
+        rows="4"
+        maxlength="2000"
+        placeholder="Describe your preferred style, gemstone, engraving, finish, size, or anything you'd like our craftsmen to know."
         class="
           w-full
-
-          rounded-xl
-
+          resize-none
+          rounded-lg
           border
-          border-[#DDDDDD]
-
+          border-[#DED8D0]
           bg-white
-
-          px-5
-          py-4
-
+          px-4
+          py-3.5
+          text-sm
+          leading-6
+          text-[#181818]
           outline-none
-
           transition-all
+          duration-300
+
+          placeholder:text-[#A7A19A]
+
+          hover:border-[#C8B99F]
 
           focus:border-[#A07936]
           focus:ring-2
           focus:ring-[#A07936]/10
         "
-      >
-
-        <option value="">
-          Select Occasion
-        </option>
-
-        <option>Wedding</option>
-
-        <option>Engagement</option>
-
-        <option>Birthday Gift</option>
-
-        <option>Anniversary</option>
-
-        <option>Personal Wear</option>
-
-        <option>Festival</option>
-
-        <option>Other</option>
-
-      </select>
+      ></textarea>
 
     </div>
 
-    <!-- Inspiration Upload -->
 
-    <div class="mt-8">
+    <!-- IMAGE UPLOAD -->
 
-      <label
+   <div class="mt-5">
+
+  <div
+    class="
+      mb-2
+      flex
+      items-center
+      justify-between
+    "
+  >
+
+    <label
+      class="
+        text-[13px]
+        font-medium
+        tracking-wide
+        text-[#3A3632]
+      "
+    >
+      Inspiration Images
+    </label>
+
+    <span
+      class="
+        text-[11px]
+        text-[#96908A]
+      "
+    >
+      Optional
+    </span>
+
+  </div>
+
+
+  <label
+    for="referenceImage"
+    class="
+      flex
+      min-h-[92px]
+      cursor-pointer
+      items-center
+      justify-center
+      gap-4
+      rounded-lg
+      border
+      border-dashed
+      border-[#D4CCC1]
+      bg-[#FBF9F6]
+      px-5
+      py-5
+      text-center
+      transition-all
+      duration-300
+      hover:border-[#A07936]
+      hover:bg-[#FCF8F1]
+    "
+  >
+
+    <div
+      class="
+        flex
+        h-10
+        w-10
+        shrink-0
+        items-center
+        justify-center
+        rounded-full
+        bg-[#F1E8DA]
+        text-[#A07936]
+      "
+    >
+      <i
+        data-lucide="upload-cloud"
+        class="h-5 w-5"
+      ></i>
+    </div>
+
+
+    <div class="text-left">
+
+      <p
         class="
-          mb-3
-          block
-
           text-sm
           font-medium
-
           text-[#181818]
         "
       >
-        Inspiration Images
-      </label>
+        Upload inspiration photos
+      </p>
 
-      <label
-        for="referenceImages"
-
+      <p
         class="
-          flex
-
-          cursor-pointer
-
-          flex-col
-          items-center
-          justify-center
-
-          rounded-2xl
-
-          border-2
-          border-dashed
-          border-[#D8D8D8]
-
-          px-8
-          py-8
-
-          text-center
-
-          transition-all
-          duration-300
-
-          hover:border-[#A07936]
-          hover:bg-[#FCFAF5]
+          mt-1
+          text-xs
+          text-[#8A847D]
         "
       >
-
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          stroke-width="1.6"
-          class="mb-4 h-10 w-10 text-[#A07936]"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M12 16V4m0 0l-4 4m4-4l4 4M5 20h14"
-          />
-        </svg>
-
-        <p
-          class="
-            font-medium
-            text-[#181818]
-          "
-        >
-          Upload Inspiration Photos
-        </p>
-
-        <p
-          class="
-            mt-2
-
-            text-sm
-
-            text-[#7A7A7A]
-          "
-        >
-          JPG, PNG or WEBP
-        </p>
-
-        <input
-          id="referenceImages"
-          name="referenceImages"
-
-          type="file"
-
-          accept="image/*"
-
-          multiple
-
-          class="hidden"
-        >
-
-      </label>
+        JPG, PNG or WEBP
+      </p>
 
     </div>
+
+
+    <input
+      id="referenceImage"
+      name="referenceImage"
+      type="file"
+      accept="image/jpeg,image/png,image/webp"
+
+      class="hidden"
+    >
+
+  </label>
+
+
+  <!-- SELECTED IMAGE PREVIEWS -->
+
+  <div
+    id="referenceImagesPreview"
+    class="
+  mt-3
+  hidden
+  grid
+  grid-cols-3
+  gap-2
+  sm:grid-cols-5
+"
+  ></div>
+
+
+</div>
 
   </section>
 
 
 
-  <!-- Description -->
+  <!-- ==========================================
+       CTA
+  =========================================== -->
 
-<section>
+  <div class="pt-1">
 
-  <h3
-    class="
-      mb-6
-
-      font-serif
-      text-3xl
-
-      text-[#181818]
-    "
-  >
-    Tell Us About Your Vision
-  </h3>
-
-  <textarea
-    id="designDescription"
-    name="description"
-
-    rows="7"
-
-    placeholder="Describe your idea, preferred style, engraving, gemstone, finish, size, or anything you'd like our craftsmen to know."
-
-    class="
-      w-full
-
-      resize-none
-
-      rounded-2xl
-
-      border
-      border-[#DDDDDD]
-
-      px-6
-      py-5
-
-      text-[15px]
-      leading-7
-
-      outline-none
-
-      transition-all
-      duration-300
-
-      focus:border-[#A07936]
-      focus:ring-2
-      focus:ring-[#A07936]/10
-    "
-  ></textarea>
-
-</section>
-
-
-<!-- Terms -->
-
-<label
-  class="
-    flex
-    items-start
-    gap-3
-  "
->
-
-  <input
-    id="agreeTerms"
-    name="agreeTerms"
-
-    type="checkbox"
-
-    class="
-      mt-1
-
-      h-5
-      w-5
-
-      accent-[#A07936]
-    "
-  >
-
-  <span
-    class="
-      text-sm
-      leading-7
-
-      text-[#666]
-    "
-  >
-    I agree that Banshiwala may contact me regarding my custom jewellery request.
-  </span>
-
-</label>
-
-<!-- CTA -->
-
-<div
-  class="
-    pt-2
-  "
->
-
-  <button
-
-    type="submit"
-
-    class="
-      group
-
-      relative
-
-      flex
-      w-full
-
-      items-center
-      justify-center
-
-      overflow-hidden
-
-      rounded-xl
-
-      bg-[#181818]
-
-      px-8
-      py-5
-
-      text-[13px]
-      font-medium
-
-      uppercase
-
-      tracking-[0.35em]
-
-      text-white
-
-      transition-all
-      duration-500
-    "
-  >
-
-    <span
+    <button
+      type="submit"
       class="
-        absolute
-        inset-0
-
-        origin-left
-        scale-x-0
-
-        bg-[#A07936]
-
-        transition-transform
-        duration-500
-
-        group-hover:scale-x-100
-      "
-    ></span>
-
-    <span
-      class="
+        group
         relative
-        z-10
+        flex
+        h-12
+        w-full
+        items-center
+        justify-center
+        overflow-hidden
+        rounded-lg
+        bg-[#181818]
+        px-8
+        text-[12px]
+        font-medium
+        uppercase
+        tracking-[0.22em]
+        text-white
+        shadow-sm
+        transition-all
+        duration-300
+
+       hover:bg-[#A07936]
+        hover:shadow-md
       "
     >
-      Request Consultation
-    </span>
 
-  </button>
+      <span
+        class="
+          absolute
+          inset-0
+          origin-left
+          scale-x-0
+          bg-[#A07936]
+          transition-transform
+          duration-500
+          ease-[cubic-bezier(0.22,1,0.36,1)]
 
-</div>
+          group-hover:scale-x-100
+        "
+      ></span>
 
 
+      <span
+        class="
+          relative
+          z-10
+          flex
+          items-center
+          gap-2
+        "
+      >
+
+        Request Consultation
+
+        <i
+          data-lucide="arrow-right"
+          class="
+            h-4
+            w-4
+            transition-transform
+            duration-300
+            group-hover:translate-x-1
+          "
+        ></i>
+
+      </span>
+
+    </button>
+
+  </div>
 
 </form>
 `;
 }
-
-
-
-

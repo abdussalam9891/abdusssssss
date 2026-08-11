@@ -4,7 +4,7 @@ let closeTimeout;
 
 export function initAccountDropdown() {
 
-   console.log("initAccountDropdown RAN"); 
+   console.log("initAccountDropdown RAN");
 
   const wrapper = document.getElementById("accountWrapper");
   const dropdown = document.getElementById("accountDropdown");
@@ -45,6 +45,8 @@ export function initAccountDropdown() {
 
   wrapper.addEventListener("mouseenter", openDropdown);
   wrapper.addEventListener("mouseleave", closeDropdown);
+
+  const logoutBtn = document.getElementById("logoutBtn"); 
 
  logoutBtn?.addEventListener("click", async () => {
   logoutBtn.disabled = true;

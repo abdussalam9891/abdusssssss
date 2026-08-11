@@ -16,12 +16,14 @@ export function createCustomizeJewelleryModal() {
     justify-center
 
     p-0
-    sm:p-5
-    lg:p-8
+    sm:p-4
+    lg:p-6
   "
 >
 
-  <!-- Overlay -->
+  <!-- ==========================================
+       OVERLAY
+  =========================================== -->
 
   <div
     id="customizeOverlay"
@@ -31,7 +33,7 @@ export function createCustomizeJewelleryModal() {
       inset-0
 
       bg-black/70
-      backdrop-blur-[5px]
+      backdrop-blur-[6px]
 
       opacity-0
 
@@ -40,10 +42,13 @@ export function createCustomizeJewelleryModal() {
     "
   ></div>
 
-  <!-- Modal -->
+
+
+  <!-- ==========================================
+       MODAL
+  =========================================== -->
 
   <div
-
     id="customizePanel"
 
     class="
@@ -51,25 +56,21 @@ export function createCustomizeJewelleryModal() {
       z-10
 
       flex
-      flex-col
-
       w-full
-      max-w-5xl
-
-      max-h-[100dvh]
-      sm:max-h-[92vh]
+      max-w-4xl
+      flex-col
 
       overflow-hidden
 
       rounded-none
-      sm:rounded-[28px]
+      sm:rounded-2xl
 
       border
-      border-[#ECE3D6]
+      border-[#E8DED0]
 
-      bg-[#FCFAF7]
+      bg-[#FDFBF8]
 
-      shadow-[0_40px_120px_rgba(0,0,0,.28)]
+      shadow-[0_30px_100px_rgba(0,0,0,0.30)]
 
       opacity-0
       scale-[0.96]
@@ -77,132 +78,193 @@ export function createCustomizeJewelleryModal() {
       transition-all
       duration-500
     "
+    style="max-height:92vh;"
   >
 
-    <!-- Close -->
+
+    <!-- ========================================
+         CLOSE BUTTON
+    ========================================= -->
 
     <button
-
       id="closeCustomizeModal"
-
       type="button"
-
-      aria-label="Close"
+      aria-label="Close customization form"
 
       class="
         absolute
-
-        right-5
-        top-5
-
+        right-4
+        top-4
         z-30
 
         flex
-
-        h-10
-        w-10
-
+        h-9
+        w-9
         items-center
         justify-center
 
         rounded-full
 
         border
-        border-[#E6DDD0]
+        border-white/20
 
-        bg-white
+        bg-black/10
 
-        text-[#555555]
+        text-white
 
-        shadow-sm
+        backdrop-blur-sm
 
         transition-all
         duration-300
 
-        hover:border-[#A07936]
-        hover:bg-[#181818]
-        hover:text-white
+        hover:bg-white
+        hover:text-[#6B1A2A]
       "
     >
 
       <i
         data-lucide="x"
-        class="h-5 w-5"
+        class="h-4 w-4"
       ></i>
 
     </button>
 
-    <!-- Header -->
 
-    <div
-      class="
-        relative
 
-        overflow-hidden
+    <!-- ========================================
+         HEADER
+    ========================================= -->
 
-        border-b
-        border-[#ECE3D6]
+   <div
+  class="
+    relative
+    shrink-0
+    overflow-hidden
+    bg-[#181818]
+    px-6
+    py-7
+    sm:px-10
+    sm:py-8
+    lg:px-14
+    lg:py-9
+  "
+>
 
-        bg-gradient-to-b
-        from-[#FDFBF8]
-        to-[#FCFAF7]
+      <!-- Subtle decorative glow -->
 
-        px-6
-        py-8
+      <div
+        class="
+          pointer-events-none
+          absolute
+          -right-20
+          -top-24
+          h-48
+          w-48
+          rounded-full
+          bg-[#A07936]/10
+          blur-3xl
+        "
+      ></div>
 
-        sm:px-10
-        sm:py-10
 
-        lg:px-16
-        lg:py-12
-      "
-    >
+      <div
+        class="
+          pointer-events-none
+          absolute
+          -bottom-20
+          -left-20
+          h-40
+          w-40
+          rounded-full
+          bg-black/10
+          blur-3xl
+        "
+      ></div>
 
 
       <!-- Heading -->
 
-      <h2
+      <div
         class="
-          mt-2
-          mb-2
-
+          relative
+          z-10
+          pr-8
           text-center
-
-          font-serif
-          italic
-
-          text-[34px]
-          sm:text-[46px]
-          lg:text-[60px]
-
-          leading-tight
-
-          tracking-[-0.03em]
-
-          text-[#181818]
         "
       >
-        Design Your Piece
-      </h2>
 
 
+
+
+        <h2
+  class="
+    font-serif
+    text-2xl
+    font-medium
+    leading-tight
+    tracking-[-0.02em]
+    text-white
+    sm:text-3xl
+  "
+>
+  Design Your Piece
+</h2>
+
+
+        <p
+          class="
+            mx-auto
+            mt-2
+            max-w-lg
+            text-xs
+            leading-5
+            text-white/70
+          "
+        >
+          Share your vision and our craftsmen will create
+          something made exclusively for you.
+        </p>
+
+      </div>
+
+
+      <!-- Gold divider -->
+
+      <div
+  class="
+    absolute
+    bottom-0
+    left-0
+    right-0
+    h-[2px]
+    bg-[#A07936]
+  "
+></div>
 
     </div>
 
-    <!-- Form Area -->
+
+
+    <!-- ========================================
+         FORM AREA
+    ========================================= -->
 
     <div
       class="
+        min-h-0
         flex-1
-
         overflow-y-auto
 
-        px-6
-        py-8
+        bg-[#FCFAF7]
 
-        sm:px-10
+        px-5
+        py-6
 
-        lg:px-16
+        sm:px-8
+        sm:py-7
+
+        lg:px-12
+        lg:py-8
       "
     >
 

@@ -74,9 +74,9 @@ export function createHeroContent() {
 
                 text-white
 
-                md:text-[82px]
+                md:text-3xl
 
-                xl:text-[96px]
+                xl:text-4xl
               "
             >
 

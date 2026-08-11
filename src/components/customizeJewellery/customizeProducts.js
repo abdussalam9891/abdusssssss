@@ -1,0 +1,281 @@
+import { PRODUCTS } from "../../constants/products.js";
+import { getProductImages } from "../../utils/getProductImages.js";
+
+
+// ==========================================================
+// CATEGORY NORMALIZATION
+// ==========================================================
+
+function normalizeCategory(category) {
+
+  const value =
+    category
+      ?.trim()
+      .toLowerCase();
+
+  const categoryMap = {
+
+    ring: "rings",
+    rings: "rings",
+
+    chain: "chains",
+    chains: "chains",
+
+    bracelet: "bracelets",
+    bracelets: "bracelets",
+
+    earrings: "earrings",
+    earring: "earrings",
+
+    pendant: "pendants",
+    pendants: "pendants",
+
+  };
+
+  return categoryMap[value] || value;
+
+}
+
+
+// ==========================================================
+// GET CUSTOMIZE PRODUCTS
+// ==========================================================
+
+export async function getCustomizeProducts(category) {
+
+  const normalizedCategory =
+    normalizeCategory(category);
+
+
+  /*
+   * TEMPORARY DATA SOURCE
+   *
+   * Tomorrow replace ONLY this function
+   * with the real products API.
+   */
+
+  return PRODUCTS.filter(
+    (product) =>
+      product.category === normalizedCategory
+  );
+
+}
+
+
+// ==========================================================
+// PRODUCT CARD
+// ==========================================================
+
+export function createCustomizeProductCard(
+  product,
+  selected = false
+) {
+
+  const images =
+    getProductImages(product);
+
+
+  return `
+
+    <button
+      type="button"
+
+      class="
+        customize-product-card
+        group
+        relative
+
+        w-[180px]
+        sm:w-[200px]
+
+        shrink-0
+        snap-start
+
+        overflow-hidden
+
+        rounded-xl
+
+        border
+
+        bg-white
+
+        text-left
+
+        transition-all
+        duration-300
+
+        ${
+          selected
+            ? `
+              border-[#A07936]
+              ring-2
+              ring-[#A07936]/20
+            `
+            : `
+              border-[#E4DDD4]
+              hover:border-[#C8B99F]
+            `
+        }
+      "
+
+      data-product-id="${product.id}"
+    >
+
+      <!-- SELECTED INDICATOR -->
+
+      <span
+        class="
+          customize-product-selected
+
+          absolute
+          right-3
+          top-3
+
+          z-20
+
+          flex
+          h-6
+          w-6
+
+          items-center
+          justify-center
+
+          rounded-full
+
+          bg-[#A07936]
+
+          text-white
+
+          transition-all
+          duration-300
+
+          ${
+            selected
+              ? "scale-100 opacity-100"
+              : "scale-75 opacity-0"
+          }
+        "
+      >
+
+        <i
+          data-lucide="check"
+          class="h-3.5 w-3.5"
+        ></i>
+
+      </span>
+
+
+      <!-- IMAGE -->
+
+      <div
+        class="
+          relative
+          aspect-square
+
+          overflow-hidden
+
+          bg-[#F8F6F2]
+        "
+      >
+
+        <img
+          src="${images.front}"
+
+          alt="${product.name}"
+
+          loading="lazy"
+
+          class="
+            h-full
+            w-full
+
+            object-contain
+
+            p-5
+
+            transition-transform
+            duration-500
+
+            group-hover:scale-105
+          "
+
+          onerror="
+            this.onerror=null;
+            this.src='${images.back || images.front}'
+          "
+        >
+
+      </div>
+
+
+      <!-- PRODUCT INFO -->
+
+      <div class="px-4 py-4">
+
+        <p
+          class="
+            line-clamp-2
+
+            min-h-[40px]
+
+            font-serif
+
+            text-[16px]
+
+            leading-tight
+
+            text-[#181818]
+          "
+        >
+          ${product.name}
+        </p>
+
+
+        <div
+          class="
+            mt-3
+
+            flex
+            items-center
+
+            gap-2
+          "
+        >
+
+          <span
+            class="
+              text-sm
+              font-semibold
+              text-[#181818]
+            "
+          >
+            ₹${Number(product.price).toLocaleString("en-IN")}
+          </span>
+
+
+          ${
+            product.originalPrice
+              ? `
+                <span
+                  class="
+                    text-xs
+                    text-[#999999]
+                    line-through
+                  "
+                >
+                  ₹${Number(
+                    product.originalPrice
+                  ).toLocaleString("en-IN")}
+                </span>
+              `
+              : ""
+          }
+
+        </div>
+
+      </div>
+
+    </button>
+
+  `;
+}

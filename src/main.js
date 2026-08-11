@@ -98,6 +98,27 @@ document.addEventListener("DOMContentLoaded", async () => {
     loadFAQPage();
   }
 
+
+
+  /* =========================================
+Contact
+========================================= */
+
+if (document.getElementById("contact-form")) {
+
+  const { initContact } = await import(
+    "./features/contact/contact.js"
+  );
+
+  initContact();
+
+}
+
+
+
+
+
+
   /* =========================================
      Login
   ========================================= */

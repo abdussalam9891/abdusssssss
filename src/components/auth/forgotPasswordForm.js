@@ -1,159 +1,280 @@
 export function createForgotPasswordForm() {
   return `
-<form
-  id="forgotPasswordForm"
-
-  class="
-    space-y-8
-  "
->
-
-  <div>
-
-    <label
-      for="email"
-
-      class="
-        mb-3
-        block
-
-        text-sm
-        font-medium
-
-        text-[#181818]
-      "
-    >
-      Email Address
-    </label>
-
-    <input
-
-      id="email"
-      name="email"
-
-      type="email"
-
-      placeholder="Abc@example.com"
-
-      autocomplete="email"
-
-      class="
-        w-full
-
-        rounded-2xl
-
-        border
-        border-[#E7E7E7]
-
-        px-5
-        py-4
-
-        text-[15px]
-
-        outline-none
-
-        transition-all
-        duration-300
-
-        focus:border-[#A07936]
-        focus:ring-4
-        focus:ring-[#A07936]/10
-      "
+    <form
+      id="forgotPasswordForm"
+      class="space-y-8"
     >
 
-  </div>
+      <!-- EMAIL STEP -->
 
-  <button
+      <div id="emailStep">
 
-    type="submit"
+        <label
+          for="email"
+          class="
+            mb-3
+            block
+            text-sm
+            font-medium
+            text-[#181818]
+          "
+        >
+          Email Address
+        </label>
 
-    class="
-      group
+        <input
+          id="email"
+          name="email"
+          type="email"
+          placeholder="Abc@example.com"
+          autocomplete="email"
+          required
+          class="
+            w-full
+            rounded-2xl
+            border
+            border-[#E7E7E7]
+            px-5
+            py-4
+            text-[15px]
+            outline-none
+            transition-all
+            duration-300
+            focus:border-[#A07936]
+            focus:ring-4
+            focus:ring-[#A07936]/10
+          "
+        >
 
-      relative
+      </div>
 
-      flex
-      w-full
-      items-center
-      justify-center
 
-      overflow-hidden
+      <!-- OTP + PASSWORD STEP -->
 
-      rounded-2xl
+      <div
+        id="otpStep"
+        class="
+          hidden
+          space-y-5
+        "
+      >
 
-      bg-[#181818]
+        <!-- OTP -->
 
-      py-4
+        <div>
 
-      text-sm
-      font-medium
+          <label
+            for="otp"
+            class="
+              mb-3
+              block
+              text-sm
+              font-medium
+              text-[#181818]
+            "
+          >
+            Verification Code
+          </label>
 
-      uppercase
+          <input
+            id="otp"
+            name="otp"
+            type="text"
+            inputmode="numeric"
+            autocomplete="one-time-code"
+            maxlength="6"
+            placeholder="Enter 6-digit OTP"
+            class="
+              w-full
+              rounded-2xl
+              border
+              border-[#E7E7E7]
+              px-5
+              py-4
+              text-[15px]
+              tracking-[0.3em]
+              outline-none
+              transition-all
+              duration-300
+              focus:border-[#A07936]
+              focus:ring-4
+              focus:ring-[#A07936]/10
+            "
+          >
 
-      tracking-[0.28em]
+          <p
+            class="
+              mt-2
+              text-xs
+              text-[#888]
+            "
+          >
+            We've sent a verification code to your email.
+          </p>
 
-      text-white
-    "
-  >
+        </div>
 
-    <span
-      class="
-        absolute
-        inset-0
 
-        origin-left
+        <!-- NEW PASSWORD -->
 
-        scale-x-0
+        <div>
 
-        bg-[#A07936]
+          <label
+            for="newPassword"
+            class="
+              mb-3
+              block
+              text-sm
+              font-medium
+              text-[#181818]
+            "
+          >
+            New Password
+          </label>
 
-        transition-transform
-        duration-500
+          <input
+            id="newPassword"
+            name="newPassword"
+            type="password"
+            autocomplete="new-password"
+            placeholder="Enter new password"
+            class="
+              w-full
+              rounded-2xl
+              border
+              border-[#E7E7E7]
+              px-5
+              py-4
+              text-[15px]
+              outline-none
+              transition-all
+              duration-300
+              focus:border-[#A07936]
+              focus:ring-4
+              focus:ring-[#A07936]/10
+            "
+          >
 
-        group-hover:scale-x-100
-      "
-    ></span>
+        </div>
 
-    <span
-      class="
-        relative
-        z-10
-      "
-    >
-      Send Reset Link
-    </span>
 
-  </button>
+        <!-- CONFIRM PASSWORD -->
 
-  <p
-    class="
-      text-center
+        <div>
 
-      text-[15px]
+          <label
+            for="confirmPassword"
+            class="
+              mb-3
+              block
+              text-sm
+              font-medium
+              text-[#181818]
+            "
+          >
+            Confirm New Password
+          </label>
 
-      text-[#666]
-    "
-  >
+          <input
+            id="confirmPassword"
+            name="confirmPassword"
+            type="password"
+            autocomplete="new-password"
+            placeholder="Confirm new password"
+            class="
+              w-full
+              rounded-2xl
+              border
+              border-[#E7E7E7]
+              px-5
+              py-4
+              text-[15px]
+              outline-none
+              transition-all
+              duration-300
+              focus:border-[#A07936]
+              focus:ring-4
+              focus:ring-[#A07936]/10
+            "
+          >
 
-    Remember your password?
+        </div>
 
-    <a
+      </div>
 
-      href="/pages/login.html"
 
-      class="
-        font-medium
+      <!-- SUBMIT -->
 
-        text-[#A07936]
+      <button
+        id="forgotPasswordSubmitBtn"
+        type="submit"
+        class="
+          group
+          relative
+          flex
+          w-full
+          items-center
+          justify-center
+          overflow-hidden
+          rounded-2xl
+          bg-[#181818]
+          py-4
+          text-sm
+          font-medium
+          uppercase
+          tracking-[0.28em]
+          text-white
+        "
+      >
 
-        hover:underline
-      "
-    >
-      Back to Sign In
-    </a>
+        <span
+          class="
+            absolute
+            inset-0
+            origin-left
+            scale-x-0
+            bg-[#A07936]
+            transition-transform
+            duration-500
+            group-hover:scale-x-100
+          "
+        ></span>
 
-  </p>
+        <span
+          id="forgotPasswordSubmitText"
+          class="relative z-10"
+        >
+          Send OTP
+        </span>
 
-</form>
-`;
+      </button>
+
+
+      <!-- BACK TO LOGIN -->
+
+      <div
+        class="
+          text-center
+          text-[15px]
+          text-[#666]
+        "
+      >
+
+        Remember your password?
+
+        <a
+          href="/pages/login.html"
+          class="
+            font-medium
+            text-[#A07936]
+            hover:underline
+          "
+        >
+          Back to Sign In
+        </a>
+
+      </div>
+
+    </form>
+  `;
 }

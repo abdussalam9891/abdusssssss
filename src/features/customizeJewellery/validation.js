@@ -1,7 +1,9 @@
 import { showToast } from "../../utils/toast.js";
+import { customizeService } from "../../services/customizeService.js";
 
 export function initCustomizeJewelleryValidation() {
-  const form = document.getElementById("customJewelleryForm");
+  const form =
+    document.getElementById("customJewelleryForm");
 
   if (!form) return;
 
@@ -9,144 +11,391 @@ export function initCustomizeJewelleryValidation() {
 
   form.dataset.initialized = "true";
 
-  /* ----------------------------------------
-     Live Input Validation
-  ---------------------------------------- */
+  const fullNameInput =
+    form.querySelector('[name="fullName"]');
 
-  // Name → Only letters & spaces
+  const phoneInput =
+    form.querySelector('[name="phone"]');
 
-  form.name.addEventListener("input", () => {
-    form.name.value = form.name.value.replace(
-      /[^a-zA-Z\s]/g,
-      ""
-    );
+  const emailInput =
+    form.querySelector('[name="email"]');
+
+  const categoryInput =
+    form.querySelector('[name="category"]');
+
+  const productIdInput =
+    form.querySelector('[name="productId"]');
+
+  const descriptionInput =
+    form.querySelector('[name="description"]');
+
+  const imageInput =
+    form.querySelector('[name="referenceImage"]');
+
+
+  // ==========================================
+  // LIVE VALIDATION
+  // ==========================================
+
+  fullNameInput?.addEventListener("input", () => {
+    fullNameInput.value =
+      fullNameInput.value
+        .replace(/[^A-Za-zÀ-ÖØ-öø-ÿ\s'-]/g, "")
+        .replace(/\s{2,}/g, " ");
   });
 
-  // Phone → Only numbers (10 digits)
 
-  form.phone.addEventListener("input", () => {
-    form.phone.value = form.phone.value
-      .replace(/\D/g, "")
-      .slice(0, 10);
+  phoneInput?.addEventListener("input", () => {
+    phoneInput.value =
+      phoneInput.value
+        .replace(/\D/g, "")
+        .slice(0, 10);
   });
 
-  /* ----------------------------------------
-     Submit Validation
-  ---------------------------------------- */
 
-  form.addEventListener("submit", (event) => {
+  emailInput?.addEventListener("input", () => {
+    emailInput.value =
+      emailInput.value
+        .replace(/\s/g, "")
+        .toLowerCase();
+  });
+
+
+  // ==========================================
+  // SUBMIT
+  // ==========================================
+
+  form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    const name = form.name.value.trim();
-    const phone = form.phone.value.trim();
-    const email = form.email.value.trim();
-    const type = form.type.value;
-    const budget = form.budget.value;
-    const occasion = form.occasion.value;
+    const fullName =
+      fullNameInput?.value
+        .trim()
+        .replace(/\s{2,}/g, " ") || "";
+
+    const phone =
+      phoneInput?.value.trim() || "";
+
+    const email =
+      emailInput?.value
+        .trim()
+        .toLowerCase() || "";
+
+    const category =
+      categoryInput?.value || "";
+
+    const productId =
+      productIdInput?.value.trim() || "";
+
     const description =
-      form.description.value.trim();
-    const agreeTerms =
-      form.agreeTerms.checked;
+      descriptionInput?.value.trim() || "";
 
-    // Required Fields
+    const image =
+      imageInput?.files?.[0] || null;
 
-    if (!name || !phone || !email || !type) {
+
+    // ==========================================
+    // REQUIRED
+    // ==========================================
+
+    if (!fullName) {
       showToast({
-        type: "error",
-        title: "Missing Information",
-        message:
-          "Please fill all required fields.",
+        type: "warning",
+        title: "Name Required",
+        message: "Please enter your full name.",
       });
+
+      fullNameInput?.focus();
       return;
     }
 
-    // Name
 
-    if (name.length < 2) {
+    if (!phone) {
       showToast({
-        type: "error",
+        type: "warning",
+        title: "Phone Required",
+        message: "Please enter your phone number.",
+      });
+
+      phoneInput?.focus();
+      return;
+    }
+
+
+    if (!email) {
+      showToast({
+        type: "warning",
+        title: "Email Required",
+        message: "Please enter your email address.",
+      });
+
+      emailInput?.focus();
+      return;
+    }
+
+
+    if (!category) {
+      showToast({
+        type: "warning",
+        title: "Jewellery Type Required",
+        message: "Please select a jewellery type.",
+      });
+
+      categoryInput?.focus();
+      return;
+    }
+
+
+    // ==========================================
+    // NAME
+    // ==========================================
+
+    const nameRegex =
+      /^[A-Za-zÀ-ÖØ-öø-ÿ]+(?:[ '\-][A-Za-zÀ-ÖØ-öø-ÿ]+)*$/;
+
+    if (
+      fullName.length < 2 ||
+      fullName.length > 80 ||
+      !nameRegex.test(fullName)
+    ) {
+      showToast({
+        type: "warning",
         title: "Invalid Name",
-        message:
-          "Please enter your full name.",
+        message: "Please enter a valid full name.",
       });
+
+      fullNameInput?.focus();
       return;
     }
 
-    // Phone
 
-    const phoneRegex = /^[6-9]\d{9}$/;
+    // ==========================================
+    // PHONE
+    // ==========================================
 
-    if (!phoneRegex.test(phone)) {
+    if (!/^[6-9]\d{9}$/.test(phone)) {
       showToast({
-        type: "error",
+        type: "warning",
         title: "Invalid Phone Number",
         message:
           "Please enter a valid 10-digit Indian mobile number.",
       });
+
+      phoneInput?.focus();
       return;
     }
 
-    // Email
+
+    // ==========================================
+    // EMAIL
+    // ==========================================
 
     const emailRegex =
-      /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
-    if (!emailRegex.test(email)) {
+    if (
+      email.length > 254 ||
+      !emailRegex.test(email)
+    ) {
       showToast({
-        type: "error",
+        type: "warning",
         title: "Invalid Email",
         message:
           "Please enter a valid email address.",
       });
+
+      emailInput?.focus();
       return;
     }
 
-    // Description
 
-    if (
-      description &&
-      description.length < 20
-    ) {
+    // ==========================================
+    // DESCRIPTION
+    // ==========================================
+
+    if (!description) {
       showToast({
         type: "warning",
-        title: "More Details Needed",
+        title: "Description Required",
         message:
-          "Please describe your design in at least 20 characters.",
+          "Please tell us about your customization.",
       });
+
+      descriptionInput?.focus();
       return;
     }
 
-    // Terms
 
-    if (!agreeTerms) {
+    if (description.length > 2000) {
       showToast({
         type: "warning",
-        title: "Terms Required",
+        title: "Description Too Long",
         message:
-          "Please accept the Terms & Conditions.",
+          "Please keep your description under 2000 characters.",
       });
+
+      descriptionInput?.focus();
       return;
     }
 
-    console.log({
-      name,
-      phone,
-      email,
-      type,
-      budget,
-      occasion,
-      description,
-      referenceImages:
-        form.referenceImages.files,
-    });
 
-    showToast({
-      type: "success",
-      title: "Request Submitted",
-      message:
-        "Our jewellery consultant will contact you shortly.",
-    });
+    // ==========================================
+    // IMAGE
+    // OPTIONAL — ONLY ONE
+    // ==========================================
 
-    form.reset();
+    if (image) {
+      const allowedTypes = [
+        "image/jpeg",
+        "image/png",
+        "image/webp",
+        "image/avif",
+      ];
+
+      if (!allowedTypes.includes(image.type)) {
+        showToast({
+          type: "warning",
+          title: "Invalid Image",
+          message:
+            "Please upload a JPG, PNG, WEBP or AVIF image.",
+        });
+
+        return;
+      }
+
+      if (image.size > 20 * 1024 * 1024) {
+        showToast({
+          type: "warning",
+          title: "Image Too Large",
+          message:
+            "The image must be smaller than 20 MB.",
+        });
+
+        return;
+      }
+    }
+
+
+    // ==========================================
+    // FORMDATA
+    // ==========================================
+
+    const formData =
+      new FormData();
+
+    formData.append(
+      "fullName",
+      fullName
+    );
+
+    formData.append(
+      "phone",
+      phone
+    );
+
+    formData.append(
+      "email",
+      email
+    );
+
+    formData.append(
+      "category",
+      category
+    );
+
+    formData.append(
+      "productId",
+      productId
+    );
+
+    formData.append(
+      "description",
+      description
+    );
+
+
+    // IMPORTANT:
+    // Only append image when user selected one.
+    // Backend multer currently expects "referenceImage".
+
+    if (image) {
+      formData.append(
+        "referenceImage",
+        image
+      );
+    }
+
+
+    // ==========================================
+    // SUBMIT
+    // ==========================================
+
+    const submitButton =
+      form.querySelector(
+        'button[type="submit"]'
+      );
+
+    if (submitButton) {
+      submitButton.disabled = true;
+    }
+
+
+    try {
+
+      showToast({
+        type: "info",
+        title: "Submitting Request",
+        message:
+          "Please wait while we submit your customization request.",
+      });
+
+
+      const response =
+        await customizeService.createRequest(
+          formData
+        );
+
+
+      console.log(
+        "[Customize] API response:",
+        response
+      );
+
+
+      form.reset();
+
+
+      showToast({
+        type: "success",
+        title: "Request Submitted",
+        message:
+          "Our jewellery consultant will contact you shortly.",
+      });
+
+
+    } catch (error) {
+
+      console.error(
+        "[Customize] Submission failed:",
+        error
+      );
+
+
+      showToast({
+        type: "error",
+        title: "Request Failed",
+        message:
+          error?.message ||
+          "Unable to submit your request. Please try again.",
+      });
+
+
+    } finally {
+
+      if (submitButton) {
+        submitButton.disabled = false;
+      }
+
+    }
   });
 }
