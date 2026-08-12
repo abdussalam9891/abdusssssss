@@ -32,6 +32,9 @@ export function initCustomizeJewelleryValidation() {
   const imageInput =
     form.querySelector('[name="referenceImage"]');
 
+    const imagePreview =
+  document.getElementById("referenceImagesPreview");
+
 
   // ==========================================
   // LIVE VALIDATION
@@ -276,6 +279,13 @@ export function initCustomizeJewelleryValidation() {
     }
 
 
+
+
+
+
+ 
+
+
     // ==========================================
     // FORMDATA
     // ==========================================
@@ -364,6 +374,11 @@ export function initCustomizeJewelleryValidation() {
 
       form.reset();
 
+if (imagePreview) {
+  imagePreview.innerHTML = "";
+  imagePreview.classList.add("hidden");
+}
+
 
       showToast({
         type: "success",
@@ -398,4 +413,131 @@ export function initCustomizeJewelleryValidation() {
 
     }
   });
+
+
+
+  // ==========================================
+// IMAGE PREVIEW
+// ==========================================
+
+imageInput?.addEventListener("change", () => {
+
+  const file =
+    imageInput.files?.[0] || null;
+
+  if (!imagePreview) return;
+
+  // Clear old preview
+  imagePreview.innerHTML = "";
+
+  // No image selected
+  if (!file) {
+    imagePreview.classList.add("hidden");
+    return;
+  }
+
+  // Preview wrapper
+  const previewWrapper =
+    document.createElement("div");
+
+  previewWrapper.className = `
+    relative
+    aspect-square
+    overflow-hidden
+    rounded-lg
+    border
+    border-[#DED8D0]
+    bg-[#F8F6F2]
+  `;
+
+  // Image
+  const img =
+    document.createElement("img");
+
+  const previewUrl =
+    URL.createObjectURL(file);
+
+  img.src = previewUrl;
+  img.alt = "Selected inspiration image";
+
+  img.className = `
+    h-full
+    w-full
+    object-cover
+  `;
+
+  // Remove button
+  const removeButton =
+    document.createElement("button");
+
+  removeButton.type = "button";
+
+  removeButton.className = `
+    absolute
+    right-2
+    top-2
+    z-10
+    flex
+    h-7
+    w-7
+    items-center
+    justify-center
+    rounded-full
+    bg-black/70
+    text-white
+    shadow-md
+    transition-all
+    duration-200
+    hover:bg-[#A07936]
+  `;
+
+  removeButton.innerHTML = `
+    <i
+      data-lucide="x"
+      class="h-4 w-4"
+    ></i>
+  `;
+
+  // Remove image
+  removeButton.addEventListener(
+    "click",
+    (event) => {
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      imageInput.value = "";
+
+      imagePreview.innerHTML = "";
+
+      imagePreview.classList.add(
+        "hidden"
+      );
+
+      URL.revokeObjectURL(
+        previewUrl
+      );
+    }
+  );
+
+  previewWrapper.appendChild(img);
+
+  previewWrapper.appendChild(
+    removeButton
+  );
+
+  imagePreview.appendChild(
+    previewWrapper
+  );
+
+  imagePreview.classList.remove(
+    "hidden"
+  );
+
+  // Lucide icon
+  if (window.lucide) {
+    window.lucide.createIcons();
+  }
+
+});
 }

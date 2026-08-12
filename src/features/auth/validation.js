@@ -1,79 +1,438 @@
 import { showToast } from "../../utils/toast.js";
 import { authService } from "../../services/authService.js";
+import {
+  GOOGLE_CLIENT_ID,
+} from "../../config.js";
+
+import {
+  API_BASE_URL,
+} from "../../config.js";
 // import { hydrateAuth } from "./authState.js";
 
 
-// ========================================
-// Login validation
-// ========================================
+ 
 
 export function initLoginValidation() {
-  const form = document.getElementById("loginForm");
+
+  const form =
+    document.getElementById("loginForm");
 
   if (!form) return;
 
-  form.addEventListener("submit", async (event) => {
-    event.preventDefault();
 
-    const email = form.email.value.trim();
-    const password = form.password.value;
+  // ========================================
+  // GOOGLE LOGIN
+  // ========================================
 
-    if (!email || !password) {
-      showToast({
-        type: "error",
-        title: "Missing Information",
-        message: "Please fill all fields.",
-      });
+  const googleLoginBtn =
+    document.getElementById("googleLoginBtn");
 
-      return;
+
+  if (googleLoginBtn) {
+
+    // ======================================
+    // GOOGLE CREDENTIAL CALLBACK
+    // ======================================
+
+    const handleGoogleCredential =
+      async (response) => {
+
+        const credential =
+          response?.credential;
+
+
+        if (!credential) {
+
+          showToast({
+            type: "error",
+            title: "Google Login Failed",
+            message:
+              "Google did not return a valid credential.",
+          });
+
+          return;
+        }
+
+
+        googleLoginBtn.disabled = true;
+
+
+        try {
+
+          showToast({
+            type: "info",
+            title: "Signing In",
+            message:
+              "Signing you in with Google...",
+          });
+
+
+          // ==================================
+          // SEND GOOGLE ID TOKEN TO BACKEND
+          // ==================================
+
+          const result =
+            await authService.googleLogin({
+              credential,
+            });
+
+
+          console.log(
+            "GOOGLE LOGIN RESPONSE:",
+            result
+          );
+
+
+          // ==================================
+          // GET YOUR APPLICATION JWT
+          // ==================================
+
+          const token =
+            result?.data?.token;
+
+
+          if (!token) {
+
+            throw new Error(
+              "Google login succeeded but application token was not received."
+            );
+
+          }
+
+
+          // ==================================
+          // SAVE APPLICATION JWT
+          // ==================================
+
+          localStorage.setItem(
+            "token",
+            token
+          );
+
+
+          // ==================================
+          // UPDATE AUTH STATE
+          // ==================================
+
+          window.dispatchEvent(
+            new CustomEvent("authChanged")
+          );
+
+
+          // ==================================
+          // SUCCESS
+          // ==================================
+
+          showToast({
+            type: "success",
+            title: "Welcome",
+            message:
+              "You're successfully signed in with Google.",
+          });
+
+
+          // ==================================
+          // REDIRECT
+          // ==================================
+
+          window.location.href =
+            "/index.html";
+
+
+        } catch (error) {
+
+          console.error(
+            "GOOGLE LOGIN ERROR:",
+            error
+          );
+
+
+          showToast({
+            type: "error",
+            title: "Google Login Failed",
+            message:
+              error?.message ||
+              "Unable to sign in with Google.",
+          });
+
+
+        } finally {
+
+          googleLoginBtn.disabled = false;
+
+        }
+
+      };
+
+
+    // ======================================
+    // INITIALIZE GOOGLE
+    // ======================================
+
+    const initializeGoogleLogin =
+      () => {
+
+        if (
+          !window.google ||
+          !window.google.accounts ||
+          !window.google.accounts.id
+        ) {
+
+          console.error(
+            "Google Identity Services is not loaded."
+          );
+
+          return false;
+
+        }
+
+
+        if (!GOOGLE_CLIENT_ID) {
+
+          console.error(
+            "GOOGLE_CLIENT_ID is missing."
+          );
+
+          return false;
+
+        }
+
+
+        window.google.accounts.id.initialize({
+
+          client_id:
+            GOOGLE_CLIENT_ID,
+
+          callback:
+            handleGoogleCredential,
+
+          auto_select: false,
+
+          cancel_on_tap_outside: true,
+
+        });
+
+
+        console.log(
+          "Google Identity Services initialized."
+        );
+
+
+        return true;
+
+      };
+
+
+    // ======================================
+    // GOOGLE BUTTON
+    // ======================================
+
+    googleLoginBtn.addEventListener(
+      "click",
+      () => {
+
+        // Google script hasn't loaded yet
+        if (
+          !window.google ||
+          !window.google.accounts ||
+          !window.google.accounts.id
+        ) {
+
+          showToast({
+            type: "error",
+            title: "Google Unavailable",
+            message:
+              "Google Sign-In is still loading. Please try again.",
+          });
+
+          return;
+        }
+
+
+        // Open Google authentication
+        window.google.accounts.id.prompt();
+
+      }
+    );
+
+
+    // ======================================
+    // GOOGLE SCRIPT LOADING
+    // ======================================
+
+    if (
+      window.google &&
+      window.google.accounts &&
+      window.google.accounts.id
+    ) {
+
+      initializeGoogleLogin();
+
+    } else {
+
+      window.addEventListener(
+        "load",
+        initializeGoogleLogin,
+        { once: true }
+      );
+
     }
 
-    const submitBtn = form.querySelector('[type="submit"]');
+  }
 
-    submitBtn?.setAttribute("disabled", "true");
 
-   try {
-  const response = await authService.login({
-  email,
-  password,
-});
+  // ========================================
+  // NORMAL EMAIL/PASSWORD LOGIN
+  // ========================================
 
-console.log("LOGIN RESPONSE:", response);
+  form.addEventListener(
+    "submit",
+    async (event) => {
 
-const token = response?.data?.token;
+      event.preventDefault();
 
-if (!token) {
-  throw new Error("Login successful but token was not received.");
+
+      const email =
+        form.email.value.trim();
+
+      const password =
+        form.password.value;
+
+
+      // ======================================
+      // VALIDATION
+      // ======================================
+
+      if (!email || !password) {
+
+        showToast({
+          type: "error",
+          title: "Missing Information",
+          message:
+            "Please fill all fields.",
+        });
+
+        return;
+
+      }
+
+
+      const submitBtn =
+        form.querySelector(
+          '[type="submit"]'
+        );
+
+
+      submitBtn?.setAttribute(
+        "disabled",
+        "true"
+      );
+
+
+      try {
+
+        // ====================================
+        // LOGIN API
+        // ====================================
+
+        const response =
+          await authService.login({
+            email,
+            password,
+          });
+
+
+        console.log(
+          "LOGIN RESPONSE:",
+          response
+        );
+
+
+        // ====================================
+        // GET JWT
+        // ====================================
+
+        const token =
+          response?.data?.token;
+
+
+        if (!token) {
+
+          throw new Error(
+            "Login successful but token was not received."
+          );
+
+        }
+
+
+        // ====================================
+        // SAVE JWT
+        // ====================================
+
+        localStorage.setItem(
+          "token",
+          token
+        );
+
+
+        // ====================================
+        // UPDATE AUTH STATE
+        // ====================================
+
+        window.dispatchEvent(
+          new CustomEvent("authChanged")
+        );
+
+
+        // ====================================
+        // SUCCESS
+        // ====================================
+
+        showToast({
+          type: "success",
+          title: "Welcome back",
+          message:
+            "You're logged in.",
+        });
+
+
+        // ====================================
+        // REDIRECT
+        // ====================================
+
+        window.location.href =
+          "/index.html";
+
+
+      } catch (error) {
+
+        console.error(
+          "LOGIN ERROR:",
+          error
+        );
+
+
+        showToast({
+          type: "error",
+          title: "Login Failed",
+          message:
+            error?.message ||
+            "Something went wrong.",
+        });
+
+
+      } finally {
+
+        submitBtn?.removeAttribute(
+          "disabled"
+        );
+
+      }
+
+    }
+  );
+
 }
-
-localStorage.setItem("token", token);
-
-window.dispatchEvent(
-  new CustomEvent("authChanged")
-);
-
-  showToast({
-    type: "success",
-    title: "Welcome back",
-    message: "You're logged in.",
-  });
-
-  window.location.href = "/index.html";
-
-} catch (error) {
-  showToast({
-    type: "error",
-    title: "Login Failed",
-    message: error.message || "Something went wrong.",
-  });
-
-} finally {
-  submitBtn?.removeAttribute("disabled");
-}
-
-});
-}
-
 
 // ========================================
 // Register input sanitization

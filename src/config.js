@@ -1,7 +1,8 @@
 export const API_BASE_URL =
   "https://pm3721cg-3000.inc1.devtunnels.ms";
 
-
+export const GOOGLE_CLIENT_ID =
+  "YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com";
 
   export const STORE_DOMAIN = "miva";
 
