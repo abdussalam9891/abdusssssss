@@ -5,7 +5,7 @@ import { productState } from "./state.js";
 import { createShowcaseCard } from "../../components/showcase/showcaseCard.js";
 
 const STORAGE_KEY =
-  "banshiwala_recent_products";
+  "banshiwale_recent_products";
 
 export function saveRecentlyViewed() {
 

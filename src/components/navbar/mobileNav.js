@@ -1,9 +1,8 @@
 import { NAVIGATION } from "../../constants/navigation.js";
-import { icon } from "../../utils/icon.js";
 import {
-  getCurrentUser,
-  logout,
+  getCurrentUser
 } from "../../features/auth/authState.js";
+import { icon } from "../../utils/icon.js";
 
 
 // ========================================
@@ -678,88 +677,52 @@ export function createMobileNav() {
 
         <!-- HEADER -->
 
-        <div
-          class="
-            flex
-            items-center
-            justify-between
+       <div
+  class="
+    flex
+    items-center
+    justify-between
+    border-b
+    border-white/10
+    px-6
+    py-5
+  "
+>
+  <!-- LOGO -->
+  <a
+    href="/index.html"
+    class="inline-flex items-center"
+    aria-label="Banshiwala Home"
+  >
+    <img
+      src="./src/assets/logo.png"
+      alt="Banshiwala"
+      class="h-16 w-16 object-contain"
+    />
+  </a>
 
-            border-b
-            border-white/10
-
-            px-6
-            py-6
-          "
-        >
-
-          <div>
-
-            <p
-              class="
-                text-[11px]
-
-                uppercase
-
-                tracking-[0.35em]
-
-                text-[#A07936]
-              "
-            >
-              Banshiwala
-            </p>
-
-            <h2
-              class="
-                mt-2
-
-                text-lg
-                font-medium
-
-                text-white
-              "
-            >
-              Navigation
-            </h2>
-
-          </div>
-
-
-          <!-- CLOSE -->
-
-          <button
-            id="closeDrawerBtn"
-
-            type="button"
-
-            aria-label="Close Menu"
-
-            class="
-              flex
-
-              h-10
-              w-10
-
-              items-center
-              justify-center
-
-              rounded-full
-
-              text-white
-
-              transition-all
-              duration-300
-
-              hover:bg-white/5
-              hover:text-[#A07936]
-            "
-          >
-
-            ${icon("x", "h-6 w-6")}
-
-          </button>
-
-        </div>
-
+  <!-- CLOSE -->
+  <button
+    id="closeDrawerBtn"
+    type="button"
+    aria-label="Close Menu"
+    class="
+      flex
+      h-10
+      w-10
+      items-center
+      justify-center
+      rounded-full
+      text-white/80
+      transition-all
+      duration-300
+      hover:bg-white/5
+      hover:text-[#A07936]
+    "
+  >
+    ${icon("x", "h-6 w-6")}
+  </button>
+</div>
 
         <!-- ACCOUNT -->
 
@@ -1068,7 +1031,7 @@ export function createMobileNav() {
               text-white/40
             "
           >
-            © 2026 Banshiwala
+            © 2026 banshiwale
           </p>
 
           <p
@@ -1137,7 +1100,7 @@ export function refreshMobileAccount() {
   );
 
 
-  
+
 }
 
 

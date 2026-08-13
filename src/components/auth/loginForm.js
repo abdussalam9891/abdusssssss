@@ -1,4 +1,4 @@
- 
+
 
 export function createLoginForm() {
   return `
@@ -347,7 +347,7 @@ export function createLoginForm() {
     "
   >
 
-    New to Banshiwala?
+    New to banshiwale?
 
     <a
 

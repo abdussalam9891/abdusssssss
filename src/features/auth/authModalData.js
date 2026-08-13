@@ -4,7 +4,7 @@ export const AUTH_MODAL_DATA = {
 
     icon: "gem",
 
-    title: "Welcome to Banshiwala",
+    title: "Welcome to banshiwale",
 
     subtitle:
       "Create an account to enjoy a seamless jewellery shopping experience.",

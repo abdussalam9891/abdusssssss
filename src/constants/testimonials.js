@@ -14,7 +14,7 @@ export const TESTIMONIALS = [
     name: "Arjun Kapoor",
     rating: 5,
     review:
-      "Elegant packaging, fast delivery and outstanding quality. Banshiwala has become my favourite jewellery brand.",
+      "Elegant packaging, fast delivery and outstanding quality. banshiwale has become my favourite jewellery brand.",
   },
 
   {

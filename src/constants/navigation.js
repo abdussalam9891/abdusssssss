@@ -1,6 +1,6 @@
 /**
  * ============================================
- * BANSHIWALA NAVIGATION
+ * banshiwale NAVIGATION
  * Men's Sterling Silver Jewellery
  * ============================================
  */

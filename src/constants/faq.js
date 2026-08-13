@@ -301,7 +301,7 @@ export const FAQS = [
     featured: true,
     question: "Do your products come with a warranty?",
     answer:
-      "Yes. Selected Banshiwala jewellery is covered by a limited manufacturing warranty against manufacturing defects."
+      "Yes. Selected banshiwale jewellery is covered by a limited manufacturing warranty against manufacturing defects."
   },
 
   {

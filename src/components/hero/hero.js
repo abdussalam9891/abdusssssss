@@ -10,13 +10,8 @@ export function createHero() {
       class="
   relative
 
-  h-[68vh]
-  md:h-[65vh]
-  lg:h-[72vh]
-  xl:h-[76vh]
+  h-[110vh]
 
-  min-h-[560px]
-  max-h-[820px]
 
   overflow-hidden
 "

@@ -3,7 +3,7 @@ const WHATSAPP_NUMBER = "919999999999"; // Replace
 export function createStickyEnquiryBar(product) {
 
   const message = encodeURIComponent(
-`Hello Banshiwala,
+`Hello banshiwale,
 
 I'm interested in:
 

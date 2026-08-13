@@ -2,7 +2,7 @@ const slides = [
   {
     title: "Crafted for Every Celebration",
     description:
-      "Join Banshiwala to save your wishlist, track your orders, and enjoy a seamless shopping experience.",
+      "Join banshiwale to save your wishlist, track your orders, and enjoy a seamless shopping experience.",
   },
   {
     title: "Timeless Elegance",

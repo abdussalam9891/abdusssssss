@@ -6,7 +6,7 @@ export function createRegisterPage() {
     title: "Create Account",
 
     description:
-      "Join Banshiwala and start shopping.",
+      "Join banshiwale and start shopping.",
 
     form: createRegisterForm(),
   });

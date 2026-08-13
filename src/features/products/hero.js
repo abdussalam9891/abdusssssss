@@ -3,35 +3,35 @@ import { productsState } from "./state.js";
 
 const HERO_CONTENT = {
   rings: {
-    label: "Banshiwala Collection",
+    label: "banshiwale Collection",
     title: "Sterling Silver Rings",
     description:
       "Discover handcrafted sterling silver rings designed for timeless elegance and everyday confidence.",
   },
 
   chains: {
-    label: "Banshiwala Collection",
+    label: "banshiwale Collection",
     title: "Sterling Silver Chains",
     description:
       "Premium silver chains crafted with precision for modern men who appreciate understated luxury.",
   },
 
   bracelets: {
-    label: "Banshiwala Collection",
+    label: "banshiwale Collection",
     title: "Sterling Silver Bracelets",
     description:
       "Bold, refined and handcrafted bracelets that complete every look with effortless sophistication.",
   },
 
   pendants: {
-    label: "Banshiwala Collection",
+    label: "banshiwale Collection",
     title: "Sterling Silver Pendants",
     description:
       "Meaningful pendants inspired by craftsmanship, heritage and modern elegance.",
   },
 
   earrings: {
-    label: "Banshiwala Collection",
+    label: "banshiwale Collection",
     title: "Sterling Silver Earrings",
     description:
       "Minimal sterling silver earrings designed to elevate your everyday style.",
@@ -41,7 +41,7 @@ const HERO_CONTENT = {
     label: "Latest Collection",
     title: "New Arrivals",
     description:
-      "Explore the newest handcrafted jewellery pieces added to the Banshiwala collection.",
+      "Explore the newest handcrafted jewellery pieces added to the banshiwale collection.",
   },
 
   bestseller: {
@@ -52,7 +52,7 @@ const HERO_CONTENT = {
   },
 
   collection: {
-    label: "Banshiwala",
+    label: "banshiwale",
     title: "Our Collection",
     description:
       "Explore handcrafted sterling silver jewellery created with timeless craftsmanship and contemporary design.",

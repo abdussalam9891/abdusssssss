@@ -55,8 +55,8 @@ lg:gap-8
 >
 
       <img
-  src="/src/assets/images/hero5.jpg"
-  alt="Banshiwala Sterling Silver"
+  src="./src/assets/images/hero5.jpg"
+  alt="banshiwale Sterling Silver"
   loading="lazy"
 
   class="
@@ -152,7 +152,7 @@ lg:gap-8
       group-hover:translate-x-2
     "
   >
-    Every Banshiwala piece is handcrafted from certified 925 sterling
+    Every banshiwale piece is handcrafted from certified 925 sterling
     silver, combining timeless craftsmanship with modern design.
     Built for everyday confidence and made to stay with you for years.
   </p>

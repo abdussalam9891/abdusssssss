@@ -1,16 +1,13 @@
-import { showToast } from "../../utils/toast.js";
+import {
+    GOOGLE_CLIENT_ID,
+} from "../../config.js";
 import { authService } from "../../services/authService.js";
-import {
-  GOOGLE_CLIENT_ID,
-} from "../../config.js";
+import { showToast } from "../../utils/toast.js";
 
-import {
-  API_BASE_URL,
-} from "../../config.js";
 // import { hydrateAuth } from "./authState.js";
 
 
- 
+
 
 export function initLoginValidation() {
 
@@ -650,7 +647,7 @@ export function initRegisterValidation() {
       showToast({
         type: "success",
         title: "Account Created",
-        message: "Welcome to Banshiwala.",
+        message: "Welcome to banshiwale.",
       });
 
 

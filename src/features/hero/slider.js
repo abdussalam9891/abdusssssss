@@ -84,7 +84,18 @@ function resetProgressBars() {
 
 function updateIndicators(index) {
   indicators.forEach((indicator, i) => {
-    indicator.classList.toggle("w-16", i === index);
+    indicator.classList.toggle("h-3", i === index);
+    indicator.classList.toggle("w-3", i === index);
+
+    indicator.classList.toggle(
+      "bg-[#A07936]",
+      i === index
+    );
+
+    indicator.classList.toggle(
+      "bg-white/40",
+      i !== index
+    );
   });
 }
 

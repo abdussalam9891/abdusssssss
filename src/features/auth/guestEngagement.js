@@ -1,13 +1,13 @@
+import { isAuthPage } from "../../utils/isAuthPage.js";
 import { isLoggedIn } from "./authState.js";
 import { openAuthModal } from "./authTriggers.js";
-import { isAuthPage } from "../../utils/isAuthPage.js";
 
-const STORAGE_KEY = "banshiwala_guest_prompt";
+const STORAGE_KEY = "banshiwale_guest_prompt";
 
 const PROMPTS = {
 
   timer: {
-    title: "Join Banshiwala",
+    title: "Join banshiwale",
     subtitle:
       "Create an account to save your favourites, track your orders and enjoy a faster checkout.",
   },

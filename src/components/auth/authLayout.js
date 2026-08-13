@@ -166,7 +166,7 @@ lg:p-4
       <!-- Background Image -->
 
       <img
-        src="/src/assets/images/auth1.jpg"
+        src="./src/assets/images/auth1.jpg"
 
         alt="Luxury Jewellery"
 
@@ -286,7 +286,7 @@ lg:p-4
             text-white/90
           "
         >
-          Join Banshiwala to save your wishlist, track your orders,
+          Join banshiwale to save your wishlist, track your orders,
           manage your account, and enjoy a seamless shopping experience.
         </p>
 
