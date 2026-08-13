@@ -695,7 +695,7 @@ export function createMobileNav() {
     aria-label="Banshiwala Home"
   >
     <img
-      src="./src/assets/logo.png"
+      src="/src/assets/logo.png"
       alt="Banshiwala"
       class="h-16 w-16 object-contain"
     />

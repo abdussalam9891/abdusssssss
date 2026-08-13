@@ -1,15 +1,24 @@
-import { initFAQ } from "../features/faqPage/index.js";
+import {
+  initFAQ,
+} from "../features/faqPage/index.js";
 
-export function loadFAQPage() {
+
+export async function loadFAQPage() {
 
   const container =
-    document.getElementById("faqContainer");
+    document.getElementById(
+      "faqContainer"
+    );
 
-  if (!container) return;
+
+  if (!container) {
+    return;
+  }
+
 
   try {
 
-    initFAQ();
+    await initFAQ();
 
   } catch (err) {
 

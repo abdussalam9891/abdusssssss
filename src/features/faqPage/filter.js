@@ -1,43 +1,110 @@
-import { FAQS } from "../../constants/faq.js";
-import { createFaqCard } from "../../components/faq/faqCard.js";
-import { initAccordion } from "./accordion.js";
+import {
+  createFaqCard,
+} from "../../components/faq/faqCard.js";
+
+import {
+  getFAQData,
+} from "./renderFaqs.js";
+
+import {
+  initAccordion,
+} from "./accordion.js";
+
 
 export function initCategoryFilter() {
-  const buttons = document.querySelectorAll(".faq-filter");
-  const container = document.getElementById("faqContainer");
 
-  console.log("Buttons Found:", buttons.length);
-  console.log("Container:", container);
+  const buttons =
+    document.querySelectorAll(
+      ".faq-filter"
+    );
 
-  buttons.forEach((button) => {
-    button.addEventListener("click", () => {
-      console.log("====================================");
-      console.log("Clicked:", button.dataset.category);
+  const container =
+    document.getElementById(
+      "faqContainer"
+    );
 
-      const category = button.dataset.category;
 
-      const faqs =
-        category === "all"
-          ? FAQS.filter((faq) => faq.featured)
-          : FAQS.filter((faq) => faq.category === category);
+  if (
+    !buttons.length ||
+    !container
+  ) {
+    return;
+  }
 
-      console.log("Filtered FAQs:", faqs);
-      console.log("Count:", faqs.length);
 
-      const html = faqs.map(createFaqCard).join("");
+  buttons.forEach(
+    (button) => {
 
-      console.log("Generated HTML:");
-      console.log(html);
+      button.addEventListener(
+        "click",
+        () => {
 
-      container.innerHTML = html;
+          const category =
+            button.dataset.category;
 
-      console.log("Children After Render:", container.children.length);
-      console.log("InnerHTML Length:", container.innerHTML.length);
 
-      initAccordion();
+          const faqs =
+            getFAQData();
 
-      console.log("Children After Accordion:", container.children.length);
-      console.log("====================================");
-    });
-  });
+
+          const filteredFAQs =
+            category === "all"
+              ? faqs
+              : faqs.filter(
+                  faq =>
+                    faq.category ===
+                    category
+                );
+
+
+          container.innerHTML =
+            filteredFAQs
+              .map(createFaqCard)
+              .join("");
+
+
+          initAccordion();
+
+
+          // ==============================
+          // ACTIVE FILTER UI
+          // ==============================
+
+          buttons.forEach(
+            (item) => {
+
+              item.classList.remove(
+                "border-[#181818]",
+                "bg-[#181818]",
+                "text-white"
+              );
+
+              item.classList.add(
+                "border-[#E8E2DA]",
+                "bg-white",
+                "text-[#555]"
+              );
+
+            }
+          );
+
+
+          button.classList.remove(
+            "border-[#E8E2DA]",
+            "bg-white",
+            "text-[#555]"
+          );
+
+          button.classList.add(
+            "border-[#181818]",
+            "bg-[#181818]",
+            "text-white"
+          );
+
+        }
+      );
+
+    }
+  );
+
 }

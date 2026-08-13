@@ -14,6 +14,7 @@ export const GOOGLE_CLIENT_ID =
   export const STORE_DOMAIN = "banshiwaale";
 
 export const API_ENDPOINTS = {
+
   AUTH: {
     LOGIN: "/user/loginUser",
     LOGOUT: "/user/logout",
@@ -38,4 +39,10 @@ export const API_ENDPOINTS = {
     PUBLIC_BY_STORE: (domain) =>
       `/product/public/store/${domain}`,
   },
+
+  WEBSITE: {
+    PUBLIC: (domain) =>
+      `/fullweb/public?domain=${encodeURIComponent(domain)}`,
+  },
+
 };

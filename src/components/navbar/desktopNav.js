@@ -129,7 +129,7 @@ export function createDesktopNav(
   "
 >
   <img
-    src="./src/assets/logo.png"
+    src="/src/assets/logo.png"
     alt="Banshiwale"
     class="
       h-24

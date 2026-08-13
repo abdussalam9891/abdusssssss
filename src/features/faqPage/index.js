@@ -1,21 +1,48 @@
-import { renderFaqs } from "./renderFaqs.js";
-import { initAccordion } from "./accordion.js";
-import { initCategoryFilter } from "./filter.js";
+import {
+  renderFaqs,
+} from "./renderFaqs.js";
 
-export function initFAQ() {
+import {
+  initAccordion,
+} from "./accordion.js";
 
-  const steps = [
-    ["renderFaqs", renderFaqs],
-    ["initAccordion", initAccordion],
-    ["initCategoryFilter", initCategoryFilter],
-  ];
+import {
+  initCategoryFilter,
+} from "./filter.js";
 
-  steps.forEach(([name, fn]) => {
-    try {
-      fn();
-    } catch (err) {
-      console.error(`[initFAQ] ${name} failed:`, err);
-    }
-  });
+
+export async function initFAQ() {
+
+  try {
+
+    // ==============================
+    // LOAD FAQ FROM BACKEND
+    // ==============================
+
+    await renderFaqs();
+
+
+    // ==============================
+    // INITIAL ACCORDION
+    // ==============================
+
+    initAccordion();
+
+
+    // ==============================
+    // CATEGORY FILTER
+    // ==============================
+
+    initCategoryFilter();
+
+
+  } catch (error) {
+
+    console.error(
+      "[initFAQ] Failed:",
+      error
+    );
+
+  }
 
 }

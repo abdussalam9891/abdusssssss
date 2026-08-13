@@ -14,6 +14,8 @@ import {
 
 import { hydrateAuth } from "./features/auth/authState.js";
 
+
+
 document.addEventListener("DOMContentLoaded", async () => {
   /* =========================================
      Global
@@ -155,6 +157,32 @@ if (document.getElementById("contact-form")) {
 
     loadForgotPasswordPage();
   }
+
+
+
+
+    /* =========================================
+     Policies
+  ========================================= */
+
+  if (document.getElementById("policyContent")) {
+
+    const { initPolicyPage } = await import(
+      "./pages/policies/initPolicyPage.js"
+    );
+
+    const policyType =
+      document.body.dataset.policy;
+
+    if (policyType) {
+      await initPolicyPage(policyType);
+    }
+
+  }
+
+
+
+
 
   /* =========================================
      Global UI

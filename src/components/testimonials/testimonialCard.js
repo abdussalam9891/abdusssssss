@@ -40,7 +40,7 @@ export function createTestimonialCard(testimonial) {
 >
 
 <a
-  href="/pages/productDetails.html?id=${product.id}"
+  href="../../pages/productDetails.html?id=${product.id}"
 
   class="
     group

@@ -166,7 +166,7 @@ lg:p-4
       <!-- Background Image -->
 
       <img
-        src="./src/assets/images/auth1.jpg"
+        src="/src/assets/images/auth1.jpg"
 
         alt="Luxury Jewellery"
 

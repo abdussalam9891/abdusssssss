@@ -1,19 +1,72 @@
-import { FAQS } from "../../constants/faq.js";
-import { createFaqCard } from "../../components/faq/faqCard.js";
+import {
+  websiteService,
+} from "../../services/websiteService.js";
 
-export function renderFaqs() {
+import {
+  createFaqCard,
+} from "../../components/faq/faqCard.js";
 
-    const container =
-        document.getElementById("faqContainer");
 
-    if (!container) return;
+let faqData = [];
 
-    const featuredFaqs =
-        FAQS.filter(faq => faq.featured);
+
+export async function renderFaqs() {
+
+  const container =
+    document.getElementById(
+      "faqContainer"
+    );
+
+
+  if (!container) {
+    return;
+  }
+
+
+  try {
+
+    faqData =
+      await websiteService.getFAQs();
+
+
+    if (!faqData.length) {
+
+      container.innerHTML = `
+        <p class="text-center text-[#777777]">
+          No FAQs available at the moment.
+        </p>
+      `;
+
+      return;
+    }
+
 
     container.innerHTML =
-        featuredFaqs
-            .map(createFaqCard)
-            .join("");
+      faqData
+        .map(createFaqCard)
+        .join("");
 
+
+  } catch (error) {
+
+    console.error(
+      "[FAQ] Failed to load FAQs:",
+      error
+    );
+
+
+    container.innerHTML = `
+      <p class="text-center text-red-600">
+        Unable to load FAQs.
+        Please try again later.
+      </p>
+    `;
+
+  }
+
+}
+
+
+export function getFAQData() {
+  return faqData;
 }

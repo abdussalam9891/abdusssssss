@@ -2,7 +2,7 @@ export function createCraftsmanshipSection() {
   return `
 <section
   class="
-    reveal
+
 
     bg-white
 
@@ -45,8 +45,7 @@ lg:gap-8
     relative
     overflow-hidden
     rounded-3xl
-    reveal
-    reveal-left
+
 
     h-[350px]
     md:h-[450px]
@@ -92,8 +91,7 @@ lg:gap-8
 
 <div
   class="
-    reveal
-    reveal-right
+    
 
     group
 

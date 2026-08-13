@@ -53,7 +53,7 @@ export function createFooterLinks() {
 <div>
   <a href="/index.html" class="inline-block">
     <img
-      src="./src/assets/logo.png"
+      src="/src/assets/logo.png"
       alt="banshiwale"
       class="h-24 w-24 object-contain"
     />

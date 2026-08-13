@@ -21,7 +21,7 @@ export function createFeatureCard(feature) {
         px-2
         py-6
 
-        reveal
+       
 
         transition-all
         duration-700

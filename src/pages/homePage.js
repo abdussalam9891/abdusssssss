@@ -1,4 +1,4 @@
-import { createHomeFaq } from "../components/home/homeFaq.js";
+import { initHomeFaq } from "../features/homeFaq/accordion.js";
 
 import { initCollections } from "../features/collections/index.js";
 import { initCraftsmanship } from "../features/craftsmanship/index.js";
@@ -9,8 +9,6 @@ import { initShowcase } from "../features/showcase/index.js";
 import { initTestimonials } from "../features/testimonials/index.js";
 import { renderWhyChooseUs } from "../features/whyChooseUs/index.js";
 
-import { initHomeAccordion } from "../features/homeFaq/accordion.js";
-
 import { createAnnouncementBar } from "../components/announcement/announcementBar.js";
 
 import {
@@ -18,61 +16,137 @@ import {
   createCustomizeJewelleryModal,
 } from "../components/customizeJewellery/index.js";
 
-export function initHomePage() {
-  const container = document.getElementById("homeFaq");
+
+export async function initHomePage() {
+
+  const container =
+    document.getElementById("homeFaq");
 
   if (!container) return;
 
-  // Critical, above-the-fold — runs immediately
+
+  // =========================================
+  // CRITICAL / ABOVE THE FOLD
+  // =========================================
+
   initHero();
 
-  // Announcement after Hero
-  const announcement = document.getElementById("homeAnnouncement");
+
+  // =========================================
+  // ANNOUNCEMENT
+  // =========================================
+
+  const announcement =
+    document.getElementById("homeAnnouncement");
 
   if (announcement) {
-    announcement.innerHTML = createAnnouncementBar();
+
+    announcement.innerHTML =
+      createAnnouncementBar();
+
   }
 
-  // customize jewellery floating btn
-  const buttonContainer = document.getElementById("customizeJewellery");
+
+  // =========================================
+  // CUSTOMIZE JEWELLERY
+  // =========================================
+
+  const buttonContainer =
+    document.getElementById("customizeJewellery");
 
   if (buttonContainer) {
-    buttonContainer.innerHTML = createCustomizeJewelleryButton();
+
+    buttonContainer.innerHTML =
+      createCustomizeJewelleryButton();
+
   }
 
-  const drawerContainer = document.getElementById(
-    "customizeJewelleryDrawer"
-  );
+
+  const drawerContainer =
+    document.getElementById(
+      "customizeJewelleryDrawer"
+    );
 
   if (drawerContainer) {
-    drawerContainer.innerHTML = createCustomizeJewelleryModal();
+
+    drawerContainer.innerHTML =
+      createCustomizeJewelleryModal();
+
   }
 
-  container.innerHTML = createHomeFaq();
 
-  initHomeAccordion();
+  // =========================================
+  // HOME FAQ — BACKEND
+  // =========================================
+  // IMPORTANT:
+  // Do NOT await this.
+  // FAQ failure must NOT stop homepage.
 
-  // Below-the-fold sections — deferred so hero/navbar aren't
-  // competing with these for the main thread on first paint
+  initHomeFaq().catch((error) => {
+
+    console.error(
+      "[Home FAQ] Failed to initialize:",
+      error
+    );
+
+  });
+
+
+  // =========================================
+  // BELOW THE FOLD
+  // =========================================
+
   const modules = [
+
     ["initCollections", initCollections],
+
     ["initShowcase", initShowcase],
+
     ["initMarquee", initMarquee],
+
     ["renderWhyChooseUs", renderWhyChooseUs],
+
     ["initCraftsmanship", initCraftsmanship],
+
     ["initTestimonials", initTestimonials],
+
     ["initNewsletterSection", initNewsletterSection],
+
   ];
 
-  const runDeferred = () => {
-    modules.forEach(([name, fn]) => {
-      try {
-        fn();
-      } catch (err) {
-        console.error(`[initHomePage] ${name} failed:`, err);
-      }
-    });
-  };
 
+const runDeferred = async () => {
+
+
+
+  for (const [name, fn] of modules) {
+
+
+
+    try {
+
+      await fn();
+
+      
+
+    } catch (err) {
+
+      console.error(
+        `[HOME] ${name} FAILED:`,
+        err
+      );
+
+    }
+
+  }
+
+  console.log("[HOME] All deferred modules finished");
+};
+
+runDeferred();
+
+
+  // Start independently
   runDeferred();
+
 }
