@@ -115,81 +115,29 @@ export function createDesktopNav(
 
     <!-- Logo -->
 
-    <a
-      href="/index.html"
-      class="
-        select-none
-        text-3xl
-        font-serif
-        uppercase
-        tracking-[0.18em]
-        navbar-text
-       ${textColor}
-        transition
-        hover:text-[#A07936]
-      "
-    >
-      <svg
-  width="50"
-  height="50"
-  viewBox="0 0 128 128"
-  fill="none"
-  xmlns="http://www.w3.org/2000/svg"
+  <a
+  href="/index.html"
+  class="
+    flex
+    items-center
+    shrink-0
+    select-none
+    navbar-text
+    transition-opacity
+    duration-300
+    hover:opacity-80
+  "
 >
-
-  <!-- Outer Ring -->
-  <circle
-    cx="64"
-    cy="64"
-    r="54"
-    stroke="#A07936"
-    stroke-width="2"
-  />
-
-  <!-- Top Petal -->
-  <path
-    d="M64 28
-       C74 40 74 53 64 61
-       C54 53 54 40 64 28Z"
-    fill="#A07936"
-  />
-
-  <!-- Left Petal -->
-  <path
-    d="M42 49
-       C53 49 59 57 60 67
-       C49 67 41 60 42 49Z"
-    fill="#A07936"
-    opacity=".95"
-  />
-
-  <!-- Right Petal -->
-  <path
-    d="M86 49
-       C75 49 69 57 68 67
-       C79 67 87 60 86 49Z"
-    fill="#A07936"
-    opacity=".95"
-  />
-
-  <!-- Bottom Petal -->
-  <path
-    d="M64 92
-       C54 82 54 70 64 63
-       C74 70 74 82 64 92Z"
-    fill="#A07936"
-  />
-
-  <!-- Center Gem -->
-  <circle
-    cx="64"
-    cy="64"
-    r="8"
-    fill="#181818"
-  />
-
-</svg>
-    </a>
+  <img
+    src="/src/assets/logo.png"
+    alt="Banshiwale"
+    class="
+      h-24
+      w-24
+      object-contain
+    "
+  >
+</a>
 
     <!-- Desktop Navigation -->
 

@@ -1,5 +1,5 @@
 import { NAVIGATION } from "../../constants/navigation.js";
- 
+
 
 export function createFooterLinks() {
   const shopLinks = NAVIGATION.map(
@@ -32,14 +32,14 @@ export function createFooterLinks() {
       max-w-7xl
       gap-12
       px-6
-      py-12
+      py-18
 
       md:grid-cols-2
 
       lg:grid-cols-[1.5fr_1fr_1fr_1fr]
       lg:gap-16
       lg:px-8
-      lg:py-14
+      lg:py-18
 
     "
   >
@@ -50,30 +50,19 @@ export function createFooterLinks() {
 
 <div>
 
-  <a
-    href="/index.html"
-    class="
-      text-3xl
-      font-serif
-      uppercase
-      tracking-[0.18em]
-      text-white
-    "
-  >
-    BANSHIWALA
+<div>
+  <a href="/index.html" class="inline-block">
+    <img
+      src="/src/assets/logo.png"
+      alt="Banshiwala"
+      class="h-24 w-24 object-contain"
+    />
   </a>
 
-  <p
-    class="
-      mt-5
-      max-w-xs
-      text-sm
-      leading-7
-      text-white/60
-    "
-  >
+  <p class="max-w-xs text-sm leading-7 text-white/60">
     Timeless sterling silver jewellery crafted for modern men.
   </p>
+</div>
 
 
 

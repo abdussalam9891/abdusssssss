@@ -1,10 +1,17 @@
 export const API_BASE_URL =
   "https://pm3721cg-3000.inc1.devtunnels.ms";
 
-export const GOOGLE_CLIENT_ID =
-  "YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com";
 
-  export const STORE_DOMAIN = "miva";
+
+  // export const API_BASE_URL ="https://backend.globalshopify.com";
+
+
+
+
+export const GOOGLE_CLIENT_ID =
+  "304821804047-mbj0e5dcnr8iud8b22trh313nudcqkj2.apps.googleusercontent.com";
+
+  export const STORE_DOMAIN = "banshiwaale";
 
 export const API_ENDPOINTS = {
   AUTH: {

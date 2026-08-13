@@ -29,17 +29,17 @@ export function createCopyright() {
     "
   >
 
-    <!-- Copyright -->
-
-    <p
-      class="
-        text-sm
-        text-white/50
-      "
-    >
-      © ${year} Banshiwala. All rights reserved.
-    </p>
-
+   <p class="text-sm text-white/50">
+  © ${year} Banshiwale • Powered By
+  <a
+    href="https://www.fuelitonline.com/"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="transition-colors duration-300 hover:text-[#C8963E]"
+  >
+    Fuel IT Online
+  </a>
+</p>
     <!-- Legal Links -->
 
     <nav>

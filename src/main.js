@@ -22,14 +22,15 @@ document.addEventListener("DOMContentLoaded", async () => {
 
      // Resolve who's actually logged in BEFORE anything
   // that reads auth state gets rendered.
-  await hydrateAuth();
+
   initNavbar();
   initToast();
-
-
-
-  initAuthModal();
-  initGuestEngagement();
+  // fire and forget — resolves in background, navbar already
+  // listens for "authChanged" and re-renders itself
+  hydrateAuth().then(() => {
+    initAuthModal();
+    initGuestEngagement();
+  });
 
 
 

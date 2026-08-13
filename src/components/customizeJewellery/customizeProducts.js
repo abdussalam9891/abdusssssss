@@ -1,65 +1,10 @@
-import { PRODUCTS } from "../../constants/products.js";
+
 import { getProductImages } from "../../utils/getProductImages.js";
 
 
-// ==========================================================
-// CATEGORY NORMALIZATION
-// ==========================================================
-
-function normalizeCategory(category) {
-
-  const value =
-    category
-      ?.trim()
-      .toLowerCase();
-
-  const categoryMap = {
-
-    ring: "rings",
-    rings: "rings",
-
-    chain: "chains",
-    chains: "chains",
-
-    bracelet: "bracelets",
-    bracelets: "bracelets",
-
-    earrings: "earrings",
-    earring: "earrings",
-
-    pendant: "pendants",
-    pendants: "pendants",
-
-  };
-
-  return categoryMap[value] || value;
-
-}
+ 
 
 
-// ==========================================================
-// GET CUSTOMIZE PRODUCTS
-// ==========================================================
-
-export async function getCustomizeProducts(category) {
-
-  const normalizedCategory =
-    normalizeCategory(category);
-
-
-  /*
-   * TEMPORARY DATA SOURCE
-   *
-   * Tomorrow replace ONLY this function
-   * with the real products API.
-   */
-
-  return PRODUCTS.filter(
-    (product) =>
-      product.category === normalizedCategory
-  );
-
-}
 
 
 // ==========================================================
@@ -118,7 +63,7 @@ export function createCustomizeProductCard(
         }
       "
 
-      data-product-id="${product.id}"
+      data-product-id="${product._id || product.id}"
     >
 
       <!-- SELECTED INDICATOR -->
