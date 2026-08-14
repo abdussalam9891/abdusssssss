@@ -29,7 +29,7 @@ export async function initHomePage() {
   // CRITICAL / ABOVE THE FOLD
   // =========================================
 
-  initHero();
+  await initHero();
 
 
   // =========================================
@@ -117,17 +117,11 @@ export async function initHomePage() {
 
 const runDeferred = async () => {
 
-
-
   for (const [name, fn] of modules) {
-
-
 
     try {
 
       await fn();
-
-      
 
     } catch (err) {
 
@@ -140,13 +134,14 @@ const runDeferred = async () => {
 
   }
 
-  console.log("[HOME] All deferred modules finished");
+  console.log(
+    "[HOME] All deferred modules finished"
+  );
 };
 
-runDeferred();
+await runDeferred();
 
 
-  // Start independently
-  runDeferred();
+
 
 }

@@ -1,4 +1,5 @@
 import {
+  API_BASE_URL,
   API_ENDPOINTS,
   STORE_DOMAIN,
 } from "../config.js";
@@ -7,27 +8,90 @@ import {
   apiClient,
 } from "./apiClient.js";
 
+let websiteDataPromise = null;
+
+
 
 export const websiteService = {
 
-  async getWebsiteData() {
+async getWebsiteData() {
 
-    const response =
-      await apiClient.get(
-        API_ENDPOINTS.WEBSITE.PUBLIC(
-          STORE_DOMAIN
-        )
+  if (!websiteDataPromise) {
+
+    const endpoint =
+      API_ENDPOINTS.WEBSITE.PUBLIC(
+        STORE_DOMAIN
       );
 
-    if (!response?.success) {
-      throw new Error(
-        response?.message ||
-        "Failed to load website data."
-      );
-    }
 
-    return response.data;
-  },
+
+    websiteDataPromise =
+      apiClient
+        .get(endpoint)
+        .then((response) => {
+
+
+
+          if (!response?.success) {
+            throw new Error(
+              response?.message ||
+              "Failed to load website data."
+            );
+          }
+
+          return response.data;
+        })
+        .catch((error) => {
+
+          // Important:
+          // allow another attempt if the request fails
+          websiteDataPromise = null;
+
+          throw error;
+        });
+  }
+
+  return websiteDataPromise;
+},
+
+
+
+
+  // ==========================================
+// HERO SLIDES
+// ==========================================
+
+async getHeroSlides() {
+
+  const data =
+    await this.getWebsiteData();
+
+  return (
+    data?.heroSlides ||
+    data?.website?.heroSlides ||
+    []
+  );
+},
+
+
+
+// ==========================================
+// CATEGORIES
+// ==========================================
+
+async getCategories() {
+
+  const data =
+    await this.getWebsiteData();
+
+  return (
+    data?.categories ||
+    data?.website?.categories ||
+    []
+  );
+},
+
+
 
 
   // ==========================================
@@ -105,6 +169,82 @@ export const websiteService = {
 
     return parseFAQs(faqContent);
   },
+
+
+
+
+// ==========================================
+// SOCIAL LINKS
+// ==========================================
+
+async getSocialLinks() {
+
+  const data =
+    await this.getWebsiteData();
+
+  const website =
+    data?.website || data || {};
+
+  const socialLinks =
+    website.socialLinks || {};
+
+  const whatsappNumber =
+    website.whatsappNumber || "";
+
+  return {
+
+    instagram:
+      socialLinks.instagramUrl || "",
+
+    facebook:
+      socialLinks.facebookUrl || "",
+
+    youtube:
+      socialLinks.youtubeUrl || "",
+
+    twitter:
+      socialLinks.twitterUrl || "",
+
+    linkedin:
+      socialLinks.linkedinUrl || "",
+
+    whatsapp:
+      whatsappNumber
+        ? `https://wa.me/91${whatsappNumber.replace(/\D/g, "")}`
+        : "",
+
+  };
+},
+
+
+
+async getContactInfo() {
+
+  const data =
+    await this.getWebsiteData();
+
+  const website =
+    data?.website || data || {};
+
+  return {
+    email:
+      website.supportEmail || "",
+
+    phone:
+      website.customerSupportNumber || "",
+
+    whatsapp:
+      website.whatsappNumber || "",
+
+    address:
+      website.businessAddress || "",
+
+    supportTime:
+      website.supportTime || "",
+  };
+},
+
+
 
 };
 
@@ -190,7 +330,7 @@ function parseFAQs(content) {
   }
 
 
-  
+
 
 
   return faqs;
@@ -287,3 +427,8 @@ function getFAQCategory(question = "") {
 
   return "Jewellery Care";
 }
+
+
+
+
+

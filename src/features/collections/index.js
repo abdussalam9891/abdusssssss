@@ -1,5 +1,5 @@
 import { renderCollections } from "./renderCollections.js";
 
-export function initCollections() {
-  renderCollections();
+export async function initCollections() {
+  await renderCollections();
 }

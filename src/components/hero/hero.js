@@ -2,7 +2,7 @@ import { createHeroSlides } from "./slides.js";
 import { createHeroContent } from "./heroContent.js";
 import { createHeroIndicators } from "./indicators.js";
 
-export function createHero() {
+export function createHero(heroSlides = []) {
   return `
     <section
       id="hero"
@@ -19,11 +19,11 @@ export function createHero() {
 
       <!-- Background Slides -->
 
-      ${createHeroSlides()}
+      ${createHeroSlides(heroSlides)}
 
       <!-- Hero Content -->
 
-      ${createHeroContent()}
+       ${createHeroContent(heroSlides)}
 
       <!-- Progress Indicators -->
 

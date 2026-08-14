@@ -1,7 +1,8 @@
 import { NAVIGATION } from "../../constants/navigation.js";
 
 
-export function createFooterLinks() {
+
+export function createFooterLinks(socialLinks = {}) {
   const shopLinks = NAVIGATION.map(
     (item) => `
       <li>
@@ -78,42 +79,88 @@ export function createFooterLinks() {
 
     <!-- Instagram -->
 
-    <a
-      href="#"
-      aria-label="Instagram"
-      class="
-        flex
-        h-11
-        w-11
-        items-center
-        justify-center
-        rounded-full
-        border
-        border-white/10
-        text-white/70
-        transition-all
-        duration-300
-        hover:border-[#A07936]
-        hover:text-[#A07936]
-      "
-    >
+   <a
+  href="${socialLinks.instagram || "#"}"
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Instagram"
+  class="
+    flex
+    h-11
+    w-11
+    items-center
+    justify-center
+    rounded-full
+    border
+    border-white/10
+    text-white/70
+    transition-all
+    duration-300
+    hover:border-[#A07936]
+    hover:text-[#A07936]
+  "
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    class="h-5 w-5"
+  >
+    <path d="M7.75 2C4.57 2 2 4.57 2 7.75v8.5C2 19.43 4.57 22 7.75 22h8.5C19.43 22 22 19.43 22 16.25v-8.5C22 4.57 19.43 2 16.25 2h-8.5Zm0 2h8.5A3.75 3.75 0 0 1 20 7.75v8.5A3.75 3.75 0 0 1 16.25 20h-8.5A3.75 3.75 0 0 1 4 16.25v-8.5A3.75 3.75 0 0 1 4 7.75 3.75 3.75 0 0 1 7.75 4Zm8.75 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2ZM12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6Z"/>
+  </svg>
+</a>
 
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        class="h-5 w-5"
-      >
-        <path d="M7.75 2C4.57 2 2 4.57 2 7.75v8.5C2 19.43 4.57 22 7.75 22h8.5C19.43 22 22 19.43 22 16.25v-8.5C22 4.57 19.43 2 16.25 2h-8.5Zm0 2h8.5A3.75 3.75 0 0 1 20 7.75v8.5A3.75 3.75 0 0 1 16.25 20h-8.5A3.75 3.75 0 0 1 4 16.25v-8.5A3.75 3.75 0 0 1 7.75 4Zm8.75 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2ZM12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6Z"/>
-      </svg>
 
-    </a>
+
+
+ <!-- facebook -->
+
+<a
+  href="${socialLinks.facebook || "#"}"
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Facebook"
+  class="
+    flex
+    h-11
+    w-11
+    items-center
+    justify-center
+    rounded-full
+    border
+    border-white/10
+    text-white/70
+    transition-all
+    duration-300
+    hover:border-[#A07936]
+    hover:text-[#A07936]
+  "
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    class="h-5 w-5"
+  >
+    <path
+      d="M13.5 22v-8h2.75l.5-3h-3.25V9.05c0-.87.24-1.55 1.58-1.55h1.67V4.82c-.29-.04-1.29-.13-2.45-.13-2.43 0-4.09 1.48-4.09 4.2V11H7.5v3h2.71v8h3.29Z"
+    />
+  </svg>
+</a>
+
+
+
+
+
+
 
     <!-- WhatsApp -->
 
     <a
-      href="#"
-      aria-label="WhatsApp"
+       href="${socialLinks.whatsapp || "#"}"
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="WhatsApp"
       class="
         flex
         h-11

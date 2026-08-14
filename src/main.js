@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       "./pages/homePage.js"
     );
 
-    initHomePage();
+    await initHomePage();
 
     const { initCustomizeJewellery } = await import(
       "./features/customizeJewellery/index.js"
@@ -114,6 +114,13 @@ if (document.getElementById("contact-form")) {
   );
 
   initContact();
+
+
+  const { initContactPage } = await import(
+    "./pages/contactPage.js"
+  );
+
+  initContactPage();
 
 }
 
@@ -190,18 +197,23 @@ if (document.getElementById("contact-form")) {
 
   initRevealAnimations();
 
-  /* =========================================
-     Footer
-  ========================================= */
+/* =========================================
+   Footer
+========================================= */
 
-  const footer =
-    document.getElementById("footer");
+const footer = document.getElementById("footer");
 
-  if (footer) {
-    footer.innerHTML = createFooter();
+if (footer) {
+  try {
+    footer.innerHTML = await createFooter();
 
     initFooterAccordion();
+  } catch (error) {
+    console.error("[Footer] Failed to initialize:", error);
   }
+}
+
+
 });
 
 
