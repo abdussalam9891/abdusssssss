@@ -36,9 +36,9 @@ export function createShowcaseSection() {
 
     font-serif
 
-    text-[38px]
-    md:text-[48px]
-    lg:text-[58px]
+    text-2xl
+    md:text-3xl
+    lg:text-3xl
 
     italic
 
@@ -102,9 +102,9 @@ export function createShowcaseSection() {
 
     font-sans
 
-    text-[13px]
-    sm:text-[14px]
-    lg:text-[15px]
+    text-[12px]
+    sm:text-[12px]
+    lg:text-[13px]
 
     font-medium
 

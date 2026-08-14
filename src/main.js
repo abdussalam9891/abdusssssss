@@ -103,8 +103,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
 
-  /* =========================================
-Contact
+/* =========================================
+   Contact
 ========================================= */
 
 if (document.getElementById("contact-form")) {
@@ -113,14 +113,7 @@ if (document.getElementById("contact-form")) {
     "./features/contact/contact.js"
   );
 
-  initContact();
-
-
-  const { initContactPage } = await import(
-    "./pages/contactPage.js"
-  );
-
-  initContactPage();
+  await initContact();
 
 }
 

@@ -32,7 +32,7 @@ export function createTestimonialsSection() {
         class="
           font-serif
 
-          text-[34px]
+          text-2xl
           md:text-[48px]
 
           italic

@@ -1,9 +1,10 @@
 import { createContactForm } from "../../components/contact/contactForm.js";
 import { contactService } from "../../services/contactService.js";
 import { showToast } from "../../utils/toast.js";
+import { websiteService } from "../../services/websiteService.js";
 
 
-export function initContact() {
+export async function initContact() {
 
   const section =
     document.getElementById("contact-form");
@@ -12,11 +13,32 @@ export function initContact() {
 
 
   // ==========================================
-  // RENDER FORM
+  // LOAD CONTACT INFORMATION FROM BACKEND
+  // ==========================================
+
+  let contactInfo = {};
+
+  try {
+
+    contactInfo =
+      await websiteService.getContactInfo();
+
+  } catch (error) {
+
+    console.error(
+      "[initContact] Failed to load contact information:",
+      error
+    );
+
+  }
+
+
+  // ==========================================
+  // RENDER CONTACT SECTION
   // ==========================================
 
   section.innerHTML =
-    createContactForm();
+    createContactForm(contactInfo);
 
 
   // ==========================================
@@ -379,7 +401,7 @@ export function initContact() {
 
         message,
 
-        domainName: "banshiwaale"
+        domainName: "banshiwaale",
 
       };
 
