@@ -1,199 +1,166 @@
-export function createHeroContent(heroSlides = []) {
-  return `
-    <div
-      class="
-        absolute
-        inset-0
-        z-30
-        flex
-        items-center
-      "
-    >
+// export function createHeroContent(heroSlides = []) {
+//   return `
+//     <div
+//       class="
+//         absolute
+//         inset-0
+//         z-30
+//         flex
+//         items-center
+//       "
+//     >
 
-      <div
-        class="
-          mx-auto
-          w-full
-          max-w-7xl
-          px-8
-          lg:px-14
-        "
-      >
+//       <div
+//         class="
+//           mx-auto
+//           w-full
+//           max-w-7xl
+//           px-8
+//           lg:px-14
+//         "
+//       >
 
-        ${heroSlides
-          .map((slide, index) => {
+//         ${heroSlides
+//           .map((slide, index) => {
 
-            const title =
-              slide.heading || "";
+//             const title =
+//               slide.heading || "";
 
-            const description =
-              slide.subheading || "";
+//             const description =
+//               slide.subheading || "";
 
-            const redirectUrl =
-              slide.redirectUrl || "/pages/products.html";
+//             const redirectUrl =
+//               slide.redirectUrl || "/pages/products.html";
 
-            return `
-              <div
-                class="
-                  hero-content
+//             return `
+//               <div
+//                 class="
+//                   hero-content
 
-                  ${
-                    index === 0
-                      ? "opacity-100 visible"
-                      : "opacity-0 invisible absolute"
-                  }
+//                   ${
+//                     index === 0
+//                       ? "opacity-100 visible"
+//                       : "opacity-0 invisible absolute"
+//                   }
 
-                  max-w-[760px]
+//                   max-w-[760px]
 
-                  transition-opacity
-                  duration-700
-                "
+//                   transition-opacity
+//                   duration-700
+//                 "
 
-                data-content="${index}"
-              >
-
-                <h1
-                  class="
-                    hero-title
-                    flex
-                    flex-col
-                    overflow-hidden
-                    font-serif
-                    text-[62px]
-                    font-semibold
-                    leading-[0.92]
-                    tracking-[-0.03em]
-                    text-white
-                    md:text-3xl
-                    xl:text-4xl
-                  "
-                >
-
-                  <span
-                    class="
-                      hero-title-line
-                      block
-                      overflow-hidden
-                    "
-                  >
-
-                    <span
-                      class="hero-title-word block"
-                    >
-                      ${title}
-                    </span>
-
-                  </span>
-
-                </h1>
+//                 data-content="${index}"
+//               >
 
 
-                <p
-                  class="
-                    hero-description
-                    mt-10
-                    max-w-[600px]
-                    text-[18px]
-                    leading-8
-                    text-white/80
-                  "
-                >
-                  ${description}
-                </p>
 
 
-                <div
-                  class="
-                    hero-actions
-                    mt-14
-                  "
-                >
+//                 <p
+//                   class="
+//                     hero-description
+//                     mt-10
+//                     max-w-[600px]
+//                     text-[18px]
+//                     leading-8
+//                     text-white/80
+//                   "
+//                 >
+//                   ${description}
+//                 </p>
 
-                  <a
-                    href="${redirectUrl}"
 
-                    class="
-                      hero-button
-                      group
-                      relative
-                      inline-flex
-                      items-center
-                      justify-center
-                      gap-4
-                      overflow-hidden
-                      rounded-full
-                      border
-                      border-white/20
-                      bg-white/10
-                      px-8
-                      py-4
-                      text-sm
-                      font-medium
-                      uppercase
-                      tracking-[0.18em]
-                      text-white
-                      backdrop-blur-xl
-                      transition-all
-                      duration-500
-                      hover:-translate-y-1
-                      hover:border-primary
-                      hover:shadow-[0_20px_45px_rgba(160,121,54,.35)]
-                    "
-                  >
+//                 <div
+//                   class="
+//                     hero-actions
+//                     mt-14
+//                   "
+//                 >
 
-                    <span
-                      class="
-                        absolute
-                        inset-0
-                        origin-left
-                        scale-x-0
-                        rounded-full
-                        bg-primary
-                        transition-transform
-                        duration-700
-                        ease-[cubic-bezier(0.22,1,0.36,1)]
-                        group-hover:scale-x-100
-                      "
-                    ></span>
+//                   <a
+//                     href="${redirectUrl}"
 
-                    <span
-                      class="
-                        relative
-                        z-10
-                        inline-flex
-                        items-center
-                        gap-4
-                        transition-colors
-                        duration-300
-                        group-hover:text-black
-                      "
-                    >
+//                     class="
+//                       hero-button
+//                       group
+//                       relative
+//                       inline-flex
+//                       items-center
+//                       justify-center
+//                       gap-4
+//                       overflow-hidden
+//                       rounded-full
+//                       border
+//                       border-white/20
+//                       bg-white/10
+//                       px-8
+//                       py-4
+//                       text-sm
+//                       font-medium
+//                       uppercase
+//                       tracking-[0.18em]
+//                       text-white
+//                       backdrop-blur-xl
+//                       transition-all
+//                       duration-500
+//                       hover:-translate-y-1
+//                       hover:border-primary
+//                       hover:shadow-[0_20px_45px_rgba(160,121,54,.35)]
+//                     "
+//                   >
 
-                      Shop Now
+//                     <span
+//                       class="
+//                         absolute
+//                         inset-0
+//                         origin-left
+//                         scale-x-0
+//                         rounded-full
+//                         bg-primary
+//                         transition-transform
+//                         duration-700
+//                         ease-[cubic-bezier(0.22,1,0.36,1)]
+//                         group-hover:scale-x-100
+//                       "
+//                     ></span>
 
-                      <span
-                        class="
-                          transition-transform
-                          duration-500
-                          group-hover:translate-x-2
-                        "
-                      >
-                        →
-                      </span>
+//                     <span
+//                       class="
+//                         relative
+//                         z-10
+//                         inline-flex
+//                         items-center
+//                         gap-4
+//                         transition-colors
+//                         duration-300
+//                         group-hover:text-black
+//                       "
+//                     >
 
-                    </span>
+//                       Shop Now
 
-                  </a>
+//                       <span
+//                         class="
+//                           transition-transform
+//                           duration-500
+//                           group-hover:translate-x-2
+//                         "
+//                       >
+//                         →
+//                       </span>
 
-                </div>
+//                     </span>
 
-              </div>
-            `;
+//                   </a>
 
-          })
-          .join("")}
+//                 </div>
 
-      </div>
-    </div>
-  `;
-}
+//               </div>
+//             `;
+
+//           })
+//           .join("")}
+
+//       </div>
+//     </div>
+//   `;
+// }

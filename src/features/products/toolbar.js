@@ -1,300 +1,322 @@
 import { productsState } from "./state.js";
-import { renderProductsGrid } from "./grid.js";
 import { updateProductsURL } from "./query.js";
 
+
 export function createProductsToolbar() {
+
   return `
-<section class="border-b border-[#F1ECE6] bg-white">
 
-<div
-class="
-mx-auto
-max-w-[1600px]
-
-px-4
-sm:px-6
-lg:px-8
-xl:px-10
-
-py-6
-"
+<section
+  class="
+    border-b
+    border-[#F1ECE6]
+    bg-white
+  "
 >
 
-<div
-class="
-flex
-flex-col
+  <div
+    class="
+      mx-auto
+      max-w-[1600px]
 
-gap-5
+      px-4
+      sm:px-6
+      lg:px-8
+      xl:px-10
 
-lg:flex-row
-lg:items-center
-lg:justify-between
-"
->
+      py-6
+    "
+  >
 
-<!-- Left -->
+    <div
+      class="
+        flex
+        flex-col
 
-<div
-class="
-inline-flex
-items-center
-gap-3
+        gap-5
 
-self-start
+        lg:flex-row
+        lg:items-center
+        lg:justify-between
+      "
+    >
 
-rounded-full
+      <div
+        class="
+          inline-flex
+          items-center
+          gap-3
 
+          self-start
 
+          px-5
+          py-2.5
+        "
+      >
 
- 
+        <p
+          class="
+            text-sm
+            text-[#666]
+          "
+        >
 
-px-5
-py-2.5
-"
->
+          Showing
 
+          <strong
+            id="toolbarProductsCount"
 
+            class="
+              mx-1
+              font-semibold
+              text-[#181818]
+            "
+          >
+            0
+          </strong>
 
-<p
-class="
-text-sm
+          Products
 
-text-[#666]
-"
->
+        </p>
 
-Showing
+      </div>
 
-<strong
-id="toolbarProductsCount"
-class="
-mx-1
 
-font-semibold
+      <div
+        class="
+          flex
+          flex-col
 
-text-[#181818]
-"
->
+          gap-3
 
-${productsState.filteredProducts.length}
+          sm:flex-row
+          sm:items-center
+        "
+      >
 
-</strong>
+        <button
+          id="mobileFilterButton"
 
-Products
+          type="button"
 
-</p>
+          class="
+            inline-flex
+            lg:hidden
 
-</div>
+            items-center
+            justify-center
 
-<!-- Right -->
+            gap-2
 
-<div
-class="
-flex
-flex-col
+            h-11
 
-gap-3
+            rounded-full
 
-sm:flex-row
-sm:items-center
-"
->
+            border
+            border-[#E7DDD3]
 
-<!-- Mobile Filter -->
+            bg-white
 
-<button
+            px-5
 
-id="mobileFilterButton"
+            text-sm
+          "
+        >
 
-class="
-inline-flex
-lg:hidden
+          Filters
 
-items-center
-justify-center
+        </button>
 
-gap-2
 
-h-11
+        <div
+          class="
+            flex
+            items-center
+            gap-3
+          "
+        >
 
-rounded-full
+          <span
+            class="
+              hidden
+              sm:block
 
-border
-border-[#E7DDD3]
+              text-sm
+              text-[#777]
+            "
+          >
+            Sort by
+          </span>
 
-bg-white
 
-px-5
+          <select
+            id="productsSort"
 
-text-sm
+            class="
+              h-11
 
-transition-all
+              min-w-[220px]
 
-hover:border-[#A07936]
-hover:text-[#A07936]
-"
->
+              rounded-full
 
-<svg
-class="h-4 w-4"
-fill="none"
-stroke="currentColor"
-viewBox="0 0 24 24"
->
+              border
+              border-[#E7DDD3]
 
-<path
-stroke-linecap="round"
-stroke-linejoin="round"
-stroke-width="1.8"
-d="M4 6h16M7 12h10M10 18h4"
-/>
+              bg-white
 
-</svg>
+              px-5
 
-Filters
+              text-[15px]
 
-</button>
+              text-[#181818]
 
-<div
-class="
-flex
-items-center
+              outline-none
 
-gap-3
-"
->
+              focus:border-[#A07936]
+            "
+          >
 
-<span
-class="
-hidden
-sm:block
+            <option value="featured">
+              Featured
+            </option>
 
-text-sm
+            <option value="price-low">
+              Price: Low to High
+            </option>
 
-text-[#777]
-"
->
+            <option value="price-high">
+              Price: High to Low
+            </option>
 
-Sort by
+            <option value="rating">
+              Highest Rated
+            </option>
 
-</span>
+            <option value="newest">
+              Newest
+            </option>
 
-<select
+          </select>
 
-id="productsSort"
+        </div>
 
-class="
-h-11
+      </div>
 
-min-w-[220px]
+    </div>
 
-rounded-full
-
-border
-border-[#E7DDD3]
-
-bg-white
-
-px-5
-
-text-[15px]
-
-text-[#181818]
-
-outline-none
-
-transition-all
-
-focus:border-[#A07936]
-"
->
-
-<option value="featured">Featured</option>
-
-<option value="price-low">Price: Low to High</option>
-
-<option value="price-high">Price: High to Low</option>
-
-<option value="rating">Highest Rated</option>
-
-<option value="newest">Newest</option>
-
-</select>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
+  </div>
 
 </section>
+
 `;
 }
 
+
 export function renderProductsToolbar() {
+
   const container =
-    document.getElementById("productsToolbar");
+    document.getElementById(
+      "productsToolbar"
+    );
+
 
   if (!container) return;
 
-  // Render only once
-  if (!container.innerHTML.trim()) {
-    container.innerHTML = createProductsToolbar();
 
-    initToolbarEvents();
+  if (
+    !container.innerHTML.trim()
+  ) {
+
+    container.innerHTML =
+      createProductsToolbar();
+
   }
 
-  // Update product count
-  const count = document.getElementById(
-    "toolbarProductsCount"
-  );
+
+  const count =
+    document.getElementById(
+      "toolbarProductsCount"
+    );
+
 
   if (count) {
+
     count.textContent =
-      productsState.filteredProducts.length;
+      productsState.total;
+
   }
 
-  // Restore selected sort
+
   const sort =
-    document.getElementById("productsSort");
+    document.getElementById(
+      "productsSort"
+    );
+
 
   if (sort) {
-    sort.value = productsState.sort;
+
+    sort.value =
+      productsState.sort;
+
   }
 }
 
-export function initToolbarEvents() {
+
+export function initToolbarEvents(
+  onSort
+) {
+
   const sort =
-    document.getElementById("productsSort");
+    document.getElementById(
+      "productsSort"
+    );
 
-  if (sort) {
-    sort.addEventListener("change", (e) => {
 
-      productsState.sort = e.target.value;
+  sort?.addEventListener(
+    "change",
+    async (event) => {
+
+      productsState.sort =
+        event.target.value;
+
 
       productsState.page = 1;
 
+
       updateProductsURL();
 
-      renderProductsGrid();
 
-    });
-  }
+      await onSort();
+
+    }
+  );
+
 
   document
-    .getElementById("mobileFilterButton")
-    ?.addEventListener("click", () => {
+    .getElementById(
+      "mobileFilterButton"
+    )
+    ?.addEventListener(
+      "click",
+      () => {
 
-      document
-        .getElementById("mobileFiltersDrawer")
-        ?.classList.remove("translate-x-full");
+        document
+          .getElementById(
+            "mobileFiltersDrawer"
+          )
+          ?.classList.remove(
+            "translate-x-full"
+          );
 
-      document
-        .getElementById("mobileFiltersOverlay")
-        ?.classList.remove("hidden");
 
-    });
+        document
+          .getElementById(
+            "mobileFiltersOverlay"
+          )
+          ?.classList.remove(
+            "hidden"
+          );
+
+      }
+    );
 }

@@ -1,15 +1,32 @@
-import { initHomeFaq } from "../features/homeFaq/accordion.js";
+import { initHomeFaq }
+  from "../features/homeFaq/accordion.js";
 
-import { initCollections } from "../features/collections/index.js";
-import { initCraftsmanship } from "../features/craftsmanship/index.js";
-import { initHero } from "../features/hero/index.js";
-import { initMarquee } from "../features/marquee/index.js";
-import { initNewsletterSection } from "../features/newsletter/index.js";
-import { initShowcase } from "../features/showcase/index.js";
-import { initTestimonials } from "../features/testimonials/index.js";
-import { renderWhyChooseUs } from "../features/whyChooseUs/index.js";
+import { initCollections }
+  from "../features/collections/index.js";
 
-import { createAnnouncementBar } from "../components/announcement/announcementBar.js";
+import { initCraftsmanship }
+  from "../features/craftsmanship/index.js";
+
+import { initHero }
+  from "../features/hero/index.js";
+
+import { initMarquee }
+  from "../features/marquee/index.js";
+
+import { initNewsletterSection }
+  from "../features/newsletter/index.js";
+
+import { initShowcase }
+  from "../features/showcase/index.js";
+
+import { initTestimonials }
+  from "../features/testimonials/index.js";
+
+import { renderWhyChooseUs }
+  from "../features/whyChooseUs/index.js";
+
+import { initAnnouncementBar }
+  from "../features/announcement/index.js";
 
 import {
   createCustomizeJewelleryButton,
@@ -22,14 +39,24 @@ export async function initHomePage() {
   const container =
     document.getElementById("homeFaq");
 
+
   if (!container) return;
 
 
   // =========================================
-  // CRITICAL / ABOVE THE FOLD
+  // HERO
   // =========================================
 
-  await initHero();
+  // Hero is important, but backend failure
+  // must NOT kill the homepage.
+  initHero().catch((error) => {
+
+    console.error(
+      "[Hero] Failed to initialize:",
+      error
+    );
+
+  });
 
 
   // =========================================
@@ -37,12 +64,25 @@ export async function initHomePage() {
   // =========================================
 
   const announcement =
-    document.getElementById("homeAnnouncement");
+    document.getElementById(
+      "homeAnnouncement"
+    );
+
 
   if (announcement) {
 
-    announcement.innerHTML =
-      createAnnouncementBar();
+    // Fire-and-forget.
+    // Homepage does NOT wait for the API.
+    initAnnouncementBar(
+      announcement
+    ).catch((error) => {
+
+      console.error(
+        "[Announcement] Failed to initialize:",
+        error
+      );
+
+    });
 
   }
 
@@ -52,7 +92,10 @@ export async function initHomePage() {
   // =========================================
 
   const buttonContainer =
-    document.getElementById("customizeJewellery");
+    document.getElementById(
+      "customizeJewellery"
+    );
+
 
   if (buttonContainer) {
 
@@ -67,6 +110,7 @@ export async function initHomePage() {
       "customizeJewelleryDrawer"
     );
 
+
   if (drawerContainer) {
 
     drawerContainer.innerHTML =
@@ -76,12 +120,11 @@ export async function initHomePage() {
 
 
   // =========================================
-  // HOME FAQ — BACKEND
+  // HOME FAQ
   // =========================================
-  // IMPORTANT:
-  // Do NOT await this.
-  // FAQ failure must NOT stop homepage.
 
+  // Do not await.
+  // FAQ failure must never stop homepage.
   initHomeFaq().catch((error) => {
 
     console.error(
@@ -98,50 +141,101 @@ export async function initHomePage() {
 
   const modules = [
 
-    ["initCollections", initCollections],
+    [
+      "initCollections",
+      initCollections,
+    ],
 
-    ["initShowcase", initShowcase],
+    [
+      "initShowcase",
+      initShowcase,
+    ],
 
-    ["initMarquee", initMarquee],
+    [
+      "initMarquee",
+      initMarquee,
+    ],
 
-    ["renderWhyChooseUs", renderWhyChooseUs],
+    [
+      "renderWhyChooseUs",
+      renderWhyChooseUs,
+    ],
 
-    ["initCraftsmanship", initCraftsmanship],
+    [
+      "initCraftsmanship",
+      initCraftsmanship,
+    ],
 
-    ["initTestimonials", initTestimonials],
+    [
+      "initTestimonials",
+      initTestimonials,
+    ],
 
-    ["initNewsletterSection", initNewsletterSection],
+    [
+      "initNewsletterSection",
+      initNewsletterSection,
+    ],
 
   ];
 
 
-const runDeferred = async () => {
+  // =========================================
+  // RUN IN PARALLEL
+  // =========================================
 
-  for (const [name, fn] of modules) {
+  const results =
+    await Promise.allSettled(
 
-    try {
+      modules.map(
+        async ([name, fn]) => {
 
-      await fn();
+          try {
 
-    } catch (err) {
+            await fn();
 
-      console.error(
-        `[HOME] ${name} FAILED:`,
-        err
-      );
 
-    }
+          } catch (error) {
+
+            console.error(
+              `[HOME] ${name} FAILED:`,
+              error
+            );
+
+            // Re-throw so Promise.allSettled()
+            // records this module as rejected.
+            throw error;
+
+          }
+
+        }
+      )
+
+    );
+
+
+  // =========================================
+  // SUMMARY
+  // =========================================
+
+  const failedModules =
+    results.filter(
+      (result) =>
+        result.status === "rejected"
+    );
+
+
+  if (failedModules.length > 0) {
+
+    console.warn(
+      `[HOME] ${failedModules.length} module(s) failed.`
+    );
+
+  } else {
+
+    console.log(
+      "[HOME] All modules initialized successfully."
+    );
 
   }
-
-  console.log(
-    "[HOME] All deferred modules finished"
-  );
-};
-
-await runDeferred();
-
-
-
 
 }

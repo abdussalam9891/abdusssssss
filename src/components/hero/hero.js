@@ -1,29 +1,21 @@
 import { createHeroSlides } from "./slides.js";
-import { createHeroContent } from "./heroContent.js";
+
 import { createHeroIndicators } from "./indicators.js";
 
 export function createHero(heroSlides = []) {
   return `
     <section
       id="hero"
-
       class="
-  relative
-
-  h-[110vh]
-
-
-  overflow-hidden
-"
+        relative
+        h-[110vh]
+        overflow-hidden
+      "
     >
 
       <!-- Background Slides -->
 
       ${createHeroSlides(heroSlides)}
-
-      <!-- Hero Content -->
-
-       ${createHeroContent(heroSlides)}
 
       <!-- Progress Indicators -->
 
@@ -33,9 +25,7 @@ export function createHero(heroSlides = []) {
 
       <button
         id="heroPrev"
-
         type="button"
-
         aria-label="Previous Slide"
 
         class="
@@ -97,9 +87,7 @@ export function createHero(heroSlides = []) {
 
       <button
         id="heroNext"
-
         type="button"
-
         aria-label="Next Slide"
 
         class="
@@ -164,9 +152,7 @@ export function createHero(heroSlides = []) {
           absolute
           inset-x-0
           bottom-0
-
           h-44
-
           bg-gradient-to-t
           from-black/70
           via-black/20

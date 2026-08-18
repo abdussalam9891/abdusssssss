@@ -1,4 +1,23 @@
-import { restoreProductsStateFromURL } from "./query.js";
+import {
+  restoreProductsStateFromURL,
+  updateProductsURL,
+} from "./query.js";
+
+import {
+  productsState,
+} from "./state.js";
+
+import {
+  fetchProducts,
+} from "./api.js";
+
+import {
+  renderProductsGrid,
+} from "./grid.js";
+
+import {
+  renderProductsPagination,
+} from "./pagination.js";
 
 import {
   renderProductsHero,
@@ -7,6 +26,7 @@ import {
 
 import {
   renderProductsToolbar,
+  initToolbarEvents,
 } from "./toolbar.js";
 
 import {
@@ -15,31 +35,134 @@ import {
   initFilterEvents,
 } from "./filters.js";
 
-import { renderProductsGrid } from "./grid.js";
 
-export function initProductsPage() {
-  // Don't initialize if this page isn't present
-  if (!document.getElementById("productsHero")) {
+async function loadProducts() {
+
+  try {
+
+    await fetchProducts();
+
+
+    // ========================================
+    // RENDER GRID
+    // ========================================
+
+    renderProductsGrid();
+
+
+    // ========================================
+    // RENDER TOOLBAR
+    // ========================================
+
+    renderProductsToolbar();
+
+
+    // ========================================
+    // RENDER PAGINATION
+    // ========================================
+
+    renderProductsPagination(
+      async (page) => {
+
+        productsState.page =
+          page;
+
+
+        updateProductsURL();
+
+
+        await loadProducts();
+
+
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+
+      }
+    );
+
+
+    // ========================================
+    // HERO COUNT
+    // ========================================
+
+    updateHeroCount();
+
+
+  } catch (error) {
+
+    console.error(
+      "[Products] Failed to load:",
+      error
+    );
+
+  }
+}
+
+
+export async function initProductsPage() {
+
+  // ========================================
+  // PAGE CHECK
+  // ========================================
+
+  if (
+    !document.getElementById(
+      "productsHero"
+    )
+  ) {
     return;
   }
 
-  // Restore state from URL
+
+  // ========================================
+  // RESTORE URL STATE
+  // ========================================
+
   restoreProductsStateFromURL();
 
-  // Static UI
+
+  // ========================================
+  // STATIC UI
+  // ========================================
+
   renderProductsHero();
+
   renderProductsToolbar();
+
   renderProductsFilters();
 
-  // Restore checked filters
+
+  // ========================================
+  // RESTORE FILTER UI
+  // ========================================
+
   restoreFilterUI();
 
-  // Attach listeners (only once)
-  initFilterEvents();
 
-  // Render products
-  renderProductsGrid();
+  // ========================================
+  // FILTER EVENTS
+  // ========================================
 
-  // Sync hero count
-  updateHeroCount();
+  initFilterEvents(
+    loadProducts
+  );
+
+
+  // ========================================
+  // TOOLBAR EVENTS
+  // ========================================
+
+  initToolbarEvents(
+    loadProducts
+  );
+
+
+  // ========================================
+  // INITIAL API REQUEST
+  // ========================================
+
+  await loadProducts();
+
 }

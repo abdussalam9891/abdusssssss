@@ -7,6 +7,7 @@ import {
 } from "./components/footer/index.js";
 
 import { initToast } from "./features/toast/index.js";
+
 import {
   initAuthModal,
   initGuestEngagement,
@@ -15,215 +16,415 @@ import {
 import { hydrateAuth } from "./features/auth/authState.js";
 
 
-
 document.addEventListener("DOMContentLoaded", async () => {
-  /* =========================================
-     Global
-  ========================================= */
 
+  // =========================================
+  // GLOBAL
+  // =========================================
 
-     // Resolve who's actually logged in BEFORE anything
-  // that reads auth state gets rendered.
-
+  // Navbar must render immediately.
+  // It must NOT wait for API requests.
   initNavbar();
+
+
+  // Toast is completely independent.
   initToast();
-  // fire and forget — resolves in background, navbar already
-  // listens for "authChanged" and re-renders itself
-  hydrateAuth().then(() => {
-    initAuthModal();
-    initGuestEngagement();
-  });
 
 
+  // Resolve authentication in background.
+  // Navbar already renders using current local auth state
+  // and listens for authChanged.
+  hydrateAuth()
+    .then(() => {
+
+      initAuthModal();
+
+      initGuestEngagement();
+
+    })
+    .catch((error) => {
+
+      console.error(
+        "[Auth] Failed to hydrate authentication:",
+        error
+      );
+
+    });
 
 
+  // =========================================
+  // AUTH STATE CHANGES
+  // =========================================
 
+  // Re-render navbar when login/logout happens.
+  window.addEventListener(
+    "authChanged",
+    () => {
 
+      initNavbar();
 
-  // If login/logout happens later (another tab submits a
-  // form, a token expires), re-render the navbar so the
-  // dropdown reflects it without a full page reload.
-  window.addEventListener("authChanged", () => {
-    initNavbar();
-  });
-
-  /* =========================================
-     Home
-  ========================================= */
-
-  if (document.getElementById("homeFaq")) {
-    const { initHomePage } = await import(
-      "./pages/homePage.js"
-    );
-
-    await initHomePage();
-
-    const { initCustomizeJewellery } = await import(
-      "./features/customizeJewellery/index.js"
-    );
-
-    initCustomizeJewellery();
-  }
-
-  /* =========================================
-     Products
-  ========================================= */
-
-  if (document.getElementById("productsHero")) {
-    const { loadProductsPage } = await import(
-      "./pages/productsPage.js"
-    );
-
-    loadProductsPage();
-  }
-
-  /* =========================================
-     Product Details
-  ========================================= */
-
-  if (document.getElementById("productDetails")) {
-    const { loadProductDetailsPage } = await import(
-      "./pages/productDetailsPage.js"
-    );
-
-    loadProductDetailsPage();
-  }
-
-  /* =========================================
-     FAQ
-  ========================================= */
-
-  if (document.getElementById("faqContainer")) {
-    const { loadFAQPage } = await import(
-      "./pages/faqPage.js"
-    );
-
-    loadFAQPage();
-  }
-
-
-
-/* =========================================
-   Contact
-========================================= */
-
-if (document.getElementById("contact-form")) {
-
-  const { initContact } = await import(
-    "./features/contact/contact.js"
+    }
   );
 
-  await initContact();
 
-}
+  // =========================================
+  // HOME
+  // =========================================
 
+  if (
+    document.getElementById("homeFaq")
+  ) {
 
+    try {
 
-
-
-
-  /* =========================================
-     Login
-  ========================================= */
-
-  if (document.getElementById("loginContainer")) {
-    const { loadLoginPage } = await import(
-      "./pages/loginPage.js"
-    );
-
-    loadLoginPage();
-  }
-
-  /* =========================================
-     Register
-  ========================================= */
-
-  if (document.getElementById("registerContainer")) {
-    const { loadRegisterPage } = await import(
-      "./pages/registerPage.js"
-    );
-
-    loadRegisterPage();
-  }
-
-  /* =========================================
-     Forgot Password
-  ========================================= */
-
-  if (document.getElementById("forgotPasswordContainer")) {
-    const { loadForgotPasswordPage } = await import(
-      "./pages/forgotPasswordPage.js"
-    );
-
-    loadForgotPasswordPage();
-  }
+      const {
+        initHomePage,
+      } = await import(
+        "./pages/homePage.js"
+      );
 
 
+      await initHomePage();
 
 
-    /* =========================================
-     Policies
-  ========================================= */
+    } catch (error) {
 
-  if (document.getElementById("policyContent")) {
+      console.error(
+        "[Home] Failed to initialize homepage:",
+        error
+      );
 
-    const { initPolicyPage } = await import(
-      "./pages/policies/initPolicyPage.js"
-    );
+    }
 
-    const policyType =
-      document.body.dataset.policy;
 
-    if (policyType) {
-      await initPolicyPage(policyType);
+    // Customize Jewellery is independent.
+    try {
+
+      const {
+        initCustomizeJewellery,
+      } = await import(
+        "./features/customizeJewellery/index.js"
+      );
+
+
+      initCustomizeJewellery();
+
+
+    } catch (error) {
+
+      console.error(
+        "[Customize Jewellery] Failed to initialize:",
+        error
+      );
+
     }
 
   }
 
 
+  // =========================================
+  // PRODUCTS
+  // =========================================
+
+  if (
+    document.getElementById("productsHero")
+  ) {
+
+    try {
+
+      const {
+        loadProductsPage,
+      } = await import(
+        "./pages/productsPage.js"
+      );
 
 
+      loadProductsPage();
 
-  /* =========================================
-     Global UI
-  ========================================= */
+
+    } catch (error) {
+
+      console.error(
+        "[Products] Failed to initialize:",
+        error
+      );
+
+    }
+
+  }
+
+
+  // =========================================
+  // PRODUCT DETAILS
+  // =========================================
+
+  if (
+    document.getElementById("productDetails")
+  ) {
+
+    try {
+
+      const {
+        loadProductDetailsPage,
+      } = await import(
+        "./pages/productDetailsPage.js"
+      );
+
+
+      loadProductDetailsPage();
+
+
+    } catch (error) {
+
+      console.error(
+        "[Product Details] Failed to initialize:",
+        error
+      );
+
+    }
+
+  }
+
+
+  // =========================================
+  // FAQ
+  // =========================================
+
+  if (
+    document.getElementById("faqContainer")
+  ) {
+
+    try {
+
+      const {
+        loadFAQPage,
+      } = await import(
+        "./pages/faqPage.js"
+      );
+
+
+      loadFAQPage();
+
+
+    } catch (error) {
+
+      console.error(
+        "[FAQ] Failed to initialize:",
+        error
+      );
+
+    }
+
+  }
+
+
+  // =========================================
+  // CONTACT
+  // =========================================
+
+  if (
+    document.getElementById("contact-form")
+  ) {
+
+    try {
+
+      const {
+        initContact,
+      } = await import(
+        "./features/contact/contact.js"
+      );
+
+
+      await initContact();
+
+
+    } catch (error) {
+
+      console.error(
+        "[Contact] Failed to initialize:",
+        error
+      );
+
+    }
+
+  }
+
+
+  // =========================================
+  // LOGIN
+  // =========================================
+
+  if (
+    document.getElementById("loginContainer")
+  ) {
+
+    try {
+
+      const {
+        loadLoginPage,
+      } = await import(
+        "./pages/loginPage.js"
+      );
+
+
+      loadLoginPage();
+
+
+    } catch (error) {
+
+      console.error(
+        "[Login] Failed to initialize:",
+        error
+      );
+
+    }
+
+  }
+
+
+  // =========================================
+  // REGISTER
+  // =========================================
+
+  if (
+    document.getElementById("registerContainer")
+  ) {
+
+    try {
+
+      const {
+        loadRegisterPage,
+      } = await import(
+        "./pages/registerPage.js"
+      );
+
+
+      loadRegisterPage();
+
+
+    } catch (error) {
+
+      console.error(
+        "[Register] Failed to initialize:",
+        error
+      );
+
+    }
+
+  }
+
+
+  // =========================================
+  // FORGOT PASSWORD
+  // =========================================
+
+  if (
+    document.getElementById(
+      "forgotPasswordContainer"
+    )
+  ) {
+
+    try {
+
+      const {
+        loadForgotPasswordPage,
+      } = await import(
+        "./pages/forgotPasswordPage.js"
+      );
+
+
+      loadForgotPasswordPage();
+
+
+    } catch (error) {
+
+      console.error(
+        "[Forgot Password] Failed to initialize:",
+        error
+      );
+
+    }
+
+  }
+
+
+  // =========================================
+  // POLICIES
+  // =========================================
+
+  if (
+    document.getElementById("policyContent")
+  ) {
+
+    try {
+
+      const {
+        initPolicyPage,
+      } = await import(
+        "./pages/policies/initPolicyPage.js"
+      );
+
+
+      const policyType =
+        document.body.dataset.policy;
+
+
+      if (policyType) {
+
+        await initPolicyPage(
+          policyType
+        );
+
+      }
+
+
+    } catch (error) {
+
+      console.error(
+        "[Policies] Failed to initialize:",
+        error
+      );
+
+    }
+
+  }
+
+
+  // =========================================
+  // GLOBAL UI
+  // =========================================
 
   initRevealAnimations();
 
-/* =========================================
-   Footer
-========================================= */
 
-const footer = document.getElementById("footer");
+  // =========================================
+  // FOOTER
+  // =========================================
 
-if (footer) {
-  try {
-    footer.innerHTML = await createFooter();
+  const footer =
+    document.getElementById("footer");
 
-    initFooterAccordion();
-  } catch (error) {
-    console.error("[Footer] Failed to initialize:", error);
+
+  if (footer) {
+
+    try {
+
+      footer.innerHTML =
+        await createFooter();
+
+
+      initFooterAccordion();
+
+
+    } catch (error) {
+
+      console.error(
+        "[Footer] Failed to initialize:",
+        error
+      );
+
+    }
+
   }
-}
-
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

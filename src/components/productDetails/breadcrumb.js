@@ -14,7 +14,7 @@ export function createBreadcrumb(product) {
 
     gap-2
 
-    mt-20
+    mt-28
 
     text-[13px]
 

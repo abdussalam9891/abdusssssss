@@ -1,36 +1,38 @@
 import { getProductsQuery } from "./query.js";
 import { productsState } from "./state.js";
 
+
 const HERO_CONTENT = {
-  rings: {
+
+  ring: {
     label: "banshiwale Collection",
     title: "Sterling Silver Rings",
     description:
       "Discover handcrafted sterling silver rings designed for timeless elegance and everyday confidence.",
   },
 
-  chains: {
+  chain: {
     label: "banshiwale Collection",
     title: "Sterling Silver Chains",
     description:
       "Premium silver chains crafted with precision for modern men who appreciate understated luxury.",
   },
 
-  bracelets: {
+  bracelet: {
     label: "banshiwale Collection",
     title: "Sterling Silver Bracelets",
     description:
       "Bold, refined and handcrafted bracelets that complete every look with effortless sophistication.",
   },
 
-  pendants: {
+  pendant: {
     label: "banshiwale Collection",
     title: "Sterling Silver Pendants",
     description:
       "Meaningful pendants inspired by craftsmanship, heritage and modern elegance.",
   },
 
-  earrings: {
+  earring: {
     label: "banshiwale Collection",
     title: "Sterling Silver Earrings",
     description:
@@ -48,7 +50,14 @@ const HERO_CONTENT = {
     label: "Customer Favorites",
     title: "Best Sellers",
     description:
-      "Discover our most loved sterling silver jewellery chosen by thousands of customers.",
+      "Discover our most loved sterling silver jewellery chosen by our customers.",
+  },
+
+  limited: {
+    label: "Limited Collection",
+    title: "Limited Pieces",
+    description:
+      "Explore limited sterling silver pieces crafted in carefully selected quantities.",
   },
 
   collection: {
@@ -57,182 +66,241 @@ const HERO_CONTENT = {
     description:
       "Explore handcrafted sterling silver jewellery created with timeless craftsmanship and contemporary design.",
   },
+
 };
 
+
 function getHeroData() {
-  const query = getProductsQuery();
+
+  const query =
+    getProductsQuery();
+
+
+  // ==========================================
+  // CATEGORY
+  // ==========================================
 
   if (query.category.length) {
+
+    const category =
+      query.category[0]
+        .toLowerCase();
+
     return (
-      HERO_CONTENT[query.category[0].toLowerCase()] ||
+      HERO_CONTENT[category] ||
       HERO_CONTENT.collection
     );
+
   }
+
+
+  // ==========================================
+  // BADGE / COLLECTION
+  // ==========================================
 
   if (query.badge.length) {
-    const badge = query.badge[0].toLowerCase();
 
-    if (badge === "new") {
-      return HERO_CONTENT.new;
-    }
+    const badge =
+      query.badge[0]
+        .toLowerCase();
 
-    if (badge === "bestseller") {
-      return HERO_CONTENT.bestseller;
-    }
+
+    return (
+      HERO_CONTENT[badge] ||
+      HERO_CONTENT.collection
+    );
+
   }
+
 
   return HERO_CONTENT.collection;
 }
 
+
 export function createProductsHero() {
-  const hero = getHeroData();
+
+  const hero =
+    getHeroData();
+
 
   return `
 <section
-class="
-relative
-overflow-hidden
+  class="
+    relative
+    overflow-hidden
 
-border-b
-border-[#ECE6DF]
+    border-b
+    border-[#ECE6DF]
 
-bg-[#FCFAF7]
-"
+    bg-[#FCFAF7]
+  "
 >
 
+  <div
+    class="
+      relative
 
+      mx-auto
+      max-w-[1600px]
 
-<div
-class="
-relative
+      px-4
+      sm:px-6
+      lg:px-8
+      xl:px-10
 
-mx-auto
-max-w-[1600px]
+      py-14
+      lg:py-14
+    "
+  >
 
-px-4
-sm:px-6
-lg:px-8
-xl:px-10
+    <!-- Breadcrumb -->
 
-py-14
-lg:py-14
-"
->
-
-<nav
+    <nav
   class="
     mt-8
+
+    ml-3
+    sm:ml-4
+    lg:ml-5
+    xl:ml-6
+
     flex
     items-center
     gap-3
+
     text-sm
     font-medium
   "
 >
-  <a
-    href="/index.html"
-    class="
-      group
-      relative
-      text-[#666]
-      transition-colors
-      duration-300
-      hover:text-[#181818]
-    "
-  >
-    Home
 
-    <span
-      class="
-        absolute
-        -bottom-1
-        left-0
-        h-px
-        w-0
-        bg-[#A07936]
-        transition-all
-        duration-300
-        group-hover:w-full
-      "
-    ></span>
-  </a>
+      <a
+        href="/index.html"
 
-  <span class="text-[#C8B79B]">/</span>
+        class="
+          group
+          relative
 
-  <span class="text-[#181818]">
-    ${hero.title}
-  </span>
-</nav>
+          text-[#666]
 
-<div class="mt-10 max-w-3xl">
+          transition-colors
+          duration-300
+
+          hover:text-[#181818]
+        "
+      >
+        Home
+
+        <span
+          class="
+            absolute
+            -bottom-1
+            left-0
+
+            h-px
+            w-0
+
+            bg-[#A07936]
+
+            transition-all
+            duration-300
+
+            group-hover:w-full
+          "
+        ></span>
+
+      </a>
 
 
+      <span class="text-[#C8B79B]">
+        /
+      </span>
 
-<h1
-class="
-mt-5
 
-font-serif
+      <span class="text-[#181818]">
+        ${hero.title}
+      </span>
 
-text-5xl
-sm:text-6xl
-lg:text-7xl
+    </nav>
 
-leading-none
 
-tracking-[-0.04em]
+    <!-- Hero Content -->
 
-text-[#181818]
-"
->
-
-${hero.title}
-
-</h1>
+    <div class="mt-10 max-w-3xl">
 
 
 
-<p
-class="
-mt-8
 
-max-w-2xl
+      <h1
+        class="
+          mt-5
 
-text-[17px]
+          font-serif
 
-leading-9
+          text-5xl
+          sm:text-6xl
+          lg:text-7xl
 
-text-[#666666]
-"
->
+          leading-none
 
-${hero.description}
+          tracking-[-0.04em]
 
-</p>
+          text-[#181818]
+        "
+      >
+        ${hero.title}
+      </h1>
 
 
+      <p
+        class="
+          mt-8
 
-</div>
+          max-w-2xl
 
-</div>
+          text-[17px]
+
+          leading-9
+
+          text-[#666666]
+        "
+      >
+        ${hero.description}
+      </p>
+
+    </div>
+
+  </div>
 
 </section>
 `;
 }
 
+
 export function renderProductsHero() {
+
   const container =
-    document.getElementById("productsHero");
+    document.getElementById(
+      "productsHero"
+    );
 
   if (!container) return;
 
-  container.innerHTML = createProductsHero();
+  container.innerHTML =
+    createProductsHero();
 }
 
+
 export function updateHeroCount() {
-  const count = document.getElementById("productsCount");
+
+  const count =
+    document.getElementById(
+      "productsCount"
+    );
 
   if (!count) return;
 
-  count.textContent = productsState.filteredProducts.length;
+
+  // Backend total, not current page length
+  count.textContent =
+    productsState.total;
 }

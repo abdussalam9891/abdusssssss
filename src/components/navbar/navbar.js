@@ -1,7 +1,7 @@
 import { createDesktopNav } from "./desktopNav.js";
 import { createMobileNav } from "./mobileNav.js";
 import { createSearchOverlay } from "./searchOverlay.js";
-import { createAnnouncementBar } from "../announcement/announcementBar.js";
+ 
 
 
 export function createNavbar(
@@ -11,10 +11,12 @@ export function createNavbar(
     showAnnouncement = true,
   } = {}
 ) {
+
   return `
     <header
       id="siteHeader"
       data-theme="${theme}"
+
       class="
         fixed
         inset-x-0
@@ -28,7 +30,7 @@ export function createNavbar(
 
       ${
         showAnnouncement
-          ? createAnnouncementBar()
+          ? `<div id="navbar-announcement"></div>`
           : ""
       }
 
@@ -37,8 +39,6 @@ export function createNavbar(
       ${createMobileNav(theme)}
 
       ${createSearchOverlay()}
-
-
 
     </header>
   `;

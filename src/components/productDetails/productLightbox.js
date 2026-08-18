@@ -2,189 +2,159 @@ import { getProductImages } from "../../utils/getProductImages.js";
 
 export function createProductLightbox(product) {
 
- const images = Object.values(
+  const images = Object.values(
     getProductImages(product)
   ).filter(Boolean);
-  
+
+  const firstImage =
+    images[0] || "";
+
   return `
 
 <div
+  id="productLightbox"
 
-id="productLightbox"
+  class="
+    fixed
+    inset-0
 
-class="
-fixed
-inset-0
+    z-[120]
 
-z-[120]
+    hidden
 
-hidden
+    items-center
+    justify-center
 
-items-center
-justify-center
+    bg-black/90
+    backdrop-blur-md
 
-bg-black/90
-
-backdrop-blur-md
-
-p-6
-"
-
+    p-6
+  "
 >
 
-<button
+  <button
+    id="closeLightbox"
+    type="button"
 
-id="closeLightbox"
+    class="
+      absolute
+      right-6
+      top-6
 
-type="button"
+      flex
 
-class="
-absolute
+      h-12
+      w-12
 
-right-6
-top-6
+      items-center
+      justify-center
 
-flex
+      rounded-full
 
-h-12
-w-12
+      bg-white/10
 
-items-center
-justify-center
+      text-white
 
-rounded-full
+      transition-all
+      duration-300
 
-bg-white/10
+      hover:bg-white/20
+    "
+  >
+    <i
+      data-lucide="x"
+      class="h-6 w-6"
+    ></i>
+  </button>
 
-text-white
 
-transition-all
-duration-300
+  <button
+    id="lightboxPrev"
+    type="button"
 
-hover:bg-white/20
-"
+    class="
+      absolute
+      left-5
 
->
+      hidden
+      lg:flex
 
-<i
-data-lucide="x"
+      h-12
+      w-12
 
-class="
-h-6
-w-6
-"
-></i>
+      items-center
+      justify-center
 
-</button>
+      rounded-full
 
-<button
+      bg-white/10
 
-id="lightboxPrev"
+      text-white
 
-type="button"
+      transition
 
-class="
-absolute
+      hover:bg-white/20
+    "
+  >
+    <i
+      data-lucide="chevron-left"
+      class="h-6 w-6"
+    ></i>
+  </button>
 
-left-5
 
-hidden
-lg:flex
+  <button
+    id="lightboxNext"
+    type="button"
 
-h-12
-w-12
+    class="
+      absolute
+      right-5
 
-items-center
-justify-center
+      hidden
+      lg:flex
 
-rounded-full
+      h-12
+      w-12
 
-bg-white/10
+      items-center
+      justify-center
 
-text-white
+      rounded-full
 
-transition
+      bg-white/10
 
-hover:bg-white/20
-"
+      text-white
 
->
+      transition
 
-<i
-data-lucide="chevron-left"
+      hover:bg-white/20
+    "
+  >
+    <i
+      data-lucide="chevron-right"
+      class="h-6 w-6"
+    ></i>
+  </button>
 
-class="
-h-6
-w-6
-"
-></i>
 
-</button>
+  <img
+    id="lightboxImage"
 
-<button
+    src="${firstImage}"
 
-id="lightboxNext"
+    alt="${product.name || "Product image"}"
 
-type="button"
+    class="
+      max-h-[88vh]
+      max-w-[92vw]
 
-class="
-absolute
-
-right-5
-
-hidden
-lg:flex
-
-h-12
-w-12
-
-items-center
-justify-center
-
-rounded-full
-
-bg-white/10
-
-text-white
-
-transition
-
-hover:bg-white/20
-"
-
->
-
-<i
-data-lucide="chevron-right"
-
-class="
-h-6
-w-6
-"
-></i>
-
-</button>
-
-<img
-
-id="lightboxImage"
-
-src="${images[0]}"
-
-alt="${product.name}"
-
-class="
-max-h-[88vh]
-
-max-w-[92vw]
-
-object-contain
-"
-
->
+      object-contain
+    "
+  >
 
 </div>
 
-`;
+  `;
 
 }

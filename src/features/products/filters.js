@@ -1,8 +1,9 @@
 import { productsState } from "./state.js";
-import { renderProductsGrid } from "./grid.js";
 import { updateProductsURL } from "./query.js";
 
+
 const PRODUCT_FILTERS = {
+
   categories: [
     "rings",
     "chains",
@@ -18,6 +19,7 @@ const PRODUCT_FILTERS = {
   ],
 
   priceRanges: [
+
     {
       label: "Under ₹2,000",
       min: 0,
@@ -35,407 +37,531 @@ const PRODUCT_FILTERS = {
       min: 5000,
       max: Infinity,
     },
+
   ],
+
 };
 
+
 function capitalize(text) {
-  return text.charAt(0).toUpperCase() + text.slice(1);
+
+  return (
+    text.charAt(0).toUpperCase() +
+    text.slice(1)
+  );
+
 }
 
+
 export function createProductsFilters() {
+
   return `
+
 <aside
-id="productsFilters"
+  id="productsFilters"
 
-class="
-hidden
-lg:block
+  class="
+    hidden
+    lg:block
 
-sticky
-top-28
+    sticky
+    top-28
 
-h-fit
+    h-fit
 
-rounded-2xl
+    rounded-2xl
 
-border
-border-[#ECE6DF]
+    border
+    border-[#ECE6DF]
 
-bg-white
+    bg-white
 
-p-7
-">
-
-<h3
-class="
-text-xl
-font-semibold
-text-[#181818]
-">
-Filters
-</h3>
-
-<!-- CATEGORY -->
-
-<div class="mt-9">
-
-<h4
-class="
-mb-5
-
-text-[12px]
-
-font-semibold
-
-uppercase
-
-tracking-[0.22em]
-">
-Category
-</h4>
-
-<div class="space-y-4">
-
-${PRODUCT_FILTERS.categories
-  .map(
-    (category) => `
-<label
-class="
-flex
-items-center
-gap-3
-cursor-pointer
-">
-
-<input
-type="checkbox"
-data-filter="category"
-value="${category}"
-class="h-4 w-4 accent-[#A07936]"
+    p-7
+  "
 >
 
-<span class="text-[15px] text-[#555]">
+  <h3
+    class="
+      text-xl
+      font-semibold
+      text-[#181818]
+    "
+  >
+    Filters
+  </h3>
 
-${capitalize(category)}
 
-</span>
+  <!-- CATEGORY -->
 
-</label>
-`
-  )
-  .join("")}
+  <div class="mt-9">
 
-</div>
+    <h4
+      class="
+        mb-5
 
-</div>
+        text-[12px]
 
-<!-- PRICE -->
+        font-semibold
 
-<div
-class="
-mt-10
+        uppercase
 
-border-t
-border-[#EFE8E0]
+        tracking-[0.22em]
+      "
+    >
+      Category
+    </h4>
 
-pt-8
-">
 
-<h4
-class="
-mb-5
+    <div class="space-y-4">
 
-text-[12px]
+      ${PRODUCT_FILTERS.categories
+        .map(
+          (category) => `
 
-font-semibold
-
-uppercase
-
-tracking-[0.22em]
-">
-Price
-</h4>
-
-<div class="space-y-4">
-
-${PRODUCT_FILTERS.priceRanges
-  .map(
-    (range, index) => `
 <label
-class="
-flex
-items-center
-gap-3
-cursor-pointer
-">
+  class="
+    flex
+    items-center
+    gap-3
 
-<input
-type="radio"
-
-name="price"
-
-data-filter="price"
-
-data-index="${index}"
-
-class="h-4 w-4 accent-[#A07936]"
+    cursor-pointer
+  "
 >
 
-<span class="text-[15px] text-[#555]">
+  <input
+    type="checkbox"
 
-${range.label}
+    data-filter="category"
 
-</span>
+    value="${category}"
+
+    class="
+      h-4
+      w-4
+
+      accent-[#A07936]
+    "
+  >
+
+  <span
+    class="
+      text-[15px]
+      text-[#555]
+    "
+  >
+    ${capitalize(category)}
+  </span>
 
 </label>
+
 `
-  )
-  .join("")}
+        )
+        .join("")}
 
-</div>
+    </div>
 
-</div>
+  </div>
 
-<!-- BADGE -->
 
-<div
-class="
-mt-10
+  <!-- PRICE -->
 
-border-t
-border-[#EFE8E0]
+  <div
+    class="
+      mt-10
 
-pt-8
-">
+      border-t
+      border-[#EFE8E0]
 
-<h4
-class="
-mb-5
+      pt-8
+    "
+  >
 
-text-[12px]
+    <h4
+      class="
+        mb-5
 
-font-semibold
+        text-[12px]
 
-uppercase
+        font-semibold
 
-tracking-[0.22em]
-">
-Collection
-</h4>
+        uppercase
 
-<div class="space-y-4">
+        tracking-[0.22em]
+      "
+    >
+      Price
+    </h4>
 
-${PRODUCT_FILTERS.badges
-  .map(
-    (badge) => `
+
+    <div class="space-y-4">
+
+      ${PRODUCT_FILTERS.priceRanges
+        .map(
+          (range, index) => `
+
 <label
-class="
-flex
-items-center
-gap-3
-cursor-pointer
-">
+  class="
+    flex
+    items-center
+    gap-3
 
-<input
-type="checkbox"
-
-data-filter="badge"
-
-value="${badge}"
-
-class="h-4 w-4 accent-[#A07936]"
+    cursor-pointer
+  "
 >
 
-<span class="text-[15px] text-[#555]">
+  <input
+    type="radio"
 
-${badge}
+    name="price"
 
-</span>
+    data-filter="price"
+
+    data-index="${index}"
+
+    class="
+      h-4
+      w-4
+
+      accent-[#A07936]
+    "
+  >
+
+  <span
+    class="
+      text-[15px]
+      text-[#555]
+    "
+  >
+    ${range.label}
+  </span>
 
 </label>
+
 `
-  )
-  .join("")}
+        )
+        .join("")}
 
-</div>
+    </div>
 
-</div>
+  </div>
 
-<button
 
-id="clearFilters"
+  <!-- COLLECTION -->
 
-class="
-mt-10
+  <div
+    class="
+      mt-10
 
-w-full
+      border-t
+      border-[#EFE8E0]
 
-rounded-lg
+      pt-8
+    "
+  >
 
-border
-border-[#181818]
+    <h4
+      class="
+        mb-5
 
-px-5
-py-3
+        text-[12px]
 
-text-sm
+        font-semibold
 
-transition
+        uppercase
 
-hover:bg-[#181818]
-hover:text-white
-">
+        tracking-[0.22em]
+      "
+    >
+      Collection
+    </h4>
 
-Clear Filters
 
-</button>
+    <div class="space-y-4">
+
+      ${PRODUCT_FILTERS.badges
+        .map(
+          (badge) => `
+
+<label
+  class="
+    flex
+    items-center
+    gap-3
+
+    cursor-pointer
+  "
+>
+
+  <input
+    type="checkbox"
+
+    data-filter="badge"
+
+    value="${badge}"
+
+    class="
+      h-4
+      w-4
+
+      accent-[#A07936]
+    "
+  >
+
+  <span
+    class="
+      text-[15px]
+      text-[#555]
+    "
+  >
+    ${badge}
+  </span>
+
+</label>
+
+`
+        )
+        .join("")}
+
+    </div>
+
+  </div>
+
+
+  <button
+    id="clearFilters"
+
+    type="button"
+
+    class="
+      mt-10
+
+      w-full
+
+      rounded-lg
+
+      border
+      border-[#181818]
+
+      px-5
+      py-3
+
+      text-sm
+
+      transition
+
+      hover:bg-[#181818]
+      hover:text-white
+    "
+  >
+    Clear Filters
+  </button>
 
 </aside>
+
 `;
 }
 
+
 export function renderProductsFilters() {
-  const container = document.getElementById(
-    "productsFiltersContainer"
-  );
+
+  const container =
+    document.getElementById(
+      "productsFiltersContainer"
+    );
+
 
   if (!container) return;
 
-  container.innerHTML = createProductsFilters();
+
+  container.innerHTML =
+    createProductsFilters();
 }
 
-export function initFilterEvents() {
+
+export function initFilterEvents(
+  onChange
+) {
+
   document
-    .querySelectorAll("#productsFilters input")
-    .forEach((input) => {
-      input.addEventListener("change", updateFilters);
-    });
+    .querySelectorAll(
+      "#productsFilters input"
+    )
+    .forEach(
+      (input) => {
 
-  document
-    .getElementById("clearFilters")
-    ?.addEventListener("click", clearFilters);
-}
+        input.addEventListener(
+          "change",
+          async () => {
 
-function updateFilters() {
-  productsState.filters.categories = [
-    ...document.querySelectorAll(
-      '[data-filter="category"]:checked'
-    ),
-  ].map((input) => input.value.toLowerCase());
+            productsState.filters.categories =
+              [
+                ...document.querySelectorAll(
+                  '[data-filter="category"]:checked'
+                ),
+              ].map(
+                (input) =>
+                  input.value.toLowerCase()
+              );
 
-  productsState.filters.badges = [
-    ...document.querySelectorAll(
-      '[data-filter="badge"]:checked'
-    ),
-  ].map((input) => input.value.toUpperCase());
 
-  const selectedPrice = document.querySelector(
-    '[data-filter="price"]:checked'
-  );
+            productsState.filters.badges =
+              [
+                ...document.querySelectorAll(
+                  '[data-filter="badge"]:checked'
+                ),
+              ].map(
+                (input) =>
+                  input.value.toUpperCase()
+              );
 
-  if (selectedPrice) {
-    const range =
-      PRODUCT_FILTERS.priceRanges[
-        Number(selectedPrice.dataset.index)
-      ];
 
-    productsState.filters.price = {
-      min: range.min,
-      max: range.max,
-    };
-  } else {
-    productsState.filters.price = null;
-  }
+            const selectedPrice =
+              document.querySelector(
+                '[data-filter="price"]:checked'
+              );
 
-  productsState.page = 1;
 
-  updateProductsURL();
+            if (selectedPrice) {
 
-  renderProductsGrid();
-}
+              const range =
+                PRODUCT_FILTERS.priceRanges[
+                  Number(
+                    selectedPrice.dataset.index
+                  )
+                ];
 
-function clearFilters() {
-  document
-    .querySelectorAll("#productsFilters input")
-    .forEach((input) => {
-      input.checked = false;
-    });
 
-  productsState.filters = {
-    categories: [],
-    badges: [],
-    price: null,
-  };
+              productsState.filters.price = {
+                min: range.min,
+                max: range.max,
+              };
 
-  productsState.page = 1;
+            } else {
 
-  updateProductsURL();
+              productsState.filters.price =
+                null;
 
-  renderProductsGrid();
-}
+            }
 
-export function filterProducts(products) {
-  return products.filter((product) => {
-    const matchCategory =
-      !productsState.filters.categories.length ||
-      productsState.filters.categories.includes(
-        product.category.toLowerCase()
-      );
 
-    const matchBadge =
-      !productsState.filters.badges.length ||
-      productsState.filters.badges.includes(product.badge);
+            productsState.page = 1;
 
-    const matchPrice =
-      !productsState.filters.price ||
-      (product.price >= productsState.filters.price.min &&
-        product.price <= productsState.filters.price.max);
 
-    return (
-      matchCategory &&
-      matchBadge &&
-      matchPrice
+            updateProductsURL();
+
+
+            await onChange();
+
+          }
+        );
+
+      }
     );
-  });
+
+
+  document
+    .getElementById(
+      "clearFilters"
+    )
+    ?.addEventListener(
+      "click",
+      async () => {
+
+        document
+          .querySelectorAll(
+            "#productsFilters input"
+          )
+          .forEach(
+            (input) => {
+              input.checked = false;
+            }
+          );
+
+
+        productsState.filters = {
+          categories: [],
+          badges: [],
+          price: null,
+        };
+
+
+        productsState.page = 1;
+
+
+        updateProductsURL();
+
+
+        await onChange();
+
+      }
+    );
 }
+
 
 export function restoreFilterUI() {
-  document
-    .querySelectorAll('[data-filter="category"]')
-    .forEach((input) => {
-      input.checked =
-        productsState.filters.categories.includes(
-          input.value.toLowerCase()
-        );
-    });
 
   document
-    .querySelectorAll('[data-filter="badge"]')
-    .forEach((input) => {
-      input.checked =
-        productsState.filters.badges.includes(
-          input.value.toUpperCase()
-        );
-    });
+    .querySelectorAll(
+      '[data-filter="category"]'
+    )
+    .forEach(
+      (input) => {
 
-  if (!productsState.filters.price) return;
+        input.checked =
+          productsState.filters.categories.includes(
+            input.value.toLowerCase()
+          );
 
-  PRODUCT_FILTERS.priceRanges.forEach(
-    (range, index) => {
-      if (
-        range.min ===
-          productsState.filters.price.min &&
-        range.max ===
-          productsState.filters.price.max
-      ) {
-        const radio = document.querySelector(
-          `[data-index="${index}"]`
-        );
-
-        if (radio) {
-          radio.checked = true;
-        }
       }
-    }
-  );
+    );
+
+
+  document
+    .querySelectorAll(
+      '[data-filter="badge"]'
+    )
+    .forEach(
+      (input) => {
+
+        input.checked =
+          productsState.filters.badges.includes(
+            input.value.toUpperCase()
+          );
+
+      }
+    );
+
+
+  if (
+    !productsState.filters.price
+  ) {
+    return;
+  }
+
+
+  PRODUCT_FILTERS.priceRanges
+    .forEach(
+      (range, index) => {
+
+        if (
+          range.min ===
+            productsState.filters.price.min &&
+          range.max ===
+            productsState.filters.price.max
+        ) {
+
+          const radio =
+            document.querySelector(
+              `[data-index="${index}"]`
+            );
+
+
+          if (radio) {
+            radio.checked = true;
+          }
+
+        }
+
+      }
+    );
 }

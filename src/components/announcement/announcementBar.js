@@ -1,143 +1,123 @@
-import { ANNOUNCEMENTS } from "../../constants/announcements.js";
+export function createAnnouncementBar(marquees = []) {
 
-export function createAnnouncementBar() {
-  // Duplicate announcements for seamless infinite scrolling
-  const announcements = [...ANNOUNCEMENTS, ...ANNOUNCEMENTS];
+  // Duplicate for seamless infinite scrolling
+  const announcements = [
+    ...marquees,
+    ...marquees,
+  ];
 
   return `
-<div
-  class="
-    announcement-bar
+    <div
+      class="
+        announcement-bar
+        relative
+        overflow-hidden
+        bg-[#111111]
+        border-b
+        border-white/10
+        py-2
+      "
+    >
 
-    relative
+      <!-- Left Fade -->
 
-    overflow-hidden
+      <div
+        class="
+          pointer-events-none
+          absolute
+          left-0
+          top-0
+          z-10
+          h-full
+          w-10
+          bg-gradient-to-r
+          from-[#111111]
+          to-transparent
+        "
+      ></div>
 
-    bg-[#111111]
 
-    border-b
-    border-white/10
+      <!-- Right Fade -->
 
-    py-2
-  "
->
+      <div
+        class="
+          pointer-events-none
+          absolute
+          right-0
+          top-0
+          z-10
+          h-full
+          w-10
+          bg-gradient-to-l
+          from-[#111111]
+          to-transparent
+        "
+      ></div>
 
-  <!-- Left Fade -->
 
-  <div
-    class="
-      pointer-events-none
+      <!-- Track -->
 
-      absolute
+      <div class="announcement-track">
 
-      left-0
-      top-0
+        ${announcements
+          .map(
+            (item) => `
+              <a
+                href="${item?.href || "#"}"
 
-      z-10
+                class="
+                  announcement-item
+                  group
+                  flex
+                  items-center
+                  gap-6
+                  whitespace-nowrap
+                  px-8
+                  lg:px-10
+                  text-[11px]
+                  font-medium
+                  uppercase
+                  tracking-[0.22em]
+                  text-[#D6B46A]
+                  transition-colors
+                  duration-300
+                  hover:text-white
+                "
+              >
 
-      h-full
-      w-10
+                <span>
+                  ${item?.text || ""}
+                </span>
 
-      bg-gradient-to-r
-      from-[#111111]
-      to-transparent
-    "
-  ></div>
 
-  <!-- Right Fade -->
+                <span
+                  class="
+                    text-[#A07936]
+                    transition-transform
+                    duration-300
+                    group-hover:rotate-45
+                  "
+                >
 
-  <div
-    class="
-      pointer-events-none
+                  <svg
+                    class="h-3.5 w-3.5 text-[#A07936]"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2L12 2z"
+                    />
+                  </svg>
 
-      absolute
+                </span>
 
-      right-0
-      top-0
+              </a>
+            `
+          )
+          .join("")}
 
-      z-10
+      </div>
 
-      h-full
-      w-10
-
-      bg-gradient-to-l
-      from-[#111111]
-      to-transparent
-    "
-  ></div>
-
-  <div class="announcement-track">
-
-    ${announcements
-      .map(
-        (item) => `
-          <a
-  href="${item.href}"
-
-  class="
-    announcement-item
-
-    group
-
-    flex
-    items-center
-
-    gap-6
-
-    whitespace-nowrap
-
-    px-8
-    lg:px-10
-
-    text-[11px]
-
-    font-medium
-
-    uppercase
-
-    tracking-[0.22em]
-
-    text-[#D6B46A]
-
-    transition-colors
-    duration-300
-
-    hover:text-white
-  "
->
-
-  <span>
-
-    ${item.text}
-
-  </span>
-
-  <span
-    class="
-      text-[#A07936]
-
-      transition-transform
-      duration-300
-
-      group-hover:rotate-45
-    "
-  >
-    <svg
-class="h-3.5 w-3.5 text-[#A07936]"
-viewBox="0 0 24 24"
-fill="currentColor"
->
-<path d="M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2L12 2z"/>
-</svg>
-
-  </span>
-
-</a>        `
-      )
-      .join("")}
-
-  </div>
-
-</div>
-`;
+    </div>
+  `;
 }

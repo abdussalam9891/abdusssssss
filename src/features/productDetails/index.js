@@ -12,10 +12,12 @@ import { createProductTabs } from "../../components/productDetails/productTabs.j
 import { initProductTabs } from "./tabs.js";
 import { initRelatedProducts } from "./relatedProducts.js";
 import { initLightbox } from "./lightbox.js";
+
 import {
   saveRecentlyViewed,
   initRecentlyViewed,
 } from "./recentlyViewed.js";
+
 
 export function initProductDetailsPage() {
 
@@ -24,8 +26,10 @@ export function initProductDetailsPage() {
 
   if (!container) return;
 
+
   const productId =
     getProductId();
+
 
   const product =
     PRODUCTS.find(
@@ -33,16 +37,19 @@ export function initProductDetailsPage() {
         String(item.id) === String(productId)
     );
 
+
+  /* ------------------------------------------------ */
+  /* PRODUCT NOT FOUND                               */
+  /* ------------------------------------------------ */
+
   if (!product) {
 
     container.innerHTML = `
       <div
         class="
           mx-auto
-
           px-6
           py-32
-
           text-center
         "
       >
@@ -50,9 +57,7 @@ export function initProductDetailsPage() {
         <h2
           class="
             font-serif
-
             text-5xl
-
             text-[#181818]
           "
         >
@@ -62,7 +67,6 @@ export function initProductDetailsPage() {
         <p
           class="
             mt-4
-
             text-[#777]
           "
         >
@@ -73,50 +77,97 @@ export function initProductDetailsPage() {
     `;
 
     return;
-
   }
+
+
+  /* ------------------------------------------------ */
+  /* SET PRODUCT                                     */
+  /* ------------------------------------------------ */
 
   setProduct(product);
 
- container.innerHTML =
-createProductDetailsLayout(product);
 
+  /* ------------------------------------------------ */
+  /* MAIN LAYOUT                                     */
+  /* ------------------------------------------------ */
+
+  container.innerHTML =
+    createProductDetailsLayout(product);
+
+
+  /* ------------------------------------------------ */
+  /* DOM ELEMENTS                                    */
+  /* ------------------------------------------------ */
 
   const breadcrumb =
-    document.getElementById("productBreadcrumb");
+    document.getElementById(
+      "productBreadcrumb"
+    );
 
   const gallery =
-    document.getElementById("productGallery");
+    document.getElementById(
+      "productGallery"
+    );
 
   const info =
-    document.getElementById("productInfo");
+    document.getElementById(
+      "productInfo"
+    );
 
-  const tabs =
-    document.getElementById("productTabs");
 
-  breadcrumb.innerHTML =
-    createBreadcrumb(product);
+  /* ------------------------------------------------ */
+  /* RENDER                                          */
+  /* ------------------------------------------------ */
 
-  gallery.innerHTML =
-    createProductGallery(product);
+  if (breadcrumb) {
 
-  info.innerHTML =
-    createProductInfo(product);
+    breadcrumb.innerHTML =
+      createBreadcrumb(product);
 
-  tabs.innerHTML =
-    createProductTabs(product);
+  }
 
- initGallery();
 
-initLightbox();
+  if (gallery) {
 
-initProductTabs();
+    gallery.innerHTML =
+      createProductGallery(product);
 
-initRelatedProducts();
+  }
 
-initRecentlyViewed();
 
-window.lucide?.createIcons();
+  if (info) {
 
- 
+    /*
+     * Product information and accordions
+     * now live together in the RIGHT column.
+     */
+
+    info.innerHTML =
+      createProductInfo(product) +
+      createProductTabs(product);
+
+  }
+
+
+  /* ------------------------------------------------ */
+  /* INITIALIZE COMPONENTS                            */
+  /* ------------------------------------------------ */
+
+  initGallery();
+
+  initLightbox();
+
+  initProductTabs();
+
+  initRelatedProducts();
+
+  initRecentlyViewed();
+
+
+  /* ------------------------------------------------ */
+  /* LUCIDE ICONS                                    */
+  /* ------------------------------------------------ */
+
+  window.lucide?.createIcons();
+
 }

@@ -4,7 +4,6 @@ import { createProductLightbox } from "./productLightbox.js";
 import { createRecentlyViewedSection } from "./recentlyViewedSection.js";
 
 
-
 export function createProductDetailsLayout(product) {
   return `
 
@@ -35,7 +34,8 @@ export function createProductDetailsLayout(product) {
 
     <div id="productBreadcrumb"></div>
 
-    <!-- Main -->
+
+    <!-- Main Product Section -->
 
     <div
       class="
@@ -54,45 +54,65 @@ export function createProductDetailsLayout(product) {
       "
     >
 
-      <!-- Gallery -->
-
-      <div id="productGallery"></div>
-
-      <!-- Product Info -->
+      <!-- ====================================== -->
+      <!-- LEFT: STICKY PRODUCT GALLERY            -->
+      <!-- ====================================== -->
 
       <div
-        id="productInfo"
+        id="productGallery"
 
         class="
           lg:sticky
           lg:top-32
 
-          self-start
+          lg:self-start
+        "
+      ></div>
+
+
+      <!-- ====================================== -->
+      <!-- RIGHT: SCROLLABLE PRODUCT INFORMATION   -->
+      <!-- ====================================== -->
+
+      <div
+        id="productInfo"
+
+        class="
+          lg:max-h-[calc(100vh-8rem)]
+
+          lg:overflow-y-auto
+
+          lg:overscroll-auto
+
+          lg:pr-4
+
+          no-scrollbar
         "
       ></div>
 
     </div>
 
-    <!-- Tabs -->
-
-    <div
-      id="productTabs"
-
-      class="
-        mt-20
-        lg:mt-24
-      "
-    ></div>
-
   </div>
 
 </section>
 
+
+<!-- Related Products -->
+
 ${createRelatedProductsSection()}
+
+
+<!-- Recently Viewed -->
 
 ${createRecentlyViewedSection()}
 
+
+<!-- Sticky Enquiry Bar -->
+
 ${createStickyEnquiryBar(product)}
+
+
+<!-- Product Lightbox -->
 
 ${createProductLightbox(product)}
 

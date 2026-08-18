@@ -1,99 +1,248 @@
 import { productsState } from "./state.js";
 
+
 export function getProductsQuery() {
-  const params = new URLSearchParams(window.location.search);
+
+  const params =
+    new URLSearchParams(
+      window.location.search
+    );
+
 
   return {
-    category: params.get("category")
-      ? params.get("category").split(",")
-      : [],
 
-    badge: params.get("badge")
-      ? params.get("badge").split(",")
-      : [],
+    category:
+      params.get("category")
+        ? params
+            .get("category")
+            .split(",")
+            .filter(Boolean)
+        : [],
 
-    sort: params.get("sort") || "featured",
 
-    page: Number(params.get("page")) || 1,
+    badge:
+      params.get("badge")
+        ? params
+            .get("badge")
+            .split(",")
+            .filter(Boolean)
+        : [],
 
-    search: params.get("search") || "",
+
+    sort:
+      params.get("sort") ||
+      "featured",
+
+
+    page:
+      Math.max(
+        Number(params.get("page")) || 1,
+        1
+      ),
+
+
+    search:
+      params.get("search") || "",
+
 
     price: (() => {
-      const min = params.get("min");
-      const max = params.get("max");
 
-      if (!min && !max) return null;
+      const min =
+        params.get("min");
+
+      const max =
+        params.get("max");
+
+
+      if (
+        min === null &&
+        max === null
+      ) {
+        return null;
+      }
+
 
       return {
-        min: Number(min),
-        max: Number(max),
+        min:
+          min !== null
+            ? Number(min)
+            : 0,
+
+        max:
+          max !== null
+            ? Number(max)
+            : Infinity,
       };
+
     })(),
+
   };
 }
 
+
 export function restoreProductsStateFromURL() {
-  const query = getProductsQuery();
 
-  productsState.filters.categories = query.category.map((category) =>
-    category.toLowerCase()
-  );
+  const query =
+    getProductsQuery();
 
-  productsState.filters.badges = query.badge.map((badge) =>
-    badge.toUpperCase()
-  );
 
-  productsState.filters.price = query.price;
+  productsState.filters.categories =
+    query.category.map(
+      (category) =>
+        category.toLowerCase()
+    );
 
-  productsState.sort = query.sort;
 
-  productsState.page = query.page;
+  productsState.filters.badges =
+    query.badge.map(
+      (badge) =>
+        badge.toUpperCase()
+    );
+
+
+  productsState.filters.price =
+    query.price;
+
+
+  productsState.sort =
+    query.sort;
+
+
+  productsState.page =
+    query.page;
+
+
+  productsState.search =
+    query.search;
 }
 
-export function updateProductsURL() {
-  const params = new URLSearchParams();
 
-  // Categories
-  if (productsState.filters.categories.length) {
+export function updateProductsURL() {
+
+  const params =
+    new URLSearchParams();
+
+
+  if (
+    productsState.filters.categories.length
+  ) {
+
     params.set(
       "category",
       productsState.filters.categories.join(",")
     );
+
   }
 
-  // Badges
-  if (productsState.filters.badges.length) {
+
+  if (
+    productsState.filters.badges.length
+  ) {
+
     params.set(
       "badge",
       productsState.filters.badges.join(",")
     );
+
   }
 
-  // Price
-  if (productsState.filters.price) {
-    params.set("min", productsState.filters.price.min);
-    params.set("max", productsState.filters.price.max);
+
+  if (
+    productsState.filters.price
+  ) {
+
+    const {
+      min,
+      max,
+    } =
+      productsState.filters.price;
+
+
+    if (
+      min !== undefined &&
+      min !== null
+    ) {
+
+      params.set(
+        "min",
+        min
+      );
+
+    }
+
+
+    if (
+      max !== undefined &&
+      max !== null &&
+      max !== Infinity
+    ) {
+
+      params.set(
+        "max",
+        max
+      );
+
+    }
+
   }
 
-  // Sort
-  if (productsState.sort !== "featured") {
-    params.set("sort", productsState.sort);
+
+  if (
+    productsState.sort !== "featured"
+  ) {
+
+    params.set(
+      "sort",
+      productsState.sort
+    );
+
   }
 
-  // Pagination
-  if (productsState.page > 1) {
-    params.set("page", productsState.page);
+
+  if (
+    productsState.search
+  ) {
+
+    params.set(
+      "search",
+      productsState.search
+    );
+
   }
+
+
+  if (
+    productsState.page > 1
+  ) {
+
+    params.set(
+      "page",
+      productsState.page
+    );
+
+  }
+
+
+  const queryString =
+    params.toString();
+
 
   const url =
-    params.toString().length > 0
-      ? `${window.location.pathname}?${params.toString()}`
+    queryString
+      ? `${window.location.pathname}?${queryString}`
       : window.location.pathname;
 
-  window.history.replaceState({}, "", url);
+
+  window.history.replaceState(
+    {},
+    "",
+    url
+  );
 }
 
+
 export function resetProductsURL() {
+
   window.history.replaceState(
     {},
     "",

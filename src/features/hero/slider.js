@@ -1,9 +1,6 @@
 import {
   animateImageEnter,
   animateImageZoom,
-  animateTitleLine,
-  animateDescription,
-  animateButton,
 } from "./animations.js";
 
 import {
@@ -20,7 +17,6 @@ let currentSlide = 0;
 let hero = null;
 
 let slides = [];
-let contents = [];
 let indicators = [];
 let progressBars = [];
 
@@ -34,6 +30,7 @@ let touchEndX = 0;
 
 let resizeTimer = null;
 
+
 /* ------------------------------------------------ */
 /* DOM CACHE                                        */
 /* ------------------------------------------------ */
@@ -46,22 +43,26 @@ function cacheDOM() {
     return;
   }
 
-  slides = [...hero.querySelectorAll(".hero-slide")];
-
-  contents = [...hero.querySelectorAll(".hero-content")];
-
-  indicators = [...hero.querySelectorAll(".hero-indicator")];
-
-  progressBars = [
-    ...hero.querySelectorAll(".hero-indicator-progress"),
+  slides = [
+    ...hero.querySelectorAll(".hero-slide"),
   ];
 
-  nextButton = document.getElementById("heroNext");
+  indicators = [
+    ...hero.querySelectorAll(".hero-indicator"),
+  ];
 
-  previousButton = document.getElementById("heroPrev");
+  progressBars = [
+    ...hero.querySelectorAll(
+      ".hero-indicator-progress"
+    ),
+  ];
+
+  nextButton =
+    document.getElementById("heroNext");
+
+  previousButton =
+    document.getElementById("heroPrev");
 }
-
-
 
 
 /* ------------------------------------------------ */
@@ -72,10 +73,6 @@ function getCurrentSlide() {
   return slides[currentSlide];
 }
 
-function getCurrentContent() {
-  return contents[currentSlide];
-}
-
 function resetProgressBars() {
   progressBars.forEach(bar => {
     bar.style.transform = "scaleX(0)";
@@ -84,8 +81,15 @@ function resetProgressBars() {
 
 function updateIndicators(index) {
   indicators.forEach((indicator, i) => {
-    indicator.classList.toggle("h-3", i === index);
-    indicator.classList.toggle("w-3", i === index);
+    indicator.classList.toggle(
+      "h-3",
+      i === index
+    );
+
+    indicator.classList.toggle(
+      "w-3",
+      i === index
+    );
 
     indicator.classList.toggle(
       "bg-[#A07936]",
@@ -98,6 +102,11 @@ function updateIndicators(index) {
     );
   });
 }
+
+
+/* ------------------------------------------------ */
+/* SLIDES                                            */
+/* ------------------------------------------------ */
 
 function hideSlides() {
   slides.forEach(slide => {
@@ -113,24 +122,20 @@ function hideSlides() {
       "z-10"
     );
   });
-
-  contents.forEach(content => {
-    content.classList.remove(
-      "opacity-100",
-      "visible"
-    );
-
-    content.classList.add(
-      "opacity-0",
-      "invisible",
-      "absolute"
-    );
-  });
 }
+
 
 function showCurrentSlide() {
   const slide = getCurrentSlide();
-  const content = getCurrentContent();
+
+  if (!slide) {
+    console.warn(
+      "[Hero] Current slide not found:",
+      currentSlide
+    );
+
+    return;
+  }
 
   slide.classList.remove(
     "opacity-0",
@@ -144,19 +149,9 @@ function showCurrentSlide() {
     "z-20"
   );
 
-  content.classList.remove(
-    "opacity-0",
-    "invisible",
-    "absolute"
-  );
-
-  content.classList.add(
-    "opacity-100",
-    "visible"
-  );
-
   updateIndicators(currentSlide);
 }
+
 
 /* ------------------------------------------------ */
 /* TIMELINE                                         */
@@ -169,10 +164,12 @@ function startSlideTimeline() {
     slideDuration: SLIDE_DURATION,
 
     progress(progress) {
-      const bar = progressBars[currentSlide];
+      const bar =
+        progressBars[currentSlide];
 
       if (bar) {
-        bar.style.transform = `scaleX(${progress})`;
+        bar.style.transform =
+          `scaleX(${progress})`;
       }
     },
 
@@ -181,9 +178,6 @@ function startSlideTimeline() {
     },
   });
 }
-
-
-
 
 
 /* ------------------------------------------------ */
@@ -196,85 +190,69 @@ function playCurrentSlide() {
   showCurrentSlide();
 
   const slide = getCurrentSlide();
-  const content = getCurrentContent();
 
-  const image = slide.querySelector(".hero-image");
+  if (!slide) return;
 
-  const titleLines = [
-    ...content.querySelectorAll(".hero-title-word"),
-  ];
-
-  const description = content.querySelector(
-    ".hero-description"
-  );
-
-  const button = content.querySelector(
-    ".hero-button"
-  );
+  const image =
+    slide.querySelector(".hero-image");
 
   /* ---------- Image ---------- */
 
-  animateImageEnter(image);
+  if (image) {
+    animateImageEnter(image);
 
-  animateImageZoom(image, 1400);
-
-  /* ---------- Title ---------- */
-
-  titleLines.forEach((line, index) => {
-    animateTitleLine(
-      line,
-      350 + index * 180
+    animateImageZoom(
+      image,
+      1400
     );
-  });
+  }
 
-  /* ---------- Description ---------- */
-
-  animateDescription(
-    description,
-    1000
-  );
-
-  /* ---------- Button ---------- */
-
-  animateButton(
-    button,
-    1250
-  );
+  /* ---------- Timeline ---------- */
 
   startSlideTimeline();
 }
+
 
 /* ------------------------------------------------ */
 /* NEXT                                             */
 /* ------------------------------------------------ */
 
 function nextSlide() {
+  if (!slides.length) return;
+
   cancelTimeline();
 
   currentSlide++;
 
-  if (currentSlide >= slides.length) {
+  if (
+    currentSlide >= slides.length
+  ) {
     currentSlide = 0;
   }
 
   playCurrentSlide();
 }
 
+
 /* ------------------------------------------------ */
 /* PREVIOUS                                         */
 /* ------------------------------------------------ */
 
 function previousSlide() {
+  if (!slides.length) return;
+
   cancelTimeline();
 
   currentSlide--;
 
   if (currentSlide < 0) {
-    currentSlide = slides.length - 1;
+    currentSlide =
+      slides.length - 1;
   }
 
   playCurrentSlide();
 }
+
 
 /* ------------------------------------------------ */
 /* GO TO SLIDE                                      */
@@ -302,28 +280,43 @@ function goToSlide(index) {
 /* ------------------------------------------------ */
 
 function bindControls() {
-  nextButton?.addEventListener("click", nextSlide);
+  nextButton?.addEventListener(
+    "click",
+    nextSlide
+  );
 
-  previousButton?.addEventListener("click", previousSlide);
+  previousButton?.addEventListener(
+    "click",
+    previousSlide
+  );
 
-  indicators.forEach((indicator, index) => {
-    indicator.addEventListener("click", () => {
-      goToSlide(index);
-    });
-  });
-
-  document.addEventListener("keydown", event => {
-    switch (event.key) {
-      case "ArrowRight":
-        nextSlide();
-        break;
-
-      case "ArrowLeft":
-        previousSlide();
-        break;
+  indicators.forEach(
+    (indicator, index) => {
+      indicator.addEventListener(
+        "click",
+        () => {
+          goToSlide(index);
+        }
+      );
     }
-  });
+  );
+
+  document.addEventListener(
+    "keydown",
+    event => {
+      switch (event.key) {
+        case "ArrowRight":
+          nextSlide();
+          break;
+
+        case "ArrowLeft":
+          previousSlide();
+          break;
+      }
+    }
+  );
 }
+
 
 /* ------------------------------------------------ */
 /* PAUSE / RESUME                                   */
@@ -337,6 +330,7 @@ function pauseSlider() {
   pauseTimeline();
 }
 
+
 function resumeSlider() {
   if (!paused) return;
 
@@ -345,11 +339,14 @@ function resumeSlider() {
   resumeTimeline();
 }
 
+
 /* ------------------------------------------------ */
 /* HOVER                                            */
 /* ------------------------------------------------ */
 
 function bindHover() {
+  if (!hero) return;
+
   hero.addEventListener(
     "mouseenter",
     pauseSlider
@@ -361,18 +358,23 @@ function bindHover() {
   );
 }
 
+
 /* ------------------------------------------------ */
 /* TOUCH SUPPORT                                    */
 /* ------------------------------------------------ */
 
 function bindTouch() {
+  if (!hero) return;
+
   hero.addEventListener(
     "touchstart",
     event => {
       touchStartX =
         event.changedTouches[0].clientX;
     },
-    { passive: true }
+    {
+      passive: true,
+    }
   );
 
   hero.addEventListener(
@@ -384,7 +386,11 @@ function bindTouch() {
       const distance =
         touchStartX - touchEndX;
 
-      if (Math.abs(distance) < 60) return;
+      if (
+        Math.abs(distance) < 60
+      ) {
+        return;
+      }
 
       if (distance > 0) {
         nextSlide();
@@ -392,9 +398,12 @@ function bindTouch() {
         previousSlide();
       }
     },
-    { passive: true }
+    {
+      passive: true,
+    }
   );
 }
+
 
 /* ------------------------------------------------ */
 /* PAGE VISIBILITY                                  */
@@ -413,19 +422,27 @@ function bindVisibility() {
   );
 }
 
+
 /* ------------------------------------------------ */
 /* RESIZE                                           */
 /* ------------------------------------------------ */
 
 function bindResize() {
-  window.addEventListener("resize", () => {
-    clearTimeout(resizeTimer);
+  window.addEventListener(
+    "resize",
+    () => {
+      clearTimeout(
+        resizeTimer
+      );
 
-    resizeTimer = setTimeout(() => {
-      playCurrentSlide();
-    }, 200);
-  });
+      resizeTimer =
+        setTimeout(() => {
+          playCurrentSlide();
+        }, 200);
+    }
+  );
 }
+
 
 /* ------------------------------------------------ */
 /* INITIALIZE                                       */
@@ -435,6 +452,14 @@ export function initHeroSlider() {
   cacheDOM();
 
   if (!hero) return;
+
+  if (!slides.length) {
+    console.warn(
+      "[Hero] No hero slides found."
+    );
+
+    return;
+  }
 
   currentSlide = 0;
 
@@ -451,6 +476,7 @@ export function initHeroSlider() {
   bindResize();
 }
 
+
 /* ------------------------------------------------ */
 /* DESTROY                                          */
 /* ------------------------------------------------ */
@@ -463,9 +489,14 @@ export function destroyHeroSlider() {
   currentSlide = 0;
 
   slides = [];
-  contents = [];
+
   indicators = [];
+
   progressBars = [];
+
+  nextButton = null;
+
+  previousButton = null;
 
   hero = null;
 }

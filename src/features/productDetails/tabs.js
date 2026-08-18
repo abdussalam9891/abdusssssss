@@ -1,7 +1,14 @@
 export function initProductTabs() {
 
+  const productInfo =
+    document.getElementById("productInfo");
+
+  if (!productInfo) return;
+
+
   const buttons =
-    document.querySelectorAll(".product-tab");
+    productInfo.querySelectorAll(".product-tab");
+
 
   buttons.forEach((button) => {
 
@@ -10,26 +17,49 @@ export function initProductTabs() {
       const wrapper =
         button.parentElement;
 
+      if (!wrapper) return;
+
+
       const content =
         wrapper.querySelector(".tab-content");
 
       const icon =
         wrapper.querySelector(".tab-icon");
 
-      const isOpen =
-        content.classList.contains("max-h-[600px]");
+      if (!content || !icon) return;
 
-      document
+
+      const isOpen =
+        content.classList.contains(
+          "max-h-[600px]"
+        );
+
+
+      /* ------------------------------------------ */
+      /* CLOSE ALL TABS                            */
+      /* ------------------------------------------ */
+
+      productInfo
         .querySelectorAll(".tab-content")
         .forEach((item) => {
 
-          item.classList.remove("max-h-[600px]", "pb-8");
+          item.classList.remove(
+            "max-h-[600px]",
+            "pb-8"
+          );
 
-          item.classList.add("max-h-0");
+          item.classList.add(
+            "max-h-0"
+          );
 
         });
 
-      document
+
+      /* ------------------------------------------ */
+      /* RESET ALL ICONS                           */
+      /* ------------------------------------------ */
+
+      productInfo
         .querySelectorAll(".tab-icon")
         .forEach((item) => {
 
@@ -40,9 +70,16 @@ export function initProductTabs() {
 
         });
 
+
+      /* ------------------------------------------ */
+      /* OPEN CLICKED TAB                          */
+      /* ------------------------------------------ */
+
       if (!isOpen) {
 
-        content.classList.remove("max-h-0");
+        content.classList.remove(
+          "max-h-0"
+        );
 
         content.classList.add(
           "max-h-[600px]",
@@ -55,6 +92,11 @@ export function initProductTabs() {
         );
 
       }
+
+
+      /* ------------------------------------------ */
+      /* REFRESH LUCIDE ICONS                      */
+      /* ------------------------------------------ */
 
       window.lucide?.createIcons();
 
