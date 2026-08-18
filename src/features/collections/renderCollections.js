@@ -1,5 +1,6 @@
 import { websiteService } from "../../services/websiteService.js";
 import { createCollectionCard } from "../../components/collections/collectionCard.js";
+import { COLLECTIONS } from "../../constants/collections.js";
 
 const CATEGORY_IMAGES = {
   "Silver Rings": "./src/assets/ring.png",
@@ -82,15 +83,20 @@ export async function renderCollections() {
   } catch (error) {
 
     console.error(
-      "[Collections] Failed to load categories:",
+      "[Collections] Failed to load categories. Using local fallback.",
       error
     );
 
-    container.innerHTML = `
-      <p class="w-full text-center text-red-600">
-        Unable to load collections. Please try again later.
-      </p>
-    `;
+    // Local static collections already ship with the project, so the
+    // section stays usable instead of collapsing to an empty region.
+    container.innerHTML =
+      COLLECTIONS
+        .map(createCollectionCard)
+        .join("");
+
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
 
   }
 }

@@ -10,6 +10,8 @@ import { hydrateFooterSocialLinks } from "./features/footer/hydrateSocialLinks.j
 
 import { initToast } from "./features/toast/index.js";
 
+import { initFloatingWhatsAppButton } from "./features/whatsapp/index.js";
+
 import {
   initAuthModal,
   initGuestEngagement,
@@ -31,6 +33,18 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Toast is completely independent.
   initToast();
+
+
+  // WhatsApp button is completely independent.
+  // Backend failure must not block anything else.
+  initFloatingWhatsAppButton().catch((error) => {
+
+    console.error(
+      "[WhatsApp] Failed to initialize:",
+      error
+    );
+
+  });
 
 
   // Resolve authentication in background.
@@ -271,13 +285,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     try {
 
       const {
-        initContact,
+        initContactPage,
       } = await import(
-        "./features/contact/contact.js"
+        "./pages/contactPage.js"
       );
 
 
-      await initContact();
+      // Renders synchronously; backend contact details hydrate
+      // in the background.
+      initContactPage();
 
 
     } catch (error) {

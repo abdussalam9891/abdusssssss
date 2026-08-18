@@ -20,13 +20,28 @@ export function getProductsQuery() {
         : [],
 
 
-    badge:
-      params.get("badge")
-        ? params
-            .get("badge")
+    /*
+     * `tag` is the legacy alias used by the New Arrivals links
+     * (/pages/products.html?tag=new). It means the same thing as
+     * `badge`, so it is read here instead of being silently
+     * ignored. Links are left untouched; the URL normalizes to
+     * `badge` on the next filter change.
+     */
+
+    badge: (() => {
+
+      const badge =
+        params.get("badge") ||
+        params.get("tag");
+
+
+      return badge
+        ? badge
             .split(",")
             .filter(Boolean)
-        : [],
+        : [];
+
+    })(),
 
 
     sort:

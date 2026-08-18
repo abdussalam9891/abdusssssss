@@ -1,154 +1,166 @@
-const WHATSAPP_NUMBER = "919999999999"; // Replace
+import { buildEnquiryMessage } from "./enquiryButton.js";
+
+import {
+  escapeHtml,
+  formatPrice,
+} from "../../features/productDetails/model.js";
+
+
+const CONTACT_PAGE_URL = "/pages/contact.html";
+
+
+/*
+ * Mirrors createEnquiryButton: renders a contact-page link that
+ * features/productDetails/enquiry.js upgrades to a WhatsApp deep
+ * link once the backend number resolves.
+ */
 
 export function createStickyEnquiryBar(product) {
 
-  const message = encodeURIComponent(
-`Hello banshiwale,
+  const price =
+    formatPrice(product.finalPrice);
 
-I'm interested in:
 
-${product.name}
+  const message =
+    buildEnquiryMessage(product);
 
-Price: ₹${product.price.toLocaleString("en-IN")}
-
-Could you share more details?`
-  );
 
   return `
 
 <div
-class="
-fixed
+  class="
+    fixed
 
-bottom-0
-left-0
-right-0
+    bottom-0
+    left-0
+    right-0
 
-z-50
+    z-50
 
-border-t
-border-[#ECE5D8]
+    border-t
+    border-[#ECE5D8]
 
-bg-white/95
+    bg-white/95
 
-backdrop-blur-xl
+    backdrop-blur-xl
 
-p-4
+    p-4
 
-lg:hidden
-"
+    lg:hidden
+  "
 >
 
-<div
-class="
-flex
+  <div
+    class="
+      flex
 
-items-center
+      items-center
 
-gap-4
-"
->
+      gap-4
+    "
+  >
 
-<div
-class="
-min-w-0
+    <div
+      class="
+        min-w-0
 
-flex-1
-"
->
+        flex-1
+      "
+    >
 
+      <p
+        class="
+          truncate
+
+          font-serif
+
+          text-[20px]
+
+          italic
+
+          text-[#181818]
+        "
+      >
+        ${escapeHtml(product.name)}
+      </p>
+
+      ${
+        price
+          ? `
 <p
-class="
-truncate
+  class="
+    mt-1
 
-font-serif
+    font-medium
 
-text-[20px]
-
-italic
-
-text-[#181818]
-"
+    text-[#A07936]
+  "
 >
-
-${product.name}
-
+  ${price}
 </p>
+`
+          : ""
+      }
 
-<p
-class="
-mt-1
+    </div>
 
-font-medium
 
-text-[#A07936]
-"
->
+    <a
+      id="productStickyEnquiryButton"
 
-₹${product.price.toLocaleString("en-IN")}
+      data-enquiry-message="${escapeHtml(message)}"
 
-</p>
+      href="${CONTACT_PAGE_URL}"
 
-</div>
+      class="
+        flex
 
-<a
+        shrink-0
 
-href="https://wa.me/${WHATSAPP_NUMBER}?text=${message}"
+        items-center
 
-target="_blank"
+        gap-2
 
-rel="noopener noreferrer"
+        rounded-2xl
 
-class="
-flex
+        bg-[#181818]
 
-shrink-0
+        px-6
+        py-4
 
-items-center
+        text-[13px]
 
-gap-2
+        font-medium
 
-rounded-2xl
+        uppercase
 
-bg-[#181818]
+        tracking-[0.16em]
 
-px-6
-py-4
+        text-white
 
-text-[13px]
+        transition-all
+        duration-300
 
-font-medium
+        hover:bg-[#A07936]
+      "
+    >
 
-uppercase
+      <i
+        data-lucide="message-circle"
 
-tracking-[0.16em]
+        class="
+          h-4
+          w-4
+        "
+      ></i>
 
-text-white
+      Enquire
 
-transition-all
-duration-300
+    </a>
 
-hover:bg-[#A07936]
-"
->
-
-<i
-data-lucide="message-circle"
-
-class="
-h-4
-w-4
-"
-></i>
-
-Enquire
-
-</a>
-
-</div>
+  </div>
 
 </div>
 
 `;
-
 }

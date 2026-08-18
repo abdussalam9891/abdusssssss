@@ -1,10 +1,10 @@
-import { getProductImages } from "../../utils/getProductImages.js";
+import { escapeHtml } from "../../features/productDetails/model.js";
 
 export function createProductLightbox(product) {
 
-  const images = Object.values(
-    getProductImages(product)
-  ).filter(Boolean);
+  // Normalized product: `gallery` is an ordered list of urls.
+  const images =
+    product.gallery || [];
 
   const firstImage =
     images[0] || "";
@@ -141,9 +141,9 @@ export function createProductLightbox(product) {
   <img
     id="lightboxImage"
 
-    src="${firstImage}"
+    src="${escapeHtml(firstImage)}"
 
-    alt="${product.name || "Product image"}"
+    alt="${escapeHtml(product.name || "Product image")}"
 
     class="
       max-h-[88vh]

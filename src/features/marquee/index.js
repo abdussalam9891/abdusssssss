@@ -42,7 +42,11 @@ export async function initMarquee() {
       error
     );
 
-    container.innerHTML = "";
+    container.innerHTML = `
+      <p class="w-full py-4 text-center text-sm text-red-600">
+        Unable to load announcements. Please try again later.
+      </p>
+    `;
 
   }
 

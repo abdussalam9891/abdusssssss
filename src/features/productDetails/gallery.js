@@ -1,5 +1,3 @@
-import { getProductImages } from "../../utils/getProductImages.js";
-
 import {
   productState,
   setActiveImage,
@@ -15,9 +13,9 @@ export function initGallery() {
 
   if (!buttons.length || !image) return;
 
-  const images = Object.values(
-    getProductImages(productState.product)
-  ).filter(Boolean);
+  // Normalized product: `gallery` is an ordered list of urls.
+  const images =
+    productState.product?.gallery || [];
 
   buttons.forEach((button) => {
 

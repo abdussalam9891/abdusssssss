@@ -1,40 +1,94 @@
-import { PRODUCTS } from "../../constants/products.js";
+import { productService } from "../../services/productService.js";
 
 import { productState } from "./state.js";
 
 import { createShowcaseCard } from "../../components/showcase/showcaseCard.js";
 
+
+/*
+ * Only backend product ids are stored locally; the products
+ * themselves are always re-fetched from the backend, so nothing
+ * stale or invented is ever rendered.
+ */
+
 const STORAGE_KEY =
   "banshiwale_recent_products";
+
+const MAX_ITEMS = 8;
+
+
+function readIds() {
+
+  try {
+
+    const stored =
+      JSON.parse(
+        localStorage.getItem(STORAGE_KEY)
+      );
+
+
+    return Array.isArray(stored)
+      ? stored.filter(
+          (id) => typeof id === "string" && id
+        )
+      : [];
+
+  } catch (error) {
+
+    console.warn(
+      "[Recently Viewed] Stored ids could not be read:",
+      error
+    );
+
+    return [];
+  }
+
+}
+
+
+function getSection(container) {
+
+  return container.closest("section");
+}
+
 
 export function saveRecentlyViewed() {
 
   const currentId =
-    productState.product.id;
+    productState.product?.id;
 
-  let ids =
-    JSON.parse(
-      localStorage.getItem(STORAGE_KEY)
-    ) || [];
+  if (!currentId) return;
 
-  ids =
-    ids.filter(
+
+  const ids = [
+    currentId,
+
+    ...readIds().filter(
       (id) => id !== currentId
+    ),
+  ].slice(0, MAX_ITEMS);
+
+
+  try {
+
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(ids)
     );
 
-  ids.unshift(currentId);
+  } catch (error) {
 
-  ids =
-    ids.slice(0, 8);
+    console.warn(
+      "[Recently Viewed] Could not persist history:",
+      error
+    );
 
-  localStorage.setItem(
-    STORAGE_KEY,
-    JSON.stringify(ids)
-  );
+  }
 
 }
 
-export function initRecentlyViewed() {
+
+export async function initRecentlyViewed() {
 
   const container =
     document.getElementById(
@@ -43,36 +97,84 @@ export function initRecentlyViewed() {
 
   if (!container) return;
 
+
+  const currentId =
+    productState.product?.id;
+
+
   const ids =
-    JSON.parse(
-      localStorage.getItem(STORAGE_KEY)
-    ) || [];
-
-  const products =
-    ids
+    readIds()
       .filter(
-        (id) => id !== productState.product.id
+        (id) => id !== currentId
       )
-      .map((id) =>
-        PRODUCTS.find(
-          (product) => product.id === id
-        )
-      )
-      .filter(Boolean);
+      .slice(0, MAX_ITEMS);
 
-  if (!products.length) {
 
-    container.parentElement.parentElement.remove();
+  if (!ids.length) {
+
+    getSection(container)?.remove();
 
     return;
+  }
+
+
+  const results =
+    await Promise.allSettled(
+      ids.map(
+        (id) =>
+          productService.getPublicProductById(id)
+      )
+    );
+
+
+  const products =
+    results
+      .filter(
+        (result) =>
+          result.status === "fulfilled" &&
+          result.value
+      )
+      .map(
+        (result) => result.value
+      );
+
+
+  const failed =
+    results.filter(
+      (result) =>
+        result.status === "rejected"
+    );
+
+
+  if (failed.length) {
+
+    console.error(
+      "[Recently Viewed] Some products could not be loaded:",
+      failed.map(
+        (result) => result.reason
+      )
+    );
 
   }
 
+
+  if (!products.length) {
+
+    getSection(container)?.remove();
+
+    return;
+  }
+
+
   container.innerHTML =
     products
-      .map((product) =>
-        createShowcaseCard(product, true)
+      .map(
+        (product) =>
+          createShowcaseCard(product, true)
       )
       .join("");
+
+
+  window.lucide?.createIcons();
 
 }

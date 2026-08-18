@@ -1,10 +1,10 @@
 import { createContactForm } from "../../components/contact/contactForm.js";
 import { contactService } from "../../services/contactService.js";
 import { showToast } from "../../utils/toast.js";
-import { websiteService } from "../../services/websiteService.js";
+import { hydrateContactInfo } from "./hydrateContactInfo.js";
 
 
-export async function initContact() {
+export function initContact() {
 
   const section =
     document.getElementById("contact-form");
@@ -13,32 +13,20 @@ export async function initContact() {
 
 
   // ==========================================
-  // LOAD CONTACT INFORMATION FROM BACKEND
-  // ==========================================
-
-  let contactInfo = {};
-
-  try {
-
-    contactInfo =
-      await websiteService.getContactInfo();
-
-  } catch (error) {
-
-    console.error(
-      "[initContact] Failed to load contact information:",
-      error
-    );
-
-  }
-
-
-  // ==========================================
   // RENDER CONTACT SECTION
   // ==========================================
 
+  // The form is static markup and must never wait for a
+  // backend request. Contact details are hydrated afterwards.
   section.innerHTML =
-    createContactForm(contactInfo);
+    createContactForm();
+
+
+  // ==========================================
+  // HYDRATE CONTACT INFORMATION (NON-BLOCKING)
+  // ==========================================
+
+  hydrateContactInfo();
 
 
   // ==========================================

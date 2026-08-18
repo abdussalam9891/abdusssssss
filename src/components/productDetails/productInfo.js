@@ -1,14 +1,36 @@
 import { createEnquiryButton } from "./enquiryButton.js";
 
-function createStars(rating = 5) {
+import {
+  escapeHtml,
+  formatDiscount,
+  formatPrice,
+} from "../../features/productDetails/model.js";
+
+
+/*
+ * Receives the normalized product produced by
+ * features/productDetails/model.js.
+ *
+ * Every block below renders only when the backend actually
+ * provides the data — nothing is filled in with invented
+ * values.
+ */
+
+
+function createStars(rating, totalReviews) {
+
+  const safeRating =
+    Number(rating) || 0;
+
 
   return `
 <div
   class="
     flex
+    flex-wrap
     items-center
 
-    gap-2
+    gap-3
   "
 >
 
@@ -27,27 +49,23 @@ function createStars(rating = 5) {
       .map(
         (_, index) => `
 <svg
+  class="
+    h-[16px]
+    w-[16px]
 
-class="
-h-[16px]
-w-[16px]
+    ${
+      index < Math.round(safeRating)
+        ? "fill-current"
+        : "fill-none stroke-current"
+    }
+  "
 
-${index < Math.round(rating)
-  ? "fill-current"
-  : "fill-none stroke-current"}
-"
-
-viewBox="0 0 24 24"
+  viewBox="0 0 24 24"
 >
-
-<path
-
-stroke-width="1.8"
-
-d="M12 17.3L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-
-/>
-
+  <path
+    stroke-width="1.8"
+    d="M12 17.3L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+  />
 </svg>
 `
       )
@@ -55,104 +73,170 @@ d="M12 17.3L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.7
 
   </div>
 
-  <span
-    class="
-      text-sm
 
-      text-[#777]
-    "
-  >
-    ${rating.toFixed(1)}
+  <span class="text-sm text-[#777]">
+    ${
+      totalReviews > 0
+        ? `${safeRating.toFixed(1)} · ${totalReviews} ${
+            totalReviews === 1
+              ? "review"
+              : "reviews"
+          }`
+        : "No reviews yet"
+    }
   </span>
 
 </div>
 `;
-
 }
 
-function createDiscount(product){
 
-  if(!product.originalPrice) return "";
+function createTags(product) {
 
-  const percentage =
-    Math.round(
-      (
-        (product.originalPrice-product.price) /
-        product.originalPrice
-      ) * 100
-    );
+  const tags = [
 
-  if(percentage<=0) return "";
+    ...product.subCategory,
+
+    ...product.childCategory,
+
+    ...product.gender,
+
+  ];
+
+
+  if (!tags.length) return "";
+
 
   return `
-<span
-class="
-rounded-full
+<div
+  class="
+    flex
+    flex-wrap
 
-bg-[#181818]
-
-px-3
-py-1
-
-text-[11px]
-
-font-medium
-
-tracking-[0.18em]
-
-uppercase
-
-text-white
-"
+    gap-2
+  "
 >
 
-${percentage}% OFF
+  ${tags
+    .map(
+      (tag) => `
+<span
+  class="
+    rounded-full
 
+    border
+    border-[#ECE5D8]
+
+    bg-[#FCFBF9]
+
+    px-4
+    py-1.5
+
+    text-[12px]
+
+    uppercase
+
+    tracking-[0.14em]
+
+    text-[#6B6B6B]
+  "
+>
+  ${escapeHtml(tag)}
 </span>
-`;
+`
+    )
+    .join("")}
 
+</div>
+`;
 }
 
-export function createProductInfo(product){
 
-return `
+function createStock(product) {
 
+  // Backend did not send stock information at all.
+  if (product.inStock === null) return "";
+
+
+  const label =
+    product.inStock
+      ? product.stockStatus ||
+        (product.stock <= 5
+          ? `Only ${product.stock} left in stock`
+          : "In Stock")
+      : product.stockStatus ||
+        "Out of Stock";
+
+
+  return `
 <div
-class="
-space-y-8
-"
+  class="
+    inline-flex
+    items-center
+
+    gap-2
+
+    rounded-full
+
+    px-4
+    py-2
+
+    text-[13px]
+
+    font-medium
+
+    ${
+      product.inStock
+        ? "bg-[#F1F7F1] text-[#2F6B3A]"
+        : "bg-[#FBF1F1] text-[#B3261E]"
+    }
+  "
 >
 
-  <!-- Title -->
+  <span
+    class="
+      h-2
+      w-2
 
-  <div>
+      rounded-full
 
-    <h1
-      class="
-        font-serif
+      ${
+        product.inStock
+          ? "bg-[#2F6B3A]"
+          : "bg-[#B3261E]"
+      }
+    "
+  ></span>
 
-        text-[42px]
-        lg:text-[56px]
+  ${escapeHtml(label)}
 
-        italic
+</div>
+`;
+}
 
-        leading-none
 
-        text-[#181818]
-      "
-    >
-      ${product.name}
-    </h1>
+function createPricing(product) {
 
-    <div class="mt-5">
+  const finalPrice =
+    formatPrice(product.finalPrice);
 
-      ${createStars(product.rating)}
+  const basePrice =
+    formatPrice(product.price);
 
-    </div>
 
-  </div>
+  const showBasePrice =
+    basePrice &&
+    finalPrice &&
+    Number(product.price) !==
+      Number(product.finalPrice);
 
-  <!-- Price -->
+
+  const discount =
+    formatDiscount(product);
+
+
+  return `
+<div>
 
   <div
     class="
@@ -175,113 +259,338 @@ space-y-8
         text-[#181818]
       "
     >
-      ₹${product.price.toLocaleString("en-IN")}
+      ${finalPrice || "Price on request"}
     </span>
 
     ${
-      product.originalPrice
-      ?`
+      discount
+        ? `
 <span
-class="
-text-2xl
+  class="
+    rounded-full
 
-text-[#9A9A9A]
+    bg-[#181818]
 
-line-through
-"
+    px-3
+    py-1
+
+    text-[11px]
+
+    font-medium
+
+    uppercase
+
+    tracking-[0.18em]
+
+    text-white
+  "
 >
-
-₹${product.originalPrice.toLocaleString("en-IN")}
-
+  ${escapeHtml(discount)}
 </span>
 `
-:""
-}
-
-    ${createDiscount(product)}
+        : ""
+    }
 
   </div>
 
-  <!-- Description -->
+
+  ${
+    showBasePrice ||
+    product.makingCharges !== null ||
+    product.taxRate !== null
+      ? `
+<p
+  class="
+    mt-3
+
+    text-[13px]
+
+    leading-6
+
+    text-[#8A8A8A]
+  "
+>
+  ${[
+    showBasePrice
+      ? `Base price ${basePrice}`
+      : "",
+
+    product.makingCharges !== null
+      ? `making charges ${product.makingCharges}%`
+      : "",
+
+    product.taxRate !== null
+      ? `tax ${product.taxRate}%`
+      : "",
+  ]
+    .filter(Boolean)
+    .join(" · ")}
+</p>
+`
+      : ""
+  }
+
+</div>
+`;
+}
+
+
+function createSizes(product) {
+
+  if (!product.availableSizes.length) return "";
+
+
+  return `
+<div>
 
   <p
     class="
-      max-w-xl
+      text-[12px]
 
-      text-[16px]
+      font-semibold
 
-      leading-8
+      uppercase
 
-      text-[#666]
+      tracking-[0.22em]
+
+      text-[#A07936]
     "
   >
-    ${product.shortDescription || "Handcrafted sterling silver jewellery designed for timeless elegance and everyday wear."}
+    Available Sizes
   </p>
 
-  <!-- Features -->
 
   <div
     class="
-      grid
+      mt-4
 
-      gap-4
+      flex
+      flex-wrap
+
+      gap-3
     "
   >
 
-    ${[
-      "925 Sterling Silver",
-      "Hallmarked Jewellery",
-      "Handcrafted by Artisans",
-      "Hypoallergenic",
-      "Free Shipping",
-      "Lifetime Polish"
-    ].map(item=>`
+    ${product.availableSizes
+      .map(
+        (size) => `
+<span
+  class="
+    rounded-xl
 
-<div
-class="
-flex
+    border
+    border-[#ECE5D8]
 
-items-center
+    px-4
+    py-2
 
-gap-3
-"
+    text-[14px]
+
+    text-[#181818]
+  "
 >
-
-<div
-class="
-h-2
-w-2
-
-rounded-full
-
-bg-[#A07936]
-"
-></div>
-
-<p
-class="
-text-[15px]
-
-text-[#555]
-"
->
-
-${item}
-
-</p>
-
-</div>
-
-`).join("")}
+  ${escapeHtml(size.label)}${
+    size.stock !== null
+      ? ` <span class="text-[#8A8A8A]">(${size.stock})</span>`
+      : ""
+  }
+</span>
+`
+      )
+      .join("")}
 
   </div>
 
+</div>
+`;
+}
+
+
+function createAttributes(product) {
+
+  if (!product.attributes.length) return "";
+
+
+  return `
+<div
+  class="
+    grid
+
+    gap-4
+
+    sm:grid-cols-2
+  "
+>
+
+  ${product.attributes
+    .map(
+      (attribute) => `
+<div
+  class="
+    rounded-2xl
+
+    border
+    border-[#F2ECE3]
+
+    px-5
+    py-4
+  "
+>
+
+  <p
+    class="
+      text-[11px]
+
+      uppercase
+
+      tracking-[0.18em]
+
+      text-[#A07936]
+    "
+  >
+    ${escapeHtml(attribute.name)}
+  </p>
+
+  <p
+    class="
+      mt-1
+
+      text-[15px]
+
+      text-[#181818]
+    "
+  >
+    ${escapeHtml(attribute.value)}
+  </p>
+
+</div>
+`
+    )
+    .join("")}
+
+</div>
+`;
+}
+
+
+function createSku(product) {
+
+  if (!product.sku) return "";
+
+
+  return `
+<p
+  class="
+    text-[13px]
+
+    text-[#8A8A8A]
+  "
+>
+  SKU:
+  <span class="text-[#555]">
+    ${escapeHtml(product.sku)}
+  </span>
+</p>
+`;
+}
+
+
+export function createProductInfo(product) {
+
+  return `
+
+<div class="space-y-8">
+
+  <!-- Title -->
+
+  <div>
+
+    <h1
+      class="
+        font-serif
+
+        text-[42px]
+        lg:text-[56px]
+
+        italic
+
+        leading-none
+
+        text-[#181818]
+      "
+    >
+      ${escapeHtml(product.name)}
+    </h1>
+
+
+    <div class="mt-5">
+      ${createStars(
+        product.averageRating,
+        product.totalReviews
+      )}
+    </div>
+
+  </div>
+
+
+  <!-- Tags -->
+
+  ${createTags(product)}
+
+
+  <!-- Price -->
+
+  ${createPricing(product)}
+
+
+  <!-- Stock -->
+
+  ${createStock(product)}
+
+
+  <!-- Description -->
+
+  ${
+    product.description
+      ? `
+<p
+  class="
+    max-w-xl
+
+    text-[16px]
+
+    leading-8
+
+    text-[#666]
+  "
+>
+  ${escapeHtml(product.description)}
+</p>
+`
+      : ""
+  }
+
+
+  <!-- Attributes -->
+
+  ${createAttributes(product)}
+
+
+  <!-- Sizes -->
+
+  ${createSizes(product)}
+
+
+  <!-- SKU -->
+
+  ${createSku(product)}
+
+
   <!-- CTA -->
 
-${createEnquiryButton(product)}
+  ${createEnquiryButton(product)}
 
 </div>
 
 `;
-
 }

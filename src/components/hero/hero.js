@@ -19,7 +19,7 @@ export function createHero(heroSlides = []) {
 
       <!-- Progress Indicators -->
 
-      ${createHeroIndicators()}
+      ${createHeroIndicators(heroSlides.length)}
 
       <!-- Previous Button -->
 

@@ -1,8 +1,275 @@
-const TABS = [
-  {
-    title: "Description",
+import {
+  escapeHtml,
+  formatDiscount,
+  formatPrice,
+} from "../../features/productDetails/model.js";
 
-    content: (product) => `
+
+/*
+ * Receives the normalized product produced by
+ * features/productDetails/model.js.
+ *
+ * Rows are built from backend data only: a row that has no
+ * backend value is dropped, and a tab with no rows at all is not
+ * rendered.
+ */
+
+
+function createRows(rows) {
+
+  const visible =
+    rows.filter(
+      ([, value]) =>
+        value !== "" &&
+        value !== null &&
+        value !== undefined
+    );
+
+
+  if (!visible.length) return "";
+
+
+  return `
+<div class="space-y-4">
+
+  ${visible
+    .map(
+      ([key, value]) => `
+<div
+  class="
+    flex
+
+    justify-between
+
+    gap-6
+
+    border-b
+    border-[#F2ECE3]
+
+    pb-3
+  "
+>
+
+  <span class="text-[#777]">
+    ${escapeHtml(key)}
+  </span>
+
+  <span
+    class="
+      text-right
+
+      font-medium
+
+      text-[#181818]
+    "
+  >
+    ${escapeHtml(value)}
+  </span>
+
+</div>
+`
+    )
+    .join("")}
+
+</div>
+`;
+}
+
+
+function createList(items) {
+
+  return `
+<ul
+  class="
+    space-y-3
+
+    text-[#666]
+  "
+>
+
+  ${items
+    .map(
+      (item) => `
+<li>• ${escapeHtml(item)}</li>
+`
+    )
+    .join("")}
+
+</ul>
+`;
+}
+
+
+function createSpecifications(product) {
+
+  const rows = [
+
+    ...product.attributes.map(
+      (attribute) => [
+        attribute.name,
+        attribute.value,
+      ]
+    ),
+
+    [
+      "SKU",
+      product.sku,
+    ],
+
+    [
+      "Category",
+      [
+        ...product.subCategory,
+        ...product.childCategory,
+      ].join(", "),
+    ],
+
+    [
+      "Collection",
+      product.sizeCategory,
+    ],
+
+    [
+      "Gender",
+      product.gender.join(", "),
+    ],
+
+    [
+      "Availability",
+      product.inStock === null
+        ? ""
+        : product.stockStatus ||
+          (product.inStock
+            ? `In stock (${product.stock})`
+            : "Out of stock"),
+    ],
+
+  ];
+
+
+  return createRows(rows);
+}
+
+
+function createPricingBreakdown(product) {
+
+  const rows = [
+
+    [
+      "Base Price",
+      formatPrice(product.price),
+    ],
+
+    [
+      "Discount",
+      formatDiscount(product),
+    ],
+
+    [
+      "Making Charges",
+      product.makingCharges !== null
+        ? `${product.makingCharges}%`
+        : "",
+    ],
+
+    [
+      "Tax",
+      product.taxRate !== null
+        ? `${product.taxRate}%`
+        : "",
+    ],
+
+    [
+      "Final Price",
+      formatPrice(product.finalPrice),
+    ],
+
+  ];
+
+
+  return createRows(rows);
+}
+
+
+function createShipping(product) {
+
+  const rows = [
+
+    [
+      "Shipping Weight",
+      product.shippingWeight !== null
+        ? `${product.shippingWeight}${
+            product.weightUnit
+              ? ` ${product.weightUnit}`
+              : ""
+          }`
+        : "",
+    ],
+
+    [
+      "Package Dimensions",
+      product.shippingDimensions
+        ? `${product.shippingDimensions}${
+            product.dimensionUnit
+              ? ` ${product.dimensionUnit}`
+              : ""
+          }`
+        : "",
+    ],
+
+  ];
+
+
+  const table =
+    createRows(rows);
+
+
+  return `
+${table}
+
+<div class="${table ? "mt-6" : ""}">
+  ${createList([
+    "Orders are dispatched after quality checks.",
+    "Secure packaging for every order.",
+    "Return eligibility follows our Refund Policy.",
+    "Dedicated WhatsApp support for order updates.",
+  ])}
+</div>
+`;
+}
+
+
+function createGifting(product) {
+
+  const rows = [
+
+    [
+      "Occasion",
+      product.occasion.join(", "),
+    ],
+
+    [
+      "Ideal For",
+      product.recipient.join(", "),
+    ],
+
+  ];
+
+
+  return createRows(rows);
+}
+
+
+export function createProductTabs(product) {
+
+  const tabs = [
+
+    {
+      title: "Description",
+
+      content:
+        product.description
+          ? `
 <p
   class="
     leading-8
@@ -10,239 +277,156 @@ const TABS = [
     text-[#666]
   "
 >
-  ${
-    product.description ||
-    "Crafted from premium 925 sterling silver, this jewellery piece blends timeless elegance with everyday comfort. Every design is carefully handcrafted by skilled artisans, making each piece unique."
-  }
+  ${escapeHtml(product.description)}
 </p>
-`,
-  },
-
-  {
-    title: "Specifications",
-
-    content: (product) => `
-<div class="space-y-4">
-
-${[
-  ["Material", product.material || "925 Sterling Silver"],
-  ["Finish", product.finish || "High Polish"],
-  ["Category", product.category || "Jewellery"],
-  ["Weight", product.weight || "Approx. 8g"],
-  ["Hallmark", "925 Certified"],
-]
-  .map(
-    ([key, value]) => `
-
-<div
-class="
-flex
-
-justify-between
-
-border-b
-border-[#F2ECE3]
-
-pb-3
-"
->
-
-<span
-class="
-text-[#777]
-"
->
-
-${key}
-
-</span>
-
-<span
-class="
-font-medium
-
-text-[#181818]
-"
->
-
-${value}
-
-</span>
-
-</div>
-
 `
-  )
-  .join("")}
+          : "",
+    },
 
-</div>
-`,
-  },
+    {
+      title: "Specifications",
+      content: createSpecifications(product),
+    },
 
-  {
-    title: "Jewellery Care",
+    {
+      title: "Price Breakdown",
+      content: createPricingBreakdown(product),
+    },
 
-    content: () => `
-<ul
-class="
-space-y-3
+    {
+      title: "Occasion & Gifting",
+      content: createGifting(product),
+    },
 
-text-[#666]
-"
->
+    {
+      title: "Jewellery Care",
 
-<li>• Store in a dry place after every use.</li>
+      content: createList([
+        "Store in a dry place after every use.",
+        "Keep away from perfumes and harsh chemicals.",
+        "Clean gently using a soft polishing cloth.",
+        "Remove before swimming or showering.",
+        "Store separately to avoid scratches.",
+      ]),
+    },
 
-<li>• Keep away from perfumes and harsh chemicals.</li>
+    {
+      title: "Shipping & Returns",
+      content: createShipping(product),
+    },
 
-<li>• Clean gently using a soft polishing cloth.</li>
+  ].filter(
+    (tab) =>
+      tab.content &&
+      tab.content.trim()
+  );
 
-<li>• Remove before swimming or showering.</li>
 
-<li>• Store separately to avoid scratches.</li>
+  if (!tabs.length) return "";
 
-</ul>
-`,
-  },
 
-  {
-    title: "Shipping & Returns",
-
-    content: () => `
-<ul
-class="
-space-y-3
-
-text-[#666]
-"
->
-
-<li>• Free shipping across India.</li>
-
-<li>• Orders dispatched within 24–48 hours.</li>
-
-<li>• Secure packaging for every order.</li>
-
-<li>• Easy return on eligible products.</li>
-
-<li>• Dedicated WhatsApp support.</li>
-
-</ul>
-`,
-  },
-];
-
-export function createProductTabs(product) {
   return `
 
 <div
-class="
-mt-20
+  class="
+    mt-20
 
-border-t
-border-[#ECE5D8]
-"
+    border-t
+    border-[#ECE5D8]
+  "
 >
 
-${TABS.map(
-  (tab, index) => `
+${tabs
+  .map(
+    (tab, index) => `
 <div
-class="
-border-b
-border-[#ECE5D8]
-"
+  class="
+    border-b
+    border-[#ECE5D8]
+  "
 >
 
-<button
+  <button
+    type="button"
 
-type="button"
+    class="
+      product-tab
 
-class="
-product-tab
+      flex
 
-flex
+      w-full
 
-w-full
+      items-center
+      justify-between
 
-items-center
-justify-between
+      py-6
 
-py-6
+      text-left
+    "
 
-text-left
-"
+    data-index="${index}"
+  >
 
-data-index="${index}"
+    <span
+      class="
+        font-serif
 
->
+        text-[28px]
 
-<span
-class="
-font-serif
+        italic
 
-text-[28px]
+        text-[#181818]
+      "
+    >
+      ${tab.title}
+    </span>
 
-italic
+    <i
+      data-lucide="${
+        index === 0
+          ? "minus"
+          : "plus"
+      }"
 
-text-[#181818]
-"
->
+      class="
+        tab-icon
 
-${tab.title}
+        h-5
+        w-5
 
-</span>
+        text-[#A07936]
 
-<i
+        transition-transform
+        duration-300
+      "
+    ></i>
 
-data-lucide="${
-    index === 0
-      ? "minus"
-      : "plus"
-  }"
+  </button>
 
-class="
-tab-icon
 
-h-5
-w-5
+  <div
+    class="
+      tab-content
 
-text-[#A07936]
+      overflow-hidden
 
-transition-transform
-duration-300
-"
+      transition-all
+      duration-500
 
-></i>
-
-</button>
-
-<div
-
-class="
-tab-content
-
-overflow-hidden
-
-transition-all
-duration-500
-
-${
-  index === 0
-    ? "max-h-[600px] pb-8"
-    : "max-h-0"
-}
-"
-
->
-
-${tab.content(product)}
+      ${
+        index === 0
+          ? "max-h-[600px] pb-8"
+          : "max-h-0"
+      }
+    "
+  >
+    ${tab.content}
+  </div>
 
 </div>
-
-</div>
-
 `
-).join("")}
+  )
+  .join("")}
 
 </div>
 

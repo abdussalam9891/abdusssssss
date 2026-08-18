@@ -9,17 +9,16 @@ export function loadProductDetailsPage() {
 
   if (!container) return;
 
-  try {
-
-    initProductDetailsPage();
-
-  } catch (err) {
+  // initProductDetailsPage is async and renders its own
+  // loading/error/not-found states, so failures stay inside
+  // the product details section.
+  initProductDetailsPage().catch((err) => {
 
     console.error(
       "[loadProductDetailsPage] initProductDetailsPage failed:",
       err
     );
 
-  }
+  });
 
 }

@@ -54,6 +54,88 @@ function createEmptyState() {
 }
 
 
+export function renderProductsLoading() {
+
+  const container =
+    document.getElementById(
+      "productsGrid"
+    );
+
+
+  if (!container) return;
+
+
+  container.innerHTML = `
+<div
+  class="
+    flex
+
+    flex-col
+
+    items-center
+
+    gap-5
+
+    py-24
+  "
+  role="status"
+  aria-live="polite"
+>
+
+  <span
+    class="
+      h-10
+      w-10
+
+      animate-spin
+
+      rounded-full
+
+      border-2
+      border-[#ECE5D8]
+      border-t-[#A07936]
+    "
+  ></span>
+
+  <p class="text-[#777]">
+    Loading products…
+  </p>
+
+</div>
+`;
+}
+
+
+export function renderProductsError() {
+
+  const container =
+    document.getElementById(
+      "productsGrid"
+    );
+
+
+  if (!container) return;
+
+
+  container.innerHTML = `
+<p
+  class="
+    w-full
+
+    py-24
+
+    text-center
+
+    text-red-600
+  "
+>
+  Unable to load products.
+  Please try again later.
+</p>
+`;
+}
+
+
 export function renderProductsGrid() {
 
   const container =

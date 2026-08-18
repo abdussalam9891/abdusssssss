@@ -70,6 +70,29 @@ const HERO_CONTENT = {
 };
 
 
+/*
+ * The frontend category filter is plural ("rings"), while the
+ * HERO_CONTENT keys are singular ("ring") — same as the backend
+ * subCategory values. Look both up so a category link shows its
+ * own hero copy instead of falling back to the generic one.
+ */
+
+function findHeroContent(value) {
+
+  const key =
+    String(value)
+      .toLowerCase()
+      .trim();
+
+
+  return (
+    HERO_CONTENT[key] ||
+    HERO_CONTENT[key.replace(/s$/, "")] ||
+    null
+  );
+}
+
+
 function getHeroData() {
 
   const query =
@@ -82,12 +105,10 @@ function getHeroData() {
 
   if (query.category.length) {
 
-    const category =
-      query.category[0]
-        .toLowerCase();
-
     return (
-      HERO_CONTENT[category] ||
+      findHeroContent(
+        query.category[0]
+      ) ||
       HERO_CONTENT.collection
     );
 
@@ -100,13 +121,10 @@ function getHeroData() {
 
   if (query.badge.length) {
 
-    const badge =
-      query.badge[0]
-        .toLowerCase();
-
-
     return (
-      HERO_CONTENT[badge] ||
+      findHeroContent(
+        query.badge[0]
+      ) ||
       HERO_CONTENT.collection
     );
 
@@ -148,92 +166,20 @@ export function createProductsHero() {
       lg:px-8
       xl:px-10
 
-      py-14
-      lg:py-14
+      pt-36
+      pb-14
+
+      lg:pt-40
+      lg:pb-14
     "
   >
 
-    <!-- Breadcrumb -->
-
-    <nav
-  class="
-    mt-8
-
-    ml-3
-    sm:ml-4
-    lg:ml-5
-    xl:ml-6
-
-    flex
-    items-center
-    gap-3
-
-    text-sm
-    font-medium
-  "
->
-
-      <a
-        href="/index.html"
-
-        class="
-          group
-          relative
-
-          text-[#666]
-
-          transition-colors
-          duration-300
-
-          hover:text-[#181818]
-        "
-      >
-        Home
-
-        <span
-          class="
-            absolute
-            -bottom-1
-            left-0
-
-            h-px
-            w-0
-
-            bg-[#A07936]
-
-            transition-all
-            duration-300
-
-            group-hover:w-full
-          "
-        ></span>
-
-      </a>
-
-
-      <span class="text-[#C8B79B]">
-        /
-      </span>
-
-
-      <span class="text-[#181818]">
-        ${hero.title}
-      </span>
-
-    </nav>
-
-
     <!-- Hero Content -->
 
-    <div class="mt-10 max-w-3xl">
-
-
-
+    <div class="max-w-3xl">
 
       <h1
         class="
-          mt-5
-
           font-serif
 
           text-5xl

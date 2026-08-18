@@ -1,11 +1,12 @@
-import { PRODUCTS } from "../../constants/products.js";
+import { productService } from "../../services/productService.js";
 
 import { getProductId } from "./query.js";
 import { setProduct } from "./state.js";
+import { normalizeProduct } from "./model.js";
 import { initGallery } from "./gallery.js";
+import { initEnquiryLinks } from "./enquiry.js";
 
 import { createProductDetailsLayout } from "../../components/productDetails/productDetailsLayout.js";
-import { createBreadcrumb } from "../../components/productDetails/breadcrumb.js";
 import { createProductGallery } from "../../components/productDetails/productGallery.js";
 import { createProductInfo } from "../../components/productDetails/productInfo.js";
 import { createProductTabs } from "../../components/productDetails/productTabs.js";
@@ -19,90 +20,194 @@ import {
 } from "./recentlyViewed.js";
 
 
-export function initProductDetailsPage() {
+/* ------------------------------------------------ */
+/* STATE TEMPLATES                                  */
+/* ------------------------------------------------ */
 
-  const container =
-    document.getElementById("productDetails");
+function createStateShell(content) {
 
-  if (!container) return;
+  return `
+<div
+  class="
+    mx-auto
 
+    max-w-[1600px]
 
-  const productId =
-    getProductId();
+    px-6
 
+    pt-40
+    pb-32
 
-  const product =
-    PRODUCTS.find(
-      (item) =>
-        String(item.id) === String(productId)
-    );
-
-
-  /* ------------------------------------------------ */
-  /* PRODUCT NOT FOUND                               */
-  /* ------------------------------------------------ */
-
-  if (!product) {
-
-    container.innerHTML = `
-      <div
-        class="
-          mx-auto
-          px-6
-          py-32
-          text-center
-        "
-      >
-
-        <h2
-          class="
-            font-serif
-            text-5xl
-            text-[#181818]
-          "
-        >
-          Product Not Found
-        </h2>
-
-        <p
-          class="
-            mt-4
-            text-[#777]
-          "
-        >
-          The product you're looking for doesn't exist.
-        </p>
-
-      </div>
-    `;
-
-    return;
-  }
+    text-center
+  "
+>
+  ${content}
+</div>
+`;
+}
 
 
-  /* ------------------------------------------------ */
-  /* SET PRODUCT                                     */
-  /* ------------------------------------------------ */
+function renderLoading(container) {
 
-  setProduct(product);
+  container.innerHTML =
+    createStateShell(`
+<div
+  class="
+    flex
+
+    flex-col
+
+    items-center
+
+    gap-5
+  "
+  role="status"
+  aria-live="polite"
+>
+
+  <span
+    class="
+      h-10
+      w-10
+
+      animate-spin
+
+      rounded-full
+
+      border-2
+      border-[#ECE5D8]
+      border-t-[#A07936]
+    "
+  ></span>
+
+  <p class="text-[#777]">
+    Loading product details…
+  </p>
+
+</div>
+`);
+}
 
 
-  /* ------------------------------------------------ */
-  /* MAIN LAYOUT                                     */
-  /* ------------------------------------------------ */
+function renderNotFound(container) {
+
+  container.innerHTML =
+    createStateShell(`
+<h2
+  class="
+    font-serif
+
+    text-5xl
+
+    text-[#181818]
+  "
+>
+  Product Not Found
+</h2>
+
+<p class="mt-4 text-[#777]">
+  The product you're looking for doesn't exist or is no
+  longer available.
+</p>
+
+<a
+  href="/pages/products.html"
+
+  class="
+    mt-8
+
+    inline-flex
+
+    items-center
+
+    rounded-full
+
+    bg-[#181818]
+
+    px-8
+    py-4
+
+    text-[13px]
+
+    font-medium
+
+    uppercase
+
+    tracking-[0.18em]
+
+    text-white
+
+    transition-colors
+    duration-300
+
+    hover:bg-[#A07936]
+  "
+>
+  Browse Collections
+</a>
+`);
+}
+
+
+function renderError(container) {
+
+  container.innerHTML =
+    createStateShell(`
+<p class="text-red-600">
+  Unable to load this product.
+  Please try again later.
+</p>
+
+<a
+  href="/pages/products.html"
+
+  class="
+    mt-8
+
+    inline-flex
+
+    items-center
+
+    rounded-full
+
+    border
+    border-[#181818]
+
+    px-8
+    py-4
+
+    text-[13px]
+
+    font-medium
+
+    uppercase
+
+    tracking-[0.18em]
+
+    text-[#181818]
+
+    transition-colors
+    duration-300
+
+    hover:border-[#A07936]
+    hover:text-[#A07936]
+  "
+>
+  Browse Collections
+</a>
+`);
+}
+
+
+/* ------------------------------------------------ */
+/* RENDER PRODUCT                                   */
+/* ------------------------------------------------ */
+
+function renderProduct(container, product) {
 
   container.innerHTML =
     createProductDetailsLayout(product);
 
-
-  /* ------------------------------------------------ */
-  /* DOM ELEMENTS                                    */
-  /* ------------------------------------------------ */
-
-  const breadcrumb =
-    document.getElementById(
-      "productBreadcrumb"
-    );
 
   const gallery =
     document.getElementById(
@@ -113,18 +218,6 @@ export function initProductDetailsPage() {
     document.getElementById(
       "productInfo"
     );
-
-
-  /* ------------------------------------------------ */
-  /* RENDER                                          */
-  /* ------------------------------------------------ */
-
-  if (breadcrumb) {
-
-    breadcrumb.innerHTML =
-      createBreadcrumb(product);
-
-  }
 
 
   if (gallery) {
@@ -139,7 +232,7 @@ export function initProductDetailsPage() {
 
     /*
      * Product information and accordions
-     * now live together in the RIGHT column.
+     * live together in the RIGHT column.
      */
 
     info.innerHTML =
@@ -149,9 +242,9 @@ export function initProductDetailsPage() {
   }
 
 
-  /* ------------------------------------------------ */
-  /* INITIALIZE COMPONENTS                            */
-  /* ------------------------------------------------ */
+  /* ---------------------------------------------- */
+  /* INITIALIZE COMPONENTS                          */
+  /* ---------------------------------------------- */
 
   initGallery();
 
@@ -159,15 +252,108 @@ export function initProductDetailsPage() {
 
   initProductTabs();
 
+
+  /*
+   * Each of these depends on its own backend request or on
+   * local storage, so a failure in one must not take the
+   * rendered product down with it.
+   */
+
+  initEnquiryLinks();
+
+  saveRecentlyViewed();
+
   initRelatedProducts();
 
   initRecentlyViewed();
 
 
-  /* ------------------------------------------------ */
-  /* LUCIDE ICONS                                    */
-  /* ------------------------------------------------ */
-
   window.lucide?.createIcons();
+}
+
+
+/* ------------------------------------------------ */
+/* ENTRY                                            */
+/* ------------------------------------------------ */
+
+export async function initProductDetailsPage() {
+
+  const container =
+    document.getElementById("productDetails");
+
+  if (!container) return;
+
+
+  const productId =
+    getProductId();
+
+
+  if (!productId) {
+
+    renderNotFound(container);
+
+    return;
+  }
+
+
+  renderLoading(container);
+
+
+  let product;
+
+  try {
+
+    const response =
+      await productService.getPublicProductById(
+        productId
+      );
+
+
+    product =
+      normalizeProduct(response);
+
+
+  } catch (error) {
+
+    console.error(
+      "[Product Details] Failed to load product:",
+      error
+    );
+
+
+    /*
+     * A 400/404 is an answered request: the id is invalid or
+     * the product does not exist. Anything else (network,
+     * timeout, 5xx) means the backend could not be reached.
+     */
+
+    if (
+      error?.status === 404 ||
+      error?.status === 400
+    ) {
+
+      renderNotFound(container);
+
+    } else {
+
+      renderError(container);
+
+    }
+
+    return;
+  }
+
+
+  if (!product) {
+
+    renderNotFound(container);
+
+    return;
+  }
+
+
+  setProduct(product);
+
+  renderProduct(container, product);
 
 }

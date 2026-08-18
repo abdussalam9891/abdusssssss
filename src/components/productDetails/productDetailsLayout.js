@@ -9,10 +9,10 @@ export function createProductDetailsLayout(product) {
 
 <section
   class="
-    pt-10
+    pt-36
     pb-20
 
-    lg:pt-14
+    lg:pt-40
     lg:pb-24
   "
 >
@@ -30,17 +30,10 @@ export function createProductDetailsLayout(product) {
     "
   >
 
-    <!-- Breadcrumb -->
-
-    <div id="productBreadcrumb"></div>
-
-
     <!-- Main Product Section -->
 
     <div
       class="
-        mt-8
-
         grid
 
         grid-cols-1

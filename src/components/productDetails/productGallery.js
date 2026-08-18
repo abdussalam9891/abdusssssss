@@ -1,23 +1,75 @@
-import { getProductImages } from "../../utils/getProductImages.js";
+import { escapeHtml } from "../../features/productDetails/model.js";
+
+
+/*
+ * Receives the normalized product produced by
+ * features/productDetails/model.js:
+ *
+ *   gallery -> string[] (image urls, ordered by position)
+ *   videos  -> string[] (video urls, may be empty)
+ */
 
 export function createProductGallery(product) {
 
-const imageSet = getProductImages(product);
+  const images =
+    product.gallery || [];
 
-const images = Object.values(imageSet).filter(Boolean);
+  const videos =
+    product.videos || [];
+
+  const name =
+    escapeHtml(
+      product.name || "Product"
+    );
+
+
+  // ==========================================
+  // NO IMAGES — DEGRADED STATE
+  // ==========================================
+
+  if (!images.length) {
+
+    return `
+
+<div
+  class="
+    flex
+
+    aspect-square
+
+    items-center
+    justify-center
+
+    rounded-[30px]
+
+    border
+    border-[#ECE5D8]
+
+    bg-[#FCFBF9]
+
+    text-[14px]
+
+    text-[#8A8A8A]
+  "
+>
+  No images available for this product.
+</div>
+
+`;
+  }
+
 
   return `
 
 <div
-class="
-flex
+  class="
+    flex
 
+    flex-col-reverse
+    lg:flex-row
 
-flex-col-reverse
-lg:flex-row
-
-gap-5
-"
+    gap-5
+  "
 >
 
   <!-- Thumbnails -->
@@ -43,65 +95,64 @@ gap-5
         (image, index) => `
 
 <button
+  type="button"
 
-type="button"
+  data-index="${index}"
 
-data-index="${index}"
+  aria-label="View image ${index + 1} of ${images.length}"
 
-class="
-product-thumbnail
+  class="
+    product-thumbnail
 
-group
+    group
 
-relative
+    relative
 
-h-20
-w-20
+    h-20
+    w-20
 
-shrink-0
+    shrink-0
 
-overflow-hidden
+    overflow-hidden
 
-rounded-2xl
+    rounded-2xl
 
-border
+    border
 
-${
-  index === 0
-    ? "border-[#A07936]"
-    : "border-[#ECE5D8]"
-}
+    ${
+      index === 0
+        ? "border-[#A07936]"
+        : "border-[#ECE5D8]"
+    }
 
-bg-white
+    bg-white
 
-transition-all
-duration-300
+    transition-all
+    duration-300
 
-hover:border-[#A07936]
-"
-
+    hover:border-[#A07936]
+  "
 >
 
-<img
+  <img
+    src="${escapeHtml(image)}"
 
-src="${image}"
+    alt="${name}"
 
-alt="${product.name}"
+    loading="lazy"
 
-loading="lazy"
+    class="
+      h-full
+      w-full
 
-class="
-h-full
-w-full
+      object-cover
 
-object-cover
+      transition-transform
+      duration-500
 
-transition-transform
-duration-500
-
-group-hover:scale-105
-"
-/>
+      group-hover:scale-105
+    "
+  />
 
 </button>
 
@@ -111,13 +162,10 @@ group-hover:scale-105
 
   </div>
 
+
   <!-- Main Image -->
 
-  <div
-    class="
-      flex-1
-    "
-  >
+  <div class="flex-1">
 
     <div
       class="
@@ -135,12 +183,11 @@ group-hover:scale-105
     >
 
       <img
-
         id="productMainImage"
 
-        src="${images[0]}"
+        src="${escapeHtml(images[0])}"
 
-        alt="${product.name}"
+        alt="${name}"
 
         loading="eager"
 
@@ -148,9 +195,9 @@ group-hover:scale-105
           h-full
           w-full
 
+          cursor-zoom-in
+
           object-cover
-
-
 
           transition-all
           duration-500
@@ -159,10 +206,54 @@ group-hover:scale-105
 
     </div>
 
+
+    ${
+      videos.length
+        ? `
+<!-- Product Video -->
+
+<div
+  class="
+    mt-5
+
+    overflow-hidden
+
+    rounded-[30px]
+
+    border
+    border-[#ECE5D8]
+
+    bg-black
+  "
+>
+
+  <video
+    id="productVideo"
+
+    src="${escapeHtml(videos[0])}"
+
+    controls
+
+    playsinline
+
+    preload="metadata"
+
+    class="
+      h-full
+      w-full
+
+      object-cover
+    "
+  ></video>
+
+</div>
+`
+        : ""
+    }
+
   </div>
 
 </div>
 
 `;
-
 }

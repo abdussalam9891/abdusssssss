@@ -1,3 +1,14 @@
+/*
+ * The contact card renders immediately with neutral
+ * placeholders. features/contact/hydrateContactInfo.js fills the
+ * [data-contact-*] hooks in place once the backend answers, so
+ * the form is usable without waiting for a request and no
+ * contact detail is ever invented locally.
+ */
+
+const LOADING_TEXT = "Loading…";
+
+
 export function createContactForm(contactInfo = {}) {
 
   const {
@@ -549,10 +560,32 @@ export function createContactForm(contactInfo = {}) {
           "
         >
 
+          <!-- BACKEND ERROR STATE -->
+
+          <p
+            data-contact-error
+
+            class="
+              hidden
+
+              text-sm
+              leading-6
+
+              text-red-400
+            "
+            aria-live="polite"
+          >
+            Contact details are unavailable right now.
+            Please use the form to reach us.
+          </p>
+
+
           <!-- WHATSAPP -->
 
           <a
             href="${whatsappUrl}"
+
+            data-contact-whatsapp
 
             target="_blank"
             rel="noopener noreferrer"
@@ -578,6 +611,8 @@ export function createContactForm(contactInfo = {}) {
 
 
             <span
+              data-contact-whatsapp-text
+
               class="
                 mt-2
                 block
@@ -592,7 +627,7 @@ export function createContactForm(contactInfo = {}) {
                 group-hover:text-white
               "
             >
-              ${whatsapp || phone || "Contact us"}
+              ${whatsapp || phone || LOADING_TEXT}
             </span>
 
           </a>
@@ -602,6 +637,8 @@ export function createContactForm(contactInfo = {}) {
 
           <a
             href="${email ? `mailto:${email}` : "#"}"
+
+            data-contact-email
 
             class="
               group
@@ -624,6 +661,8 @@ export function createContactForm(contactInfo = {}) {
 
 
             <span
+              data-contact-email-text
+
               class="
                 mt-2
                 block
@@ -640,7 +679,7 @@ export function createContactForm(contactInfo = {}) {
                 group-hover:text-white
               "
             >
-              ${email || "Email unavailable"}
+              ${email || LOADING_TEXT}
             </span>
 
           </a>
@@ -650,6 +689,8 @@ export function createContactForm(contactInfo = {}) {
 
           <a
             href="${phone ? `tel:${phone}` : "#"}"
+
+            data-contact-phone
 
             class="
               group
@@ -672,6 +713,8 @@ export function createContactForm(contactInfo = {}) {
 
 
             <span
+              data-contact-phone-text
+
               class="
                 mt-2
                 block
@@ -686,7 +729,7 @@ export function createContactForm(contactInfo = {}) {
                 group-hover:text-white
               "
             >
-              ${phone || "Phone unavailable"}
+              ${phone || LOADING_TEXT}
             </span>
 
           </a>
@@ -776,6 +819,8 @@ export function createContactForm(contactInfo = {}) {
 
 
             <p
+              data-contact-address
+
               class="
                 text-sm
                 leading-7
@@ -783,7 +828,7 @@ export function createContactForm(contactInfo = {}) {
                 text-white/70
               "
             >
-              ${address || "Office address unavailable"}
+              ${address || LOADING_TEXT}
             </p>
 
           </div>
@@ -830,6 +875,8 @@ export function createContactForm(contactInfo = {}) {
 
 
               <p
+                data-contact-support-time
+
                 class="
                   mt-2
 
@@ -838,7 +885,7 @@ export function createContactForm(contactInfo = {}) {
                   text-white/75
                 "
               >
-                ${supportTime || "24/7"}
+                ${supportTime || LOADING_TEXT}
               </p>
 
             </div>

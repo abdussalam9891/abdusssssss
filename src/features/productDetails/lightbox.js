@@ -1,5 +1,3 @@
-import { getProductImages } from "../../utils/getProductImages.js";
-
 import {
   productState,
   setActiveImage,
@@ -8,9 +6,9 @@ import {
 
 export function initLightbox() {
 
-  const images = Object.values(
-    getProductImages(productState.product)
-  ).filter(Boolean);
+  // Normalized product: `gallery` is an ordered list of urls.
+  const images =
+    productState.product?.gallery || [];
 
 
   const modal =

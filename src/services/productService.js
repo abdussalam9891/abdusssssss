@@ -178,4 +178,79 @@ export const productService = {
     );
   },
 
+
+  // ==========================================
+  // SINGLE PRODUCT
+  // ==========================================
+
+  /*
+   * The public store endpoint doubles as a single-product
+   * endpoint: passing `id` (a backend product _id) makes it
+   * respond with the product object directly instead of a
+   * paginated list.
+   *
+   *   GET /product/public/store/:domain?id=<_id>
+   *
+   *   200 -> { success, message: "Product fetched successfully",
+   *            data: { ...product } }
+   *   404 -> { success: false, message: "Product not found" }
+   *   400 -> { success: false, message: "Invalid ID" }
+   *
+   * There is no separate /product/:id route on the backend,
+   * so this is the supported way to resolve one product.
+   */
+
+  getPublicProductById: async (id) => {
+
+    if (!id) {
+
+      throw new Error(
+        "Product id is required."
+      );
+
+    }
+
+
+    const params =
+      new URLSearchParams();
+
+
+    params.set(
+      "id",
+      id
+    );
+
+
+    const endpoint =
+      `${API_ENDPOINTS.PRODUCTS.PUBLIC_BY_STORE(
+        STORE_DOMAIN
+      )}?${params.toString()}`;
+
+
+    const response =
+      await apiClient.get(
+        endpoint
+      );
+
+
+    // Single-product responses put the product on `data`
+    // itself, unlike the list response which nests it under
+    // `data.products`.
+    const product =
+      response?.data?.products?.[0] ||
+      response?.data ||
+      null;
+
+
+    if (
+      !product ||
+      !product._id
+    ) {
+      return null;
+    }
+
+
+    return product;
+  },
+
 };

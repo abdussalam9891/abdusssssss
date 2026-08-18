@@ -13,6 +13,8 @@ import {
 
 import {
   renderProductsGrid,
+  renderProductsLoading,
+  renderProductsError,
 } from "./grid.js";
 
 import {
@@ -37,6 +39,9 @@ import {
 
 
 async function loadProducts() {
+
+  renderProductsLoading();
+
 
   try {
 
@@ -96,6 +101,29 @@ async function loadProducts() {
       "[Products] Failed to load:",
       error
     );
+
+
+    // The hero, toolbar and filters stay on screen; only the
+    // backend-dependent grid degrades.
+    productsState.products = [];
+
+    productsState.total = 0;
+
+    productsState.totalPages = 0;
+
+
+    renderProductsError();
+
+
+    renderProductsToolbar();
+
+
+    renderProductsPagination(
+      () => {}
+    );
+
+
+    updateHeroCount();
 
   }
 }

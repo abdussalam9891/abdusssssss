@@ -115,7 +115,15 @@ export async function initHomeFaq() {
     );
 
     // Don't break the rest of homepage
-    container.innerHTML = "";
+    container.innerHTML = `
+      <section class="bg-white py-8">
+        <div class="mx-auto max-w-4xl px-6 text-center">
+          <p class="text-red-600">
+            Unable to load FAQs. Please try again later.
+          </p>
+        </div>
+      </section>
+    `;
 
   }
 }

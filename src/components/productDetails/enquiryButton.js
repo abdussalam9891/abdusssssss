@@ -1,140 +1,166 @@
-const WHATSAPP_NUMBER = "919999999999"; // Replace with your number
+import {
+  escapeHtml,
+  formatPrice,
+} from "../../features/productDetails/model.js";
+
+
+const CONTACT_PAGE_URL = "/pages/contact.html";
+
+
+/*
+ * The WhatsApp number is backend-provided
+ * (website.whatsappNumber). No trustworthy number exists in the
+ * repository, so the button renders as a contact-page link and
+ * features/productDetails/enquiry.js upgrades it to a WhatsApp
+ * deep link once the backend answers.
+ */
+
+export function buildEnquiryMessage(product) {
+
+  const price =
+    formatPrice(product.finalPrice);
+
+
+  return [
+    "Hello Banshiwaale,",
+    "",
+    "I'm interested in this jewellery piece.",
+    "",
+    `Product: ${product.name}`,
+
+    product.sku
+      ? `SKU: ${product.sku}`
+      : "",
+
+    price
+      ? `Price: ${price}`
+      : "",
+
+    "",
+    "Could you please share more details?",
+  ]
+    .filter(
+      (line, index, lines) =>
+        line !== "" ||
+        lines[index - 1] !== ""
+    )
+    .join("\n");
+}
+
 
 export function createEnquiryButton(product) {
 
-  const message = encodeURIComponent(
-`Hello banshiwale,
+  const message =
+    buildEnquiryMessage(product);
 
-I'm interested in this jewellery piece.
-
-Product: ${product.name}
-Price: ₹${product.price.toLocaleString("en-IN")}
-
-Could you please share more details?`
-  );
 
   return `
 
-<div
-class="
-pt-2
-"
->
+<div class="pt-2">
 
-<a
+  <a
+    id="productEnquiryButton"
 
-href="https://wa.me/${WHATSAPP_NUMBER}?text=${message}"
+    data-enquiry-message="${escapeHtml(message)}"
 
-target="_blank"
+    href="${CONTACT_PAGE_URL}"
 
-rel="noopener noreferrer"
+    class="
+      group
 
-class="
-group
+      relative
 
-relative
+      flex
 
-flex
+      w-full
 
-w-full
+      items-center
+      justify-center
 
-items-center
-justify-center
+      gap-3
 
-gap-3
+      overflow-hidden
 
-overflow-hidden
+      rounded-2xl
 
-rounded-2xl
+      bg-[#181818]
 
-bg-[#181818]
+      px-8
+      py-5
 
-px-8
-py-5
+      text-[14px]
+      font-medium
 
-text-[14px]
-font-medium
+      uppercase
 
-uppercase
+      tracking-[0.20em]
 
-tracking-[0.20em]
+      text-white
 
-text-white
+      transition-all
+      duration-500
 
-transition-all
-duration-500
+      hover:-translate-y-1
 
-hover:-translate-y-1
+      hover:shadow-[0_22px_55px_rgba(0,0,0,.18)]
+    "
+  >
 
-hover:shadow-[0_22px_55px_rgba(0,0,0,.18)]
-"
+    <span
+      class="
+        absolute
+        inset-0
 
->
+        origin-left
 
-<span
-class="
-absolute
-inset-0
+        scale-x-0
 
-origin-left
+        bg-[#A07936]
 
-scale-x-0
+        transition-transform
+        duration-500
 
-bg-[#A07936]
+        group-hover:scale-x-100
+      "
+    ></span>
 
-transition-transform
-duration-500
+    <i
+      data-lucide="message-circle"
 
-group-hover:scale-x-100
-"
-></span>
+      class="
+        relative
+        z-10
 
-<i
-data-lucide="message-circle"
+        h-5
+        w-5
+      "
+    ></i>
 
-class="
-relative
-z-10
+    <span class="relative z-10">
+      Enquire About This Piece
+    </span>
 
-h-5
-w-5
-"
-></i>
+  </a>
 
-<span
-class="
-relative
-z-10
-"
->
 
-Enquire on WhatsApp
+  <p
+    class="
+      mt-4
 
-</span>
+      text-center
 
-</a>
+      text-[13px]
 
-<p
-class="
-mt-4
+      leading-6
 
-text-center
-
-text-[13px]
-
-leading-6
-
-text-[#777]
-"
->
-
-Talk directly with our jewellery expert for pricing,
-customisation and availability.
-
-</p>
+      text-[#777]
+    "
+  >
+    Talk directly with our jewellery expert for pricing,
+    customisation and availability.
+  </p>
 
 </div>
 
 `;
-
 }

@@ -4,19 +4,53 @@ import {
   STORE_DOMAIN,
 } from "../config.js";
 
+// Matches the apiClient default so an unreachable backend surfaces
+// the error state promptly instead of hanging on the browser's own
+// connection timeout.
+const REQUEST_TIMEOUT = 8000;
+
 export const customizeProductService = {
   async getProducts(category) {
-    const response = await fetch(
-      `${API_BASE_URL}${API_ENDPOINTS.PRODUCTS.PUBLIC_BY_STORE(
-        STORE_DOMAIN
-      )}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
+
+    const controller = new AbortController();
+
+    const timeoutId = setTimeout(
+      () => controller.abort(),
+      REQUEST_TIMEOUT
     );
+
+    let response;
+
+    try {
+
+      response = await fetch(
+        `${API_BASE_URL}${API_ENDPOINTS.PRODUCTS.PUBLIC_BY_STORE(
+          STORE_DOMAIN
+        )}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          signal: controller.signal,
+        }
+      );
+
+    } catch (error) {
+
+      if (error?.name === "AbortError") {
+        throw new Error(
+          `Request timed out after ${REQUEST_TIMEOUT}ms`
+        );
+      }
+
+      throw error;
+
+    } finally {
+
+      clearTimeout(timeoutId);
+
+    }
 
     let data = null;
 

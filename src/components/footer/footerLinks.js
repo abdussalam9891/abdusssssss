@@ -149,14 +149,14 @@ export function createFooterLinks(socialLinks = {}) {
       max-w-7xl
       gap-12
       px-6
-      py-18
+      py-16
 
       md:grid-cols-2
 
       lg:grid-cols-[1.5fr_1fr_1fr_1fr]
       lg:gap-16
       lg:px-8
-      lg:py-18
+      lg:py-20
 
     "
   >
@@ -445,15 +445,6 @@ export function createFooterLinks(socialLinks = {}) {
         class="text-white/60 transition hover:text-[#A07936]"
       >
         About Us
-      </a>
-    </li>
-
-    <li>
-      <a
-        href="/pages/contact.html"
-        class="text-white/60 transition hover:text-[#A07936]"
-      >
-        Contact
       </a>
     </li>
 

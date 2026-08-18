@@ -3,6 +3,7 @@ import { createShowcaseCard } from "../../components/showcase/showcaseCard.js";
 import { productService } from "../../services/productService.js";
 
 let products = [];
+let loadFailed = false;
 
 export async function loadShowcaseProducts() {
   try {
@@ -10,6 +11,7 @@ export async function loadShowcaseProducts() {
       await productService.getPublicProducts();
 
     products = response?.data?.products || [];
+    loadFailed = false;
 
     return products;
   } catch (error) {
@@ -19,6 +21,7 @@ export async function loadShowcaseProducts() {
     );
 
     products = [];
+    loadFailed = true;
 
     return [];
   }
@@ -36,6 +39,16 @@ export function renderShowcase(activeTab = "trending") {
     );
 
   if (!selectedTab) return;
+
+  if (loadFailed) {
+    container.innerHTML = `
+      <p class="text-center text-red-600 py-10 w-full">
+        Unable to load products. Please try again later.
+      </p>
+    `;
+
+    return;
+  }
 
   const filteredProducts =
     products.filter(selectedTab.filter);

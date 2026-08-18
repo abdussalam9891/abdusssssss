@@ -49,7 +49,11 @@ export async function initAnnouncementBar(container) {
       error
     );
 
-    container.innerHTML = "";
+    container.innerHTML = `
+      <p class="w-full bg-[#111111] py-2 text-center text-sm text-red-500">
+        Unable to load announcements.
+      </p>
+    `;
 
   }
 

@@ -9,7 +9,6 @@ export function createFooter() {
   id="footer"
   class="
     mt-24
-    py-8
     bg-[#181818]
     text-white
   "

@@ -1,6 +1,4 @@
-import { HERO_SLIDES } from "../../constants/heroSlides.js";
-
-export function createHeroIndicators() {
+export function createHeroIndicators(slideCount = 0) {
   return `
     <div
       class="
@@ -18,7 +16,8 @@ export function createHeroIndicators() {
       "
     >
 
-      ${HERO_SLIDES.map(
+      ${Array.from(
+        { length: slideCount },
         (_, index) => `
           <button
             type="button"
