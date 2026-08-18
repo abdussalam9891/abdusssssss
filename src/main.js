@@ -6,6 +6,8 @@ import {
   initFooterAccordion,
 } from "./components/footer/index.js";
 
+import { hydrateFooterSocialLinks } from "./features/footer/hydrateSocialLinks.js";
+
 import { initToast } from "./features/toast/index.js";
 
 import {
@@ -65,6 +67,46 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     }
   );
+
+
+  // =========================================
+  // FOOTER
+  // =========================================
+
+  // Footer must render immediately, just like the navbar.
+  // It must NOT wait for page-specific backend requests
+  // (home page, products, policies, etc.) below.
+  const footer =
+    document.getElementById("footer");
+
+
+  if (footer) {
+
+    try {
+
+      footer.innerHTML =
+        createFooter();
+
+
+      initFooterAccordion();
+
+
+      // Social links are backend-provided; hydrate them
+      // separately so a failed request never blocks the
+      // static footer from rendering.
+      hydrateFooterSocialLinks();
+
+
+    } catch (error) {
+
+      console.error(
+        "[Footer] Failed to initialize:",
+        error
+      );
+
+    }
+
+  }
 
 
   // =========================================
@@ -395,36 +437,5 @@ document.addEventListener("DOMContentLoaded", async () => {
   // =========================================
 
   initRevealAnimations();
-
-
-  // =========================================
-  // FOOTER
-  // =========================================
-
-  const footer =
-    document.getElementById("footer");
-
-
-  if (footer) {
-
-    try {
-
-      footer.innerHTML =
-        await createFooter();
-
-
-      initFooterAccordion();
-
-
-    } catch (error) {
-
-      console.error(
-        "[Footer] Failed to initialize:",
-        error
-      );
-
-    }
-
-  }
 
 });

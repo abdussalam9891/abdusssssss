@@ -34,7 +34,11 @@ export async function renderCollections() {
         "[Collections] No categories found."
       );
 
-      container.innerHTML = "";
+      container.innerHTML = `
+        <p class="w-full text-center text-[#777777]">
+          No collections available right now.
+        </p>
+      `;
       return;
     }
 
@@ -81,6 +85,12 @@ export async function renderCollections() {
       "[Collections] Failed to load categories:",
       error
     );
+
+    container.innerHTML = `
+      <p class="w-full text-center text-red-600">
+        Unable to load collections. Please try again later.
+      </p>
+    `;
 
   }
 }

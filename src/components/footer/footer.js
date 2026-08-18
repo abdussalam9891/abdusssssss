@@ -1,12 +1,8 @@
-import { websiteService } from "../../services/websiteService.js";
 import { createFooterLinks } from "./footerLinks.js";
 
 import { createCopyright } from "./copyright.js";
 
-export async function createFooter() {
-
-  const socialLinks =
-    await websiteService.getSocialLinks();
+export function createFooter() {
 
   return `
 <footer
@@ -19,7 +15,7 @@ export async function createFooter() {
   "
 >
 
-  ${createFooterLinks(socialLinks)}
+  ${createFooterLinks()}
 
   ${createCopyright()}
 

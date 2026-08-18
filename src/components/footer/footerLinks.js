@@ -2,81 +2,8 @@ import { NAVIGATION } from "../../constants/navigation.js";
 
 
 
-export function createFooterLinks(socialLinks = {}) {
-  const shopLinks = NAVIGATION.map(
-    (item) => `
-      <li>
-        <a
-          href="${item.href}"
-          class="
-            text-white/60
-            transition-colors
-            duration-300
-            hover:text-[#A07936]
-          "
-        >
-          ${item.label}
-        </a>
-      </li>
-    `
-  ).join("");
-
+export function createSocialIcons(socialLinks = {}) {
   return `
-<section class="bg-[#181818]">
-
-
-
-  <div
-    class="
-      mx-auto
-      grid
-      max-w-7xl
-      gap-12
-      px-6
-      py-18
-
-      md:grid-cols-2
-
-      lg:grid-cols-[1.5fr_1fr_1fr_1fr]
-      lg:gap-16
-      lg:px-8
-      lg:py-18
-
-    "
-  >
-
-   <!-- Brand -->
-
-<!-- Brand -->
-
-<div>
-
-<div>
-  <a href="/index.html" class="inline-block">
-    <img
-      src="/src/assets/logo.png"
-      alt="banshiwale"
-      class="h-24 w-24 object-contain"
-    />
-  </a>
-
-  <p class="max-w-xs text-sm leading-7 text-white/60">
-    Timeless sterling silver jewellery crafted for modern men.
-  </p>
-</div>
-
-
-
-
-  <div
-    class="
-      mt-8
-      flex
-      items-center
-      gap-3
-    "
-  >
-
     <!-- Instagram -->
 
    <a
@@ -188,6 +115,86 @@ export function createFooterLinks(socialLinks = {}) {
       </svg>
 
     </a>
+  `;
+}
+
+export function createFooterLinks(socialLinks = {}) {
+  const shopLinks = NAVIGATION.map(
+    (item) => `
+      <li>
+        <a
+          href="${item.href}"
+          class="
+            text-white/60
+            transition-colors
+            duration-300
+            hover:text-[#A07936]
+          "
+        >
+          ${item.label}
+        </a>
+      </li>
+    `
+  ).join("");
+
+  return `
+<section class="bg-[#181818]">
+
+
+
+  <div
+    class="
+      mx-auto
+      grid
+      max-w-7xl
+      gap-12
+      px-6
+      py-18
+
+      md:grid-cols-2
+
+      lg:grid-cols-[1.5fr_1fr_1fr_1fr]
+      lg:gap-16
+      lg:px-8
+      lg:py-18
+
+    "
+  >
+
+   <!-- Brand -->
+
+<!-- Brand -->
+
+<div>
+
+<div>
+  <a href="/index.html" class="inline-block">
+    <img
+      src="/src/assets/logo.png"
+      alt="banshiwale"
+      class="h-24 w-24 object-contain"
+    />
+  </a>
+
+  <p class="max-w-xs text-sm leading-7 text-white/60">
+    Timeless sterling silver jewellery crafted for modern men.
+  </p>
+</div>
+
+
+
+
+  <div
+    id="footerSocialLinks"
+    class="
+      mt-8
+      flex
+      items-center
+      gap-3
+    "
+  >
+
+    ${createSocialIcons(socialLinks)}
 
   </div>
 
