@@ -47,4 +47,12 @@ export const API_ENDPOINTS = {
       `/fullweb/public?domain=${encodeURIComponent(domain)}`,
   },
 
+  WISHLIST: {
+    GET: (domain) =>
+      `/wishlist/getwishlist?domain=${encodeURIComponent(domain)}`,
+    ADD: "/wishlist/addtowishlist",
+    REMOVE: (productId) =>
+      `/wishlist/removewishlist/${productId}`,
+  },
+
 };

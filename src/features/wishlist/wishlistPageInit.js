@@ -1,5 +1,8 @@
 import { productService } from "../../services/productService.js";
 
+import { isLoggedIn } from "../auth/authState.js";
+import { openAuthModal } from "../auth/index.js";
+
 import {
   getWishlistIds,
   removeFromWishlist,
@@ -16,17 +19,56 @@ import { createShowcaseCard } from "../../components/showcase/showcaseCard.js";
  * active and toggling it on click — including removal here, since
  * clicking an already-saved heart un-saves it — so this file only
  * needs to fetch and render the saved products themselves.
+ *
+ * The wishlist requires login (see wishlistState.js), so this
+ * page has three states: signed out, signed in with nothing
+ * saved, and signed in with saved products.
  */
+
+function showState(name) {
+
+  const states = {
+    login: document.getElementById("wishlistLoginState"),
+    empty: document.getElementById("wishlistEmptyState"),
+    items: document.getElementById("wishlistItems"),
+  };
+
+  if (
+    !states.login ||
+    !states.empty ||
+    !states.items
+  ) {
+    return null;
+  }
+
+
+  Object.entries(states).forEach(
+    ([key, element]) => {
+
+      element.classList.toggle(
+        "hidden",
+        key !== name
+      );
+
+    }
+  );
+
+
+  return states;
+
+}
+
 
 async function renderWishlist() {
 
-  const emptyState =
-    document.getElementById("wishlistEmptyState");
+  if (!isLoggedIn()) {
 
-  const grid =
-    document.getElementById("wishlistItems");
+    showState("login");
 
-  if (!emptyState || !grid) return;
+    window.lucide?.createIcons();
+
+    return;
+  }
 
 
   const ids =
@@ -35,11 +77,7 @@ async function renderWishlist() {
 
   if (!ids.length) {
 
-    emptyState.classList.remove("hidden");
-
-    grid.classList.add("hidden");
-
-    grid.innerHTML = "";
+    showState("empty");
 
     window.lucide?.createIcons();
 
@@ -94,17 +132,13 @@ async function renderWishlist() {
     ids.filter((id) => !validIds.has(id));
 
   staleIds.forEach(
-    (id) => removeFromWishlist(id)
+    (id) => removeFromWishlist(id).catch(() => {})
   );
 
 
   if (!products.length) {
 
-    emptyState.classList.remove("hidden");
-
-    grid.classList.add("hidden");
-
-    grid.innerHTML = "";
+    showState("empty");
 
     window.lucide?.createIcons();
 
@@ -112,12 +146,10 @@ async function renderWishlist() {
   }
 
 
-  emptyState.classList.add("hidden");
+  const states =
+    showState("items");
 
-  grid.classList.remove("hidden");
-
-
-  grid.innerHTML =
+  states.items.innerHTML =
     products
       .map(
         (product) =>
@@ -127,6 +159,21 @@ async function renderWishlist() {
 
 
   window.lucide?.createIcons();
+
+}
+
+
+function initSignInButton() {
+
+  const button =
+    document.getElementById(
+      "wishlistSignInButton"
+    );
+
+  button?.addEventListener(
+    "click",
+    () => openAuthModal("wishlist")
+  );
 
 }
 
@@ -145,9 +192,19 @@ export function initWishlistPage() {
 
   renderWishlist();
 
+  initSignInButton();
 
+
+  // Covers: the initial wishlist load resolving, any add/remove
+  // (including from other showcase cards on this same page), and
+  // signing in/out via the modal without a full page reload.
   window.addEventListener(
     "wishlistChanged",
+    renderWishlist
+  );
+
+  window.addEventListener(
+    "authChanged",
     renderWishlist
   );
 

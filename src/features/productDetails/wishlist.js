@@ -1,9 +1,13 @@
 import { productState } from "./state.js";
 
+import { requireAuth } from "../auth/authGuard.js";
+
 import {
   isWishlisted,
   toggleWishlist,
 } from "../wishlist/wishlistState.js";
+
+import { showToast } from "../../utils/toast.js";
 
 
 function setPressed(button, label, pressed) {
@@ -68,10 +72,25 @@ export function initWishlistToggle() {
     );
 
 
-  setPressed(
-    button,
-    label,
-    isWishlisted(productId)
+  function sync() {
+
+    setPressed(
+      button,
+      label,
+      isWishlisted(productId)
+    );
+
+  }
+
+
+  // The wishlist requires login, so its initial GET only starts
+  // once auth is known — this button may render before that
+  // resolves, and corrects itself once it does.
+  sync();
+
+  window.addEventListener(
+    "wishlistChanged",
+    sync
   );
 
 
@@ -79,14 +98,29 @@ export function initWishlistToggle() {
     "click",
     () => {
 
-      const nowSaved =
-        toggleWishlist(productId);
+      requireAuth(async () => {
 
-      setPressed(
-        button,
-        label,
-        nowSaved
-      );
+        try {
+
+          await toggleWishlist(productId);
+
+        } catch (error) {
+
+          console.error(
+            "[Product Details] Wishlist toggle failed:",
+            error
+          );
+
+          showToast({
+            type: "error",
+            title: "Couldn't Update Wishlist",
+            message:
+              "Please try again in a moment.",
+          });
+
+        }
+
+      }, "wishlist");
 
     }
   );

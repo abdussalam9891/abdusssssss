@@ -1,4 +1,6 @@
 import { isWishlisted, toggleWishlist } from "./wishlistState.js";
+import { requireAuth } from "../auth/authGuard.js";
+import { showToast } from "../../utils/toast.js";
 
 
 /*
@@ -86,13 +88,29 @@ export function initWishlistButtons() {
       event.stopPropagation();
 
 
-      const nowSaved =
-        toggleWishlist(productId);
+      requireAuth(async () => {
 
-      applyState(
-        button,
-        nowSaved
-      );
+        try {
+
+          await toggleWishlist(productId);
+
+        } catch (error) {
+
+          console.error(
+            "[Wishlist] Toggle failed:",
+            error
+          );
+
+          showToast({
+            type: "error",
+            title: "Couldn't Update Wishlist",
+            message:
+              "Please try again in a moment.",
+          });
+
+        }
+
+      }, "wishlist");
 
     }
   );

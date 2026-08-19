@@ -18,6 +18,8 @@ import { initWishlistBadgeSync } from "./features/wishlist/wishlistBadge.js";
 
 import { initWishlistButtons } from "./features/wishlist/wishlistButtons.js";
 
+import { initWishlistSync } from "./features/wishlist/wishlistState.js";
+
 import {
   initAuthModal,
   initGuestEngagement,
@@ -47,14 +49,21 @@ document.addEventListener("DOMContentLoaded", async () => {
   initCartBadgeSync();
 
 
-  // Same as the cart badge, but for #wishlistCount.
+  // The wishlist is backend-backed and requires login (unlike the
+  // cart, which stays local-storage-only) — this loads it once
+  // the current user is known and reloads on every login/logout,
+  // via authChanged. #wishlistCount and every wishlist heart icon
+  // sitewide both read from the resulting in-memory cache.
+  initWishlistSync();
+
   initWishlistBadgeSync();
 
 
   // Wires every showcase card's heart icon sitewide (homepage,
   // products listing, related/recently-viewed, wishlist page) to
-  // actually save/remove — previously decorative everywhere except
-  // the dedicated product-details wishlist button.
+  // actually save/remove against the backend — previously
+  // decorative everywhere except the dedicated product-details
+  // wishlist button.
   initWishlistButtons();
 
 

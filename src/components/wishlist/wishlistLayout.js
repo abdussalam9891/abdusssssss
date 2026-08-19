@@ -75,6 +75,87 @@ export function createWishlistLayout() {
     </div>
 
 
+    <!-- Sign-In Required State -->
+
+    <div
+      id="wishlistLoginState"
+
+      class="
+        hidden
+
+        mx-auto
+
+        mt-10
+        sm:mt-16
+
+        flex
+
+        max-w-md
+
+        flex-col
+
+        items-center
+
+        gap-5
+
+        text-center
+      "
+    >
+
+      <i
+        data-lucide="lock"
+
+        class="
+          h-12
+          w-12
+
+          text-[#D8CBB0]
+        "
+      ></i>
+
+      <p class="text-[#666]">
+        Sign in to keep your favourite jewellery saved across all
+        your devices.
+      </p>
+
+      <button
+        type="button"
+        id="wishlistSignInButton"
+
+        class="
+          inline-flex
+
+          items-center
+
+          rounded-full
+
+          bg-[#181818]
+
+          px-8
+          py-4
+
+          text-[13px]
+
+          font-medium
+
+          uppercase
+
+          tracking-[0.18em]
+
+          text-white
+
+          transition-colors
+          duration-300
+
+          hover:bg-[#A07936]
+        "
+      >
+        Sign In
+      </button>
+
+    </div>
+
+
     <!-- Empty State -->
 
     <div

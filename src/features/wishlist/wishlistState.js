@@ -1,66 +1,27 @@
+import { wishlistService } from "../../services/wishlistService.js";
+import { isLoggedIn } from "../auth/authState.js";
+
+
 /*
- * There is no backend wishlist endpoint yet (checked services/
- * and config.js API_ENDPOINTS) — this persists saved product ids
- * to localStorage so the wishlist toggle (product-details page)
- * and the wishlist page are both genuinely functional today.
- * Structured so a real wishlist endpoint can replace the storage
- * calls below later without touching any callers, the same way
- * features/cart/cartState.js is set up for the cart.
- *
- * Only ids are stored — product details are always re-fetched
- * from the backend when needed, so nothing stale or invented is
- * ever rendered.
+ * The wishlist is backend-backed and requires login (the API
+ * 401s otherwise) — there is no local/guest fallback. An
+ * in-memory cache of saved product ids is kept here so
+ * isWishlisted()/getWishlistCount() can stay synchronous for
+ * instant UI checks (button state, badge), refreshed by
+ * loadWishlist() and by every add/remove.
  */
 
-const STORAGE_KEY = "banshiwale_wishlist_ids";
+let ids = [];
+
+// Avoids duplicate in-flight GET requests if multiple callers ask
+// to load at once (e.g. the badge, the buttons, and the wishlist
+// page all react to the same authChanged event).
+let loadPromise = null;
 
 
-function readIds() {
+function setIds(nextIds) {
 
-  try {
-
-    const stored =
-      JSON.parse(
-        localStorage.getItem(STORAGE_KEY)
-      );
-
-    return Array.isArray(stored)
-      ? stored.filter(
-          (id) => typeof id === "string" && id
-        )
-      : [];
-
-  } catch (error) {
-
-    console.warn(
-      "[Wishlist] Stored ids could not be read:",
-      error
-    );
-
-    return [];
-  }
-
-}
-
-
-function writeIds(ids) {
-
-  try {
-
-    localStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify(ids)
-    );
-
-  } catch (error) {
-
-    console.warn(
-      "[Wishlist] Could not persist wishlist:",
-      error
-    );
-
-  }
-
+  ids = nextIds;
 
   window.dispatchEvent(
     new CustomEvent("wishlistChanged", {
@@ -71,45 +32,130 @@ function writeIds(ids) {
 }
 
 
+export function loadWishlist() {
+
+  if (!isLoggedIn()) {
+
+    setIds([]);
+
+    return Promise.resolve(ids);
+  }
+
+
+  if (loadPromise) return loadPromise;
+
+
+  loadPromise =
+    wishlistService.getWishlistProductIds()
+      .then((productIds) => {
+
+        setIds(productIds);
+
+        return ids;
+      })
+      .catch((error) => {
+
+        console.error(
+          "[Wishlist] Failed to load wishlist:",
+          error
+        );
+
+        setIds([]);
+
+        return ids;
+      })
+      .finally(() => {
+
+        loadPromise = null;
+
+      });
+
+
+  return loadPromise;
+}
+
+
+/*
+ * Reloads whenever the authenticated user changes — login,
+ * logout, or the initial guest/logged-in resolution on page load
+ * (features/auth/authState.js's hydrateAuth() dispatches
+ * authChanged exactly once for that too).
+ */
+export function initWishlistSync() {
+
+  window.addEventListener(
+    "authChanged",
+    () => loadWishlist()
+  );
+
+}
+
+
 export function getWishlistIds() {
 
-  return readIds();
+  return ids;
 }
 
 
 export function getWishlistCount() {
 
-  return readIds().length;
+  return ids.length;
 }
 
 
 export function isWishlisted(productId) {
 
-  return readIds().includes(productId);
+  return ids.includes(productId);
 }
 
 
-export function addToWishlist(productId) {
+export async function addToWishlist(productId) {
 
   if (!productId) return;
 
-  const ids = readIds();
 
-  if (ids.includes(productId)) return;
+  try {
+
+    await wishlistService.addToWishlist(
+      productId
+    );
+
+  } catch (error) {
+
+    // The cache can be stale (another tab, or a load still in
+    // flight) — if the backend already has it saved, that's the
+    // outcome we wanted anyway, not a real failure.
+    if (error?.status !== 400) {
+      throw error;
+    }
+
+  }
 
 
-  writeIds([
-    productId,
-    ...ids,
-  ]);
+  if (!ids.includes(productId)) {
+
+    setIds([
+      productId,
+      ...ids,
+    ]);
+
+  }
 
 }
 
 
-export function removeFromWishlist(productId) {
+export async function removeFromWishlist(productId) {
 
-  writeIds(
-    readIds().filter(
+  if (!productId) return;
+
+
+  await wishlistService.removeFromWishlist(
+    productId
+  );
+
+
+  setIds(
+    ids.filter(
       (id) => id !== productId
     )
   );
@@ -121,24 +167,25 @@ export function removeFromWishlist(productId) {
  * Returns the resulting saved state (true = now saved) so
  * callers can update their own UI without a second lookup.
  */
-export function toggleWishlist(productId) {
+export async function toggleWishlist(productId) {
 
   if (!productId) return false;
 
 
-  const ids =
-    readIds();
-
-  const isSaved =
-    ids.includes(productId);
+  const nowSaved =
+    !ids.includes(productId);
 
 
-  writeIds(
-    isSaved
-      ? ids.filter((id) => id !== productId)
-      : [productId, ...ids]
-  );
+  if (nowSaved) {
+
+    await addToWishlist(productId);
+
+  } else {
+
+    await removeFromWishlist(productId);
+
+  }
 
 
-  return !isSaved;
+  return nowSaved;
 }
