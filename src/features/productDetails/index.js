@@ -5,11 +5,14 @@ import { setProduct } from "./state.js";
 import { normalizeProduct } from "./model.js";
 import { initGallery } from "./gallery.js";
 import { initEnquiryLinks } from "./enquiry.js";
+import { initQuantitySelector } from "./quantity.js";
+import { initWishlistToggle } from "./wishlist.js";
+import { initSizeSelector } from "./size.js";
+import { initDeliveryChecker } from "./delivery.js";
 
 import { createProductDetailsLayout } from "../../components/productDetails/productDetailsLayout.js";
 import { createProductGallery } from "../../components/productDetails/productGallery.js";
 import { createProductInfo } from "../../components/productDetails/productInfo.js";
-import { createProductTabs } from "../../components/productDetails/productTabs.js";
 import { initProductTabs } from "./tabs.js";
 import { initRelatedProducts } from "./relatedProducts.js";
 import { initLightbox } from "./lightbox.js";
@@ -230,14 +233,8 @@ function renderProduct(container, product) {
 
   if (info) {
 
-    /*
-     * Product information and accordions
-     * live together in the RIGHT column.
-     */
-
     info.innerHTML =
-      createProductInfo(product) +
-      createProductTabs(product);
+      createProductInfo(product);
 
   }
 
@@ -251,6 +248,14 @@ function renderProduct(container, product) {
   initLightbox();
 
   initProductTabs();
+
+  initSizeSelector();
+
+  initQuantitySelector();
+
+  initWishlistToggle();
+
+  initDeliveryChecker();
 
 
   /*

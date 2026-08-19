@@ -2,6 +2,8 @@ import { createRelatedProductsSection } from "./relatedProductsSection.js";
 import { createStickyEnquiryBar } from "./stickyEnquiryBar.js";
 import { createProductLightbox } from "./productLightbox.js";
 import { createRecentlyViewedSection } from "./recentlyViewedSection.js";
+import { createProductTabs } from "./productTabs.js";
+import { createReviewsSection } from "./reviewsSection.js";
 
 
 export function createProductDetailsLayout(product) {
@@ -64,30 +66,26 @@ export function createProductDetailsLayout(product) {
 
 
       <!-- ====================================== -->
-      <!-- RIGHT: SCROLLABLE PRODUCT INFORMATION   -->
+      <!-- RIGHT: PURCHASE INFORMATION             -->
       <!-- ====================================== -->
 
-      <div
-        id="productInfo"
-
-        class="
-          lg:max-h-[calc(100vh-8rem)]
-
-          lg:overflow-y-auto
-
-          lg:overscroll-auto
-
-          lg:pr-4
-
-          no-scrollbar
-        "
-      ></div>
+      <div id="productInfo"></div>
 
     </div>
 
   </div>
 
 </section>
+
+
+<!-- Product Details Accordion -->
+
+${createProductTabs(product)}
+
+
+<!-- Reviews -->
+
+${createReviewsSection(product)}
 
 
 <!-- Related Products -->

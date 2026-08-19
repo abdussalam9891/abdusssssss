@@ -327,15 +327,50 @@ export function createProductTabs(product) {
 
   return `
 
-<div
-  class="
-    mt-20
+<section
+  id="productSpecs"
 
+  class="
     border-t
     border-[#ECE5D8]
+
+    py-16
+    lg:py-20
   "
 >
 
+  <div
+    class="
+      mx-auto
+
+      max-w-3xl
+
+      px-5
+
+      lg:px-8
+    "
+  >
+
+    <p
+      class="
+        text-center
+
+        text-[12px]
+
+        font-semibold
+
+        uppercase
+
+        tracking-[0.28em]
+
+        text-[#A07936]
+      "
+    >
+      Product Details
+    </p>
+
+
+    <div class="mt-8">
 ${tabs
   .map(
     (tab, index) => `
@@ -427,8 +462,11 @@ ${tabs
 `
   )
   .join("")}
+    </div>
 
-</div>
+  </div>
+
+</section>
 
 `;
 }

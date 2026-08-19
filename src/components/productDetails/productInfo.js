@@ -1,9 +1,14 @@
 import { createEnquiryButton } from "./enquiryButton.js";
+import { createWishlistButton } from "./wishlistButton.js";
+import { createBenefitsRow } from "./benefitsRow.js";
+import { createQuantitySelector } from "./quantitySelector.js";
+import { createDeliveryChecker } from "./deliveryChecker.js";
 
 import {
   escapeHtml,
   formatDiscount,
   formatPrice,
+  pickDefaultSize,
 } from "../../features/productDetails/model.js";
 
 
@@ -11,26 +16,40 @@ import {
  * Receives the normalized product produced by
  * features/productDetails/model.js.
  *
+ * This column holds only purchase-critical information —
+ * hierarchy: name -> rating -> price -> discount -> tax info ->
+ * SKU/stock -> sizes -> benefits -> quantity -> CTAs. Full
+ * description, attributes and shipping detail live in the
+ * accordion rendered by productTabs.js below the two-column
+ * area, so this column never needs to scroll internally.
+ *
  * Every block below renders only when the backend actually
  * provides the data — nothing is filled in with invented
  * values.
  */
 
 
-function createStars(rating, totalReviews) {
+function createRatingLink(rating, totalReviews) {
 
   const safeRating =
     Number(rating) || 0;
 
 
   return `
-<div
+<a
+  href="#productReviews"
+
   class="
-    flex
+    inline-flex
     flex-wrap
     items-center
 
     gap-3
+
+    transition-opacity
+    duration-300
+
+    hover:opacity-70
   "
 >
 
@@ -74,7 +93,17 @@ function createStars(rating, totalReviews) {
   </div>
 
 
-  <span class="text-sm text-[#777]">
+  <span
+    class="
+      text-sm
+
+      text-[#777]
+
+      underline
+      decoration-[#E5DED5]
+      underline-offset-4
+    "
+  >
     ${
       totalReviews > 0
         ? `${safeRating.toFixed(1)} · ${totalReviews} ${
@@ -86,68 +115,7 @@ function createStars(rating, totalReviews) {
     }
   </span>
 
-</div>
-`;
-}
-
-
-function createTags(product) {
-
-  const tags = [
-
-    ...product.subCategory,
-
-    ...product.childCategory,
-
-    ...product.gender,
-
-  ];
-
-
-  if (!tags.length) return "";
-
-
-  return `
-<div
-  class="
-    flex
-    flex-wrap
-
-    gap-2
-  "
->
-
-  ${tags
-    .map(
-      (tag) => `
-<span
-  class="
-    rounded-full
-
-    border
-    border-[#ECE5D8]
-
-    bg-[#FCFBF9]
-
-    px-4
-    py-1.5
-
-    text-[12px]
-
-    uppercase
-
-    tracking-[0.14em]
-
-    text-[#6B6B6B]
-  "
->
-  ${escapeHtml(tag)}
-</span>
-`
-    )
-    .join("")}
-
-</div>
+</a>
 `;
 }
 
@@ -211,6 +179,28 @@ function createStock(product) {
   ${escapeHtml(label)}
 
 </div>
+`;
+}
+
+
+function createSku(product) {
+
+  if (!product.sku) return "";
+
+
+  return `
+<p
+  class="
+    text-[13px]
+
+    text-[#8A8A8A]
+  "
+>
+  SKU:
+  <span class="text-[#555]">
+    ${escapeHtml(product.sku)}
+  </span>
+</p>
 `;
 }
 
@@ -340,6 +330,10 @@ function createSizes(product) {
   if (!product.availableSizes.length) return "";
 
 
+  const defaultSize =
+    pickDefaultSize(product);
+
+
   return `
 <div>
 
@@ -356,11 +350,13 @@ function createSizes(product) {
       text-[#A07936]
     "
   >
-    Available Sizes
+    Select Size
   </p>
 
 
   <div
+    id="productSizeOptions"
+
     class="
       mt-4
 
@@ -372,31 +368,70 @@ function createSizes(product) {
   >
 
     ${product.availableSizes
-      .map(
-        (size) => `
-<span
+      .map((size) => {
+
+        const outOfStock =
+          size.stock === 0;
+
+        const isDefault =
+          !outOfStock &&
+          size.label === defaultSize?.label;
+
+        return `
+<button
+  type="button"
+
+  data-size-label="${escapeHtml(size.label)}"
+  data-size-stock="${
+    size.stock === null ? "" : size.stock
+  }"
+
+  ${outOfStock ? "disabled" : ""}
+
   class="
+    product-size-option
+
     rounded-xl
 
     border
-    border-[#ECE5D8]
 
     px-4
     py-2
 
     text-[14px]
 
-    text-[#181818]
+    font-medium
+
+    transition-all
+    duration-300
+
+    ${
+      isDefault
+        ? "border-[#181818] bg-[#181818] text-white"
+        : "border-[#ECE5D8] text-[#181818]"
+    }
+
+    ${
+      outOfStock
+        ? "cursor-not-allowed opacity-40 line-through"
+        : "hover:border-[#A07936]"
+    }
   "
 >
   ${escapeHtml(size.label)}${
-    size.stock !== null
-      ? ` <span class="text-[#8A8A8A]">(${size.stock})</span>`
+    !outOfStock &&
+    size.stock !== null &&
+    size.stock <= 5
+      ? ` <span class="${
+          isDefault
+            ? "text-white/70"
+            : "text-[#8A8A8A]"
+        }">(${size.stock} left)</span>`
       : ""
   }
-</span>
-`
-      )
+</button>
+`;
+      })
       .join("")}
 
   </div>
@@ -406,102 +441,13 @@ function createSizes(product) {
 }
 
 
-function createAttributes(product) {
-
-  if (!product.attributes.length) return "";
-
-
-  return `
-<div
-  class="
-    grid
-
-    gap-4
-
-    sm:grid-cols-2
-  "
->
-
-  ${product.attributes
-    .map(
-      (attribute) => `
-<div
-  class="
-    rounded-2xl
-
-    border
-    border-[#F2ECE3]
-
-    px-5
-    py-4
-  "
->
-
-  <p
-    class="
-      text-[11px]
-
-      uppercase
-
-      tracking-[0.18em]
-
-      text-[#A07936]
-    "
-  >
-    ${escapeHtml(attribute.name)}
-  </p>
-
-  <p
-    class="
-      mt-1
-
-      text-[15px]
-
-      text-[#181818]
-    "
-  >
-    ${escapeHtml(attribute.value)}
-  </p>
-
-</div>
-`
-    )
-    .join("")}
-
-</div>
-`;
-}
-
-
-function createSku(product) {
-
-  if (!product.sku) return "";
-
-
-  return `
-<p
-  class="
-    text-[13px]
-
-    text-[#8A8A8A]
-  "
->
-  SKU:
-  <span class="text-[#555]">
-    ${escapeHtml(product.sku)}
-  </span>
-</p>
-`;
-}
-
-
 export function createProductInfo(product) {
 
   return `
 
-<div class="space-y-8">
+<div class="space-y-7">
 
-  <!-- Title -->
+  <!-- Title + Rating -->
 
   <div>
 
@@ -509,12 +455,12 @@ export function createProductInfo(product) {
       class="
         font-serif
 
-        text-[42px]
-        lg:text-[56px]
+        text-[38px]
+        lg:text-[48px]
 
         italic
 
-        leading-none
+        leading-[1.05]
 
         text-[#181818]
       "
@@ -522,9 +468,8 @@ export function createProductInfo(product) {
       ${escapeHtml(product.name)}
     </h1>
 
-
-    <div class="mt-5">
-      ${createStars(
+    <div class="mt-4">
+      ${createRatingLink(
         product.averageRating,
         product.totalReviews
       )}
@@ -533,47 +478,31 @@ export function createProductInfo(product) {
   </div>
 
 
-  <!-- Tags -->
-
-  ${createTags(product)}
-
-
   <!-- Price -->
 
   ${createPricing(product)}
 
 
-  <!-- Stock -->
+  <!-- Stock + SKU -->
 
-  ${createStock(product)}
+  <div
+    class="
+      flex
+      flex-wrap
 
+      items-center
 
-  <!-- Description -->
-
-  ${
-    product.description
-      ? `
-<p
-  class="
-    max-w-xl
-
-    text-[16px]
-
-    leading-8
-
-    text-[#666]
-  "
->
-  ${escapeHtml(product.description)}
-</p>
-`
-      : ""
-  }
+      gap-4
+    "
+  >
+    ${createStock(product)}
+    ${createSku(product)}
+  </div>
 
 
-  <!-- Attributes -->
+  <!-- Delivery Check -->
 
-  ${createAttributes(product)}
+  ${createDeliveryChecker()}
 
 
   <!-- Sizes -->
@@ -581,14 +510,37 @@ export function createProductInfo(product) {
   ${createSizes(product)}
 
 
-  <!-- SKU -->
+  <!-- Benefits -->
 
-  ${createSku(product)}
+  ${createBenefitsRow()}
 
 
-  <!-- CTA -->
+  <!-- Quantity -->
 
-  ${createEnquiryButton(product)}
+  ${createQuantitySelector(product)}
+
+
+  <!-- CTAs -->
+
+  <div class="space-y-3 pt-2">
+    ${createEnquiryButton(product)}
+    ${createWishlistButton(product)}
+  </div>
+
+  <p
+    class="
+      text-center
+
+      text-[13px]
+
+      leading-6
+
+      text-[#777]
+    "
+  >
+    Talk directly with our jewellery expert for pricing,
+    customisation and availability.
+  </p>
 
 </div>
 

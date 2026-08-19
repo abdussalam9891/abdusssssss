@@ -1,13 +1,13 @@
 export function initProductTabs() {
 
-  const productInfo =
-    document.getElementById("productInfo");
+  const productSpecs =
+    document.getElementById("productSpecs");
 
-  if (!productInfo) return;
+  if (!productSpecs) return;
 
 
   const buttons =
-    productInfo.querySelectorAll(".product-tab");
+    productSpecs.querySelectorAll(".product-tab");
 
 
   buttons.forEach((button) => {
@@ -39,7 +39,7 @@ export function initProductTabs() {
       /* CLOSE ALL TABS                            */
       /* ------------------------------------------ */
 
-      productInfo
+      productSpecs
         .querySelectorAll(".tab-content")
         .forEach((item) => {
 
@@ -59,7 +59,7 @@ export function initProductTabs() {
       /* RESET ALL ICONS                           */
       /* ------------------------------------------ */
 
-      productInfo
+      productSpecs
         .querySelectorAll(".tab-icon")
         .forEach((item) => {
 

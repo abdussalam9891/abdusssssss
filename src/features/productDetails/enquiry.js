@@ -1,10 +1,70 @@
 import { websiteService } from "../../services/websiteService.js";
+import { productState } from "./state.js";
+import { buildEnquiryMessage } from "../../components/productDetails/enquiryButton.js";
 
 
 const ENQUIRY_BUTTON_IDS = [
   "productEnquiryButton",
   "productStickyEnquiryButton",
 ];
+
+
+// Resolved once per product view; refreshEnquiryLinks() reuses it
+// so a quantity change doesn't re-fetch website data.
+let resolvedWhatsapp = null;
+
+
+function getButtons() {
+
+  return ENQUIRY_BUTTON_IDS
+    .map(
+      (id) =>
+        document.getElementById(id)
+    )
+    .filter(Boolean);
+
+}
+
+
+/*
+ * Rebuilds each enquiry button's message (and, once resolved,
+ * its WhatsApp href) from the current product + quantity in
+ * state. Called on load and again whenever the quantity
+ * selector changes.
+ */
+
+export function refreshEnquiryLinks() {
+
+  const product =
+    productState.product;
+
+  if (!product) return;
+
+
+  const message =
+    buildEnquiryMessage(
+      product,
+      productState.quantity,
+      productState.selectedSize?.label || ""
+    );
+
+
+  getButtons().forEach((button) => {
+
+    button.dataset.enquiryMessage =
+      message;
+
+
+    if (resolvedWhatsapp) {
+
+      button.href =
+        `${resolvedWhatsapp}?text=${encodeURIComponent(message)}`;
+
+    }
+
+  });
+
+}
 
 
 /*
@@ -20,13 +80,7 @@ const ENQUIRY_BUTTON_IDS = [
 export async function initEnquiryLinks() {
 
   const buttons =
-    ENQUIRY_BUTTON_IDS
-      .map(
-        (id) =>
-          document.getElementById(id)
-      )
-      .filter(Boolean);
-
+    getButtons();
 
   if (!buttons.length) return;
 
@@ -49,20 +103,19 @@ export async function initEnquiryLinks() {
     }
 
 
+    resolvedWhatsapp = whatsapp;
+
+
     buttons.forEach((button) => {
-
-      const message =
-        button.dataset.enquiryMessage || "";
-
-
-      button.href =
-        `${whatsapp}?text=${encodeURIComponent(message)}`;
 
       button.target = "_blank";
 
       button.rel = "noopener noreferrer";
 
     });
+
+
+    refreshEnquiryLinks();
 
 
   } catch (error) {

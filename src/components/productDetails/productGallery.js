@@ -1,4 +1,7 @@
-import { escapeHtml } from "../../features/productDetails/model.js";
+import {
+  escapeHtml,
+  PLACEHOLDER_IMAGE,
+} from "../../features/productDetails/model.js";
 
 
 /*
@@ -22,6 +25,9 @@ export function createProductGallery(product) {
       product.name || "Product"
     );
 
+  const multiple =
+    images.length > 1;
+
 
   // ==========================================
   // NO IMAGES — DEGRADED STATE
@@ -40,7 +46,7 @@ export function createProductGallery(product) {
     items-center
     justify-center
 
-    rounded-[30px]
+    rounded-[28px]
 
     border
     border-[#ECE5D8]
@@ -61,38 +67,206 @@ export function createProductGallery(product) {
 
   return `
 
-<div
-  class="
-    flex
+<div class="space-y-4">
 
-    flex-col-reverse
-    lg:flex-row
-
-    gap-5
-  "
->
-
-  <!-- Thumbnails -->
+  <!-- Main Image -->
 
   <div
-    id="productThumbnails"
-
     class="
-      flex
+      group
 
-      lg:flex-col
+      relative
 
-      gap-3
+      overflow-hidden
 
-      overflow-x-auto
+      rounded-[28px]
 
-      no-scrollbar
+      border
+      border-[#ECE5D8]
+
+      bg-[#FCFBF9]
+
+      aspect-square
     "
   >
 
-    ${images
-      .map(
-        (image, index) => `
+    <img
+      id="productMainImage"
+
+      src="${escapeHtml(images[0])}"
+
+      alt="${name}"
+
+      loading="eager"
+
+      onerror="this.onerror=null;this.src='${PLACEHOLDER_IMAGE}';"
+
+      class="
+        h-full
+        w-full
+
+        cursor-zoom-in
+
+        object-cover
+
+        transition-opacity
+        duration-300
+      "
+    >
+
+    ${
+      multiple
+        ? `
+<!-- Prev / Next -->
+
+<button
+  type="button"
+  id="productGalleryPrev"
+  aria-label="Previous image"
+
+  class="
+    absolute
+    left-4
+    top-1/2
+
+    -translate-y-1/2
+
+    flex
+
+    h-10
+    w-10
+
+    items-center
+    justify-center
+
+    rounded-full
+
+    border
+    border-white/40
+
+    bg-white/85
+
+    text-[#181818]
+
+    opacity-0
+
+    backdrop-blur
+
+    transition-all
+    duration-300
+
+    hover:bg-white
+
+    group-hover:opacity-100
+  "
+>
+  <i data-lucide="chevron-left" class="h-5 w-5"></i>
+</button>
+
+<button
+  type="button"
+  id="productGalleryNext"
+  aria-label="Next image"
+
+  class="
+    absolute
+    right-4
+    top-1/2
+
+    -translate-y-1/2
+
+    flex
+
+    h-10
+    w-10
+
+    items-center
+    justify-center
+
+    rounded-full
+
+    border
+    border-white/40
+
+    bg-white/85
+
+    text-[#181818]
+
+    opacity-0
+
+    backdrop-blur
+
+    transition-all
+    duration-300
+
+    hover:bg-white
+
+    group-hover:opacity-100
+  "
+>
+  <i data-lucide="chevron-right" class="h-5 w-5"></i>
+</button>
+
+
+<!-- Counter -->
+
+<div
+  id="productGalleryCounter"
+
+  class="
+    absolute
+    bottom-4
+    right-4
+
+    rounded-full
+
+    bg-black/60
+
+    px-3
+    py-1.5
+
+    text-[12px]
+
+    font-medium
+
+    tracking-[0.08em]
+
+    text-white
+
+    backdrop-blur
+  "
+>
+  1 / ${images.length}
+</div>
+`
+        : ""
+    }
+
+  </div>
+
+
+  <!-- Thumbnails -->
+
+  ${
+    multiple
+      ? `
+<div
+  id="productThumbnails"
+
+  class="
+    flex
+
+    gap-3
+
+    overflow-x-auto
+
+    no-scrollbar
+  "
+>
+
+  ${images
+    .map(
+      (image, index) => `
 
 <button
   type="button"
@@ -104,7 +278,7 @@ export function createProductGallery(product) {
   class="
     product-thumbnail
 
-    group
+    group/thumb
 
     relative
 
@@ -141,6 +315,8 @@ export function createProductGallery(product) {
 
     loading="lazy"
 
+    onerror="this.onerror=null;this.src='${PLACEHOLDER_IMAGE}';"
+
     class="
       h-full
       w-full
@@ -150,75 +326,32 @@ export function createProductGallery(product) {
       transition-transform
       duration-500
 
-      group-hover:scale-105
+      group-hover/thumb:scale-105
     "
   />
 
 </button>
 
 `
-      )
-      .join("")}
+    )
+    .join("")}
 
-  </div>
-
-
-  <!-- Main Image -->
-
-  <div class="flex-1">
-
-    <div
-      class="
-        overflow-hidden
-
-        rounded-[30px]
-
-        border
-        border-[#ECE5D8]
-
-        bg-white
-
-        aspect-square
-      "
-    >
-
-      <img
-        id="productMainImage"
-
-        src="${escapeHtml(images[0])}"
-
-        alt="${name}"
-
-        loading="eager"
-
-        class="
-          h-full
-          w-full
-
-          cursor-zoom-in
-
-          object-cover
-
-          transition-all
-          duration-500
-        "
-      >
-
-    </div>
+</div>
+`
+      : ""
+  }
 
 
-    ${
-      videos.length
-        ? `
+  ${
+    videos.length
+      ? `
 <!-- Product Video -->
 
 <div
   class="
-    mt-5
-
     overflow-hidden
 
-    rounded-[30px]
+    rounded-[28px]
 
     border
     border-[#ECE5D8]
@@ -248,10 +381,8 @@ export function createProductGallery(product) {
 
 </div>
 `
-        : ""
-    }
-
-  </div>
+      : ""
+  }
 
 </div>
 
