@@ -58,10 +58,16 @@ export function initWishlistBadgeSync() {
 
 
   // main.js re-renders the navbar (and its default-state badge)
-  // on every login/logout, so re-apply the real count afterwards.
+  // on every login/logout — including once during initial guest
+  // hydration — via its own, separately registered `authChanged`
+  // listener. Listeners fire in registration order, and main.js's
+  // navbar re-render isn't guaranteed to run before this one, so
+  // re-applying the count synchronously here can end up writing to
+  // the badge element that's about to be replaced. Deferring to
+  // the next tick lets that re-render finish first either way.
   window.addEventListener(
     "authChanged",
-    render
+    () => setTimeout(render, 0)
   );
 
 }

@@ -16,6 +16,8 @@ import { initCartBadgeSync } from "./features/cart/cartBadge.js";
 
 import { initWishlistBadgeSync } from "./features/wishlist/wishlistBadge.js";
 
+import { initWishlistButtons } from "./features/wishlist/wishlistButtons.js";
+
 import {
   initAuthModal,
   initGuestEngagement,
@@ -47,6 +49,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Same as the cart badge, but for #wishlistCount.
   initWishlistBadgeSync();
+
+
+  // Wires every showcase card's heart icon sitewide (homepage,
+  // products listing, related/recently-viewed, wishlist page) to
+  // actually save/remove — previously decorative everywhere except
+  // the dedicated product-details wishlist button.
+  initWishlistButtons();
 
 
   // WhatsApp button is completely independent.

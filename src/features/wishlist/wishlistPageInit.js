@@ -10,31 +10,13 @@ import { createShowcaseCard } from "../../components/showcase/showcaseCard.js";
 
 
 /*
- * Every card on this page is, by definition, already saved —
- * mark its (otherwise decorative sitewide) heart icon as active
- * so it reads as "saved, tap to remove" rather than a plain
- * outline heart. Scoped to this page only; showcaseCard.js itself
- * is untouched.
+ * Every card on this page is, by definition, already saved.
+ * features/wishlist/wishlistButtons.js (wired sitewide from
+ * main.js) already handles marking each `.wishlist-button` heart
+ * active and toggling it on click — including removal here, since
+ * clicking an already-saved heart un-saves it — so this file only
+ * needs to fetch and render the saved products themselves.
  */
-function markHeartsActive(container) {
-
-  container
-    .querySelectorAll(".wishlist-button")
-    .forEach((button) => {
-
-      button.classList.add(
-        "border-[#C9A45C]",
-        "text-[#C9A45C]"
-      );
-
-      button
-        .querySelector("[data-lucide]")
-        ?.classList.add("fill-current");
-
-    });
-
-}
-
 
 async function renderWishlist() {
 
@@ -144,49 +126,7 @@ async function renderWishlist() {
       .join("");
 
 
-  markHeartsActive(grid);
-
-
   window.lucide?.createIcons();
-
-}
-
-
-function initRemoveControl() {
-
-  const grid =
-    document.getElementById("wishlistItems");
-
-  if (!grid) return;
-
-
-  grid.addEventListener(
-    "click",
-    (event) => {
-
-      const button =
-        event.target.closest(".wishlist-button");
-
-      if (!button) return;
-
-
-      // showcaseCard wraps the whole tile in a product link —
-      // the heart here means "remove," not "open product."
-      event.preventDefault();
-
-      event.stopPropagation();
-
-
-      const productId =
-        button.dataset.productId;
-
-      if (!productId) return;
-
-
-      removeFromWishlist(productId);
-
-    }
-  );
 
 }
 
@@ -204,8 +144,6 @@ export function initWishlistPage() {
 
 
   renderWishlist();
-
-  initRemoveControl();
 
 
   window.addEventListener(
