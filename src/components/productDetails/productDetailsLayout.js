@@ -1,8 +1,7 @@
 import { createRelatedProductsSection } from "./relatedProductsSection.js";
-import { createStickyEnquiryBar } from "./stickyEnquiryBar.js";
+import { createStickyActionBar } from "./stickyActionBar.js";
 import { createProductLightbox } from "./productLightbox.js";
 import { createRecentlyViewedSection } from "./recentlyViewedSection.js";
-import { createProductTabs } from "./productTabs.js";
 import { createReviewsSection } from "./reviewsSection.js";
 
 
@@ -78,11 +77,6 @@ export function createProductDetailsLayout(product) {
 </section>
 
 
-<!-- Product Details Accordion -->
-
-${createProductTabs(product)}
-
-
 <!-- Reviews -->
 
 ${createReviewsSection(product)}
@@ -98,9 +92,9 @@ ${createRelatedProductsSection()}
 ${createRecentlyViewedSection()}
 
 
-<!-- Sticky Enquiry Bar -->
+<!-- Sticky Action Bar (mobile) -->
 
-${createStickyEnquiryBar(product)}
+${createStickyActionBar(product)}
 
 
 <!-- Product Lightbox -->

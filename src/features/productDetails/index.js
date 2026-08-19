@@ -4,11 +4,12 @@ import { getProductId } from "./query.js";
 import { setProduct } from "./state.js";
 import { normalizeProduct } from "./model.js";
 import { initGallery } from "./gallery.js";
-import { initEnquiryLinks } from "./enquiry.js";
 import { initQuantitySelector } from "./quantity.js";
 import { initWishlistToggle } from "./wishlist.js";
 import { initSizeSelector } from "./size.js";
 import { initDeliveryChecker } from "./delivery.js";
+import { initAddToCart, initBuyNow } from "./cart.js";
+import { initShareButton } from "./share.js";
 
 import { createProductDetailsLayout } from "../../components/productDetails/productDetailsLayout.js";
 import { createProductGallery } from "../../components/productDetails/productGallery.js";
@@ -257,14 +258,18 @@ function renderProduct(container, product) {
 
   initDeliveryChecker();
 
+  initAddToCart();
+
+  initBuyNow();
+
+  initShareButton();
+
 
   /*
    * Each of these depends on its own backend request or on
    * local storage, so a failure in one must not take the
    * rendered product down with it.
    */
-
-  initEnquiryLinks();
 
   saveRecentlyViewed();
 

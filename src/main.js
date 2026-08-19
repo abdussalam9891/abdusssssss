@@ -12,6 +12,8 @@ import { initToast } from "./features/toast/index.js";
 
 import { initFloatingWhatsAppButton } from "./features/whatsapp/index.js";
 
+import { initCartBadgeSync } from "./features/cart/cartBadge.js";
+
 import {
   initAuthModal,
   initGuestEngagement,
@@ -33,6 +35,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Toast is completely independent.
   initToast();
+
+
+  // Cart badge is local-storage-only and independent of the
+  // backend; it just needs the navbar's #cartCount element to
+  // exist, which initNavbar() above already guarantees.
+  initCartBadgeSync();
 
 
   // WhatsApp button is completely independent.
@@ -234,6 +242,38 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       console.error(
         "[Product Details] Failed to initialize:",
+        error
+      );
+
+    }
+
+  }
+
+
+  // =========================================
+  // CART
+  // =========================================
+
+  if (
+    document.getElementById("cartPage")
+  ) {
+
+    try {
+
+      const {
+        loadCartPage,
+      } = await import(
+        "./pages/cartPage.js"
+      );
+
+
+      loadCartPage();
+
+
+    } catch (error) {
+
+      console.error(
+        "[Cart] Failed to initialize:",
         error
       );
 

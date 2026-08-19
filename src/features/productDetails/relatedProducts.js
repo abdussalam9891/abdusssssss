@@ -15,11 +15,43 @@ function getSection(container) {
 
 
 /*
- * Related products come from the same public store endpoint the
- * listing page uses, filtered by the current product's
- * sub-category. The cards consume the raw backend product shape,
- * so no normalization is needed here.
+ * Related products come from the dedicated similar-products
+ * endpoint (GET /product/similar/slug/:slug), keyed off the
+ * current product's slug. The cards consume the raw backend
+ * product shape, so no normalization is needed here.
+ *
+ * If the current product has no slug yet, or the similar-products
+ * request fails, this falls back to the same public store listing
+ * the products page uses, filtered by sub-category — so the
+ * section still degrades to something useful rather than
+ * disappearing outright.
  */
+
+async function fetchFallbackProducts(current) {
+
+  const category =
+    current.subCategory?.[0] ||
+    current.childCategory?.[0] ||
+    "";
+
+  const response =
+    await productService.getPublicProducts({
+
+      page: 1,
+
+      // One extra, in case the current product comes back.
+      limit: RELATED_LIMIT + 1,
+
+      categories:
+        category
+          ? [category]
+          : [],
+
+    });
+
+  return response?.data?.products || [];
+}
+
 
 export async function initRelatedProducts() {
 
@@ -35,75 +67,77 @@ export async function initRelatedProducts() {
   if (!current) return;
 
 
-  const category =
-    current.subCategory?.[0] ||
-    current.childCategory?.[0] ||
-    "";
-
+  let products = [];
 
   try {
 
-    const response =
-      await productService.getPublicProducts({
+    products =
+      current.slug
+        ? await productService.getSimilarProductsBySlug(
+            current.slug
+          )
+        : [];
 
-        page: 1,
+  } catch (error) {
 
-        // One extra, in case the current product comes back.
-        limit: RELATED_LIMIT + 1,
+    console.error(
+      "[Product Details] Failed to load similar products:",
+      error
+    );
 
-        categories:
-          category
-            ? [category]
-            : [],
-
-      });
-
-
-    const products =
-      (response?.data?.products || [])
-        .filter(
-          (product) =>
-            product?._id &&
-            product._id !== current.id
-        )
-        .slice(0, RELATED_LIMIT);
+  }
 
 
-    if (!products.length) {
+  if (!products.length) {
+
+    try {
+
+      products =
+        await fetchFallbackProducts(current);
+
+    } catch (error) {
+
+      console.error(
+        "[Product Details] Fallback related products request " +
+        "also failed:",
+        error
+      );
 
       getSection(container)?.remove();
 
       return;
     }
 
-
-    container.innerHTML =
-      products
-        .map(
-          (product) =>
-            createShowcaseCard(product, true)
-        )
-        .join("");
-
-
-    window.lucide?.createIcons();
-
-
-  } catch (error) {
-
-    console.error(
-      "[Product Details] Failed to load related products:",
-      error
-    );
-
-
-    container.innerHTML = `
-      <p class="w-full py-10 text-center text-red-600">
-        Unable to load related products.
-        Please try again later.
-      </p>
-    `;
-
   }
+
+
+  products =
+    products
+      .filter(
+        (product) =>
+          product?._id &&
+          product._id !== current.id
+      )
+      .slice(0, RELATED_LIMIT);
+
+
+  if (!products.length) {
+
+    getSection(container)?.remove();
+
+    return;
+  }
+
+
+  container.innerHTML =
+    products
+      .map(
+        (product) =>
+          createShowcaseCard(product, true)
+      )
+      .join("");
+
+
+  window.lucide?.createIcons();
 
 }

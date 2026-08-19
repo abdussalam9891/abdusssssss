@@ -1,5 +1,4 @@
 import { setSelectedSize } from "./state.js";
-import { refreshEnquiryLinks } from "./enquiry.js";
 import { refreshQuantityLimits } from "./quantity.js";
 
 
@@ -96,8 +95,6 @@ export function initSizeSelector() {
         applyActive(label);
 
         refreshQuantityLimits();
-
-        refreshEnquiryLinks();
 
       }
     );

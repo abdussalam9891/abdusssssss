@@ -40,7 +40,7 @@ export function createWishlistButton(product) {
 
     bg-white
 
-    px-8
+    px-6
     py-4
 
     text-[13px]

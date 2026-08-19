@@ -1,8 +1,11 @@
-import { createEnquiryButton } from "./enquiryButton.js";
 import { createWishlistButton } from "./wishlistButton.js";
+import { createAddToCartButton } from "./addToCartButton.js";
+import { createBuyNowButton } from "./buyNowButton.js";
+import { createShareButton } from "./shareButton.js";
 import { createBenefitsRow } from "./benefitsRow.js";
 import { createQuantitySelector } from "./quantitySelector.js";
 import { createDeliveryChecker } from "./deliveryChecker.js";
+import { createProductTabs } from "./productTabs.js";
 
 import {
   escapeHtml,
@@ -523,24 +526,39 @@ export function createProductInfo(product) {
   <!-- CTAs -->
 
   <div class="space-y-3 pt-2">
-    ${createEnquiryButton(product)}
-    ${createWishlistButton(product)}
+
+    <div
+      class="
+        grid
+
+        grid-cols-2
+
+        gap-3
+      "
+    >
+      ${createAddToCartButton(product)}
+      ${createBuyNowButton(product)}
+    </div>
+
+    <div
+      class="
+        grid
+
+        grid-cols-2
+
+        gap-3
+      "
+    >
+      ${createWishlistButton(product)}
+      ${createShareButton(product)}
+    </div>
+
   </div>
 
-  <p
-    class="
-      text-center
 
-      text-[13px]
+  <!-- Description / Specifications / Price Breakdown / etc -->
 
-      leading-6
-
-      text-[#777]
-    "
-  >
-    Talk directly with our jewellery expert for pricing,
-    customisation and availability.
-  </p>
+  ${createProductTabs(product)}
 
 </div>
 

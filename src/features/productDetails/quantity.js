@@ -4,7 +4,6 @@ import {
 } from "./state.js";
 
 import { formatPrice } from "./model.js";
-import { refreshEnquiryLinks } from "./enquiry.js";
 
 
 /*
@@ -111,9 +110,6 @@ export function initQuantitySelector() {
           : "";
 
     }
-
-
-    refreshEnquiryLinks();
 
   }
 

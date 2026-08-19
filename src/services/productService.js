@@ -253,4 +253,40 @@ export const productService = {
     return product;
   },
 
+
+  // ==========================================
+  // SIMILAR PRODUCTS
+  // ==========================================
+
+  /*
+   * GET /product/similar/slug/:slug
+   *
+   *   200 -> { success, message, data: [ ...product ] }
+   *
+   * Unlike the store listing endpoint, the array is on `data`
+   * directly (no `.products` nesting).
+   */
+
+  getSimilarProductsBySlug: async (slug) => {
+
+    if (!slug) return [];
+
+
+    const endpoint =
+      API_ENDPOINTS.PRODUCTS.SIMILAR_BY_SLUG(
+        slug
+      );
+
+
+    const response =
+      await apiClient.get(
+        endpoint
+      );
+
+
+    return Array.isArray(response?.data)
+      ? response.data
+      : [];
+  },
+
 };

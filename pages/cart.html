@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- Meta -->
+
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>banshiwale | Shopping Cart</title>
+
+  <meta
+    name="description"
+    content="Review the jewellery pieces you've selected from banshiwale."
+  />
+
+  <meta
+    name="robots"
+    content="noindex, follow"
+  />
+
+  <meta
+    name="theme-color"
+    content="#181818"
+  />
+
+  <!-- Fonts -->
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  />
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link
+    rel="stylesheet"
+    href="../src/css/main.css"
+  />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: "#A07936",
+            background: "#181818",
+            surface: "#1C1C1C",
+          },
+
+          fontFamily: {
+            sans: ["Inter", "sans-serif"],
+            serif: ["Cormorant Garamond", "serif"],
+          },
+        },
+      },
+    };
+  </script>
+
+</head>
+
+<body
+  class="
+    min-h-screen
+    bg-white
+    font-sans
+    text-[#181818]
+    antialiased
+  "
+>
+
+  <!-- Navbar -->
+
+  <div
+    id="navbar-container"
+    data-theme="dark"
+    data-announcement="true"
+  ></div>
+
+  <!-- Main -->
+
+  <main>
+    <section id="cartPage"></section>
+  </main>
+
+  <!-- Footer -->
+
+  <div id="footer"></div>
+
+  <script
+    src="https://unpkg.com/lucide@latest"
+    defer
+  ></script>
+
+  <script
+    type="module"
+    src="../src/main.js"
+  ></script>
+
+</body>
+
+</html>
