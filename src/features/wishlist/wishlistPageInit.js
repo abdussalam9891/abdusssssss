@@ -9,16 +9,18 @@ import {
 } from "./wishlistState.js";
 
 import { createWishlistLayout } from "../../components/wishlist/wishlistLayout.js";
-import { createShowcaseCard } from "../../components/showcase/showcaseCard.js";
+import { createWishlistCard } from "../../components/wishlist/wishlistCard.js";
 
 
 /*
- * Every card on this page is, by definition, already saved.
+ * Every card on this page is, by definition, already saved, so
+ * components/wishlist/wishlistCard.js renders a remove button
+ * (`.wishlist-remove-button`) instead of the sitewide save/heart
+ * toggle — clicking it always means "take this off my wishlist."
  * features/wishlist/wishlistButtons.js (wired sitewide from
- * main.js) already handles marking each `.wishlist-button` heart
- * active and toggling it on click — including removal here, since
- * clicking an already-saved heart un-saves it — so this file only
- * needs to fetch and render the saved products themselves.
+ * main.js) handles that click, plus each card's "Move to Cart"
+ * button, via delegation, so this file only needs to fetch and
+ * render the saved products themselves.
  *
  * The wishlist requires login (see wishlistState.js), so this
  * page has three states: signed out, signed in with nothing
@@ -153,7 +155,7 @@ async function renderWishlist() {
     products
       .map(
         (product) =>
-          createShowcaseCard(product, false)
+          createWishlistCard(product)
       )
       .join("");
 
