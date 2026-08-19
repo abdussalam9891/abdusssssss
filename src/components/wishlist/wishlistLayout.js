@@ -36,28 +36,8 @@ export function createWishlistLayout() {
 
     <div class="text-center">
 
-      <p
-        class="
-          text-[11px]
-          sm:text-[12px]
-
-          font-semibold
-
-          uppercase
-
-          tracking-[0.22em]
-          sm:tracking-[0.28em]
-
-          text-[#A07936]
-        "
-      >
-        Saved For Later
-      </p>
-
       <h1
         class="
-          mt-3
-
           font-serif
 
           text-[30px]
@@ -69,7 +49,7 @@ export function createWishlistLayout() {
           text-[#181818]
         "
       >
-        Your Wishlist
+        My Wishlist
       </h1>
 
     </div>

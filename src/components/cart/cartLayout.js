@@ -34,28 +34,8 @@ export function createCartLayout() {
 
     <div class="text-center">
 
-      <p
-        class="
-          text-[11px]
-          sm:text-[12px]
-
-          font-semibold
-
-          uppercase
-
-          tracking-[0.22em]
-          sm:tracking-[0.28em]
-
-          text-[#A07936]
-        "
-      >
-        Your Selection
-      </p>
-
       <h1
         class="
-          mt-3
-
           font-serif
 
           text-[30px]
