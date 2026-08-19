@@ -1017,10 +1017,7 @@ export function createShowcaseCard(
 
         h-32
 
-        bg-gradient-to-t
-        from-white/80
-        via-white/20
-        to-transparent
+        
 
         transition-opacity
         duration-500

@@ -1,9 +1,4 @@
-/*
- * Purely client-side format validation. There is no backend
- * serviceability endpoint to call, so this never claims a real
- * per-pincode delivery estimate — see
- * components/productDetails/deliveryChecker.js.
- */
+// client side only 
 
 const PINCODE_PATTERN = /^[1-9][0-9]{5}$/;
 

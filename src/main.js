@@ -49,8 +49,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   initCartBadgeSync();
 
 
-  // The wishlist is backend-backed and requires login (unlike the
-  // cart, which stays local-storage-only) — this loads it once
+  // The wishlist is backend-backed and requires login  
   // the current user is known and reloads on every login/logout,
   // via authChanged. #wishlistCount and every wishlist heart icon
   // sitewide both read from the resulting in-memory cache.
