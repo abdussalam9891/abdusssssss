@@ -39,7 +39,8 @@ export function createStickyActionBar(product) {
 
     backdrop-blur-xl
 
-    p-4
+    p-3
+    sm:p-4
 
     lg:hidden
   "
@@ -51,7 +52,8 @@ export function createStickyActionBar(product) {
 
       items-center
 
-      gap-3
+      gap-2
+      sm:gap-3
     "
   >
 
@@ -69,7 +71,8 @@ export function createStickyActionBar(product) {
 
           font-serif
 
-          text-[18px]
+          text-[15px]
+          sm:text-[18px]
 
           italic
 
@@ -85,6 +88,9 @@ export function createStickyActionBar(product) {
 <p
   class="
     mt-0.5
+
+    text-[13px]
+    sm:text-[15px]
 
     font-medium
 
@@ -116,13 +122,17 @@ export function createStickyActionBar(product) {
         items-center
         justify-center
 
-        rounded-2xl
+        rounded-xl
+        sm:rounded-2xl
 
         border
         border-[#181818]
 
-        h-12
-        w-12
+        h-11
+        w-11
+
+        sm:h-12
+        sm:w-12
 
         text-[#181818]
 
@@ -131,6 +141,8 @@ export function createStickyActionBar(product) {
 
         hover:border-[#A07936]
         hover:text-[#A07936]
+
+        active:scale-[0.96]
 
         disabled:cursor-not-allowed
         disabled:border-[#DDD7CF]
@@ -141,8 +153,11 @@ export function createStickyActionBar(product) {
         data-lucide="shopping-bag"
 
         class="
-          h-5
-          w-5
+          h-4
+          w-4
+
+          sm:h-5
+          sm:w-5
         "
       ></i>
     </button>
@@ -160,23 +175,31 @@ export function createStickyActionBar(product) {
         shrink-0
 
         items-center
+        justify-center
 
-        gap-2
+        gap-1.5
+        sm:gap-2
 
-        rounded-2xl
+        rounded-xl
+        sm:rounded-2xl
 
         bg-[#181818]
 
-        px-6
-        py-4
+        px-4
+        py-3
 
-        text-[13px]
+        sm:px-6
+        sm:py-4
+
+        text-[11.5px]
+        sm:text-[13px]
 
         font-medium
 
         uppercase
 
-        tracking-[0.14em]
+        tracking-[0.05em]
+        sm:tracking-[0.14em]
 
         text-white
 
@@ -184,6 +207,8 @@ export function createStickyActionBar(product) {
         duration-300
 
         hover:bg-[#A07936]
+
+        active:scale-[0.96]
 
         disabled:cursor-not-allowed
         disabled:bg-[#DDD7CF]

@@ -31,23 +31,31 @@ export function createBuyNowButton(product) {
     items-center
     justify-center
 
-    gap-3
+    gap-2
+    sm:gap-3
 
     overflow-hidden
 
-    rounded-2xl
+    rounded-xl
+    sm:rounded-2xl
 
     bg-[#181818]
 
-    px-6
-    py-5
+    px-3
+    py-3
 
-    text-[13px]
+    sm:px-6
+    sm:py-5
+
+    text-[11.5px]
+    sm:text-[13px]
+
     font-medium
 
     uppercase
 
-    tracking-[0.18em]
+    tracking-[0.04em]
+    sm:tracking-[0.18em]
 
     text-white
 
@@ -57,6 +65,8 @@ export function createBuyNowButton(product) {
     hover:-translate-y-1
 
     hover:shadow-[0_22px_55px_rgba(0,0,0,.18)]
+
+    active:scale-[0.98]
 
     disabled:cursor-not-allowed
     disabled:translate-y-0
@@ -93,12 +103,17 @@ export function createBuyNowButton(product) {
       relative
       z-10
 
-      h-4
-      w-4
+      h-3.5
+      w-3.5
+
+      shrink-0
+
+      sm:h-4
+      sm:w-4
     "
   ></i>
 
-  <span class="relative z-10">
+  <span class="relative z-10 truncate">
     Buy Now
   </span>
 

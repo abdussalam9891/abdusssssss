@@ -48,22 +48,28 @@ export function createDeliveryChecker() {
 
       maxlength="6"
 
-      placeholder="Enter 6-digit pincode"
+      placeholder="6-digit pincode"
 
       aria-label="Pincode"
 
       class="
         w-full
+        min-w-0
 
-        rounded-2xl
+        rounded-xl
+        sm:rounded-2xl
 
         border
         border-[#ECE5D8]
 
-        px-4
-        py-3
+        px-3.5
+        py-2.5
 
-        text-[14px]
+        sm:px-4
+        sm:py-3
+
+        text-[13px]
+        sm:text-[14px]
 
         text-[#181818]
 
@@ -85,21 +91,27 @@ export function createDeliveryChecker() {
       class="
         shrink-0
 
-        rounded-2xl
+        rounded-xl
+        sm:rounded-2xl
 
         border
         border-[#181818]
 
-        px-6
-        py-3
+        px-4
+        py-2.5
 
-        text-[13px]
+        sm:px-6
+        sm:py-3
+
+        text-[11.5px]
+        sm:text-[13px]
 
         font-medium
 
         uppercase
 
-        tracking-[0.14em]
+        tracking-[0.05em]
+        sm:tracking-[0.14em]
 
         text-[#181818]
 
@@ -108,6 +120,8 @@ export function createDeliveryChecker() {
 
         hover:border-[#A07936]
         hover:text-[#A07936]
+
+        active:scale-[0.97]
       "
     >
       Check

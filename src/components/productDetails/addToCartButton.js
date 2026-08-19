@@ -32,24 +32,32 @@ export function createAddToCartButton(product) {
     items-center
     justify-center
 
-    gap-3
+    gap-2
+    sm:gap-3
 
     overflow-hidden
 
-    rounded-2xl
+    rounded-xl
+    sm:rounded-2xl
 
     border
     border-[#181818]
 
-    px-6
-    py-5
+    px-3
+    py-3
 
-    text-[13px]
+    sm:px-6
+    sm:py-5
+
+    text-[11.5px]
+    sm:text-[13px]
+
     font-medium
 
     uppercase
 
-    tracking-[0.18em]
+    tracking-[0.04em]
+    sm:tracking-[0.18em]
 
     text-[#181818]
 
@@ -58,6 +66,8 @@ export function createAddToCartButton(product) {
 
     hover:border-[#A07936]
     hover:text-[#A07936]
+
+    active:scale-[0.98]
 
     disabled:cursor-not-allowed
     disabled:border-[#DDD7CF]
@@ -71,12 +81,19 @@ export function createAddToCartButton(product) {
     data-lucide="shopping-bag"
 
     class="
-      h-4
-      w-4
+      h-3.5
+      w-3.5
+
+      shrink-0
+
+      sm:h-4
+      sm:w-4
     "
   ></i>
 
-  Add to Cart
+  <span class="truncate">
+    Add to Cart
+  </span>
 
 </button>
 

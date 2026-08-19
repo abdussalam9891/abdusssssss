@@ -5,11 +5,8 @@ export function formatPrice(value) {
   if (!Number.isFinite(number)) return "";
 
 
-  return `₹${number.toLocaleString(
-    "en-IN",
-    {
-      maximumFractionDigits: 2,
-    }
+  return `₹${Math.round(number).toLocaleString(
+    "en-IN"
   )}`;
 }
 

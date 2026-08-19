@@ -70,7 +70,8 @@ export function createReviewsSection(product) {
 
     bg-[#FCFBF9]
 
-    py-16
+    py-12
+    sm:py-16
     lg:py-20
   "
 >
@@ -127,7 +128,9 @@ export function createReviewsSection(product) {
     class="
       font-serif
 
-      text-[56px]
+      text-[40px]
+      sm:text-[48px]
+      lg:text-[56px]
 
       leading-none
 

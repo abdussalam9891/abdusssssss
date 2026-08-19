@@ -80,7 +80,8 @@ export function createQuantitySelector(product) {
 
       items-center
 
-      gap-5
+      gap-3
+      sm:gap-5
     "
   >
 
@@ -92,7 +93,8 @@ export function createQuantitySelector(product) {
 
         overflow-hidden
 
-        rounded-2xl
+        rounded-xl
+        sm:rounded-2xl
 
         border
         border-[#ECE5D8]
@@ -107,11 +109,17 @@ export function createQuantitySelector(product) {
         class="
           flex
 
-          h-11
-          w-11
+          h-9
+          w-9
+
+          sm:h-11
+          sm:w-11
 
           items-center
           justify-center
+
+          text-[15px]
+          sm:text-base
 
           text-[#181818]
 
@@ -119,6 +127,8 @@ export function createQuantitySelector(product) {
           duration-300
 
           hover:bg-[#FCFBF9]
+
+          active:scale-95
 
           disabled:cursor-not-allowed
           disabled:opacity-40
@@ -132,11 +142,13 @@ export function createQuantitySelector(product) {
         data-quantity="1"
 
         class="
-          w-12
+          w-9
+          sm:w-12
 
           text-center
 
-          text-[15px]
+          text-[13px]
+          sm:text-[15px]
 
           font-medium
 
@@ -154,11 +166,17 @@ export function createQuantitySelector(product) {
         class="
           flex
 
-          h-11
-          w-11
+          h-9
+          w-9
+
+          sm:h-11
+          sm:w-11
 
           items-center
           justify-center
+
+          text-[15px]
+          sm:text-base
 
           text-[#181818]
 
@@ -166,6 +184,8 @@ export function createQuantitySelector(product) {
           duration-300
 
           hover:bg-[#FCFBF9]
+
+          active:scale-95
 
           disabled:cursor-not-allowed
           disabled:opacity-40

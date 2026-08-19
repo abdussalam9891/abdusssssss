@@ -34,9 +34,7 @@ function buildCheckoutMessage(items, subtotal) {
 
   lines.push(
     "",
-    `Estimated subtotal: ₹${subtotal.toLocaleString("en-IN", {
-      maximumFractionDigits: 2,
-    })}`,
+    `Estimated subtotal: ₹${Math.round(subtotal).toLocaleString("en-IN")}`,
     "",
     "Could you please confirm availability and final pricing?"
   );

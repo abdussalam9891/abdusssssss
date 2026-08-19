@@ -245,7 +245,9 @@ function createPricing(product) {
 
     <span
       class="
-        text-[38px]
+        text-[26px]
+        sm:text-[32px]
+        lg:text-[38px]
 
         font-semibold
 
@@ -394,14 +396,19 @@ function createSizes(product) {
   class="
     product-size-option
 
-    rounded-xl
+    rounded-lg
+    sm:rounded-xl
 
     border
 
-    px-4
-    py-2
+    px-3.5
+    py-1.5
 
-    text-[14px]
+    sm:px-4
+    sm:py-2
+
+    text-[13px]
+    sm:text-[14px]
 
     font-medium
 
@@ -417,7 +424,7 @@ function createSizes(product) {
     ${
       outOfStock
         ? "cursor-not-allowed opacity-40 line-through"
-        : "hover:border-[#A07936]"
+        : "hover:border-[#A07936] active:scale-95"
     }
   "
 >
@@ -448,7 +455,7 @@ export function createProductInfo(product) {
 
   return `
 
-<div class="space-y-7">
+<div class="space-y-5 sm:space-y-7">
 
   <!-- Title + Rating -->
 
@@ -458,12 +465,14 @@ export function createProductInfo(product) {
       class="
         font-serif
 
-        text-[38px]
+        text-[26px]
+        sm:text-[34px]
         lg:text-[48px]
 
         italic
 
-        leading-[1.05]
+        leading-[1.1]
+        lg:leading-[1.05]
 
         text-[#181818]
       "
@@ -525,7 +534,7 @@ export function createProductInfo(product) {
 
   <!-- CTAs -->
 
-  <div class="space-y-3 pt-2">
+  <div class="space-y-2 sm:space-y-3 pt-1 sm:pt-2">
 
     <div
       class="
@@ -533,7 +542,8 @@ export function createProductInfo(product) {
 
         grid-cols-2
 
-        gap-3
+        gap-2
+        sm:gap-3
       "
     >
       ${createAddToCartButton(product)}
@@ -546,7 +556,8 @@ export function createProductInfo(product) {
 
         grid-cols-2
 
-        gap-3
+        gap-2
+        sm:gap-3
       "
     >
       ${createWishlistButton(product)}

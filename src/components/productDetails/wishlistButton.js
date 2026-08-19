@@ -31,24 +31,32 @@ export function createWishlistButton(product) {
     items-center
     justify-center
 
-    gap-3
+    gap-2
+    sm:gap-3
 
-    rounded-2xl
+    rounded-lg
+    sm:rounded-xl
 
     border
     border-[#DDD7CF]
 
     bg-white
 
-    px-6
-    py-4
+    px-3
+    py-2.5
 
-    text-[13px]
+    sm:px-6
+    sm:py-4
+
+    text-[11px]
+    sm:text-[13px]
+
     font-medium
 
     uppercase
 
-    tracking-[0.18em]
+    tracking-[0.03em]
+    sm:tracking-[0.18em]
 
     text-[#181818]
 
@@ -57,6 +65,8 @@ export function createWishlistButton(product) {
 
     hover:border-[#A07936]
     hover:text-[#A07936]
+
+    active:scale-[0.98]
   "
 >
 
@@ -64,15 +74,24 @@ export function createWishlistButton(product) {
     data-lucide="heart"
 
     class="
-      h-4
-      w-4
+      h-3.5
+      w-3.5
+
+      shrink-0
+
+      sm:h-4
+      sm:w-4
 
       transition-colors
       duration-300
     "
   ></i>
 
-  <span id="productWishlistLabel">
+  <span
+    id="productWishlistLabel"
+
+    class="truncate"
+  >
     Add to Wishlist
   </span>
 

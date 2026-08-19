@@ -7,6 +7,7 @@ export function createRecentlyViewedSection() {
     bg-[#FCFBF9]
 
     py-8
+    sm:py-10
     lg:py-14
   "
 >
@@ -27,11 +28,13 @@ export function createRecentlyViewedSection() {
 
       <p
         class="
-          text-[13px]
+          text-[11px]
+          sm:text-[13px]
 
           uppercase
 
-          tracking-[0.30em]
+          tracking-[0.24em]
+          sm:tracking-[0.30em]
 
           text-[#A07936]
         "
@@ -41,11 +44,13 @@ export function createRecentlyViewedSection() {
 
       <h2
         class="
-          mt-4
+          mt-3
+          sm:mt-4
 
           font-serif
 
-          text-[42px]
+          text-[26px]
+          sm:text-[38px]
           lg:text-[56px]
 
           italic
@@ -63,11 +68,15 @@ export function createRecentlyViewedSection() {
       id="recentlyViewedProducts"
 
       class="
-        mt-16
+        mt-6
+        sm:mt-10
+        lg:mt-16
 
         flex
 
-        gap-8
+        gap-4
+        sm:gap-6
+        lg:gap-8
 
         overflow-x-auto
 

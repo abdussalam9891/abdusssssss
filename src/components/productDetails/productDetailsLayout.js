@@ -10,11 +10,12 @@ export function createProductDetailsLayout(product) {
 
 <section
   class="
-    pt-36
-    pb-20
+    pt-28
+    pb-24
+
+    sm:pt-32
 
     lg:pt-40
-    lg:pb-24
   "
 >
 
@@ -39,7 +40,9 @@ export function createProductDetailsLayout(product) {
 
         grid-cols-1
 
-        gap-14
+        gap-8
+
+        sm:gap-10
 
         lg:grid-cols-[1.05fr_0.95fr]
         lg:gap-20
