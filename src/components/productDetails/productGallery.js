@@ -43,10 +43,19 @@ export function createProductGallery(product) {
 
     aspect-square
 
+    max-w-[340px]
+    sm:max-w-[420px]
+    lg:max-w-[480px]
+    xl:max-w-[540px]
+
+    mx-auto
+    lg:mx-0
+
     items-center
     justify-center
 
-    rounded-[28px]
+    rounded-2xl
+    sm:rounded-[28px]
 
     border
     border-[#ECE5D8]
@@ -67,7 +76,20 @@ export function createProductGallery(product) {
 
   return `
 
-<div class="space-y-4">
+<div
+  class="
+    space-y-3
+    sm:space-y-4
+
+    max-w-[340px]
+    sm:max-w-[420px]
+    lg:max-w-[480px]
+    xl:max-w-[540px]
+
+    mx-auto
+    lg:mx-0
+  "
+>
 
   <!-- Main Image -->
 
@@ -79,7 +101,8 @@ export function createProductGallery(product) {
 
       overflow-hidden
 
-      rounded-[28px]
+      rounded-2xl
+      sm:rounded-[28px]
 
       border
       border-[#ECE5D8]
@@ -282,14 +305,18 @@ export function createProductGallery(product) {
 
     relative
 
-    h-20
-    w-20
+    h-14
+    w-14
+
+    sm:h-20
+    sm:w-20
 
     shrink-0
 
     overflow-hidden
 
-    rounded-2xl
+    rounded-xl
+    sm:rounded-2xl
 
     border
 
