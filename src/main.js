@@ -14,6 +14,8 @@ import { initFloatingWhatsAppButton } from "./features/whatsapp/index.js";
 
 import { initCartBadgeSync } from "./features/cart/cartBadge.js";
 
+import { initWishlistBadgeSync } from "./features/wishlist/wishlistBadge.js";
+
 import {
   initAuthModal,
   initGuestEngagement,
@@ -41,6 +43,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   // backend; it just needs the navbar's #cartCount element to
   // exist, which initNavbar() above already guarantees.
   initCartBadgeSync();
+
+
+  // Same as the cart badge, but for #wishlistCount.
+  initWishlistBadgeSync();
 
 
   // WhatsApp button is completely independent.
@@ -274,6 +280,38 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       console.error(
         "[Cart] Failed to initialize:",
+        error
+      );
+
+    }
+
+  }
+
+
+  // =========================================
+  // WISHLIST
+  // =========================================
+
+  if (
+    document.getElementById("wishlistPage")
+  ) {
+
+    try {
+
+      const {
+        loadWishlistPage,
+      } = await import(
+        "./pages/wishlistPage.js"
+      );
+
+
+      loadWishlistPage();
+
+
+    } catch (error) {
+
+      console.error(
+        "[Wishlist] Failed to initialize:",
         error
       );
 

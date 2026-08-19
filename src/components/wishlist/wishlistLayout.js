@@ -1,10 +1,11 @@
 /*
  * Static page shell. The feature module decides, at render time,
- * whether to show the empty state or the items + summary grid —
- * this only lays out the containers it toggles between.
+ * whether to show the empty state or the product grid — this
+ * only lays out the containers it toggles between. Mirrors
+ * components/cart/cartLayout.js.
  */
 
-export function createCartLayout() {
+export function createWishlistLayout() {
 
   return `
 
@@ -24,11 +25,12 @@ export function createCartLayout() {
     class="
       mx-auto
 
-      max-w-[1200px]
+      max-w-[1600px]
 
       px-5
       sm:px-6
       lg:px-8
+      xl:px-10
     "
   >
 
@@ -49,7 +51,7 @@ export function createCartLayout() {
           text-[#A07936]
         "
       >
-        Your Selection
+        Saved For Later
       </p>
 
       <h1
@@ -67,7 +69,7 @@ export function createCartLayout() {
           text-[#181818]
         "
       >
-        Shopping Cart
+        Your Wishlist
       </h1>
 
     </div>
@@ -76,7 +78,7 @@ export function createCartLayout() {
     <!-- Empty State -->
 
     <div
-      id="cartEmptyState"
+      id="wishlistEmptyState"
 
       class="
         hidden
@@ -101,7 +103,7 @@ export function createCartLayout() {
     >
 
       <i
-        data-lucide="shopping-bag"
+        data-lucide="heart"
 
         class="
           h-12
@@ -112,8 +114,8 @@ export function createCartLayout() {
       ></i>
 
       <p class="text-[#666]">
-        Your cart is empty. Explore our collections and add a
-        piece you love.
+        Your wishlist is empty. Save the pieces you love and
+        they'll be right here.
       </p>
 
       <a
@@ -153,10 +155,10 @@ export function createCartLayout() {
     </div>
 
 
-    <!-- Cart Content -->
+    <!-- Wishlist Grid -->
 
     <div
-      id="cartContent"
+      id="wishlistItems"
 
       class="
         hidden
@@ -166,27 +168,19 @@ export function createCartLayout() {
 
         grid
 
-        grid-cols-1
+        grid-cols-2
 
-        gap-8
-        sm:gap-12
+        gap-x-4
+        gap-y-8
 
-        lg:grid-cols-[1.6fr_1fr]
-        lg:gap-16
+        sm:grid-cols-3
+        sm:gap-x-6
+        sm:gap-y-10
+
+        lg:grid-cols-4
+        lg:gap-8
       "
-    >
-
-      <div
-        id="cartItems"
-
-        class="
-          space-y-6
-        "
-      ></div>
-
-      <div id="cartSummary"></div>
-
-    </div>
+    ></div>
 
   </div>
 

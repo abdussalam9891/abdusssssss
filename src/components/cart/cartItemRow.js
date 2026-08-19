@@ -48,12 +48,14 @@ export function createCartItemRow(item) {
   class="
     flex
 
-    gap-5
+    gap-3
+    sm:gap-5
 
     border-b
     border-[#ECE5D8]
 
-    pb-6
+    pb-5
+    sm:pb-6
   "
 >
 
@@ -65,8 +67,11 @@ export function createCartItemRow(item) {
     }"
 
     class="
-      h-24
-      w-24
+      h-20
+      w-20
+
+      sm:h-24
+      sm:w-24
 
       shrink-0
 
@@ -127,7 +132,8 @@ export function createCartItemRow(item) {
 
           font-serif
 
-          text-[19px]
+          text-[15px]
+          sm:text-[19px]
 
           italic
 
@@ -143,7 +149,8 @@ export function createCartItemRow(item) {
         class="
           mt-1
 
-          text-[12px]
+          text-[11px]
+          sm:text-[12px]
 
           text-[#8A8A8A]
         "
