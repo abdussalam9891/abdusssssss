@@ -27,6 +27,31 @@ import { createWishlistCard } from "../../components/wishlist/wishlistCard.js";
  * saved, and signed in with saved products.
  */
 
+function updateCount(count) {
+
+  const countEl =
+    document.getElementById("wishlistPageCount");
+
+  if (!countEl) return;
+
+
+  if (!count) {
+
+    countEl.classList.add("hidden");
+    countEl.textContent = "";
+
+    return;
+  }
+
+
+  countEl.textContent =
+    `${count} ${count === 1 ? "item" : "items"} in your wishlist`;
+
+  countEl.classList.remove("hidden");
+
+}
+
+
 function showState(name) {
 
   const states = {
@@ -66,6 +91,7 @@ async function renderWishlist() {
   if (!isLoggedIn()) {
 
     showState("login");
+    updateCount(0);
 
     window.lucide?.createIcons();
 
@@ -80,6 +106,7 @@ async function renderWishlist() {
   if (!ids.length) {
 
     showState("empty");
+    updateCount(0);
 
     window.lucide?.createIcons();
 
@@ -141,6 +168,7 @@ async function renderWishlist() {
   if (!products.length) {
 
     showState("empty");
+    updateCount(0);
 
     window.lucide?.createIcons();
 
@@ -158,6 +186,8 @@ async function renderWishlist() {
           createWishlistCard(product)
       )
       .join("");
+
+  updateCount(products.length);
 
 
   window.lucide?.createIcons();
