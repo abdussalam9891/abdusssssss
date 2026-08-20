@@ -120,8 +120,11 @@ function normalizeAttributes(attributes) {
   return attributes
     .map((attribute) => ({
 
+      // Some backend records use `key` instead of `name`.
       name:
-        attribute?.name || "",
+        attribute?.name ||
+        attribute?.key ||
+        "",
 
       value:
         attribute?.value || "",
@@ -394,6 +397,32 @@ export function formatPrice(value) {
   return `₹${Math.round(number).toLocaleString(
     "en-IN"
   )}`;
+}
+
+
+// Shared by productInfo.js's stock badge and productTabs.js's
+// Specifications tab so "Availability" reads the same way in
+// both places instead of two separate derivations drifting apart.
+export function getAvailabilityLabel(product) {
+
+  if (product.inStock === null) return "";
+
+
+  if (product.inStock) {
+
+    return (
+      product.stockStatus ||
+      (product.stock <= 5
+        ? `Only ${product.stock} left in stock`
+        : "In Stock")
+    );
+  }
+
+
+  return (
+    product.stockStatus ||
+    "Out of Stock"
+  );
 }
 
 
