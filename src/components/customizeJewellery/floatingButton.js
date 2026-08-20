@@ -6,6 +6,8 @@ export function createCustomizeJewelleryButton() {
   aria-label="Custom Jewellery"
 
   class="
+    js-open-customize-modal
+
     group
 
     fixed
