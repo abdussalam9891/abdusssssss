@@ -1,7 +1,6 @@
 import {
   escapeHtml,
-  formatDiscount,
-  formatPrice,
+  getAvailabilityLabel,
 } from "../../features/productDetails/model.js";
 
 
@@ -100,6 +99,85 @@ function createList(items) {
 }
 
 
+/*
+ * The backend description is free text that may mix plain
+ * paragraphs with "•"-prefixed bullet lines. Render it verbatim
+ * (no truncation, no spelling/content cleanup) but split it so
+ * bullet lines become list items instead of one flat paragraph.
+ */
+function createDescription(description) {
+
+  if (!description) return "";
+
+
+  const lines =
+    description
+      .split(/\r?\n/)
+      .map((line) => line.trim())
+      .filter(Boolean);
+
+  if (!lines.length) return "";
+
+
+  const blocks = [];
+
+  let bulletBuffer = [];
+
+
+  function flushBullets() {
+
+    if (!bulletBuffer.length) return;
+
+    blocks.push(
+      `<ul class="ml-5 list-disc space-y-1">${bulletBuffer
+        .map(
+          (item) =>
+            `<li>${escapeHtml(item)}</li>`
+        )
+        .join("")}</ul>`
+    );
+
+    bulletBuffer = [];
+  }
+
+
+  lines.forEach((line) => {
+
+    if (line.startsWith("•")) {
+
+      bulletBuffer.push(
+        line.replace(/^•/, "").trim()
+      );
+
+      return;
+    }
+
+
+    flushBullets();
+
+    blocks.push(
+      `<p class="mb-2">${escapeHtml(line)}</p>`
+    );
+
+  });
+
+  flushBullets();
+
+
+  return `
+<div
+  class="
+    leading-8
+
+    text-[#666]
+  "
+>
+  ${blocks.join("")}
+</div>
+`;
+}
+
+
 function createSpecifications(product) {
 
   const rows = [
@@ -118,10 +196,7 @@ function createSpecifications(product) {
 
     [
       "Category",
-      [
-        ...product.subCategory,
-        ...product.childCategory,
-      ].join(", "),
+      product.category,
     ],
 
     [
@@ -136,12 +211,7 @@ function createSpecifications(product) {
 
     [
       "Availability",
-      product.inStock === null
-        ? ""
-        : product.stockStatus ||
-          (product.inStock
-            ? `In stock (${product.stock})`
-            : "Out of stock"),
+      getAvailabilityLabel(product),
     ],
 
   ];
@@ -151,112 +221,14 @@ function createSpecifications(product) {
 }
 
 
-function createPricingBreakdown(product) {
+function createShipping() {
 
-  const rows = [
-
-    [
-      "Base Price",
-      formatPrice(product.price),
-    ],
-
-    [
-      "Discount",
-      formatDiscount(product),
-    ],
-
-    [
-      "Making Charges",
-      product.makingCharges !== null
-        ? `${product.makingCharges}%`
-        : "",
-    ],
-
-    [
-      "Tax",
-      product.taxRate !== null
-        ? `${product.taxRate}%`
-        : "",
-    ],
-
-    [
-      "Final Price",
-      formatPrice(product.finalPrice),
-    ],
-
-  ];
-
-
-  return createRows(rows);
-}
-
-
-function createShipping(product) {
-
-  const rows = [
-
-    [
-      "Shipping Weight",
-      product.shippingWeight !== null
-        ? `${product.shippingWeight}${
-            product.weightUnit
-              ? ` ${product.weightUnit}`
-              : ""
-          }`
-        : "",
-    ],
-
-    [
-      "Package Dimensions",
-      product.shippingDimensions
-        ? `${product.shippingDimensions}${
-            product.dimensionUnit
-              ? ` ${product.dimensionUnit}`
-              : ""
-          }`
-        : "",
-    ],
-
-  ];
-
-
-  const table =
-    createRows(rows);
-
-
-  return `
-${table}
-
-<div class="${table ? "mt-6" : ""}">
-  ${createList([
+  return createList([
     "Orders are dispatched after quality checks.",
     "Secure packaging for every order.",
     "Return eligibility follows our Refund Policy.",
     "Dedicated WhatsApp support for order updates.",
-  ])}
-</div>
-`;
-}
-
-
-function createGifting(product) {
-
-  const rows = [
-
-    [
-      "Occasion",
-      product.occasion.join(", "),
-    ],
-
-    [
-      "Ideal For",
-      product.recipient.join(", "),
-    ],
-
-  ];
-
-
-  return createRows(rows);
+  ]);
 }
 
 
@@ -267,35 +239,12 @@ export function createProductTabs(product) {
     {
       title: "Description",
 
-      content:
-        product.description
-          ? `
-<p
-  class="
-    leading-8
-
-    text-[#666]
-  "
->
-  ${escapeHtml(product.description)}
-</p>
-`
-          : "",
+      content: createDescription(product.description),
     },
 
     {
       title: "Specifications",
       content: createSpecifications(product),
-    },
-
-    {
-      title: "Price Breakdown",
-      content: createPricingBreakdown(product),
-    },
-
-    {
-      title: "Occasion & Gifting",
-      content: createGifting(product),
     },
 
     {
@@ -312,7 +261,7 @@ export function createProductTabs(product) {
 
     {
       title: "Shipping & Returns",
-      content: createShipping(product),
+      content: createShipping(),
     },
 
   ].filter(
