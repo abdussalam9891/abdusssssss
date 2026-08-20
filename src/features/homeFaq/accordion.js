@@ -1,12 +1,185 @@
 import { websiteService } from "../../services/websiteService.js";
 import { createFaqCard } from "../../components/faq/faqCard.js";
 
+// ==========================================
+// SKELETON / LOADING STATE
+// ==========================================
+
+function createFaqSkeletonCard() {
+
+  return `
+    <div
+      class="
+        animate-pulse
+        overflow-hidden
+        rounded-3xl
+        border
+        border-[#E8E2DA]
+        bg-white
+        px-8
+        py-7
+      "
+    >
+
+      <div class="h-5 w-3/4 rounded bg-[#ECE7E1]"></div>
+
+    </div>
+  `;
+
+}
+
+function renderFaqSkeleton() {
+
+  return Array.from(
+    { length: 5 },
+    createFaqSkeletonCard
+  ).join("");
+
+}
+
+// ==========================================
+// EMPTY / ERROR STATE
+// ==========================================
+
+function renderFaqError() {
+
+  return `
+    <div
+      class="
+        rounded-3xl
+        border
+        border-dashed
+        border-[#E8E2DA]
+        px-8
+        py-14
+        text-center
+      "
+    >
+
+      <p class="text-[#181818] font-medium">
+        We couldn't load our FAQs right now.
+      </p>
+
+      <p class="mt-2 text-sm text-[#666]">
+        Please try again shortly, or visit our
+        <a
+          href="/pages/faq.html"
+          class="text-[#A07936] underline underline-offset-2"
+        >FAQ page</a>
+        directly.
+      </p>
+
+    </div>
+  `;
+
+}
+
+// ==========================================
+// STATIC SHELL
+// ==========================================
+
+function renderShell(listContentHtml) {
+
+  return `
+    <section
+      class="
+        bg-white
+        py-8
+      "
+    >
+
+      <div
+        class="
+          mx-auto
+          max-w-4xl
+          px-6
+        "
+      >
+
+        <div class="text-center">
+
+          <h2
+            class="
+              mt-4
+              text-4xl
+              font-serif
+              text-[#181818]
+            "
+          >
+            Everything You Need to Know
+          </h2>
+
+          <p
+            class="
+              mt-4
+              text-[#666]
+            "
+          >
+            Quick answers to the questions
+            our customers ask most often.
+          </p>
+
+        </div>
+
+        <div
+          id="homeFaqList"
+          class="
+            mt-14
+            space-y-5
+          "
+        >
+
+          ${listContentHtml}
+
+        </div>
+
+        <div class="mt-10 text-center">
+
+          <a
+            href="/pages/faq.html"
+            class="
+              inline-flex
+              items-center
+              gap-2
+              text-sm
+              font-medium
+              uppercase
+              tracking-[0.18em]
+              text-[#A07936]
+              transition-all
+              duration-300
+              hover:gap-3
+            "
+          >
+            View All FAQs
+
+            <span>→</span>
+
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+  `;
+
+}
+
 export async function initHomeFaq() {
 
   const container =
     document.getElementById("homeFaq");
 
   if (!container) return;
+
+  // Render the static shell + a loading state
+  // immediately, so the section never appears blank.
+  container.innerHTML =
+    renderShell(renderFaqSkeleton());
+
+  const listEl =
+    document.getElementById("homeFaqList");
 
   try {
 
@@ -17,92 +190,15 @@ export async function initHomeFaq() {
     const homeFaqs =
       faqs.slice(0, 7);
 
-    container.innerHTML = `
-      <section
-        class="
-          bg-white
-          py-8
-        "
-      >
+    if (!homeFaqs.length) {
+      listEl.innerHTML = renderFaqError();
+      return;
+    }
 
-        <div
-          class="
-            mx-auto
-            max-w-4xl
-            px-6
-          "
-        >
-
-          <div class="text-center">
-
-            <h2
-              class="
-                mt-4
-                text-4xl
-                font-serif
-                text-[#181818]
-              "
-            >
-              Everything You Need to Know
-            </h2>
-
-            <p
-              class="
-                mt-4
-                text-[#666]
-              "
-            >
-              Quick answers to the questions
-              our customers ask most often.
-            </p>
-
-          </div>
-
-          <div
-            class="
-              mt-14
-              space-y-5
-            "
-          >
-
-            ${
-              homeFaqs
-                .map(createFaqCard)
-                .join("")
-            }
-
-          </div>
-
-          <div class="mt-10 text-center">
-
-            <a
-              href="/pages/faq.html"
-              class="
-                inline-flex
-                items-center
-                gap-2
-                text-sm
-                font-medium
-                uppercase
-                tracking-[0.18em]
-                text-[#A07936]
-                transition-all
-                duration-300
-                hover:gap-3
-              "
-            >
-              View All FAQs
-
-              <span>→</span>
-
-            </a>
-
-          </div>
-
-        </div>
-
-      </section>
-    `;
+    listEl.innerHTML =
+      homeFaqs
+        .map(createFaqCard)
+        .join("");
 
     // Initialize accordion AFTER cards are rendered
     initHomeFaqAccordion();
@@ -114,16 +210,12 @@ export async function initHomeFaq() {
       error
     );
 
-    // Don't break the rest of homepage
-    container.innerHTML = `
-      <section class="bg-white py-8">
-        <div class="mx-auto max-w-4xl px-6 text-center">
-          <p class="text-red-600">
-            Unable to load FAQs. Please try again later.
-          </p>
-        </div>
-      </section>
-    `;
+    // Don't break the rest of homepage.
+    // Keep the heading/section, only the
+    // FAQ list degrades to an empty state.
+    if (listEl) {
+      listEl.innerHTML = renderFaqError();
+    }
 
   }
 }
