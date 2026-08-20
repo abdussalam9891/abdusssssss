@@ -81,6 +81,33 @@ export const AUTH_MODAL_DATA = {
 
   },
 
+  review: {
+
+    icon: "star",
+
+    title: "Share Your Experience",
+
+    subtitle:
+      "Sign in to write a review for this product.",
+
+    primaryButton: {
+
+      text: "Sign In",
+
+      href: "/pages/login.html",
+
+    },
+
+    secondaryButton: {
+
+      text: "Create Account",
+
+      href: "/pages/register.html",
+
+    },
+
+  },
+
   checkout: {
 
     icon: "shopping-bag",
