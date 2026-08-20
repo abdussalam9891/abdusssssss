@@ -16,4 +16,9 @@ export const productsState = {
     badges: [],
     price: null,
   },
+
+  // Distinct `subCategory` values sampled from real product data
+  // (see fetchCategoryFacets), used to render the category filter
+  // checkboxes. Never hardcoded, never guaranteed complete.
+  categoryOptions: [],
 };
