@@ -9,7 +9,10 @@ export function createHero(heroSlides = []) {
       class="
         relative
         h-[110vh]
+        md:h-[85vh]
+        lg:h-[110vh]
         overflow-hidden
+        bg-background
       "
     >
 
