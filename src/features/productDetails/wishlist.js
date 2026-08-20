@@ -42,7 +42,7 @@ function setPressed(button, label, pressed) {
 
     label.textContent =
       pressed
-        ? "Saved to Wishlist"
+        ? "Wishlisted"
         : "Add to Wishlist";
 
   }
