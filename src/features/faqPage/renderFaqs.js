@@ -10,6 +10,73 @@ import {
 let faqData = [];
 
 
+// ==========================================
+// SKELETON / LOADING STATE
+// ==========================================
+
+function createFaqSkeletonCard() {
+
+  return `
+    <div
+      class="
+        animate-pulse
+        overflow-hidden
+        rounded-3xl
+        border
+        border-[#E8E2DA]
+        bg-white
+        px-8
+        py-7
+      "
+    >
+
+      <div class="h-5 w-3/4 rounded bg-[#ECE7E1]"></div>
+
+    </div>
+  `;
+
+}
+
+function renderFaqSkeleton(container) {
+
+  container.innerHTML =
+    Array.from(
+      { length: 6 },
+      createFaqSkeletonCard
+    ).join("");
+
+}
+
+
+// ==========================================
+// EMPTY / ERROR STATE
+// ==========================================
+
+function renderFaqMessage(message) {
+
+  return `
+    <div
+      class="
+        rounded-3xl
+        border
+        border-dashed
+        border-[#E8E2DA]
+        px-8
+        py-14
+        text-center
+      "
+    >
+
+      <p class="text-[#181818] font-medium">
+        ${message}
+      </p>
+
+    </div>
+  `;
+
+}
+
+
 export async function renderFaqs() {
 
   const container =
@@ -23,6 +90,12 @@ export async function renderFaqs() {
   }
 
 
+  // Show a loading state immediately so the
+  // FAQ list is never blank while the API
+  // call is in flight.
+  renderFaqSkeleton(container);
+
+
   try {
 
     faqData =
@@ -31,11 +104,9 @@ export async function renderFaqs() {
 
     if (!faqData.length) {
 
-      container.innerHTML = `
-        <p class="text-center text-[#777777]">
-          No FAQs available at the moment.
-        </p>
-      `;
+      container.innerHTML = renderFaqMessage(
+        "No FAQs available at the moment."
+      );
 
       return;
     }
@@ -55,12 +126,9 @@ export async function renderFaqs() {
     );
 
 
-    container.innerHTML = `
-      <p class="text-center text-red-600">
-        Unable to load FAQs.
-        Please try again later.
-      </p>
-    `;
+    container.innerHTML = renderFaqMessage(
+      "We couldn't load our FAQs right now. Please try again shortly."
+    );
 
   }
 
