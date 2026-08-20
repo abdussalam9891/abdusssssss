@@ -1,9 +1,9 @@
-// export const API_BASE_URL =
-//   "https://pm3721cg-3000.inc1.devtunnels.ms";
+export const API_BASE_URL =
+  "https://pm3721cg-3000.inc1.devtunnels.ms";
 
 
 
-  export const API_BASE_URL ="https://backend.globalshopify.com";
+  // export const API_BASE_URL ="https://backend.globalshopify.com";
 
 
 
@@ -53,6 +53,24 @@ export const API_ENDPOINTS = {
     ADD: "/wishlist/addtowishlist",
     REMOVE: (productId) =>
       `/wishlist/removewishlist/${productId}`,
+  },
+
+  POSTALCODE: {
+    CHECK: (pincode) =>
+      `/postalcode/${pincode}`,
+  },
+
+  REVIEW: {
+    LIST: (productId) =>
+      `/review/getProductReviews/${productId}`,
+    SUMMARY: (productId) =>
+      `/review/starsummary/${productId}`,
+    CREATE: "/review/createReview",
+  },
+
+  COUPONS: {
+    AVAILABLE: (domain) =>
+      `/customercoupons/getAvailableCoupons/${encodeURIComponent(domain)}`,
   },
 
 };
