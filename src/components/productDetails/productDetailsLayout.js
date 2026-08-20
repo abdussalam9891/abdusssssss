@@ -3,6 +3,7 @@ import { createStickyActionBar } from "./stickyActionBar.js";
 import { createProductLightbox } from "./productLightbox.js";
 import { createRecentlyViewedSection } from "./recentlyViewedSection.js";
 import { createReviewsSection } from "./reviewsSection.js";
+import { createReviewModal } from "./reviewModal.js";
 
 
 export function createProductDetailsLayout(product) {
@@ -83,6 +84,8 @@ export function createProductDetailsLayout(product) {
 <!-- Reviews -->
 
 ${createReviewsSection(product)}
+
+${createReviewModal()}
 
 
 <!-- Related Products -->
