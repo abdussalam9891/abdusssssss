@@ -36,6 +36,18 @@ export function initScroll() {
       // Only pages that start with dark text
       if (theme === "dark") {
         navbarItems.forEach((item) => {
+          // An active nav link (e.g. the current category) keeps its
+          // gold highlight regardless of scroll state — forcing
+          // text-white on it here would otherwise fight the
+          // text-[#A07936] active class at equal CSS specificity.
+          if (
+            item.classList.contains(
+              "text-[#A07936]"
+            )
+          ) {
+            return;
+          }
+
           item.classList.remove(
             "text-[#181818]",
             "text-[#181818]/90",
@@ -63,6 +75,14 @@ export function initScroll() {
 
       if (theme === "dark") {
         navbarItems.forEach((item) => {
+          if (
+            item.classList.contains(
+              "text-[#A07936]"
+            )
+          ) {
+            return;
+          }
+
           item.classList.remove(
             "text-white",
             "hover:bg-white/20",
