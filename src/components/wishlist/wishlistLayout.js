@@ -52,6 +52,22 @@ export function createWishlistLayout() {
         My Wishlist
       </h1>
 
+      <p
+        id="wishlistPageCount"
+
+        class="
+          hidden
+
+          mt-2
+          sm:mt-3
+
+          text-[13px]
+          sm:text-[14px]
+
+          text-[#8A8A8A]
+        "
+      ></p>
+
     </div>
 
 
