@@ -4,6 +4,8 @@ import {
 } from "./state.js";
 
 
+const SWIPE_THRESHOLD = 50;
+
 export function initLightbox() {
 
   // Normalized product: `gallery` is an ordered list of urls.
@@ -205,6 +207,55 @@ export function initLightbox() {
     "click",
     next
   );
+
+
+  /* ------------------------------------------ */
+  /* SWIPE (MOBILE/TOUCH)                      */
+  /* ------------------------------------------ */
+
+  if (images.length > 1) {
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    image.addEventListener(
+      "touchstart",
+      (event) => {
+
+        touchStartX =
+          event.changedTouches[0].clientX;
+
+      },
+      { passive: true }
+    );
+
+    image.addEventListener(
+      "touchend",
+      (event) => {
+
+        touchEndX =
+          event.changedTouches[0].clientX;
+
+        const distance =
+          touchStartX - touchEndX;
+
+        if (
+          Math.abs(distance) < SWIPE_THRESHOLD
+        ) {
+          return;
+        }
+
+        if (distance > 0) {
+          next();
+        } else {
+          previous();
+        }
+
+      },
+      { passive: true }
+    );
+
+  }
 
 
   /* ------------------------------------------ */
