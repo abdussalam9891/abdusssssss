@@ -20,8 +20,10 @@ export function createFloatingWhatsAppButton(
     group
 
     fixed
-    bottom-24
+    bottom-20
     right-5
+
+    lg:bottom-6
 
     z-[85]
 
@@ -50,8 +52,6 @@ export function createFloatingWhatsAppButton(
     focus-visible:outline-2
     focus-visible:outline-offset-2
     focus-visible:outline-[#25D366]
-
-    lg:bottom-6
   "
 >
 
