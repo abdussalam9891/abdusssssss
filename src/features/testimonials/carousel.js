@@ -69,23 +69,59 @@ export function initTestimonialCarousel() {
     updateDots();
   }
 
-  next?.addEventListener("click", () => {
+  function goNext() {
     index =
       index < maxIndex()
         ? index + 1
         : 0;
 
     update();
-  });
+  }
 
-  prev?.addEventListener("click", () => {
+  function goPrev() {
     index =
       index > 0
         ? index - 1
         : maxIndex();
 
     update();
-  });
+  }
+
+  next?.addEventListener("click", goNext);
+
+  prev?.addEventListener("click", goPrev);
+
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  track.addEventListener(
+    "touchstart",
+    (event) => {
+      touchStartX =
+        event.changedTouches[0].clientX;
+    },
+    { passive: true }
+  );
+
+  track.addEventListener(
+    "touchend",
+    (event) => {
+      touchEndX =
+        event.changedTouches[0].clientX;
+
+      const distance =
+        touchStartX - touchEndX;
+
+      if (Math.abs(distance) < 40) return;
+
+      if (distance > 0) {
+        goNext();
+      } else {
+        goPrev();
+      }
+    },
+    { passive: true }
+  );
 
   dotsContainer
     ?.querySelectorAll(".testimonial-dot")

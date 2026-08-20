@@ -6,7 +6,7 @@ function createStars(rating) {
     .map(
       () => `
 <svg
-  class="h-5 w-5 fill-[#181818]"
+  class="h-4 w-4 md:h-5 md:w-5 fill-[#181818]"
   viewBox="0 0 20 20"
 >
   <path d="M9.049.927c.3-.921 1.603-.921 1.902 0l1.24 3.818a1 1 0 0 0 .95.69h4.014c.969 0 1.371 1.24.588 1.81l-3.247 2.36a1 1 0 0 0-.364 1.118l1.24 3.817c.3.922-.755 1.688-1.54 1.118l-3.247-2.359a1 1 0 0 0-1.176 0L6.162 15.66c-.784.57-1.838-.196-1.539-1.118l1.24-3.817a1 1 0 0 0-.364-1.118L2.252 7.245c-.783-.57-.38-1.81.588-1.81h4.014a1 1 0 0 0 .951-.69L9.05.927Z"/>
@@ -49,15 +49,18 @@ export function createTestimonialCard(testimonial) {
     h-full
     flex-col
 
-    rounded-[28px]
+    rounded-[20px]
+    md:rounded-[28px]
 
     border
     border-[#F2ECE4]
 
     bg-[#FCFBF9]
 
-    px-7
-    py-8
+    px-5
+    py-6
+    md:px-7
+    md:py-8
 
     text-center
 
@@ -94,11 +97,13 @@ export function createTestimonialCard(testimonial) {
 
   <h3
     class="
-      mt-6
+      mt-4
+      md:mt-6
 
       font-serif
 
-      text-[30px]
+      text-[22px]
+      md:text-[30px]
 
       text-[#181818]
     "
@@ -110,13 +115,16 @@ export function createTestimonialCard(testimonial) {
 
   <p
     class="
-      mt-5
+      mt-3
+      md:mt-5
 
       flex-1
 
-      text-[18px]
+      text-[15px]
+      md:text-[18px]
 
-      leading-9
+      leading-7
+      md:leading-9
 
       text-[#3F3F3F]
     "
@@ -130,7 +138,8 @@ export function createTestimonialCard(testimonial) {
     class="
       mt-auto
 
-      pt-8
+      pt-5
+      md:pt-8
 
       border-t
       border-[#ECE5D9]
@@ -143,7 +152,8 @@ export function createTestimonialCard(testimonial) {
 
         items-center
 
-        gap-5
+        gap-3
+        md:gap-5
       "
     >
 
@@ -156,8 +166,10 @@ export function createTestimonialCard(testimonial) {
         loading="lazy"
 
         class="
-          h-20
-          w-20
+          h-14
+          w-14
+          md:h-20
+          md:w-20
 
           flex-shrink-0
 
@@ -180,7 +192,8 @@ export function createTestimonialCard(testimonial) {
 
         <h4
           class="
-            text-[18px]
+            text-[15px]
+            md:text-[18px]
 
             font-medium
 
@@ -194,7 +207,8 @@ export function createTestimonialCard(testimonial) {
 
         <span
           class="
-            mt-2
+            mt-1
+            md:mt-2
 
             inline-flex
 
@@ -202,7 +216,8 @@ export function createTestimonialCard(testimonial) {
 
             gap-2
 
-            text-[12px]
+            text-[11px]
+            md:text-[12px]
 
             font-medium
 
