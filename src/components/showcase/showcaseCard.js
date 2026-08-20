@@ -1,4 +1,5 @@
 // import { getProductImages } from "../../utils/getProductImages.js";
+import { toStringList } from "../../utils/categoryMatch.js";
 
 // function createStars(rating) {
 //   return `
@@ -788,10 +789,15 @@ function createWishlistButton(product) {
 
 
 function getProductCategory(product) {
+  // subCategory/childCategory can arrive as a string instead of an
+  // array (or vice versa); toStringList normalizes either shape so
+  // this never picks a single character out of a plain string.
   return (
-    product.subCategory?.[0] ||
-    product.childCategory?.[0] ||
-    product.sizeCategory ||
+    toStringList(product.subCategory)[0] ||
+    toStringList(product.childCategory)[0] ||
+    (typeof product.sizeCategory === "string"
+      ? product.sizeCategory
+      : "") ||
     "Jewellery"
   );
 }
