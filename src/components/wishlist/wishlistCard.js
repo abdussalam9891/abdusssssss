@@ -255,7 +255,8 @@ export function createWishlistCard(product) {
 
         items-center
 
-        gap-3
+        gap-2
+        sm:gap-3
       "
     >
 
@@ -271,8 +272,11 @@ export function createWishlistCard(product) {
 
           flex
 
-          h-12
-          w-12
+          h-10
+          w-10
+
+          sm:h-12
+          sm:w-12
 
           shrink-0
 
@@ -300,8 +304,11 @@ export function createWishlistCard(product) {
           data-lucide="trash-2"
 
           class="
-            h-[18px]
-            w-[18px]
+            h-4
+            w-4
+
+            sm:h-[18px]
+            sm:w-[18px]
           "
         ></i>
       </button>
@@ -314,23 +321,35 @@ export function createWishlistCard(product) {
         class="
           wishlist-move-to-cart-button
 
+          flex
+
+          h-10
+          sm:h-12
+
+          min-w-0
           flex-1
+
+          items-center
+          justify-center
+
+          overflow-hidden
 
           rounded-lg
 
           bg-[#181818]
 
-          px-5
-          py-3.5
+          px-2
+          sm:px-5
 
-          text-[12px]
+          text-[10px]
           sm:text-[13px]
 
           font-medium
 
           uppercase
 
-          tracking-[0.14em]
+          tracking-[0.06em]
+          sm:tracking-[0.14em]
 
           text-white
 
@@ -340,7 +359,7 @@ export function createWishlistCard(product) {
           hover:bg-[#A07936]
         "
       >
-        Move to Cart
+        <span class="truncate">Move to Cart</span>
       </button>
 
     </div>
