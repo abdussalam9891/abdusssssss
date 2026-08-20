@@ -397,120 +397,6 @@ function createUserAccount(user) {
       </a>
 
 
-      <!-- WISHLIST -->
-
-      <a
-        href="/pages/wishlist.html"
-
-        class="
-          group
-
-          flex
-          items-center
-          gap-3
-
-          rounded-2xl
-
-          px-5
-          py-3
-
-          text-sm
-
-          text-white/70
-
-          transition-all
-          duration-300
-
-          hover:bg-white/5
-          hover:text-[#A07936]
-        "
-      >
-
-        ${icon(
-          "heart",
-          "h-[17px] w-[17px] text-white/40 group-hover:text-[#A07936]"
-        )}
-
-        <span>
-          Wishlist
-        </span>
-
-        <span
-          class="
-            ml-auto
-
-            text-white/20
-
-            transition-all
-            duration-300
-
-            group-hover:translate-x-1
-            group-hover:text-[#A07936]
-          "
-        >
-          ${icon("chevron-right", "h-4 w-4")}
-        </span>
-
-      </a>
-
-
-      <!-- CUSTOM JEWELLERY -->
-
-      <a
-        href="/pages/custom-requests.html"
-
-        class="
-          group
-
-          flex
-          items-center
-          gap-3
-
-          rounded-2xl
-
-          px-5
-          py-3
-
-          text-sm
-
-          text-white/70
-
-          transition-all
-          duration-300
-
-          hover:bg-white/5
-          hover:text-[#A07936]
-        "
-      >
-
-        ${icon(
-          "sparkles",
-          "h-[17px] w-[17px] text-white/40 group-hover:text-[#A07936]"
-        )}
-
-        <span>
-          Custom Jewellery
-        </span>
-
-        <span
-          class="
-            ml-auto
-
-            text-white/20
-
-            transition-all
-            duration-300
-
-            group-hover:translate-x-1
-            group-hover:text-[#A07936]
-          "
-        >
-          ${icon("chevron-right", "h-4 w-4")}
-        </span>
-
-      </a>
-
-
       <!-- LOGOUT -->
 
       <button
@@ -640,37 +526,32 @@ export function createMobileNav() {
         id="mobilePanel"
 
         class="
-          absolute
+          fixed
 
-          left-1/2
-          top-1/2
+          inset-y-0
+          left-0
 
-          w-[92vw]
-          max-w-[380px]
+          z-10
 
-          max-h-[90vh]
+          flex
+          h-full
+          w-[85vw]
+          max-w-[360px]
 
-          -translate-x-1/2
-          -translate-y-1/2
+          -translate-x-full
 
-          scale-95
+          flex-col
 
-          overflow-y-auto
-          no-scrollbar
-
-          rounded-[28px]
-
-          border
+          border-r
           border-white/10
 
           bg-[#181818]
 
-          shadow-[0_35px_90px_rgba(0,0,0,.45)]
+          shadow-[25px_0_60px_rgba(0,0,0,.45)]
 
-          opacity-0
-
-          transition-all
+          transition-transform
           duration-300
+          ease-out
         "
       >
 
@@ -680,12 +561,13 @@ export function createMobileNav() {
        <div
   class="
     flex
+    shrink-0
     items-center
     justify-between
     border-b
     border-white/10
-    px-6
-    py-5
+    px-5
+    py-4
   "
 >
   <!-- LOGO -->
@@ -724,6 +606,17 @@ export function createMobileNav() {
   </button>
 </div>
 
+        <!-- SCROLLABLE BODY -->
+
+        <div
+          class="
+            min-h-0
+            flex-1
+            overflow-y-auto
+            no-scrollbar
+          "
+        >
+
         <!-- ACCOUNT -->
 
         ${accountSection}
@@ -734,13 +627,13 @@ export function createMobileNav() {
         <nav
           class="
             px-4
-            py-6
+            py-5
           "
         >
 
           <ul
             class="
-              space-y-2
+              space-y-1.5
             "
           >
 
@@ -764,7 +657,7 @@ export function createMobileNav() {
                   rounded-2xl
 
                   px-5
-                  py-4
+                  py-3.5
 
                   text-sm
                   font-medium
@@ -828,7 +721,7 @@ export function createMobileNav() {
                   rounded-2xl
 
                   px-5
-                  py-4
+                  py-3.5
 
                   text-sm
                   font-medium
@@ -875,6 +768,72 @@ export function createMobileNav() {
             </li>
 
 
+            <!-- CUSTOM JEWELLERY -->
+
+            <li>
+
+              <a
+                href="/index.html#customize-jewellery"
+
+                class="
+                  js-open-customize-modal
+
+                  group
+
+                  flex
+                  items-center
+                  justify-between
+
+                  rounded-2xl
+
+                  px-5
+                  py-3.5
+
+                  text-sm
+                  font-medium
+
+                  text-white
+
+                  transition-all
+                  duration-300
+
+                  hover:bg-white/5
+                  hover:text-[#A07936]
+                "
+              >
+
+                <div
+                  class="
+                    flex
+                    items-center
+                    gap-3
+                  "
+                >
+
+                  ${icon("sparkles")}
+
+                  <span>
+                    Custom Jewellery
+                  </span>
+
+                </div>
+
+                <span
+                  class="
+                    transition-transform
+                    duration-300
+
+                    group-hover:translate-x-1
+                  "
+                >
+                  ${icon("chevron-right")}
+                </span>
+
+              </a>
+
+            </li>
+
+
             <!-- ABOUT -->
 
             <li>
@@ -892,7 +851,7 @@ export function createMobileNav() {
                   rounded-2xl
 
                   px-5
-                  py-4
+                  py-3.5
 
                   text-sm
                   font-medium
@@ -956,7 +915,7 @@ export function createMobileNav() {
                   rounded-2xl
 
                   px-5
-                  py-4
+                  py-3.5
 
                   text-sm
                   font-medium
@@ -1006,17 +965,20 @@ export function createMobileNav() {
 
         </nav>
 
+        </div>
 
         <!-- FOOTER -->
 
         <div
           class="
+            shrink-0
+
             border-t
             border-white/10
 
             px-6
-            pb-6
-            pt-6
+            pb-5
+            pt-4
 
             text-center
           "
