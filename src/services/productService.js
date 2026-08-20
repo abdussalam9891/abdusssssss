@@ -6,21 +6,6 @@ import {
 import { apiClient } from "./apiClient.js";
 
 
-const SUBCATEGORY_MAP = {
-
-  rings: "Ring",
-
-  chains: "Chain",
-
-  bracelets: "Bracelet",
-
-  pendants: "Pendant",
-
-  earrings: "Earring",
-
-};
-
-
 export const productService = {
 
   getPublicProducts: async ({
@@ -67,15 +52,15 @@ export const productService = {
     // SUB CATEGORY
     // ==========================================
 
+    /*
+     * `categories` values come straight from the backend's own
+     * product data (see fetchCategoryFacets in features/products),
+     * so they round-trip back to `subCategory` unmodified instead
+     * of going through a hardcoded name translation.
+     */
+
     const subCategories =
       categories
-        .map(
-          (category) =>
-            SUBCATEGORY_MAP[
-              String(category).toLowerCase()
-            ] ||
-            category
-        )
         .filter(Boolean);
 
 
