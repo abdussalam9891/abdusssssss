@@ -101,11 +101,14 @@ export function restoreProductsStateFromURL() {
     getProductsQuery();
 
 
+  /*
+   * Category values are opaque backend strings (e.g. "Silver Ring"),
+   * not a fixed enum, so they're kept exactly as given — lowercasing
+   * them would break an exact match against the backend's own data.
+   */
+
   productsState.filters.categories =
-    query.category.map(
-      (category) =>
-        category.toLowerCase()
-    );
+    query.category;
 
 
   productsState.filters.badges =
