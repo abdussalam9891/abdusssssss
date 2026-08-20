@@ -5,12 +5,14 @@ import { createShareButton } from "./shareButton.js";
 import { createBenefitsRow } from "./benefitsRow.js";
 import { createQuantitySelector } from "./quantitySelector.js";
 import { createDeliveryChecker } from "./deliveryChecker.js";
+import { createOffersSection } from "./offersSection.js";
 import { createProductTabs } from "./productTabs.js";
 
 import {
   escapeHtml,
   formatDiscount,
   formatPrice,
+  getAvailabilityLabel,
   pickDefaultSize,
 } from "../../features/productDetails/model.js";
 
@@ -130,13 +132,7 @@ function createStock(product) {
 
 
   const label =
-    product.inStock
-      ? product.stockStatus ||
-        (product.stock <= 5
-          ? `Only ${product.stock} left in stock`
-          : "In Stock")
-      : product.stockStatus ||
-        "Out of Stock";
+    getAvailabilityLabel(product);
 
 
   return `
@@ -258,6 +254,25 @@ function createPricing(product) {
     </span>
 
     ${
+      showBasePrice
+        ? `
+<span
+  class="
+    text-[16px]
+    sm:text-[20px]
+
+    text-[#B0A99B]
+
+    line-through
+  "
+>
+  ${basePrice}
+</span>
+`
+        : ""
+    }
+
+    ${
       discount
         ? `
 <span
@@ -290,9 +305,7 @@ function createPricing(product) {
 
 
   ${
-    showBasePrice ||
-    product.makingCharges !== null ||
-    product.taxRate !== null
+    finalPrice
       ? `
 <p
   class="
@@ -305,21 +318,7 @@ function createPricing(product) {
     text-[#8A8A8A]
   "
 >
-  ${[
-    showBasePrice
-      ? `Base price ${basePrice}`
-      : "",
-
-    product.makingCharges !== null
-      ? `making charges ${product.makingCharges}%`
-      : "",
-
-    product.taxRate !== null
-      ? `tax ${product.taxRate}%`
-      : "",
-  ]
-    .filter(Boolean)
-    .join(" · ")}
+  MRP incl. of all taxes
 </p>
 `
       : ""
@@ -567,7 +566,12 @@ export function createProductInfo(product) {
   </div>
 
 
-  <!-- Description / Specifications / Price Breakdown / etc -->
+  <!-- Offers -->
+
+  ${createOffersSection()}
+
+
+  <!-- Description / Specifications / Shipping / etc -->
 
   ${createProductTabs(product)}
 
