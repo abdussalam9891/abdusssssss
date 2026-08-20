@@ -1,9 +1,7 @@
 /*
- * There is no backend pincode-serviceability endpoint anywhere in
- * this project (checked services/). This checker validates the
- * pincode format client-side and gives an honest, generic result
- * — it deliberately does not claim a real per-pincode delivery
- * estimate, since no trustworthy data exists to back one.
+ * Static markup only — the checker itself (pincode validation,
+ * the GET /postalcode/:pincode call, and the result message) is
+ * wired up in features/productDetails/delivery.js.
  */
 
 export function createDeliveryChecker() {

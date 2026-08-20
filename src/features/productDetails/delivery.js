@@ -1,4 +1,5 @@
-// client side only 
+import { postalCodeService } from "../../services/postalCodeService.js";
+import { escapeHtml } from "./model.js";
 
 const PINCODE_PATTERN = /^[1-9][0-9]{5}$/;
 
@@ -38,7 +39,7 @@ export function initDeliveryChecker() {
   }
 
 
-  function check() {
+  async function check() {
 
     const pincode =
       input.value.trim();
@@ -55,14 +56,62 @@ export function initDeliveryChecker() {
     }
 
 
-    setResult(
-      `We deliver across India. Delivery timelines to ` +
-      `<span class="font-medium text-[#181818]">${pincode}</span> ` +
-      `vary by location — enquire below and our team will confirm ` +
-      `exact timelines, or see our ` +
-      `<a href="/pages/shipping-policy.html" class="underline decoration-[#A07936] underline-offset-4 hover:text-[#A07936]">Shipping Policy</a>.`,
-      "success"
-    );
+    setResult("Checking delivery availability&hellip;", "muted");
+
+    button.disabled = true;
+
+
+    try {
+
+      const result =
+        await postalCodeService.check(pincode);
+
+
+      if (!result || !result.deliverable) {
+
+        setResult(
+          `This product is not deliverable to ` +
+          `<span class="font-medium text-[#181818]">${escapeHtml(pincode)}</span>.`,
+          "error"
+        );
+
+        return;
+      }
+
+
+      const { postOffice } = result;
+
+      const location =
+        [postOffice.Name, postOffice.District, postOffice.State]
+          .filter(Boolean)
+          .join(", ");
+
+
+      setResult(
+        `Delivery available for ` +
+        `<span class="font-medium text-[#181818]">${escapeHtml(pincode)}</span>` +
+        (location
+          ? ` &mdash; delivering to ${escapeHtml(location)}.`
+          : "."),
+        "success"
+      );
+
+    } catch (error) {
+
+      // Network failure, timeout, or the backend erroring on this
+      // pincode all resolve to the same honest "can't deliver
+      // here" message rather than crashing the checker.
+      setResult(
+        `This product is not deliverable to ` +
+        `<span class="font-medium text-[#181818]">${escapeHtml(pincode)}</span>.`,
+        "error"
+      );
+
+    } finally {
+
+      button.disabled = false;
+
+    }
 
   }
 
