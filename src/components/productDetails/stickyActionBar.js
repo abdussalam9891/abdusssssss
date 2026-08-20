@@ -23,6 +23,8 @@ export function createStickyActionBar(product) {
   return `
 
 <div
+  id="productStickyActionBar"
+
   class="
     fixed
 
