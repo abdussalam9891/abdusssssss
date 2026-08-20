@@ -1,16 +1,10 @@
 import { productsState } from "./state.js";
 import { updateProductsURL } from "./query.js";
+import { escapeHtml } from "../../utils/format.js";
+import { normalizeForComparison } from "../../utils/categoryMatch.js";
 
 
 const PRODUCT_FILTERS = {
-
-  categories: [
-    "rings",
-    "chains",
-    "bracelets",
-    "pendants",
-    "earrings",
-  ],
 
   badges: [
     "BESTSELLER",
@@ -43,13 +37,117 @@ const PRODUCT_FILTERS = {
 };
 
 
-function capitalize(text) {
+/*
+ * Category checkboxes are data-driven from productsState.categoryOptions
+ * (real backend subCategory values — see fetchCategoryFacets in
+ * api.js), never a hardcoded list. Values may not be known yet when
+ * this first renders, hence the empty-state fallback.
+ */
+function createCategoryOptionsMarkup() {
 
-  return (
-    text.charAt(0).toUpperCase() +
-    text.slice(1)
-  );
+  if (!productsState.categoryOptions.length) {
 
+    return `
+<p
+  class="
+    text-sm
+    text-[#999]
+  "
+>
+  No categories available.
+</p>
+`;
+
+  }
+
+
+  return productsState.categoryOptions
+    .map(
+      (category) => `
+
+<label
+  class="
+    flex
+    items-center
+    gap-3
+
+    cursor-pointer
+  "
+>
+
+  <input
+    type="checkbox"
+
+    data-filter="category"
+
+    value="${escapeHtml(category)}"
+
+    class="
+      h-4
+      w-4
+
+      accent-[#A07936]
+    "
+  >
+
+  <span
+    class="
+      text-[15px]
+      text-[#555]
+    "
+  >
+    ${escapeHtml(category)}
+  </span>
+
+</label>
+
+`
+    )
+    .join("");
+}
+
+
+function applyCategoryChecks() {
+
+  document
+    .querySelectorAll(
+      '[data-filter="category"]'
+    )
+    .forEach(
+      (input) => {
+
+        input.checked =
+          productsState.filters.categories.some(
+            (selected) =>
+              normalizeForComparison(selected) ===
+              normalizeForComparison(input.value)
+          );
+
+      }
+    );
+}
+
+
+// Re-renders just the category checkbox group once
+// fetchCategoryFacets() resolves, and re-applies any already
+// selected category filter (e.g. restored from the URL) against
+// the now-available options.
+export function renderCategoryOptions() {
+
+  const target =
+    document.getElementById(
+      "productsCategoryOptions"
+    );
+
+
+  if (!target) return;
+
+
+  target.innerHTML =
+    createCategoryOptionsMarkup();
+
+
+  applyCategoryChecks();
 }
 
 
@@ -112,51 +210,12 @@ export function createProductsFilters() {
     </h4>
 
 
-    <div class="space-y-4">
+    <div
+      id="productsCategoryOptions"
+      class="space-y-4"
+    >
 
-      ${PRODUCT_FILTERS.categories
-        .map(
-          (category) => `
-
-<label
-  class="
-    flex
-    items-center
-    gap-3
-
-    cursor-pointer
-  "
->
-
-  <input
-    type="checkbox"
-
-    data-filter="category"
-
-    value="${category}"
-
-    class="
-      h-4
-      w-4
-
-      accent-[#A07936]
-    "
-  >
-
-  <span
-    class="
-      text-[15px]
-      text-[#555]
-    "
-  >
-    ${capitalize(category)}
-  </span>
-
-</label>
-
-`
-        )
-        .join("")}
+      ${createCategoryOptionsMarkup()}
 
     </div>
 
@@ -382,81 +441,85 @@ export function initFilterEvents(
   onChange
 ) {
 
-  document
-    .querySelectorAll(
-      "#productsFilters input"
-    )
-    .forEach(
-      (input) => {
-
-        input.addEventListener(
-          "change",
-          async () => {
-
-            productsState.filters.categories =
-              [
-                ...document.querySelectorAll(
-                  '[data-filter="category"]:checked'
-                ),
-              ].map(
-                (input) =>
-                  input.value.toLowerCase()
-              );
+  const container =
+    document.getElementById(
+      "productsFilters"
+    );
 
 
-            productsState.filters.badges =
-              [
-                ...document.querySelectorAll(
-                  '[data-filter="badge"]:checked'
-                ),
-              ].map(
-                (input) =>
-                  input.value.toUpperCase()
-              );
+  // Delegated so the category group can be re-rendered later
+  // (once fetchCategoryFacets() resolves) without losing its
+  // change handling.
+  container?.addEventListener(
+    "change",
+    async (event) => {
+
+      if (!event.target.matches("[data-filter]")) {
+        return;
+      }
 
 
-            const selectedPrice =
-              document.querySelector(
-                '[data-filter="price"]:checked'
-              );
-
-
-            if (selectedPrice) {
-
-              const range =
-                PRODUCT_FILTERS.priceRanges[
-                  Number(
-                    selectedPrice.dataset.index
-                  )
-                ];
-
-
-              productsState.filters.price = {
-                min: range.min,
-                max: range.max,
-              };
-
-            } else {
-
-              productsState.filters.price =
-                null;
-
-            }
-
-
-            productsState.page = 1;
-
-
-            updateProductsURL();
-
-
-            await onChange();
-
-          }
+      productsState.filters.categories =
+        [
+          ...document.querySelectorAll(
+            '[data-filter="category"]:checked'
+          ),
+        ].map(
+          (input) =>
+            input.value
         );
 
+
+      productsState.filters.badges =
+        [
+          ...document.querySelectorAll(
+            '[data-filter="badge"]:checked'
+          ),
+        ].map(
+          (input) =>
+            input.value.toUpperCase()
+        );
+
+
+      const selectedPrice =
+        document.querySelector(
+          '[data-filter="price"]:checked'
+        );
+
+
+      if (selectedPrice) {
+
+        const range =
+          PRODUCT_FILTERS.priceRanges[
+            Number(
+              selectedPrice.dataset.index
+            )
+          ];
+
+
+        productsState.filters.price = {
+          min: range.min,
+          max: range.max,
+        };
+
+      } else {
+
+        productsState.filters.price =
+          null;
+
       }
-    );
+
+
+      productsState.page = 1;
+
+
+      updateProductsURL();
+
+
+      await onChange();
+
+    }
+  );
 
 
   document
@@ -500,20 +563,7 @@ export function initFilterEvents(
 
 export function restoreFilterUI() {
 
-  document
-    .querySelectorAll(
-      '[data-filter="category"]'
-    )
-    .forEach(
-      (input) => {
-
-        input.checked =
-          productsState.filters.categories.includes(
-            input.value.toLowerCase()
-          );
-
-      }
-    );
+  applyCategoryChecks();
 
 
   document
