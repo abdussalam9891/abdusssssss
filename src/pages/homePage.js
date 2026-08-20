@@ -28,12 +28,6 @@ import { renderWhyChooseUs }
 import { initAnnouncementBar }
   from "../features/announcement/index.js";
 
-import {
-  createCustomizeJewelleryButton,
-  createCustomizeJewelleryModal,
-} from "../components/customizeJewellery/index.js";
-
-
 export async function initHomePage() {
 
   const container =
@@ -83,38 +77,6 @@ export async function initHomePage() {
       );
 
     });
-
-  }
-
-
-  // =========================================
-  // CUSTOMIZE JEWELLERY
-  // =========================================
-
-  const buttonContainer =
-    document.getElementById(
-      "customizeJewellery"
-    );
-
-
-  if (buttonContainer) {
-
-    buttonContainer.innerHTML =
-      createCustomizeJewelleryButton();
-
-  }
-
-
-  const drawerContainer =
-    document.getElementById(
-      "customizeJewelleryDrawer"
-    );
-
-
-  if (drawerContainer) {
-
-    drawerContainer.innerHTML =
-      createCustomizeJewelleryModal();
 
   }
 
