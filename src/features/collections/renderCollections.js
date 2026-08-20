@@ -1,6 +1,5 @@
 import { websiteService } from "../../services/websiteService.js";
 import { createCollectionCard } from "../../components/collections/collectionCard.js";
-import { COLLECTIONS } from "../../constants/collections.js";
 
 const CATEGORY_IMAGES = {
   "Silver Rings": "./src/assets/ring.png",
@@ -9,6 +8,19 @@ const CATEGORY_IMAGES = {
   "Silver Kada": "./src/assets/kada.png",
   "Silver Pendant": "./src/assets/pendant.png",
 };
+
+// Local fallback built from the same images the live backend
+// categories render with, so a failed/empty categories request
+// still shows the real shop-by-category art instead of stand-ins.
+function buildLocalCollections() {
+  return Object.entries(CATEGORY_IMAGES).map(([name, image]) => ({
+    id: name,
+    title: name,
+    subtitle: "Explore Collection",
+    image,
+    url: `/pages/products.html?category=${encodeURIComponent(name)}`,
+  }));
+}
 
 export async function renderCollections() {
 
@@ -32,25 +44,27 @@ export async function renderCollections() {
       !categories.length
     ) {
       console.warn(
-        "[Collections] No categories found."
+        "[Collections] No categories found. Using local fallback."
       );
 
-      container.innerHTML = `
-        <p class="w-full text-center text-[#777777]">
-          No collections available right now.
-        </p>
-      `;
+      container.innerHTML =
+        buildLocalCollections()
+          .map(createCollectionCard)
+          .join("");
+
+      if (window.lucide) {
+        window.lucide.createIcons();
+      }
+
       return;
     }
 
     const collections =
-      categories.map((category) => {
-
-        const image =
-          CATEGORY_IMAGES[category.name] ||
-          "./src/assets/images/placeholder.webp";
-
-        return {
+      categories
+        // Only categories we have local art for — skip the rest
+        // rather than showing a broken/incorrect image for them.
+        .filter((category) => CATEGORY_IMAGES[category.name])
+        .map((category) => ({
 
           id: category._id,
 
@@ -58,7 +72,7 @@ export async function renderCollections() {
 
           subtitle: "Explore Collection",
 
-          image,
+          image: CATEGORY_IMAGES[category.name],
 
           // Use category name for product filtering
           url:
@@ -66,9 +80,24 @@ export async function renderCollections() {
               category.name
             )}`,
 
-        };
+        }));
 
-      });
+    if (!collections.length) {
+      console.warn(
+        "[Collections] No backend categories matched local images. Using local fallback."
+      );
+
+      container.innerHTML =
+        buildLocalCollections()
+          .map(createCollectionCard)
+          .join("");
+
+      if (window.lucide) {
+        window.lucide.createIcons();
+      }
+
+      return;
+    }
 
     container.innerHTML =
       collections
@@ -87,10 +116,8 @@ export async function renderCollections() {
       error
     );
 
-    // Local static collections already ship with the project, so the
-    // section stays usable instead of collapsing to an empty region.
     container.innerHTML =
-      COLLECTIONS
+      buildLocalCollections()
         .map(createCollectionCard)
         .join("");
 
