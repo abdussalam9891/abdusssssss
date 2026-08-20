@@ -1,19 +1,9 @@
 import { logout } from "../../features/auth/authState.js";
 
 
-const PANEL_OPEN = [
-  "opacity-100",
-  "scale-100",
-  "-translate-x-1/2",
-  "-translate-y-1/2",
-];
+const PANEL_OPEN = ["translate-x-0"];
 
-const PANEL_CLOSE = [
-  "opacity-0",
-  "scale-95",
-  "-translate-x-1/2",
-  "-translate-y-1/2",
-];
+const PANEL_CLOSE = ["-translate-x-full"];
 
 const BACKDROP_VISIBLE = "opacity-100";
 const BACKDROP_HIDDEN = "opacity-0";
@@ -40,6 +30,14 @@ export function initMobileDrawer() {
 
 
   panel.addEventListener("click", async (event) => {
+  const customizeTrigger = event.target.closest(
+    ".js-open-customize-modal"
+  );
+
+  if (customizeTrigger) {
+    closeDrawer();
+  }
+
   const logoutBtn = event.target.closest("#mobileLogoutBtn");
 
   if (!logoutBtn) return;
@@ -78,9 +76,8 @@ export function initMobileDrawer() {
       backdrop.classList.remove(BACKDROP_HIDDEN);
       backdrop.classList.add(BACKDROP_VISIBLE);
 
-     panel.classList.remove("opacity-0", "scale-95");
-
-panel.classList.add("opacity-100", "scale-100");
+      panel.classList.remove(...PANEL_CLOSE);
+      panel.classList.add(...PANEL_OPEN);
     });
   }
 
@@ -92,9 +89,8 @@ panel.classList.add("opacity-100", "scale-100");
     backdrop.classList.remove(BACKDROP_VISIBLE);
     backdrop.classList.add(BACKDROP_HIDDEN);
 
-    panel.classList.remove("opacity-100", "scale-100");
-
-panel.classList.add("opacity-0", "scale-95");
+    panel.classList.remove(...PANEL_OPEN);
+    panel.classList.add(...PANEL_CLOSE);
 
     document.body.classList.remove("overflow-hidden");
 
