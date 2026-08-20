@@ -225,8 +225,9 @@ export function createUserMenu(user) {
 
 
         <a
-          href="/pages/custom-requests.html"
+          href="/index.html#customize-jewellery"
           class="
+            js-open-customize-modal
             group
             flex
             items-center
