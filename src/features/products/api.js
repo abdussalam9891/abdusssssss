@@ -1,5 +1,9 @@
 import { productService } from "../../services/productService.js";
 import { productsState } from "./state.js";
+import {
+  normalizeForComparison,
+  toStringList,
+} from "../../utils/categoryMatch.js";
 
 
 export async function fetchProducts() {
@@ -57,4 +61,65 @@ export async function fetchProducts() {
 
 
   return data;
+}
+
+
+/*
+ * The category filter's checkbox options aren't a fixed enum —
+ * store admins can create arbitrary subCategory values. There's no
+ * dedicated facets/taxonomy endpoint, so this samples a broad,
+ * unfiltered page of real products (independent of any active
+ * filters/pagination) purely to discover which subCategory values
+ * currently exist. Actual filtering still happens server-side via
+ * fetchProducts(); this never replaces that.
+ *
+ * Callers must isolate failures (see initCategoryFilterOptions in
+ * filters.js) — losing the facet list must not break the rest of
+ * the filters UI or the product grid.
+ */
+export async function fetchCategoryFacets() {
+
+  const response =
+    await productService.getPublicProducts({
+      page: 1,
+      limit: 100,
+    });
+
+
+  const data =
+    response?.data || {};
+
+  const products =
+    Array.isArray(data.products)
+      ? data.products
+      : [];
+
+
+  const seen = new Map();
+
+  products.forEach((product) => {
+
+    toStringList(product?.subCategory).forEach(
+      (rawValue) => {
+
+        const key =
+          normalizeForComparison(rawValue);
+
+        if (key && !seen.has(key)) {
+          seen.set(key, rawValue.trim());
+        }
+
+      }
+    );
+
+  });
+
+
+  productsState.categoryOptions =
+    [...seen.values()].sort(
+      (a, b) => a.localeCompare(b)
+    );
+
+
+  return productsState.categoryOptions;
 }
