@@ -4,6 +4,7 @@ import { createShowcaseSection }
 import {
   loadShowcaseProducts,
   renderShowcase,
+  renderShowcaseSkeleton,
 } from "./renderShowcase.js";
 
 import { initShowcaseTabs } from "./tabs.js";
@@ -18,6 +19,11 @@ export async function initShowcase() {
 
   container.innerHTML =
     createShowcaseSection();
+
+  // Show a loading state immediately so the
+  // section is never blank while the API call
+  // is in flight.
+  renderShowcaseSkeleton();
 
   // Fetch API products
   await loadShowcaseProducts();
