@@ -6,6 +6,8 @@ import {
 import { PLACEHOLDER_IMAGE } from "./model.js";
 
 
+const SWIPE_THRESHOLD = 50;
+
 export function initGallery() {
 
   // Normalized product: `gallery` is an ordered list of urls.
@@ -116,5 +118,69 @@ export function initGallery() {
 
     }
   );
+
+
+  // Swipe support (mobile/touch)
+
+  if (images.length > 1) {
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    image.addEventListener(
+      "touchstart",
+      (event) => {
+
+        touchStartX =
+          event.changedTouches[0].clientX;
+
+      },
+      { passive: true }
+    );
+
+    image.addEventListener(
+      "touchend",
+      (event) => {
+
+        touchEndX =
+          event.changedTouches[0].clientX;
+
+        const distance =
+          touchStartX - touchEndX;
+
+        if (
+          Math.abs(distance) < SWIPE_THRESHOLD
+        ) {
+          return;
+        }
+
+        const current =
+          productState.activeImageIndex;
+
+        if (distance > 0) {
+
+          const next =
+            current === images.length - 1
+              ? 0
+              : current + 1;
+
+          render(next);
+
+        } else {
+
+          const previous =
+            current === 0
+              ? images.length - 1
+              : current - 1;
+
+          render(previous);
+
+        }
+
+      },
+      { passive: true }
+    );
+
+  }
 
 }
