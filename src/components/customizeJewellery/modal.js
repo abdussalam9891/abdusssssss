@@ -56,6 +56,7 @@ export function createCustomizeJewelleryModal() {
       z-10
 
       flex
+      h-full
       w-full
       max-w-4xl
       flex-col
@@ -63,9 +64,11 @@ export function createCustomizeJewelleryModal() {
       overflow-hidden
 
       rounded-none
+      sm:h-auto
       sm:rounded-2xl
 
-      border
+      border-0
+      sm:border
       border-[#E8DED0]
 
       bg-[#FDFBF8]
@@ -73,12 +76,15 @@ export function createCustomizeJewelleryModal() {
       shadow-[0_30px_100px_rgba(0,0,0,0.30)]
 
       opacity-0
-      scale-[0.96]
+      scale-100
+      sm:scale-[0.96]
 
       transition-all
       duration-500
+
+      max-h-[100dvh]
+      sm:max-h-[92vh]
     "
-    style="max-height:92vh;"
   >
 
 
