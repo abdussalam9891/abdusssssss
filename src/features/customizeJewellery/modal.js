@@ -1,11 +1,15 @@
- 
+function getModalElements() {
+  return {
+    modal: document.getElementById("customizeModal"),
+    panel: document.getElementById("customizePanel"),
+    overlay: document.getElementById("customizeOverlay"),
+  };
+}
 
 function openModal() {
-  const modal = document.getElementById("customizeModal");
-  const panel = document.getElementById("customizePanel");
-  const overlay = document.getElementById("customizeOverlay");
+  const { modal, panel, overlay } = getModalElements();
 
-  if (!modal || !panel || !overlay) return;
+  if (!modal || !panel || !overlay) return false;
 
   modal.classList.remove("hidden");
   modal.classList.add("flex");
@@ -19,13 +23,11 @@ function openModal() {
 
   document.documentElement.classList.add("overflow-hidden");
 
-
+  return true;
 }
 
 function closeModal() {
-  const modal = document.getElementById("customizeModal");
-  const panel = document.getElementById("customizePanel");
-  const overlay = document.getElementById("customizeOverlay");
+  const { modal, panel, overlay } = getModalElements();
 
   if (!modal || !panel || !overlay) return;
 
@@ -34,7 +36,7 @@ function closeModal() {
   panel.classList.add("opacity-0");
   panel.classList.add("scale-95");
 
- document.documentElement.classList.remove("overflow-hidden");
+  document.documentElement.classList.remove("overflow-hidden");
 
   setTimeout(() => {
     modal.classList.remove("flex");
@@ -42,18 +44,38 @@ function closeModal() {
   }, 500);
 }
 
+// Exposed so other entry points (e.g. the account dropdown's
+// "Custom Jewellery" link, which may navigate here from a page
+// that has no modal markup) can open it once it's on the page.
+export function openCustomizeModal() {
+  return openModal();
+}
+
 export function initCustomizeModal() {
-  const openBtn = document.getElementById("customizeJewelleryBtn");
-  const closeBtn = document.getElementById("closeCustomizeModal");
-  const overlay = document.getElementById("customizeOverlay");
+  // Delegated listeners: the modal can be opened from multiple
+  // trigger elements sitewide (homepage floating button, account
+  // dropdown, mobile nav), not all of which exist when this runs.
+  document.addEventListener("click", (e) => {
+    if (
+      e.target.closest("#closeCustomizeModal") ||
+      e.target.id === "customizeOverlay"
+    ) {
+      closeModal();
+      return;
+    }
 
-  if (!openBtn) return;
+    const trigger = e.target.closest(
+      ".js-open-customize-modal"
+    );
 
-  openBtn.addEventListener("click", openModal);
+    if (!trigger) return;
 
-  closeBtn?.addEventListener("click", closeModal);
-
-  overlay?.addEventListener("click", closeModal);
+    // If the modal isn't on this page, let the trigger's default
+    // behavior (navigating to the homepage) proceed instead.
+    if (openModal()) {
+      e.preventDefault();
+    }
+  });
 
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
