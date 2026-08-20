@@ -10,6 +10,8 @@ import { initSizeSelector } from "./size.js";
 import { initDeliveryChecker } from "./delivery.js";
 import { initAddToCart, initBuyNow } from "./cart.js";
 import { initShareButton } from "./share.js";
+import { initOffers } from "./offers.js";
+import { initReviews } from "./reviews.js";
 
 import { createProductDetailsLayout } from "../../components/productDetails/productDetailsLayout.js";
 import { createProductGallery } from "../../components/productDetails/productGallery.js";
@@ -276,6 +278,10 @@ function renderProduct(container, product) {
   initRelatedProducts();
 
   initRecentlyViewed();
+
+  initOffers();
+
+  initReviews();
 
 
   window.lucide?.createIcons();
