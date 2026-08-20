@@ -2,15 +2,17 @@ import { escapeHtml } from "../../features/productDetails/model.js";
 
 
 /*
- * The backend only returns an aggregate `averageRating` /
- * `totalReviews` on the product — there is no review-list
- * endpoint (checked services/productService.js and the sample
- * response). So this renders an honest ratings summary rather
- * than fabricated review cards with invented names, dates or
- * quotes.
+ * The initial aggregate (average/total) comes from the product
+ * object itself, so the summary has something to show before the
+ * dedicated review endpoints resolve. features/productDetails/
+ * reviews.js re-fetches the real list (GET
+ * /review/getProductReviews/:id) and a fresher summary (GET
+ * /review/starsummary/:id) after mount, and re-renders both
+ * #productReviewsSummary and #productReviewsList — including
+ * after a new review is submitted.
  */
 
-function createStars(rating) {
+export function createStars(rating, sizeClass = "h-5 w-5") {
 
   return `
 <div
@@ -28,8 +30,7 @@ function createStars(rating) {
       (_, index) => `
 <svg
   class="
-    h-5
-    w-5
+    ${sizeClass}
 
     ${
       index < Math.round(rating)
@@ -53,11 +54,92 @@ function createStars(rating) {
 }
 
 
-export function createReviewsSection(product) {
+export function createReviewsSummary(product) {
 
   const hasReviews =
     product.totalReviews > 0;
 
+
+  if (!hasReviews) {
+
+    return `
+<div class="mt-6">
+
+  ${createStars(0)}
+
+  <p
+    class="
+      mx-auto
+
+      mt-4
+
+      max-w-md
+
+      text-[15px]
+
+      leading-7
+
+      text-[#777]
+    "
+  >
+    No reviews yet for
+    ${escapeHtml(product.name)}.
+  </p>
+
+</div>
+`;
+  }
+
+
+  return `
+<div
+  class="
+    mt-6
+
+    flex
+
+    flex-col
+
+    items-center
+
+    gap-3
+  "
+>
+
+  <span
+    class="
+      font-serif
+
+      text-[40px]
+      sm:text-[48px]
+      lg:text-[56px]
+
+      leading-none
+
+      italic
+
+      text-[#181818]
+    "
+  >
+    ${product.averageRating.toFixed(1)}
+  </span>
+
+  ${createStars(product.averageRating)}
+
+  <p class="text-[14px] text-[#777]">
+    Based on ${product.totalReviews} ${
+      product.totalReviews === 1
+        ? "review"
+        : "reviews"
+    }
+  </p>
+
+</div>
+`;
+}
+
+
+export function createReviewsSection(product) {
 
   return `
 
@@ -107,80 +189,83 @@ export function createReviewsSection(product) {
     </p>
 
 
-    ${
-      hasReviews
-        ? `
-<div
-  class="
-    mt-6
+    <div id="productReviewsSummary">
+      ${createReviewsSummary(product)}
+    </div>
 
-    flex
 
-    flex-col
+    <button
+      type="button"
+      id="productWriteReviewButton"
 
-    items-center
+      class="
+        mt-8
 
-    gap-3
-  "
->
+        inline-flex
 
-  <span
-    class="
-      font-serif
+        items-center
 
-      text-[40px]
-      sm:text-[48px]
-      lg:text-[56px]
+        gap-2
 
-      leading-none
+        rounded-full
 
-      italic
+        border
+        border-[#181818]
 
-      text-[#181818]
-    "
-  >
-    ${product.averageRating.toFixed(1)}
-  </span>
+        px-6
+        py-3
 
-  ${createStars(product.averageRating)}
+        text-[12px]
 
-  <p class="text-[14px] text-[#777]">
-    Based on ${product.totalReviews} ${
-      product.totalReviews === 1
-        ? "review"
-        : "reviews"
-    }
-  </p>
+        font-medium
 
-</div>
-`
-        : `
-<div class="mt-6">
+        uppercase
 
-  ${createStars(0)}
+        tracking-[0.16em]
 
-  <p
+        text-[#181818]
+
+        transition-colors
+        duration-300
+
+        hover:border-[#A07936]
+        hover:text-[#A07936]
+      "
+    >
+      Write a Review
+    </button>
+
+  </div>
+
+
+  <div
     class="
       mx-auto
 
-      mt-4
+      mt-10
+      sm:mt-12
 
-      max-w-md
+      max-w-5xl
 
-      text-[15px]
+      px-5
 
-      leading-7
-
-      text-[#777]
+      lg:px-8
     "
   >
-    No reviews yet for
-    ${escapeHtml(product.name)}.
-  </p>
 
-</div>
-`
-    }
+    <div
+      id="productReviewsList"
+
+      class="
+        grid
+
+        gap-5
+
+        sm:grid-cols-2
+
+        lg:grid-cols-3
+      "
+    ></div>
 
   </div>
 
