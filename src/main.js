@@ -12,6 +12,8 @@ import { initToast } from "./features/toast/index.js";
 
 import { initFloatingWhatsAppButton } from "./features/whatsapp/index.js";
 
+import { initScrollToTopButton } from "./features/scrollToTop/index.js";
+
 import { initCartBadgeSync } from "./features/cart/cartBadge.js";
 
 import { initWishlistBadgeSync } from "./features/wishlist/wishlistBadge.js";
@@ -76,6 +78,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     );
 
   });
+
+
+  // Scroll-to-top button is local-only and independent of the backend.
+  try {
+    initScrollToTopButton();
+  } catch (error) {
+    console.error(
+      "[ScrollToTop] Failed to initialize:",
+      error
+    );
+  }
 
 
   // Resolve authentication in background.
@@ -184,7 +197,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
 
-    // Customize Jewellery is independent.
+  }
+
+
+  // =========================================
+  // CUSTOMIZE JEWELLERY
+  // =========================================
+
+  // Independent of any specific page: the floating button + modal
+  // appear on the home, products, and product details pages, each
+  // of which renders the #customizeJewellery / #customizeJewelleryDrawer
+  // containers. Backend failure elsewhere must not block this.
+
+  if (
+    document.getElementById("customizeJewellery")
+  ) {
+
     try {
 
       const {
