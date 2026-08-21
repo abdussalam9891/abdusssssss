@@ -8,6 +8,10 @@ import {
 
 import { hydrateFooterSocialLinks } from "./features/footer/hydrateSocialLinks.js";
 
+import { initFooterNewsletter } from "./features/footer/newsletter.js";
+
+import { hydrateContactInfo } from "./features/contact/hydrateContactInfo.js";
+
 import { initToast } from "./features/toast/index.js";
 
 import { initFloatingWhatsAppButton } from "./features/whatsapp/index.js";
@@ -148,11 +152,15 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       initFooterAccordion();
 
+      initFooterNewsletter();
 
-      // Social links are backend-provided; hydrate them
-      // separately so a failed request never blocks the
-      // static footer from rendering.
+
+      // Social links and contact details are backend-provided;
+      // hydrate them separately so a failed request never blocks
+      // the static footer from rendering.
       hydrateFooterSocialLinks();
+
+      hydrateContactInfo();
 
 
     } catch (error) {
@@ -334,6 +342,38 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
   // =========================================
+  // CHECKOUT
+  // =========================================
+
+  if (
+    document.getElementById("checkoutPage")
+  ) {
+
+    try {
+
+      const {
+        loadCheckoutPage,
+      } = await import(
+        "./pages/checkoutPage.js"
+      );
+
+
+      loadCheckoutPage();
+
+
+    } catch (error) {
+
+      console.error(
+        "[Checkout] Failed to initialize:",
+        error
+      );
+
+    }
+
+  }
+
+
+  // =========================================
   // WISHLIST
   // =========================================
 
@@ -357,6 +397,38 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       console.error(
         "[Wishlist] Failed to initialize:",
+        error
+      );
+
+    }
+
+  }
+
+
+  // =========================================
+  // PROFILE
+  // =========================================
+
+  if (
+    document.getElementById("profilePage")
+  ) {
+
+    try {
+
+      const {
+        loadProfilePage,
+      } = await import(
+        "./pages/profilePage.js"
+      );
+
+
+      loadProfilePage();
+
+
+    } catch (error) {
+
+      console.error(
+        "[Profile] Failed to initialize:",
         error
       );
 
