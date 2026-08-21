@@ -1,9 +1,9 @@
-export const API_BASE_URL =
-  "https://pm3721cg-3000.inc1.devtunnels.ms";
+// export const API_BASE_URL =
+//   "https://pm3721cg-3000.inc1.devtunnels.ms";
 
 
 
-  // export const API_BASE_URL ="https://backend.globalshopify.com";
+  export const API_BASE_URL ="https://backend.globalshopify.com";
 
 
 
@@ -19,11 +19,22 @@ export const API_ENDPOINTS = {
     LOGIN: "/user/loginUser",
     LOGOUT: "/user/logout",
     GET_PROFILE: "/user/getProfile",
+    UPDATE_PROFILE: (userId) =>
+      `/user/updateProfile/${userId}`,
     GOOGLE_LOGIN: "/user/google-login",
     REGISTER: "/user/createUser",
     CHANGE_PASSWORD: "/user/changepassword",
     FORGOT_PASSWORD: "/user/forgot-password",
     VERIFY_OTP: "/user/verify-otp",
+  },
+
+  ADDRESS: {
+    LIST: "/address/getaddress",
+    ADD: "/address/addaddress",
+    UPDATE: (addressId) =>
+      `/address/updateaddress/${addressId}`,
+    DELETE: (addressId) =>
+      `/address/deleteaddress/${addressId}`,
   },
 
   CONTACT: {
@@ -71,6 +82,21 @@ export const API_ENDPOINTS = {
   COUPONS: {
     AVAILABLE: (domain) =>
       `/customercoupons/getAvailableCoupons/${encodeURIComponent(domain)}`,
+  },
+
+  // Verified directly against the backend (all three require a
+  // bearer token — an unauthenticated request 401s with "No token
+  // provided" instead of 404ing, confirming the routes exist). Only
+  // ADD is currently called from the frontend (see
+  // services/cartService.js) — the cart itself still runs on
+  // localStorage (features/cart/cartState.js) since GET/DELETE's
+  // response contract hasn't been confirmed against a real
+  // authenticated reply yet.
+  CART: {
+    ADD: "/addtocart/addToCart",
+    GET: "/addtocart/getcart",
+    REMOVE: (cartItemId) =>
+      `/addtocart/removecart/${cartItemId}`,
   },
 
 };
