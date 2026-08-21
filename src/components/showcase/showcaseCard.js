@@ -697,20 +697,63 @@ function createStars(rating = 0) {
 
 
 function createDiscount(product) {
-  /*
-   * The current API does NOT provide an original/MRP price.
-   *
-   * Therefore we intentionally do not calculate:
-   *
-   * originalPrice - price
-   *
-   * because that would create a fake discount.
-   *
-   * Once backend provides an actual MRP/original price,
-   * this function can be enabled again.
-   */
+  const discountValue =
+    Number(product.discountValue) || 0;
 
-  return "";
+  if (discountValue <= 0) return "";
+
+  const label =
+    product.discountType === "Percentage"
+      ? `${discountValue}% OFF`
+      : `₹${Math.round(discountValue).toLocaleString(
+          "en-IN"
+        )} OFF`;
+
+  return `
+<span
+  class="
+    absolute
+
+    left-3
+    top-3
+
+    lg:left-5
+    lg:top-5
+
+    z-20
+
+    rounded-full
+
+    border
+    border-[#E9D9B8]
+
+    bg-[#FBF4E7]
+
+    px-2.5
+    py-1
+
+    lg:px-3.5
+    lg:py-1.5
+
+    backdrop-blur
+
+    text-[9px]
+    lg:text-[10px]
+
+    font-semibold
+
+    uppercase
+
+    tracking-[0.14em]
+
+    text-[#A07936]
+
+    shadow-[0_8px_20px_rgba(0,0,0,.06)]
+  "
+>
+  ${label}
+</span>
+`;
 }
 
 
