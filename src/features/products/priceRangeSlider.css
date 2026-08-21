@@ -1,0 +1,80 @@
+/*
+ * Dual-thumb price range slider (products filter).
+ * Two native <input type="range"> elements are stacked on top of a
+ * shared track; each input is transparent and only its thumb is
+ * interactive (pointer-events), which is what makes both handles
+ * independently draggable without a JS-built slider widget.
+ */
+
+.price-range-slider {
+  position: relative;
+  height: 4px;
+}
+
+.price-range-track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  border-radius: 9999px;
+  background: #ECE6DF;
+}
+
+.price-range-fill {
+  position: absolute;
+  top: 0;
+  height: 4px;
+  border-radius: 9999px;
+  background: #A07936;
+}
+
+.price-range-slider input[type="range"] {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  margin: 0;
+  transform: translateY(-50%);
+  background: transparent;
+  pointer-events: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.price-range-slider input[type="range"]::-webkit-slider-runnable-track {
+  -webkit-appearance: none;
+  height: 4px;
+  background: transparent;
+}
+
+.price-range-slider input[type="range"]::-moz-range-track {
+  height: 4px;
+  background: transparent;
+  border: none;
+}
+
+.price-range-slider input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  pointer-events: auto;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #A07936;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 1px #A07936;
+  cursor: pointer;
+  margin-top: -6px;
+}
+
+.price-range-slider input[type="range"]::-moz-range-thumb {
+  pointer-events: auto;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #A07936;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 1px #A07936;
+  cursor: pointer;
+}

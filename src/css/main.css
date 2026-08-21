@@ -3,6 +3,7 @@
 @import "../features/animations/animations.css";
 @import "../components/marquee/marquee.css";
 @import "../components/announcement/announcement.css";
+@import "../features/products/priceRangeSlider.css";
 
 
 .no-scrollbar::-webkit-scrollbar {
