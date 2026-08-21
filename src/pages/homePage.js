@@ -13,9 +13,6 @@ import { initHero }
 import { initMarquee }
   from "../features/marquee/index.js";
 
-import { initNewsletterSection }
-  from "../features/newsletter/index.js";
-
 import { initShowcase }
   from "../features/showcase/index.js";
 
@@ -131,11 +128,6 @@ export async function initHomePage() {
     [
       "initTestimonials",
       initTestimonials,
-    ],
-
-    [
-      "initNewsletterSection",
-      initNewsletterSection,
     ],
 
   ];
