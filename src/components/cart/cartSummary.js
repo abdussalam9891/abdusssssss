@@ -1,17 +1,8 @@
 import { formatPrice } from "../../utils/format.js";
 
 
-const CONTACT_PAGE_URL = "/pages/contact.html";
+const CHECKOUT_PAGE_URL = "/pages/checkout.html";
 
-
-/*
- * There is no order/checkout backend endpoint yet, so the real
- * checkout action here is the same honest fallback used
- * throughout the site: render a contact-page link first, then
- * features/cart/cartPageInit.js upgrades it to a WhatsApp deep
- * link (with the cart contents in the message) once the backend
- * WhatsApp number resolves. No fake "Place Order" success state.
- */
 
 export function createCartSummary(subtotal) {
 
@@ -105,9 +96,7 @@ export function createCartSummary(subtotal) {
   <a
     id="cartCheckoutButton"
 
-    data-checkout-message=""
-
-    href="${CONTACT_PAGE_URL}"
+    href="${CHECKOUT_PAGE_URL}"
 
     class="
       mt-6
@@ -145,8 +134,10 @@ export function createCartSummary(subtotal) {
     "
   >
 
+    Proceed to Checkout
+
     <i
-      data-lucide="message-circle"
+      data-lucide="arrow-right"
 
       class="
         h-4
@@ -154,26 +145,7 @@ export function createCartSummary(subtotal) {
       "
     ></i>
 
-    Checkout via WhatsApp
-
   </a>
-
-  <p
-    class="
-      mt-4
-
-      text-center
-
-      text-[12px]
-
-      leading-5
-
-      text-[#8A8A8A]
-    "
-  >
-    We'll confirm availability, pricing and delivery with you
-    over WhatsApp before your order is placed.
-  </p>
 
 </div>
 

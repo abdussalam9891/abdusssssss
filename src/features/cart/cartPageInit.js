@@ -8,40 +8,6 @@ import {
 import { createCartLayout } from "../../components/cart/cartLayout.js";
 import { createCartItemRow } from "../../components/cart/cartItemRow.js";
 import { createCartSummary } from "../../components/cart/cartSummary.js";
-import { websiteService } from "../../services/websiteService.js";
-
-
-function buildCheckoutMessage(items, subtotal) {
-
-  const lines = [
-    "Hello Banshiwaale,",
-    "",
-    "I'd like to order the following:",
-    "",
-  ];
-
-
-  items.forEach((item) => {
-
-    lines.push(
-      `• ${item.name}` +
-      (item.size ? ` (Size: ${item.size})` : "") +
-      ` × ${item.quantity}`
-    );
-
-  });
-
-
-  lines.push(
-    "",
-    `Estimated subtotal: ₹${Math.round(subtotal).toLocaleString("en-IN")}`,
-    "",
-    "Could you please confirm availability and final pricing?"
-  );
-
-
-  return lines.join("\n");
-}
 
 
 function renderCart() {
@@ -104,28 +70,7 @@ function renderCart() {
     createCartSummary(subtotal);
 
 
-  const checkoutButton =
-    document.getElementById(
-      "cartCheckoutButton"
-    );
-
-  if (checkoutButton) {
-
-    checkoutButton.dataset.checkoutMessage =
-      buildCheckoutMessage(items, subtotal);
-
-  }
-
-
   window.lucide?.createIcons();
-
-
-  // renderCart() rebuilds #cartSummary (and its checkout button)
-  // from scratch on every change, so the WhatsApp upgrade has to
-  // be re-applied each time rather than surviving from the first
-  // call. getSocialLinks() memoizes the network request, so this
-  // is cheap on repeat calls.
-  initCheckoutLink();
 
 }
 
@@ -199,63 +144,6 @@ function initItemControls() {
 
     }
   );
-
-}
-
-
-/*
- * The checkout link renders as a contact-page link (see
- * components/cart/cartSummary.js) so it works without the
- * backend. Once website data resolves, it's upgraded to a
- * WhatsApp deep link — the same fallback pattern used sitewide
- * for enquiries.
- */
-
-async function initCheckoutLink() {
-
-  try {
-
-    const { whatsapp } =
-      await websiteService.getSocialLinks();
-
-    if (!whatsapp) {
-
-      console.warn(
-        "[Cart] No whatsappNumber configured in the backend " +
-        "website data. Checkout link stays on the contact page."
-      );
-
-      return;
-    }
-
-
-    const checkoutButton =
-      document.getElementById(
-        "cartCheckoutButton"
-      );
-
-    if (!checkoutButton) return;
-
-
-    checkoutButton.target = "_blank";
-
-    checkoutButton.rel = "noopener noreferrer";
-
-    checkoutButton.href =
-      `${whatsapp}?text=${encodeURIComponent(
-        checkoutButton.dataset.checkoutMessage || ""
-      )}`;
-
-
-  } catch (error) {
-
-    console.error(
-      "[Cart] Failed to load the WhatsApp checkout number. " +
-      "Falling back to the contact page.",
-      error
-    );
-
-  }
 
 }
 
