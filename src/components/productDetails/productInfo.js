@@ -204,6 +204,100 @@ function createSku(product) {
 }
 
 
+function createPriceBreakdown(product) {
+
+  const rows = [
+    {
+      label: "Base Price",
+      value: formatPrice(product.price),
+    },
+    {
+      label: "Making Charges",
+      value:
+        product.makingCharges !== null
+          ? `${product.makingCharges}%`
+          : "",
+    },
+    {
+      label: "Tax Rate",
+      value:
+        product.taxRate !== null
+          ? `${product.taxRate}%`
+          : "",
+    },
+  ].filter((row) => row.value);
+
+
+  if (!rows.length) return "";
+
+
+  return `
+<div
+  class="
+    rounded-xl
+    sm:rounded-2xl
+
+    border
+    border-[#ECE5D8]
+
+    bg-[#FBF9F5]
+
+    px-4
+    sm:px-5
+
+    divide-y
+    divide-[#ECE5D8]
+  "
+>
+
+  ${rows
+    .map(
+      (row) => `
+<div
+  class="
+    flex
+
+    items-center
+    justify-between
+
+    gap-4
+
+    py-3
+  "
+>
+
+  <span
+    class="
+      text-[13px]
+
+      text-[#8A8A8A]
+    "
+  >
+    ${escapeHtml(row.label)}
+  </span>
+
+  <span
+    class="
+      text-[13px]
+
+      font-medium
+
+      text-[#181818]
+    "
+  >
+    ${escapeHtml(row.value)}
+  </span>
+
+</div>
+`
+    )
+    .join("")}
+
+</div>
+`;
+}
+
+
 function createPricing(product) {
 
   const finalPrice =
@@ -224,6 +318,17 @@ function createPricing(product) {
     formatDiscount(product);
 
 
+  const savings =
+    showBasePrice
+      ? formatPrice(
+          Math.abs(
+            Number(product.price) -
+              Number(product.finalPrice)
+          )
+        )
+      : "";
+
+
   return `
 <div>
 
@@ -235,7 +340,8 @@ function createPricing(product) {
 
       items-center
 
-      gap-4
+      gap-3
+      sm:gap-4
     "
   >
 
@@ -277,22 +383,28 @@ function createPricing(product) {
         ? `
 <span
   class="
+    inline-flex
+    items-center
+
     rounded-full
 
-    bg-[#181818]
+    border
+    border-[#E9D9B8]
+
+    bg-[#FBF4E7]
 
     px-3
     py-1
 
     text-[11px]
 
-    font-medium
+    font-semibold
 
     uppercase
 
-    tracking-[0.18em]
+    tracking-[0.14em]
 
-    text-white
+    text-[#A07936]
   "
 >
   ${escapeHtml(discount)}
@@ -302,6 +414,27 @@ function createPricing(product) {
     }
 
   </div>
+
+
+  ${
+    savings
+      ? `
+<p
+  class="
+    mt-2
+
+    text-[13px]
+
+    font-medium
+
+    text-[#2F6B3A]
+  "
+>
+  You save ${savings}
+</p>
+`
+      : ""
+  }
 
 
   ${
@@ -492,6 +625,11 @@ export function createProductInfo(product) {
   <!-- Price -->
 
   ${createPricing(product)}
+
+
+  <!-- Base Price / Making Charges / Tax Rate -->
+
+  ${createPriceBreakdown(product)}
 
 
   <!-- Stock + SKU -->
