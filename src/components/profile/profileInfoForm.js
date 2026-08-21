@@ -1,0 +1,220 @@
+import { escapeHtml } from "../../utils/format.js";
+
+
+const INPUT_CLASSES = `
+  w-full
+
+  rounded-2xl
+
+  border
+  border-[#DDD7CF]
+
+  bg-white
+
+  px-5
+  py-3.5
+
+  text-[15px]
+
+  text-[#181818]
+
+  outline-none
+
+  transition-all
+  duration-300
+
+  placeholder:text-[#A5A09A]
+
+  focus:border-[#A07936]
+  focus:ring-1
+  focus:ring-[#A07936]
+
+  disabled:bg-[#FAF8F5]
+  disabled:text-[#8A8A8A]
+`;
+
+
+function field({ id, name, label, type = "text", value = "", disabled = false, extra = "" }) {
+
+  return `
+<div>
+
+  <label
+    for="${id}"
+
+    class="
+      mb-2
+      block
+
+      text-[13px]
+      font-medium
+
+      text-[#181818]
+    "
+  >
+    ${label}
+  </label>
+
+  <input
+    id="${id}"
+    name="${name}"
+    type="${type}"
+    value="${escapeHtml(value)}"
+    ${disabled ? "disabled" : ""}
+    ${extra}
+
+    class="${INPUT_CLASSES}"
+  />
+
+</div>
+`;
+}
+
+
+export function createProfileInfoForm(user = {}) {
+
+  const firstName =
+    user?.firstName || "";
+
+  const lastName =
+    user?.lastName || "";
+
+  const email =
+    user?.email || "";
+
+  const mobileNumber =
+    user?.mobileNumber || user?.phone || "";
+
+  return `
+
+<div
+  class="
+    rounded-[28px]
+
+    border
+    border-[#F3EEE6]
+
+    bg-white
+
+    p-6
+    sm:p-8
+  "
+>
+
+  <h2
+    class="
+      font-serif
+      italic
+
+      text-[24px]
+      sm:text-[28px]
+
+      text-[#181818]
+    "
+  >
+    My Profile
+  </h2>
+
+  <p class="mt-2 text-[14px] text-[#8A8A8A]">
+    Keep your personal information up to date.
+  </p>
+
+
+  <form
+    id="profileInfoForm"
+
+    class="
+      mt-8
+
+      grid
+
+      grid-cols-1
+      gap-6
+
+      sm:grid-cols-2
+    "
+  >
+
+    ${field({
+      id: "profileFirstName",
+      name: "firstName",
+      label: "First Name",
+      value: firstName,
+      extra: 'autocomplete="given-name" maxlength="50" required',
+    })}
+
+    ${field({
+      id: "profileLastName",
+      name: "lastName",
+      label: "Last Name",
+      value: lastName,
+      extra: 'autocomplete="family-name" maxlength="50" required',
+    })}
+
+    ${field({
+      id: "profileEmail",
+      name: "email",
+      label: "Email Address",
+      type: "email",
+      value: email,
+      disabled: true,
+    })}
+
+    ${field({
+      id: "profileMobileNumber",
+      name: "mobileNumber",
+      label: "Mobile Number",
+      type: "tel",
+      value: mobileNumber,
+      extra: 'autocomplete="tel" inputmode="numeric" maxlength="10" required',
+    })}
+
+    <div class="sm:col-span-2">
+
+      <button
+        type="submit"
+        id="profileInfoSubmitButton"
+
+        class="
+          inline-flex
+
+          items-center
+          justify-center
+
+          rounded-full
+
+          bg-[#181818]
+
+          px-9
+          py-3.5
+
+          text-[13px]
+
+          font-medium
+
+          uppercase
+
+          tracking-[0.18em]
+
+          text-white
+
+          transition-colors
+          duration-300
+
+          hover:bg-[#A07936]
+
+          disabled:cursor-not-allowed
+          disabled:opacity-60
+        "
+      >
+        <span id="profileInfoSubmitText">Save Changes</span>
+      </button>
+
+    </div>
+
+  </form>
+
+</div>
+
+`;
+}
