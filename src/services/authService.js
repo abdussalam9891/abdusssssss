@@ -16,6 +16,13 @@ export const authService = {
     );
   },
 
+  updateProfile: async (userId, profileData) => {
+    return apiClient.put(
+      API_ENDPOINTS.AUTH.UPDATE_PROFILE(userId),
+      profileData
+    );
+  },
+
   logout: async () => {
     return apiClient.post(
       API_ENDPOINTS.AUTH.LOGOUT
