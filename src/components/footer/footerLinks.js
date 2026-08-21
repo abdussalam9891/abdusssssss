@@ -118,24 +118,106 @@ export function createSocialIcons(socialLinks = {}) {
   `;
 }
 
+function createFooterColumn(title, listItemsHtml) {
+  return `
+<div class="footer-section">
+
+  <button
+    class="
+      footer-toggle
+      flex
+      w-full
+      items-center
+      justify-between
+      py-2
+      lg:cursor-default
+    "
+  >
+
+    <span
+      class="
+        text-sm
+        font-semibold
+        uppercase
+        tracking-[0.18em]
+        text-white
+      "
+    >
+      ${title}
+    </span>
+
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      class="
+        footer-chevron
+        h-5
+        w-5
+        text-white/60
+        transition-transform
+        duration-300
+        lg:hidden
+      "
+    >
+      <path d="m6 9 6 6 6-6"/>
+    </svg>
+
+  </button>
+
+  <ul
+    class="
+      footer-content
+      hidden
+      space-y-4
+      pt-5
+      text-sm
+      lg:block
+    "
+  >
+
+    ${listItemsHtml}
+
+  </ul>
+
+</div>
+`;
+}
+
+function createFooterLink(href, label) {
+  return `
+    <li>
+      <a
+        href="${href}"
+        class="text-white/60 transition hover:text-[#A07936]"
+      >
+        ${label}
+      </a>
+    </li>
+  `;
+}
+
 export function createFooterLinks(socialLinks = {}) {
   const shopLinks = NAVIGATION.map(
-    (item) => `
-      <li>
-        <a
-          href="${item.href}"
-          class="
-            text-white/60
-            transition-colors
-            duration-300
-            hover:text-[#A07936]
-          "
-        >
-          ${item.label}
-        </a>
-      </li>
-    `
+    (item) => createFooterLink(item.href, item.label)
   ).join("");
+
+  const quickLinks = [
+    createFooterLink("/pages/about.html", "About Us"),
+    createFooterLink("/pages/profile.html", "My Profile"),
+    createFooterLink("/pages/wishlist.html", "Wishlist"),
+    createFooterLink("/pages/cart.html", "Cart"),
+  ].join("");
+
+  const policyLinks = [
+    createFooterLink("/pages/terms-and-conditions.html", "Terms And Condition"),
+    createFooterLink("/pages/privacy-policy.html", "Privacy Policy"),
+    createFooterLink("/pages/shipping-policy.html", "Shipping Policy"),
+    createFooterLink("/pages/faq.html", "FAQ"),
+    createFooterLink("/pages/refund-policy.html", "Returns & Refund Policy"),
+  ].join("");
 
   return `
 <section class="bg-[#181818]">
@@ -153,8 +235,8 @@ export function createFooterLinks(socialLinks = {}) {
 
       md:grid-cols-2
 
-      lg:grid-cols-[1.5fr_1fr_1fr_1fr]
-      lg:gap-16
+      lg:grid-cols-[1.3fr_0.85fr_0.95fr_0.85fr_1.3fr]
+      lg:gap-10
       lg:px-8
       lg:py-20
 
@@ -162,8 +244,6 @@ export function createFooterLinks(socialLinks = {}) {
   >
 
    <!-- Brand -->
-
-<!-- Brand -->
 
 <div>
 
@@ -181,102 +261,22 @@ export function createFooterLinks(socialLinks = {}) {
   </p>
 </div>
 
-
-
-
-  <div
-    id="footerSocialLinks"
-    class="
-      mt-8
-      flex
-      items-center
-      gap-3
-    "
-  >
-
-    ${createSocialIcons(socialLinks)}
-
-  </div>
-
 </div>
 
 
+    <!-- Quick Links -->
 
+    ${createFooterColumn("Quick Links", quickLinks)}
 
+    <!-- Policies -->
 
-
-
-
+    ${createFooterColumn("Policies", policyLinks)}
 
     <!-- Shop -->
 
-<div class="footer-section">
+    ${createFooterColumn("Shop", shopLinks)}
 
-  <button
-    class="
-      footer-toggle
-      flex
-      w-full
-      items-center
-      justify-between
-      py-2
-      lg:cursor-default
-    "
-  >
-
-    <span
-      class="
-        text-sm
-        font-semibold
-        uppercase
-        tracking-[0.18em]
-        text-white
-      "
-    >
-      Shop
-    </span>
-
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      class="
-        footer-chevron
-        h-5
-        w-5
-        text-white/60
-        transition-transform
-        duration-300
-        lg:hidden
-      "
-    >
-      <path d="m6 9 6 6 6-6"/>
-    </svg>
-
-  </button>
-
-  <ul
-    class="
-      footer-content
-      hidden
-      space-y-4
-      pt-5
-      text-sm
-      lg:block
-    "
-  >
-
-      ${shopLinks}
-
-  </ul>
-
-</div>
-
-    <!-- Customer Care -->
-
-
+    <!-- Contact Us -->
 
 <div class="footer-section">
 
@@ -301,7 +301,7 @@ export function createFooterLinks(socialLinks = {}) {
         text-white
       "
     >
-      Customer
+      Contact Us
     </span>
 
     <svg
@@ -325,7 +325,7 @@ export function createFooterLinks(socialLinks = {}) {
 
   </button>
 
-  <ul
+  <div
     class="
       footer-content
       hidden
@@ -336,149 +336,117 @@ export function createFooterLinks(socialLinks = {}) {
     "
   >
 
-    <li>
-      <a
-        href="/pages/contact.html"
-        class="text-white/60 transition hover:text-[#A07936]"
-      >
-        Contact Us
-      </a>
-    </li>
+    <p
+      data-contact-error
+      class="hidden text-sm leading-6 text-red-400"
+    >
+      Contact details are temporarily unavailable.
+    </p>
 
-    <li>
-      <a
-        href="/pages/shipping-policy.html"
-        class="text-white/60 transition hover:text-[#A07936]"
-      >
-        Shipping Policy
-      </a>
-    </li>
+    <a
+      href="#"
+      data-contact-email
+      class="block text-white/60 transition hover:text-[#A07936]"
+    >
+      <span data-contact-email-text>Loading…</span>
+    </a>
 
-    <li>
-      <a
-        href="/pages/refund-policy.html"
-        class="text-white/60 transition hover:text-[#A07936]"
-      >
-        Returns & Refunds
-      </a>
-    </li>
+    <a
+      href="#"
+      data-contact-phone
+      class="block text-white/60 transition hover:text-[#A07936]"
+    >
+      <span data-contact-phone-text>Loading…</span>
+    </a>
 
-    <li>
-      <a
-        href="/pages/faq.html"
-        class="text-white/60 transition hover:text-[#A07936]"
-      >
-        FAQs
-      </a>
-    </li>
-
-  </ul>
-
-</div>
-
-
-
-
-  <!-- Company -->
-
-<div class="footer-section">
-
-  <button
-    class="
-      footer-toggle
-      flex
-      w-full
-      items-center
-      justify-between
-      py-2
-      lg:cursor-default
-    "
-  >
-
-    <span
+    <div
+      id="footerSocialLinks"
       class="
-        text-sm
-        font-semibold
-        uppercase
-        tracking-[0.18em]
-        text-white
+        flex
+        items-center
+        gap-3
+        pt-2
       "
     >
-      Company
-    </span>
 
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      class="
-        footer-chevron
-        h-5
-        w-5
-        text-white/60
-        transition-transform
-        duration-300
-        lg:hidden
-      "
-    >
-      <path d="m6 9 6 6 6-6"/>
-    </svg>
+      ${createSocialIcons(socialLinks)}
 
-  </button>
+    </div>
 
-  <ul
-    class="
-      footer-content
-      hidden
-      space-y-4
-      pt-5
-      text-sm
-      lg:block
-    "
-  >
+    <div class="pt-4">
 
-    <li>
-      <a
-        href="/pages/about.html"
-        class="text-white/60 transition hover:text-[#A07936]"
+      <p
+        class="
+          text-sm
+          font-semibold
+          uppercase
+          tracking-[0.14em]
+          text-white
+        "
       >
-        About Us
-      </a>
-    </li>
+        Subscribe to our newsletter
+      </p>
 
-    <li>
-      <a
-        href="/pages/privacy-policy.html"
-        class="text-white/60 transition hover:text-[#A07936]"
+      <form
+        id="footerNewsletterForm"
+        class="mt-4 flex flex-col gap-2 sm:flex-row"
       >
-        Privacy Policy
-      </a>
-    </li>
 
-    <li>
-      <a
-        href="/pages/terms-and-conditions.html"
-        class="text-white/60 transition hover:text-[#A07936]"
-      >
-        Terms & Conditions
-      </a>
-    </li>
+        <input
+          id="footerNewsletterEmail"
+          type="email"
+          placeholder="Input your email"
+          required
+          class="
+            w-full
+            min-w-0
+            rounded-md
+            border
+            border-white/15
+            bg-transparent
+            px-4
+            py-2.5
+            text-sm
+            text-white
+            placeholder:text-white/40
+            outline-none
+            transition-colors
+            duration-300
+            focus:border-[#A07936]
+          "
+        />
 
-  </ul>
+        <button
+          type="submit"
+          class="
+            shrink-0
+            rounded-md
+            bg-[#A07936]
+            px-5
+            py-2.5
+            text-sm
+            font-medium
+            uppercase
+            tracking-[0.1em]
+            text-white
+            transition-colors
+            duration-300
+            hover:bg-[#8a6529]
+          "
+        >
+          Subscribe
+        </button>
 
-</div>
+      </form>
 
+      <p
+        id="footerNewsletterMessage"
+        class="mt-3 hidden text-sm text-white/60"
+      ></p>
 
+    </div>
 
-<div>
-
-
-
-
-
-
+  </div>
 
 </div>
 
