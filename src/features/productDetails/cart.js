@@ -1,6 +1,8 @@
 import { productState } from "./state.js";
 import { addToCart } from "../cart/cartState.js";
 import { showToast } from "../../utils/toast.js";
+import { isLoggedIn } from "../auth/authState.js";
+import { cartService } from "../../services/cartService.js";
 
 
 const ADD_TO_CART_BUTTON_IDS = [
@@ -46,6 +48,34 @@ function getButtons(ids) {
 }
 
 
+// Best-effort mirror to the real backend cart (see
+// services/cartService.js) for a logged-in user. The local cart
+// (features/cart/cartState.js) stays the source of truth for the
+// UI, so a failure here is only logged — it must never block or
+// undo the local add.
+function syncAddToCartBackend(item) {
+
+  if (!isLoggedIn()) return;
+
+
+  cartService
+    .addToCart({
+      productId: item.id,
+      quantity: item.quantity,
+      size: item.size,
+    })
+    .catch((error) => {
+
+      console.error(
+        "[Cart] Backend addToCart sync failed:",
+        error
+      );
+
+    });
+
+}
+
+
 export function initAddToCart() {
 
   const buttons =
@@ -67,6 +97,8 @@ export function initAddToCart() {
 
 
         addToCart(item);
+
+        syncAddToCartBackend(item);
 
 
         showToast({
@@ -106,9 +138,11 @@ export function initBuyNow() {
 
         addToCart(item);
 
+        syncAddToCartBackend(item);
+
 
         window.location.href =
-          "/pages/cart.html";
+          "/pages/checkout.html";
 
       }
     );
