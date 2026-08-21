@@ -195,16 +195,6 @@ function createSpecifications(product) {
     ],
 
     [
-      "Category",
-      product.category,
-    ],
-
-    [
-      "Collection",
-      product.sizeCategory,
-    ],
-
-    [
       "Gender",
       product.gender.join(", "),
     ],
