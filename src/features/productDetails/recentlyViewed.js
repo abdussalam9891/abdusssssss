@@ -4,15 +4,22 @@ import { productState } from "./state.js";
 
 import { createShowcaseCard } from "../../components/showcase/showcaseCard.js";
 
+import { STORE_DOMAIN } from "../../config.js";
+
 
 /*
  * Only backend product ids are stored locally; the products
  * themselves are always re-fetched from the backend, so nothing
  * stale or invented is ever rendered.
+ *
+ * Scoped per store domain: localStorage is shared across every
+ * site served from the same origin (e.g. local dev), so without
+ * the domain suffix, ids viewed on one store would leak into
+ * another store's "Recently Viewed".
  */
 
 const STORAGE_KEY =
-  "banshiwale_recent_products";
+  `banshiwale_recent_products_${STORE_DOMAIN}`;
 
 const MAX_ITEMS = 8;
 

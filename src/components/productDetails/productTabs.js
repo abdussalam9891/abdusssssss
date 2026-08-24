@@ -1,6 +1,5 @@
 import {
   escapeHtml,
-  getAvailabilityLabel,
 } from "../../features/productDetails/model.js";
 
 
@@ -188,21 +187,6 @@ function createSpecifications(product) {
         attribute.value,
       ]
     ),
-
-    [
-      "SKU",
-      product.sku,
-    ],
-
-    [
-      "Gender",
-      product.gender.join(", "),
-    ],
-
-    [
-      "Availability",
-      getAvailabilityLabel(product),
-    ],
 
   ];
 

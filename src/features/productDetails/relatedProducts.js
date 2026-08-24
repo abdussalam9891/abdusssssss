@@ -7,13 +7,6 @@ import { createShowcaseCard } from "../../components/showcase/showcaseCard.js";
 
 const RELATED_LIMIT = 8;
 
-// TEMP PREVIEW: banshiwaale's own catalog doesn't have enough
-// products in a shared sub-category yet for the similar-products
-// endpoint to return anything, so this slug (which does have
-// matches) is used to preview the section's layout. Revert to
-// `current.slug` below once there's enough real inventory.
-const TEMP_PREVIEW_SLUG = "silver-tiara-crown-blue-ring";
-
 
 function getSection(container) {
 
@@ -81,7 +74,7 @@ export async function initRelatedProducts() {
     products =
       current.slug
         ? await productService.getSimilarProductsBySlug(
-            TEMP_PREVIEW_SLUG
+            current.slug
           )
         : [];
 

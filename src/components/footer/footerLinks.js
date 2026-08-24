@@ -206,16 +206,14 @@ export function createFooterLinks(socialLinks = {}) {
 
   const quickLinks = [
     createFooterLink("/pages/about.html", "About Us"),
-    createFooterLink("/pages/profile.html", "My Profile"),
-    createFooterLink("/pages/wishlist.html", "Wishlist"),
-    createFooterLink("/pages/cart.html", "Cart"),
+    createFooterLink("/pages/faq.html", "FAQ"),
+    createFooterLink("/pages/contact.html", "Contact Us"),
   ].join("");
 
   const policyLinks = [
     createFooterLink("/pages/terms-and-conditions.html", "Terms And Condition"),
     createFooterLink("/pages/privacy-policy.html", "Privacy Policy"),
     createFooterLink("/pages/shipping-policy.html", "Shipping Policy"),
-    createFooterLink("/pages/faq.html", "FAQ"),
     createFooterLink("/pages/refund-policy.html", "Returns & Refund Policy"),
   ].join("");
 
@@ -380,22 +378,23 @@ export function createFooterLinks(socialLinks = {}) {
           text-sm
           font-semibold
           uppercase
-          tracking-[0.14em]
+          tracking-[0.1em]
           text-white
+          whitespace-nowrap
         "
       >
-        Subscribe to our newsletter
+        Newsletter
       </p>
 
       <form
         id="footerNewsletterForm"
-        class="mt-4 flex flex-col gap-2 sm:flex-row"
+        class="mt-4 flex flex-row flex-nowrap gap-2"
       >
 
         <input
           id="footerNewsletterEmail"
           type="email"
-          placeholder="Input your email"
+          placeholder="Your email"
           required
           class="
             w-full
@@ -404,7 +403,7 @@ export function createFooterLinks(socialLinks = {}) {
             border
             border-white/15
             bg-transparent
-            px-4
+            px-3
             py-2.5
             text-sm
             text-white
@@ -422,7 +421,7 @@ export function createFooterLinks(socialLinks = {}) {
             shrink-0
             rounded-md
             bg-[#A07936]
-            px-5
+            px-4
             py-2.5
             text-sm
             font-medium

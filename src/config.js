@@ -1,9 +1,9 @@
-// export const API_BASE_URL =
-//   "https://pm3721cg-3000.inc1.devtunnels.ms";
+export const API_BASE_URL =
+  "https://pm3721cg-3000.inc1.devtunnels.ms";
 
 
 
-  export const API_BASE_URL ="https://backend.globalshopify.com";
+  // export const API_BASE_URL ="https://backend.globalshopify.com";
 
 
 
