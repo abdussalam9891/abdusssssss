@@ -20,6 +20,8 @@ import { initScrollToTopButton } from "./features/scrollToTop/index.js";
 
 import { initCartBadgeSync } from "./features/cart/cartBadge.js";
 
+import { initCartSync } from "./features/cart/cartState.js";
+
 import { initWishlistBadgeSync } from "./features/wishlist/wishlistBadge.js";
 
 import { initWishlistButtons } from "./features/wishlist/wishlistButtons.js";
@@ -49,10 +51,15 @@ document.addEventListener("DOMContentLoaded", async () => {
   initToast();
 
 
-  // Cart badge is local-storage-only and independent of the
-  // backend; it just needs the navbar's #cartCount element to
+  // The cart badge just reads whatever cartState.js's cache
+  // currently holds — it needs the navbar's #cartCount element to
   // exist, which initNavbar() above already guarantees.
   initCartBadgeSync();
+
+  // The cart is guest-usable (localStorage) but backend-backed once
+  // signed in, and reloads on every login/logout via authChanged,
+  // same as the wishlist below.
+  initCartSync();
 
 
   // The wishlist is backend-backed and requires login  
