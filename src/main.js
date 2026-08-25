@@ -429,6 +429,38 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
   // =========================================
+  // ORDERS
+  // =========================================
+
+  if (
+    document.getElementById("ordersPage")
+  ) {
+
+    try {
+
+      const {
+        loadOrdersPage,
+      } = await import(
+        "./pages/ordersPage.js"
+      );
+
+
+      loadOrdersPage();
+
+
+    } catch (error) {
+
+      console.error(
+        "[Orders] Failed to initialize:",
+        error
+      );
+
+    }
+
+  }
+
+
+  // =========================================
   // PROFILE
   // =========================================
 
