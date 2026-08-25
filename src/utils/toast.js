@@ -7,6 +7,34 @@ const ICONS = {
   info: "info",
 };
 
+// Brand palette instead of Tailwind's stock green/red/yellow — every
+// tone here is already used elsewhere on this site (gold accents,
+// the wishlist-remove/error red, the discount-badge gold tint), so
+// a toast reads as part of the jewellery site rather than a generic
+// alert dropped on top of it.
+const THEME = {
+  success: {
+    iconBg: "bg-[#FBF4E7]",
+    iconText: "text-[#A07936]",
+    bar: "bg-[#A07936]",
+  },
+  error: {
+    iconBg: "bg-[#FBEAEA]",
+    iconText: "text-[#B3261E]",
+    bar: "bg-[#B3261E]",
+  },
+  warning: {
+    iconBg: "bg-[#FBF4E7]",
+    iconText: "text-[#946E1F]",
+    bar: "bg-[#946E1F]",
+  },
+  info: {
+    iconBg: "bg-[#F3F1EC]",
+    iconText: "text-[#181818]",
+    bar: "bg-[#181818]",
+  },
+};
+
 export function showToast({
   type = "info",
   title = "",
@@ -18,6 +46,9 @@ export function showToast({
 
   if (!container) return;
 
+  const theme =
+    THEME[type] || THEME.info;
+
   const toast = document.createElement("div");
 
   toast.className = `
@@ -28,10 +59,10 @@ max-w-[calc(100vw-2rem)]
 
 overflow-hidden
 
-rounded-3xl
+rounded-2xl
 
 border
-border-[#ECECEC]
+border-[#ECE5D8]
 
 bg-white
 
@@ -77,29 +108,8 @@ justify-center
 
 rounded-full
 
-${
-  type === "success"
-    ? "bg-green-50 text-green-600"
-    : ""
-}
-
-${
-  type === "error"
-    ? "bg-red-50 text-red-600"
-    : ""
-}
-
-${
-  type === "warning"
-    ? "bg-yellow-50 text-yellow-600"
-    : ""
-}
-
-${
-  type === "info"
-    ? "bg-[#F7F5F1] text-[#A07936]"
-    : ""
-}
+${theme.iconBg}
+${theme.iconText}
 "
 >
 
@@ -141,9 +151,10 @@ ${message}
 class="
 toastClose
 
-text-[#999]
+text-[#B0AA9D]
 
 transition
+duration-300
 
 hover:text-[#181818]
 "
@@ -166,29 +177,7 @@ h-[3px]
 
 origin-left
 
-${
-  type === "success"
-    ? "bg-green-500"
-    : ""
-}
-
-${
-  type === "error"
-    ? "bg-red-500"
-    : ""
-}
-
-${
-  type === "warning"
-    ? "bg-yellow-500"
-    : ""
-}
-
-${
-  type === "info"
-    ? "bg-[#A07936]"
-    : ""
-}
+${theme.bar}
 "
 ></div>
 
