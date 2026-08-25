@@ -56,4 +56,30 @@ export const ordersService = {
     );
   },
 
+
+  /*
+   * GET /orders/my-orders (authMiddleware — returns only the
+   * signed-in customer's own orders, never another customer's).
+   *
+   * Response envelope isn't pinned down against a live authenticated
+   * reply for this store yet, so this unwraps every shape seen
+   * elsewhere on this backend (`orders`, `data.orders`, or `data`
+   * directly) and always returns an array.
+   */
+
+  getMyOrders: async () => {
+
+    const response =
+      await apiClient.get(
+        API_ENDPOINTS.ORDERS.MY_ORDERS
+      );
+
+    const list =
+      response?.orders ||
+      response?.data?.orders ||
+      response?.data;
+
+    return Array.isArray(list) ? list : [];
+  },
+
 };
