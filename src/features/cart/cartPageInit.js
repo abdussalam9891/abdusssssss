@@ -1,13 +1,79 @@
 import {
   getCartItems,
-  getCartSubtotal,
+  getAvailableCartItems,
   updateCartItemQuantity,
   removeCartItem,
+  getGiftWrap,
+  setGiftWrap,
 } from "./cartState.js";
+
+import { isLoggedIn } from "../auth/authState.js";
+import { giftCardsService } from "../../services/giftCardsService.js";
+import { showToast } from "../../utils/toast.js";
 
 import { createCartLayout } from "../../components/cart/cartLayout.js";
 import { createCartItemRow } from "../../components/cart/cartItemRow.js";
 import { createCartSummary } from "../../components/cart/cartSummary.js";
+
+
+// Coupons are checkout-only (see features/checkout/orderPanel.js) —
+// the cart page previously had its own separate coupon apply/preview
+// that never carried over to checkout, so it was removed here.
+let availableGiftCards = [];
+
+let appliedGiftCode = "";
+
+
+function computeTotals(availableItems) {
+
+  const totalMrp =
+    availableItems.reduce(
+      (sum, item) =>
+        sum + (Number(item.price) || 0) * item.quantity,
+      0
+    );
+
+  const totalFinal =
+    availableItems.reduce(
+      (sum, item) =>
+        sum +
+        (Number(item.finalPrice ?? item.price) || 0) *
+          item.quantity,
+      0
+    );
+
+  const giftWrapCharge =
+    getGiftWrap() ? availableItems.length * 50 : 0;
+
+
+  const appliedGift =
+    availableGiftCards.find(
+      (gift) => gift.giftCode === appliedGiftCode
+    );
+
+  const giftDiscount =
+    appliedGift
+      ? Math.min(
+          Number(appliedGift.amount ?? appliedGift.remainingAmount ?? 0),
+          totalFinal
+        )
+      : 0;
+
+
+  const grandTotal =
+    Math.max(
+      totalFinal + giftWrapCharge - giftDiscount,
+      0
+    );
+
+
+  return {
+    totalMrp,
+    giftWrapCharge,
+    giftDiscount,
+    grandTotal,
+  };
+}
 
 
 function renderCart() {
@@ -63,14 +129,53 @@ function renderCart() {
       .join("");
 
 
-  const subtotal =
-    getCartSubtotal();
+  const availableItems =
+    getAvailableCartItems();
+
+  const totals =
+    computeTotals(availableItems);
+
 
   summaryContainer.innerHTML =
-    createCartSummary(subtotal);
+    createCartSummary({
+      availableItemCount: availableItems.length,
+      totals,
+      giftCards: availableGiftCards,
+      appliedGiftCode,
+      giftWrap: getGiftWrap(),
+      hasStockIssue: availableItems.length === 0,
+    });
 
 
   window.lucide?.createIcons();
+
+}
+
+
+async function loadGiftCards() {
+
+  // Gift cards belong to the logged-in customer — a guest cart has
+  // no account to look them up against.
+  if (!isLoggedIn()) return;
+
+
+  try {
+
+    availableGiftCards =
+      await giftCardsService.getMyGiftCards();
+
+  } catch (error) {
+
+    console.error(
+      "[Cart] Failed to load gift cards:",
+      error
+    );
+
+    availableGiftCards = [];
+  }
+
+
+  renderCart();
 
 }
 
@@ -148,6 +253,66 @@ function initItemControls() {
 }
 
 
+function initSummaryControls() {
+
+  const summaryContainer =
+    document.getElementById("cartSummary");
+
+  if (!summaryContainer) return;
+
+
+  summaryContainer.addEventListener("change", (event) => {
+
+    if (event.target.id !== "cartGiftWrapToggle") return;
+
+    setGiftWrap(event.target.checked);
+
+    renderCart();
+
+  });
+
+
+  summaryContainer.addEventListener("click", (event) => {
+
+    const giftApply =
+      event.target.closest(".cart-gift-apply");
+
+    if (giftApply) {
+
+      appliedGiftCode = giftApply.dataset.code;
+
+      showToast({
+        type: "success",
+        title: "Gift Card Applied",
+        message: `${appliedGiftCode} has been applied.`,
+      });
+
+      renderCart();
+
+      return;
+    }
+
+
+    if (event.target.closest(".cart-gift-remove")) {
+
+      appliedGiftCode = "";
+
+      renderCart();
+    }
+
+  });
+
+}
+
+
+/*
+ * The applied gift card here only drives this page's own "Estimated
+ * Amount" preview — features/checkout/orderPanel.js computes the
+ * checkout total independently and doesn't read it. Gift wrap is the
+ * exception: it's shared client-only state (see cartState.js's
+ * getGiftWrap/setGiftWrap) that checkout does read, since it's a real
+ * charge rather than a coupon-style discount.
+ */
 export function initCartPage() {
 
   const container =
@@ -163,6 +328,11 @@ export function initCartPage() {
   renderCart();
 
   initItemControls();
+
+  initSummaryControls();
+
+
+  loadGiftCards();
 
 
   window.addEventListener(
