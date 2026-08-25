@@ -465,4 +465,86 @@ near-duplicate blocks. The old homepage-only newsletter section is removed.
 | `5c1bfa3` | feat(profile): add profile page entry point and route |
 | `7e8cc71` | chore(main): wire checkout/profile routing and footer newsletter/contact hydration |
 
+---
+
+# Batch 3 (11 commits)
+
+## 1. Quick View (new feature)
+
+Previously the only way to see a product's photos, price, and available
+sizes was to leave the listing and open its full product-details page.
+
+**Now:** every showcase card (homepage, listing, related/recently-viewed,
+wishlist) has an eye icon next to the wishlist heart. Clicking it opens a
+modal with the product's photo gallery, price/discount, a short
+description, size selection, and Add to Cart / Buy Now — without
+navigating away. It deliberately doesn't try to replace the full page:
+reviews, specifications, and shipping info stay behind a "View Full
+Details" link inside the modal.
+
+**Files:**
+- `src/components/quickView/quickViewModal.js` *(new)* — static modal
+  shell.
+- `src/features/quickView/index.js` *(new)* — fetches the product,
+  renders the modal body, and handles gallery thumbnails, size selection,
+  and Add to Cart / Buy Now (reusing `cartState.addToCart`).
+- `src/components/showcase/showcaseCard.js` — restyles the wishlist
+  button and adds the new quick-view trigger next to it.
+- `src/main.js` — starts `initQuickView()` alongside the existing
+  quick-add wiring.
+
+## 2. My Orders page (new feature)
+
+There was no way for a signed-in customer to see their own order history
+— `src/services/ordersService.js` only had `createOrder`/`getOrder` for
+the checkout flow itself.
+
+**Now:** `pages/orders.html` lists the signed-in customer's own orders
+(via `GET /orders/my-orders`, the individual-customer endpoint —
+deliberately not the admin `getadminorders` one), newest first, with
+login/loading/empty/error states matching the wishlist page's pattern.
+Each order shows its items, status, payment method, and total; clicking
+an item goes straight to that item's own product-details page.
+
+The real `/orders/my-orders` response shape was confirmed live against a
+real account mid-build (see `doubt or question.md` #9) — notably, each
+item's `image` field is an array of URL strings rather than the
+`{ url, position }` shape used everywhere else on this backend, which
+caused a real (now-fixed) blank-image bug for any order with more than
+one photo on an item.
+
+**Files:**
+- `src/services/ordersService.js` — adds `getMyOrders()`.
+- `src/features/orders/model.js` *(new)* — normalizes the raw
+  order/item shape defensively.
+- `src/components/orders/ordersLayout.js`, `orderCard.js` *(new)* — page
+  shell and order card markup.
+- `src/features/orders/ordersPageInit.js` *(new)* — fetch, page states,
+  and a fallback that fetches a product directly (same pattern the
+  wishlist page uses) whenever an order item is still missing an image.
+- `src/pages/ordersPage.js`, `pages/orders.html` *(new)* — page entry
+  point.
+- `src/main.js` — lazy-loads the orders page init.
+- `src/components/profile/profileSidebar.js`, `profileOverview.js` —
+  add a "My Orders" link/quick-action (the account dropdown and mobile
+  nav already linked to `/pages/orders.html` before this page existed).
+
+---
+
+## Batch 3 commit list (oldest → newest)
+
+| Commit | Message |
+|---|---|
+| `827f387` | feat(quickView): add quick view modal component |
+| `8e327af` | feat(quickView): add quick view feature logic for showcase cards |
+| `9bd3a2f` | feat(showcase): add quick view button alongside wishlist button on product cards |
+| `decaab6` | feat(main): wire up quick view modal initialization |
+| `78af1f9` | feat(orders): add getMyOrders to ordersService |
+| `8bf9612` | feat(orders): add order and order-item normalization model |
+| `e5de211` | feat(orders): add orders page layout and order card components |
+| `88a1c5e` | feat(orders): add orders page feature logic |
+| `e7a222f` | feat(orders): add orders page entry point and route |
+| `379cdd9` | feat(main): wire up orders page routing |
+| `8afef0a` | feat(profile): add My Orders links to profile sidebar and quick actions |
+
 Look up any of these with `git show <hash>` for the exact code diff.

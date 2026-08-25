@@ -1,4 +1,4 @@
-# Open Doubts / Questions — Checkout, Cashfree, Coupons, Gift Cards
+# Open Doubts / Questions — Checkout, Cashfree, Coupons, Gift Cards, Orders
 
 Running list of things from this session that are genuinely unresolved on the
 backend side, not something fixable from frontend code alone.
@@ -68,3 +68,31 @@ Network tab, empty Response body" symptom, but never actually saw the
 Console tab's CORS error text to confirm it. Worth double-checking next time
 this happens, in case the real cause is something else (e.g. a
 devtunnel/proxy quirk) that just looks similar.
+
+## 9. `/orders/my-orders` contract — now partially confirmed live
+Building the new My Orders page (`src/features/orders/`), item #7 above
+turned out to be resolvable for this one endpoint: tested live against a
+real signed-in banshiwaale account with a real order.
+
+**Confirmed real shape** (see the header comment in
+`src/features/orders/model.js`):
+- Each order item carries **flat** `productId` (a bare string id, not a
+  populated product ref), `name`, `price`, `finalPrice`, `category`,
+  `discount`, and `selectedSize` fields — the product is *not* populated
+  server-side.
+- Each item's `image` field is an **array of URL strings**, a snapshot
+  taken at order time — unlike every other image field on this backend
+  (which use `images: [{ url, position }]`). This actually caused a real
+  bug: code that treated a truthy `item.image` as a ready string worked
+  by accident for a single-image array (array-to-string coercion) but
+  silently produced `"url1,url2"` for a multi-image one.
+- `orderNumber` looks like `BANSHIWAALE-2026-000016`.
+
+**Still unconfirmed:**
+- Only saw `status: "Processing"` in live data. The other status values
+  (Delivered / Shipped / Cancelled / Returned / whatever the backend
+  actually emits) are unverified — `orderCard.js`'s status-badge color
+  mapping for those is a best guess based on plausible naming, not
+  confirmed against a real order in each of those states.
+- `paymentMethod`'s exact string values beyond what checkout itself sends
+  (`"COD"` / `"Online"`) aren't independently confirmed on the read side.
