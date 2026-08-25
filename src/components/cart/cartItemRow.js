@@ -36,6 +36,11 @@ export function createCartItemRow(item) {
   const unitPrice =
     formatPrice(item.finalPrice ?? item.price);
 
+  const isOutOfStock =
+    item.stock !== undefined &&
+    item.stock !== null &&
+    (Number(item.stock) <= 0 || item.quantity > Number(item.stock));
+
 
   return `
 
@@ -56,12 +61,14 @@ export function createCartItemRow(item) {
 
     pb-5
     sm:pb-6
+
+    ${isOutOfStock ? "opacity-50" : ""}
   "
 >
 
   <a
     href="${
-      item.slug
+      item.id
         ? `/pages/product-details.html?id=${encodeURIComponent(item.id)}`
         : "#"
     }"
@@ -169,6 +176,27 @@ export function createCartItemRow(item) {
             .join(" · ")
         }
       </p>
+
+      ${
+        isOutOfStock
+          ? `
+<p
+  class="
+    mt-1
+
+    text-[11px]
+    sm:text-[12px]
+
+    font-medium
+
+    text-[#B3261E]
+  "
+>
+  Out of stock — won't be included at checkout
+</p>
+`
+          : ""
+      }
 
       ${
         unitPrice
