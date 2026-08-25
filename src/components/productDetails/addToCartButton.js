@@ -1,9 +1,7 @@
 /*
- * There is no backend cart endpoint yet — this adds to the local
- * cart (features/cart/cartState.js) so the button is genuinely
- * functional today. See features/productDetails/cart.js for the
- * click handler; swapping in a real POST /cart call later only
- * touches that one file.
+ * See features/productDetails/cart.js for the click handler —
+ * cartState.js decides whether the add goes to the backend cart
+ * (logged in) or localStorage (guest).
  */
 
 export function createAddToCartButton(product) {

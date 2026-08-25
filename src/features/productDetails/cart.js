@@ -1,8 +1,6 @@
 import { productState } from "./state.js";
 import { addToCart } from "../cart/cartState.js";
 import { showToast } from "../../utils/toast.js";
-import { isLoggedIn } from "../auth/authState.js";
-import { cartService } from "../../services/cartService.js";
 
 
 const ADD_TO_CART_BUTTON_IDS = [
@@ -48,34 +46,6 @@ function getButtons(ids) {
 }
 
 
-// Best-effort mirror to the real backend cart (see
-// services/cartService.js) for a logged-in user. The local cart
-// (features/cart/cartState.js) stays the source of truth for the
-// UI, so a failure here is only logged — it must never block or
-// undo the local add.
-function syncAddToCartBackend(item) {
-
-  if (!isLoggedIn()) return;
-
-
-  cartService
-    .addToCart({
-      productId: item.id,
-      quantity: item.quantity,
-      size: item.size,
-    })
-    .catch((error) => {
-
-      console.error(
-        "[Cart] Backend addToCart sync failed:",
-        error
-      );
-
-    });
-
-}
-
-
 export function initAddToCart() {
 
   const buttons =
@@ -88,7 +58,7 @@ export function initAddToCart() {
 
     button.addEventListener(
       "click",
-      () => {
+      async () => {
 
         const item =
           buildCartItem();
@@ -96,17 +66,33 @@ export function initAddToCart() {
         if (!item) return;
 
 
-        addToCart(item);
+        try {
 
-        syncAddToCartBackend(item);
+          await addToCart(item);
 
+          showToast({
+            type: "success",
+            title: "Added to Cart",
+            message:
+              `${item.name} × ${item.quantity} added to your cart.`,
+          });
 
-        showToast({
-          type: "success",
-          title: "Added to Cart",
-          message:
-            `${item.name} × ${item.quantity} added to your cart.`,
-        });
+        } catch (error) {
+
+          console.error(
+            "[Cart] Failed to add to cart:",
+            error
+          );
+
+          showToast({
+            type: "error",
+            title: "Couldn't Add to Cart",
+            message:
+              error?.message ||
+              "Something went wrong. Please try again.",
+          });
+
+        }
 
       }
     );
@@ -128,7 +114,7 @@ export function initBuyNow() {
 
     button.addEventListener(
       "click",
-      () => {
+      async () => {
 
         const item =
           buildCartItem();
@@ -136,13 +122,29 @@ export function initBuyNow() {
         if (!item) return;
 
 
-        addToCart(item);
+        try {
 
-        syncAddToCartBackend(item);
+          await addToCart(item);
 
+          window.location.href =
+            "/pages/checkout.html";
 
-        window.location.href =
-          "/pages/checkout.html";
+        } catch (error) {
+
+          console.error(
+            "[Cart] Failed to add to cart:",
+            error
+          );
+
+          showToast({
+            type: "error",
+            title: "Couldn't Add to Cart",
+            message:
+              error?.message ||
+              "Something went wrong. Please try again.",
+          });
+
+        }
 
       }
     );

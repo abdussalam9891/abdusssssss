@@ -1,10 +1,7 @@
 /*
- * There is no order/checkout backend endpoint yet — Buy Now adds
- * the item to the local cart and takes the customer straight to
- * pages/checkout.html, where the order is placed and stored
- * locally (features/checkout/orderState.js) until a real order
- * endpoint exists. See features/productDetails/cart.js and
- * features/checkout/.
+ * Buy Now adds the item to the cart and takes the customer straight
+ * to pages/checkout.html to place a real order. See
+ * features/productDetails/cart.js and features/checkout/.
  */
 
 export function createBuyNowButton(product) {
