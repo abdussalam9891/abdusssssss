@@ -1,7 +1,7 @@
-import { getCartItems, clearCart } from "../cart/cartState.js";
+import { getCartItems, clearCart, getGiftWrap } from "../cart/cartState.js";
 import { createOrderSummary } from "../../components/checkout/orderSummary.js";
 import { offersService } from "../../services/offersService.js";
-import { placeOrder } from "./orderState.js";
+import { ordersService } from "../../services/ordersService.js";
 import { showToast } from "../../utils/toast.js";
 import { getSelectedAddress } from "./addressPanel.js";
 import { getSelectedPaymentMethod } from "./paymentPanel.js";
@@ -48,8 +48,11 @@ function computeTotals(items) {
         )
       : 0;
 
+  const giftWrapCharge =
+    getGiftWrap() ? items.length * 50 : 0;
+
   const grandTotal =
-    Math.max(totalFinal - couponDiscount, 0);
+    Math.max(totalFinal + giftWrapCharge - couponDiscount, 0);
 
 
   return {
@@ -57,6 +60,7 @@ function computeTotals(items) {
     totalFinal,
     itemDiscount,
     couponDiscount,
+    giftWrapCharge,
     grandTotal,
   };
 
@@ -108,6 +112,7 @@ function renderSection() {
     createOrderSummary(items, totals, {
       appliedCoupon,
       couponError,
+      coupons: availableCoupons,
     });
 
   window.lucide?.createIcons();
@@ -130,6 +135,30 @@ function syncPayButtonState() {
 }
 
 
+function setPayButtonBusy(busy) {
+
+  const button =
+    document.getElementById("checkoutPayButton");
+
+  const text =
+    document.getElementById("checkoutPayButtonText");
+
+  if (!button) return;
+
+
+  button.disabled =
+    busy || !getSelectedAddress();
+
+  if (text) {
+
+    text.textContent =
+      busy ? "Placing Order..." : "Place Order";
+
+  }
+
+}
+
+
 async function loadCoupons() {
 
   try {
@@ -147,6 +176,9 @@ async function loadCoupons() {
     availableCoupons = [];
 
   }
+
+
+  renderSection();
 
 }
 
@@ -230,20 +262,69 @@ function removeCoupon() {
 }
 
 
+function buildOrderPayload(items, address, totals, paymentMethod) {
+
+  return {
+    items: items.map((item) => ({
+      productId: item.id,
+      quantity: item.quantity,
+      finalPrice: Number(item.finalPrice ?? item.price) || 0,
+      selectedSize: item.size || "",
+    })),
+
+    totalMRP: totals.totalMrp,
+    totalDiscount: totals.itemDiscount + totals.couponDiscount,
+    totalAmount: totals.grandTotal,
+
+    address: {
+      name: address.fullName || address.name || "",
+      street: address.address || "",
+      city: address.city || "",
+      state: address.state || "",
+      postalCode: address.pincode || address.postalCode || "",
+      mobile: address.mobile || address.phone || "",
+    },
+
+    paymentMethod:
+      paymentMethod === "cod" ? "COD" : "Online",
+
+    redirectUrl:
+      window.location.origin + "/pages/checkout.html",
+  };
+
+}
+
+
+function buildLocalOrder({ orderNumber, items, address, totals }) {
+
+  return {
+    orderNumber: orderNumber || "",
+    items,
+    address,
+    paymentMethod: "cod",
+    totals,
+    placedAt: new Date().toISOString(),
+  };
+
+}
+
+
 /*
- * There is no order/payment backend endpoint yet (see
- * config.js's CART comment — only the cart module itself is
- * confirmed). Placing an order here means genuinely completing the
- * checkout flow end to end (address + payment preference + order
- * record + cart cleared + confirmation screen) rather than handing
- * the customer off to WhatsApp — it just persists the order locally
- * (features/checkout/orderState.js) instead of a real backend, the
- * same honest, documented tradeoff already made for the cart
- * itself. No payment is actually charged for "Online Payment" —
- * the confirmation screen only promises the team will follow up,
- * never a fake "Payment Successful" claim.
+ * This store and Mivo Jewels share one backend — order creation and
+ * the Cashfree handoff below mirror Mivo's confirmed, working
+ * checkout integration (see services/ordersService.js's header
+ * comment) rather than an independently-verified contract for
+ * banshiwaale's own traffic.
+ *
+ * COD completes immediately: the order is created, the cart is
+ * cleared, and the confirmation screen shows right away. Online
+ * payment hands off to Cashfree's hosted checkout (window.Cashfree,
+ * loaded via pages/checkout.html's SDK script tag) — the browser
+ * navigates away entirely, and the cart is only cleared once the
+ * customer is redirected back with a confirmed success status (see
+ * features/checkout/checkoutPageInit.js's payment-return handling).
  */
-function handlePlaceOrder() {
+async function handlePlaceOrder() {
 
   const address =
     getSelectedAddress();
@@ -273,32 +354,122 @@ function handlePlaceOrder() {
     getSelectedPaymentMethod();
 
 
-  const button =
-    document.getElementById("checkoutPayButton");
-
-  if (button) button.disabled = true;
+  setPayButtonBusy(true);
 
 
-  const order =
-    placeOrder({
-      items,
-      address,
-      paymentMethod,
-      totals: {
-        ...totals,
-        couponCode: appliedCoupon?.code || "",
-      },
+  try {
+
+    const payload =
+      buildOrderPayload(items, address, totals, paymentMethod);
+
+    const res =
+      await ordersService.createOrder(payload);
+
+    // apiClient only resolves (rather than throwing) once the HTTP
+    // response was ok — some responses from this backend come back
+    // with an empty body on success, which parses to `res === null`
+    // rather than `{ success: true }`. Only an explicit
+    // `success: false` should be read as a real failure.
+    if (res?.success === false) {
+
+      showToast({
+        type: "error",
+        title: "Order Failed",
+        message:
+          res?.message ||
+          "Unable to place your order. Please try again.",
+      });
+
+      setPayButtonBusy(false);
+
+      return;
+    }
+
+
+    if (paymentMethod === "cod") {
+
+      const orderNumber =
+        res?.order?.orderNumber ||
+        res?.data?.orderNumber ||
+        "";
+
+      const order =
+        buildLocalOrder({
+          orderNumber,
+          items,
+          address,
+          totals,
+        });
+
+
+      await clearCart();
+
+      appliedCoupon = null;
+
+      couponError = "";
+
+
+      onPlacedCallback?.(order);
+
+      return;
+    }
+
+
+    // Online payment — hand off to Cashfree's hosted checkout.
+    const environment =
+      res?.data?.environment ||
+      res?.environment ||
+      "sandbox";
+
+    const paymentSessionId =
+      res?.data?.paymentSessionId ||
+      res?.paymentSessionId;
+
+    if (!paymentSessionId || !window.Cashfree) {
+
+      showToast({
+        type: "error",
+        title: "Payment Unavailable",
+        message:
+          "Could not start online payment. Please try again.",
+      });
+
+      setPayButtonBusy(false);
+
+      return;
+    }
+
+
+    const cashfree =
+      window.Cashfree({ mode: environment });
+
+    cashfree.checkout({
+      paymentSessionId,
+      redirectTarget: "_self",
     });
 
-
-  clearCart();
-
-  appliedCoupon = null;
-
-  couponError = "";
+    // The page navigates away to Cashfree's hosted checkout here —
+    // no further UI updates needed on this side.
 
 
-  onPlacedCallback?.(order);
+  } catch (error) {
+
+    console.error(
+      "[Checkout] Order placement failed:",
+      error
+    );
+
+    showToast({
+      type: "error",
+      title: "Order Failed",
+      message:
+        error?.message ||
+        "Something went wrong. Please try again.",
+    });
+
+    setPayButtonBusy(false);
+
+  }
 
 }
 
@@ -327,12 +498,12 @@ export function initOrderPanel(onPlaced) {
     }
 
 
-    if (event.target.closest("#checkoutCouponApplyButton")) {
+    const couponApply =
+      event.target.closest(".checkout-coupon-apply");
 
-      const input =
-        document.getElementById("checkoutCouponInput");
+    if (couponApply) {
 
-      applyCoupon(input?.value);
+      applyCoupon(couponApply.dataset.code);
 
       return;
     }
@@ -340,22 +511,6 @@ export function initOrderPanel(onPlaced) {
 
     if (event.target.closest("#checkoutCouponRemoveButton")) {
       removeCoupon();
-    }
-
-  });
-
-
-  container.addEventListener("keydown", (event) => {
-
-    if (
-      event.key === "Enter" &&
-      event.target.id === "checkoutCouponInput"
-    ) {
-
-      event.preventDefault();
-
-      applyCoupon(event.target.value);
-
     }
 
   });

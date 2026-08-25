@@ -96,7 +96,95 @@ function createOrderItem(item) {
 }
 
 
-function createCouponSection(appliedCoupon, couponError) {
+function createCouponRow(coupon) {
+
+  return `
+
+<div
+  data-code="${escapeHtml(coupon.couponCode)}"
+
+  class="
+    flex
+
+    items-center
+
+    justify-between
+
+    gap-3
+
+    rounded-xl
+
+    border
+    border-[#ECE5D8]
+
+    bg-white
+
+    px-4
+    py-2.5
+  "
+>
+
+  <div class="min-w-0">
+
+    <p class="text-[13px] font-medium text-[#181818]">
+      ${escapeHtml(coupon.couponCode)}
+    </p>
+
+    <p class="mt-0.5 text-[11px] text-[#8A8A8A]">
+      ${coupon.discount}% off${
+        coupon.minPurchase
+          ? ` on orders above ${formatPrice(coupon.minPurchase)}`
+          : ""
+      }
+    </p>
+
+  </div>
+
+  <button
+    type="button"
+
+    data-code="${escapeHtml(coupon.couponCode)}"
+
+    class="
+      checkout-coupon-apply
+
+      shrink-0
+
+      rounded-lg
+
+      border
+      border-[#181818]
+
+      px-4
+      py-1.5
+
+      text-[11px]
+
+      font-medium
+
+      uppercase
+
+      tracking-[0.08em]
+
+      text-[#181818]
+
+      transition-colors
+      duration-300
+
+      hover:border-[#A07936]
+      hover:text-[#A07936]
+    "
+  >
+    Apply
+  </button>
+
+</div>
+
+`;
+}
+
+
+function createCouponSection(coupons, appliedCoupon, couponError) {
 
   if (appliedCoupon) {
 
@@ -151,88 +239,23 @@ function createCouponSection(appliedCoupon, couponError) {
   }
 
 
+  if (!coupons.length) {
+
+    return `
+<p class="text-[12px] text-[#8A8A8A]">No coupons available right now.</p>
+`;
+  }
+
+
   return `
 
-<div id="checkoutCouponSection">
+<div id="checkoutCouponSection" class="space-y-2">
 
-  <div class="flex gap-2">
-
-    <input
-      type="text"
-      id="checkoutCouponInput"
-
-      placeholder="Enter coupon code"
-
-      class="
-        w-full
-
-        rounded-xl
-
-        border
-        border-[#ECE5D8]
-
-        bg-white
-
-        px-4
-        py-2.5
-
-        text-[13px]
-
-        uppercase
-
-        tracking-wide
-
-        text-[#181818]
-
-        outline-none
-
-        placeholder:normal-case
-        placeholder:tracking-normal
-        placeholder:text-[#B0AA9D]
-
-        focus:border-[#A07936]
-      "
-    >
-
-    <button
-      type="button"
-      id="checkoutCouponApplyButton"
-
-      class="
-        shrink-0
-
-        rounded-xl
-
-        border
-        border-[#181818]
-
-        px-5
-
-        text-[12px]
-
-        font-medium
-
-        uppercase
-
-        tracking-[0.1em]
-
-        text-[#181818]
-
-        transition-colors
-        duration-300
-
-        hover:border-[#A07936]
-        hover:text-[#A07936]
-      "
-    >
-      Apply
-    </button>
-
-  </div>
+  ${coupons.map((coupon) => createCouponRow(coupon)).join("")}
 
   ${
     couponError
-      ? `<p class="mt-2 text-[12px] text-[#B3261E]">${escapeHtml(couponError)}</p>`
+      ? `<p class="mt-1 text-[12px] text-[#B3261E]">${escapeHtml(couponError)}</p>`
       : ""
   }
 
@@ -248,10 +271,15 @@ export function createOrderSummary(items = [], totals = {}, options = {}) {
     totalMrp = 0,
     itemDiscount = 0,
     couponDiscount = 0,
+    giftWrapCharge = 0,
     grandTotal = 0,
   } = totals;
 
-  const { appliedCoupon = null, couponError = "" } = options;
+  const {
+    appliedCoupon = null,
+    couponError = "",
+    coupons = [],
+  } = options;
 
   const itemCount =
     items.reduce((sum, item) => sum + item.quantity, 0);
@@ -286,9 +314,9 @@ export function createOrderSummary(items = [], totals = {}, options = {}) {
 
   <div class="mt-6">
     <p class="mb-2 text-[12px] font-medium uppercase tracking-[0.14em] text-[#A07936]">
-      Coupon Code
+      Available Coupons
     </p>
-    ${createCouponSection(appliedCoupon, couponError)}
+    ${createCouponSection(coupons, appliedCoupon, couponError)}
   </div>
 
 
@@ -324,6 +352,17 @@ export function createOrderSummary(items = [], totals = {}, options = {}) {
   <span class="text-[#2F6B3A]">
     − ${formatPrice(couponDiscount)}
   </span>
+</div>
+`
+        : ""
+    }
+
+    ${
+      giftWrapCharge > 0
+        ? `
+<div class="flex items-center justify-between">
+  <span class="text-[#666]">Gift Wrap</span>
+  <span class="text-[#181818]">${formatPrice(giftWrapCharge)}</span>
 </div>
 `
         : ""

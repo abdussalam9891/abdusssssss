@@ -37,7 +37,7 @@ export function createCheckoutLayout() {
     "
   >
 
-    <div class="text-center">
+    <div id="checkoutHeading" class="text-center">
 
       <h1
         class="
@@ -213,6 +213,91 @@ export function createCheckoutLayout() {
       >
         Browse Collections
       </a>
+
+    </div>
+
+
+    <!-- Payment Failed State -->
+
+    <div
+      id="checkoutFailedState"
+
+      class="
+        hidden
+
+        mx-auto
+
+        mt-10
+        sm:mt-16
+
+        flex
+
+        max-w-md
+
+        flex-col
+
+        items-center
+
+        gap-5
+
+        text-center
+      "
+    >
+
+      <i
+        data-lucide="x-circle"
+
+        class="
+          h-12
+          w-12
+
+          text-[#B3261E]
+        "
+      ></i>
+
+      <p class="text-[15px] font-medium text-[#181818]">
+        Payment Failed
+      </p>
+
+      <p class="text-[#666]">
+        We couldn't process your payment. No amount was charged —
+        please try again.
+      </p>
+
+      <button
+        type="button"
+        id="checkoutRetryButton"
+
+        class="
+          inline-flex
+
+          items-center
+
+          rounded-full
+
+          bg-[#181818]
+
+          px-8
+          py-4
+
+          text-[13px]
+
+          font-medium
+
+          uppercase
+
+          tracking-[0.18em]
+
+          text-white
+
+          transition-colors
+          duration-300
+
+          hover:bg-[#A07936]
+        "
+      >
+        Try Again
+      </button>
 
     </div>
 
