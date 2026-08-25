@@ -1,5 +1,6 @@
 // import { getProductImages } from "../../utils/getProductImages.js";
 import { toStringList } from "../../utils/categoryMatch.js";
+import { escapeHtml } from "../../features/productDetails/model.js";
 
 // function createStars(rating) {
 //   return `
@@ -633,65 +634,57 @@ import { toStringList } from "../../utils/categoryMatch.js";
 
 
 
-function createStars(rating = 0) {
-  const safeRating = Number(rating) || 0;
+// Compact "4.5 ★ (12)" line — mirrors the wishlist card's rating
+// format (components/wishlist/wishlistCard.js) instead of the old
+// full 5-star row, so adding the Add to Cart button below doesn't
+// make the card noticeably taller.
+function createCompactRating(rating, reviewCount) {
+
+  if (reviewCount <= 0) return "";
 
   return `
-<div
+<span
   class="
-    mt-3
-    flex
+    inline-flex
     items-center
-    gap-1.5
-    lg:gap-2
+
+    gap-1
+
+    text-[11px]
+    sm:text-[12px]
+
+    text-[#8A8A8A]
   "
 >
-  <div
-    class="
-      flex
-      items-center
-      gap-0.5
-      text-[#C89B3C]
-    "
-  >
-    ${Array.from({ length: 5 })
-      .map(
-        (_, index) => `
-<svg
-  class="
-    h-3
-    w-3
-    lg:h-[14px]
-    lg:w-[14px]
-
-    ${
-      index < Math.round(safeRating)
-        ? "fill-current"
-        : "fill-none stroke-current"
-    }
-  "
-  viewBox="0 0 24 24"
->
-  <path
-    stroke-width="1.8"
-    d="M12 17.3L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-  />
-</svg>
-`
-      )
-      .join("")}
-  </div>
-
   <span
     class="
-      text-[12px]
-      lg:text-[13px]
-      text-[#888888]
+      inline-flex
+      items-center
+
+      gap-0.5
+
+      font-medium
+
+      text-[#181818]
     "
   >
-    ${safeRating.toFixed(1)}
+    ${rating.toFixed(1)}
+
+    <i
+      data-lucide="star"
+
+      class="
+        h-3
+        w-3
+
+        fill-[#C89B3C]
+        text-[#C89B3C]
+      "
+    ></i>
   </span>
-</div>
+
+  <span>(${reviewCount})</span>
+</span>
 `;
 }
 
@@ -1125,7 +1118,7 @@ export function createShowcaseCard(
 
 
     <!-- ========================================
-         PRICE
+         PRICE + RATING
     ========================================= -->
 
     <div
@@ -1134,7 +1127,9 @@ export function createShowcaseCard(
 
         flex
 
-        items-end
+        items-center
+
+        justify-between
 
         gap-3
       "
@@ -1158,132 +1153,79 @@ export function createShowcaseCard(
         })}
       </span>
 
+      ${createCompactRating(rating, reviewCount)}
+
     </div>
 
 
     <!-- ========================================
-         REVIEWS
+         ADD TO CART
     ========================================= -->
 
-    ${createStars(rating)}
+    <button
+      type="button"
 
+      data-product-id="${escapeHtml(productId)}"
 
-    <!-- ========================================
-         DIVIDER
-    ========================================= -->
-
-    <div
       class="
-        mt-1
-        lg:mt-6
+        quick-add-to-cart-button
 
-        h-px
+        relative
+        z-10
 
-        w-full
-
-        bg-[#EFE8DE]
-      "
-    ></div>
-
-
-    <!-- ========================================
-         FOOTER
-    ========================================= -->
-
-    <div
-      class="
-        mt-1
-        lg:mt-2
+        mt-3
+        lg:mt-5
 
         flex
 
+        h-10
+        lg:h-12
+
+        w-full
+
         items-center
-        justify-between
+        justify-center
+
+        gap-2
+
+        rounded-lg
+        lg:rounded-xl
+
+        bg-[#181818]
+
+        text-[11px]
+        sm:text-[12px]
+        lg:text-[13px]
+
+        font-medium
+
+        uppercase
+
+        tracking-[0.08em]
+        lg:tracking-[0.14em]
+
+        text-white
+
+        transition-colors
+        duration-300
+
+        hover:bg-[#A07936]
       "
     >
+      <i
+        data-lucide="shopping-bag"
 
-      <span
         class="
-          hidden
-          sm:block
+          h-3.5
+          w-3.5
 
-          text-[12px]
-          lg:text-[13px]
-
-          text-[#888888]
+          lg:h-4
+          lg:w-4
         "
-      >
-        ${reviewCount} ${
-          reviewCount === 1
-            ? "Review"
-            : "Reviews"
-        }
-      </span>
+      ></i>
 
-
-      <span
-        class="
-          inline-flex
-
-          items-center
-
-          gap-1
-
-          text-[11px]
-          sm:text-[12px]
-          lg:text-[13px]
-
-          font-medium
-
-          uppercase
-
-          tracking-[0.12em]
-          lg:tracking-[0.18em]
-
-          text-[#181818]
-
-          transition-all
-          duration-300
-
-          group-hover:text-[#A07936]
-        "
-      >
-        View
-
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-
-          fill="none"
-
-          viewBox="0 0 24 24"
-
-          stroke="currentColor"
-
-          class="
-            h-3
-            w-3
-
-            lg:h-4
-            lg:w-4
-
-            transition-transform
-            duration-300
-
-            group-hover:translate-x-1
-          "
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-
-            d="M9 5l7 7-7 7"
-          />
-        </svg>
-
-      </span>
-
-    </div>
+      <span>Add to Cart</span>
+    </button>
 
   </div>
 
