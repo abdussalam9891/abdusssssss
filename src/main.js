@@ -28,6 +28,8 @@ import { initWishlistButtons } from "./features/wishlist/wishlistButtons.js";
 
 import { initWishlistSync } from "./features/wishlist/wishlistState.js";
 
+import { initQuickAdd } from "./features/quickAdd/index.js";
+
 import {
   initAuthModal,
   initGuestEngagement,
@@ -77,6 +79,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   // decorative everywhere except the dedicated product-details
   // wishlist button.
   initWishlistButtons();
+
+
+  // Shared "pick a size, then add to cart" modal for every showcase
+  // card's Add to Cart button and the wishlist page's Move to Cart
+  // button (see features/quickAdd/index.js).
+  initQuickAdd();
 
 
   // WhatsApp button is completely independent.
