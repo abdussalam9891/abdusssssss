@@ -276,6 +276,13 @@ export function createProfileOverview({
     })}
 
     ${createQuickAction({
+      label: "My Orders",
+      description: "Track current and past orders",
+      iconName: "package",
+      href: "/pages/orders.html",
+    })}
+
+    ${createQuickAction({
       label: "Wishlist",
       description: "View your saved pieces",
       iconName: "heart",
