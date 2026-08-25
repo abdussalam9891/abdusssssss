@@ -1,11 +1,11 @@
-export const API_BASE_URL =
-  "https://pm3721cg-3000.inc1.devtunnels.ms";
+// export const API_BASE_URL =
+//   "https://backend.globalshopify.com";
 
 
 
-  // export const API_BASE_URL ="https://backend.globalshopify.com";
+  export const API_BASE_URL ="https://pm3721cg-3000.inc1.devtunnels.ms";
 
-
+ 
 
 
 export const GOOGLE_CLIENT_ID =
@@ -84,19 +84,38 @@ export const API_ENDPOINTS = {
       `/customercoupons/getAvailableCoupons/${encodeURIComponent(domain)}`,
   },
 
-  // Verified directly against the backend (all three require a
-  // bearer token — an unauthenticated request 401s with "No token
-  // provided" instead of 404ing, confirming the routes exist). Only
-  // ADD is currently called from the frontend (see
-  // services/cartService.js) — the cart itself still runs on
-  // localStorage (features/cart/cartState.js) since GET/DELETE's
-  // response contract hasn't been confirmed against a real
-  // authenticated reply yet.
+  // Same shared-backend caveat as CART/ORDERS above — mirrors Mivo's
+  // confirmed, working frontend integration.
+  GIFT_CARDS: {
+    MY_CARDS: "/giftcardscustomer/mycard",
+  },
+
+  // This store and Mivo Jewels run on the same backend — the shape
+  // below mirrors Mivo's confirmed, working frontend integration
+  // rather than an independent probe against banshiwaale's own
+  // traffic, per services/cartService.js's header comment.
   CART: {
     ADD: "/addtocart/addToCart",
-    GET: "/addtocart/getcart",
-    REMOVE: (cartItemId) =>
-      `/addtocart/removecart/${cartItemId}`,
+    GET: (domain) =>
+      `/addtocart/getcart?domain=${encodeURIComponent(domain)}`,
+    REMOVE: (productId) =>
+      `/addtocart/removecart/${productId}`,
+  },
+
+  // Same shared-backend caveat as CART above — mirrors Mivo's
+  // confirmed order/Cashfree integration (see services/ordersService.js).
+  ORDERS: {
+    CREATE: "/orders/createorder",
+    GET_ONE: (orderId) =>
+      `/orders/getorder/${orderId}`,
+    MY_ORDERS: "/orders/my-orders",
+    CANCEL: (orderId) =>
+      `/orders/cancel/${orderId}`,
+    RETURN: (orderId) =>
+      `/orders/return/${orderId}`,
+    CHECK_CF_PAYMENT: (cfOrderId) =>
+      `/orders/check-cf-payment/${cfOrderId}`,
+    CF_PAYMENT_RETURN: "/orders/cf-payment-return",
   },
 
 };
