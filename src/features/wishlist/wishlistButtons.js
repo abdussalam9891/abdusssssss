@@ -2,10 +2,6 @@ import { isWishlisted, toggleWishlist, removeFromWishlist } from "./wishlistStat
 import { requireAuth } from "../auth/authGuard.js";
 import { showToast } from "../../utils/toast.js";
 
-import { productService } from "../../services/productService.js";
-import { normalizeProduct, pickDefaultSize } from "../productDetails/model.js";
-import { addToCart } from "../cart/cartState.js";
-
 
  
 
@@ -159,100 +155,11 @@ export function initWishlistButtons() {
   );
 
 
-  // "Move to Cart" on the wishlist page's own cards: adds the
-  // product to the (local, guest-friendly) cart, then drops it
-  // from the wishlist — a re-fetch is used rather than trusting
-  // any data-attributes so the size/price/stock added are current,
-  // not whatever was true when the wishlist page last loaded.
-  document.addEventListener(
-    "click",
-    (event) => {
-
-      const button =
-        event.target.closest(
-          ".wishlist-move-to-cart-button"
-        );
-
-      if (!button) return;
-
-
-      const productId =
-        button.dataset.productId;
-
-      if (!productId) return;
-
-
-      event.preventDefault();
-
-      event.stopPropagation();
-
-
-      (async () => {
-
-        try {
-
-          const product =
-            await productService.getPublicProductById(
-              productId
-            );
-
-          if (!product) {
-            throw new Error(
-              "Product no longer available."
-            );
-          }
-
-
-          const normalized =
-            normalizeProduct(product);
-
-          const size =
-            pickDefaultSize(normalized);
-
-
-          addToCart({
-            id: normalized.id,
-            name: normalized.name,
-            slug: normalized.slug,
-            sku: normalized.sku,
-            image: normalized.gallery?.[0] || "",
-            price: normalized.price,
-            finalPrice: normalized.finalPrice,
-            size: size?.label || "",
-            quantity: 1,
-          });
-
-
-          await removeFromWishlist(productId);
-
-
-          showToast({
-            type: "success",
-            title: "Moved to Cart",
-            message:
-              `${normalized.name} was moved to your cart.`,
-          });
-
-        } catch (error) {
-
-          console.error(
-            "[Wishlist] Move to cart failed:",
-            error
-          );
-
-          showToast({
-            type: "error",
-            title: "Couldn't Move to Cart",
-            message:
-              "Please try again in a moment.",
-          });
-
-        }
-
-      })();
-
-    }
-  );
+  // "Move to Cart" on the wishlist page's own cards opens the
+  // shared quick-add modal (features/quickAdd/index.js), which
+  // fetches the current product, lets the user pick a size, adds
+  // it to cart, and — only for this wishlist trigger — removes it
+  // from the wishlist afterwards.
 
 
   // Cards already on the page when this runs.
