@@ -1,0 +1,59 @@
+import { API_ENDPOINTS, STORE_DOMAIN } from "../config.js";
+import { apiClient } from "./apiClient.js";
+
+
+/*
+ * Same shared-backend caveat as services/cartService.js — this
+ * mirrors Mivo Jewels' working checkout/Cashfree integration rather
+ * than an independently-confirmed contract for banshiwaale's own
+ * traffic.
+ *
+ *   POST /orders/createorder
+ *     body: {
+ *       items: [{ productId, quantity, finalPrice, selectedSize }],
+ *       totalMRP, totalDiscount, totalAmount,
+ *       address: { name, street, city, state, postalCode, mobile },
+ *       paymentMethod: "COD" | "Online",
+ *       domain, redirectUrl,
+ *     }
+ *     -> COD:    { success, order: { orderNumber, ... } }
+ *     -> Online: { success, data: { environment, paymentSessionId } }
+ *
+ *   GET /orders/getorder/:orderId
+ *     -> { success, order: { orderNumber, totalAmount, ... } }
+ *
+ * Response envelopes above aren't pinned down against a live
+ * authenticated reply for this store yet, so callers should treat
+ * every field on the returned object as optional and fall back
+ * gracefully (see features/checkout/orderPanel.js's normalizeOrder).
+ */
+
+export const ordersService = {
+
+  createOrder: async (payload) => {
+
+    return apiClient.post(
+      API_ENDPOINTS.ORDERS.CREATE,
+      {
+        ...payload,
+        domain: STORE_DOMAIN,
+      },
+      // Observed live: this backend can take well over apiClient's
+      // 8s default "fail fast" timeout to respond even though it
+      // has already created the order (and sent the confirmation
+      // email) — a write this critical shouldn't be given up on
+      // just because it's slow. Give it real room before we treat
+      // it as failed.
+      { timeout: 30000 }
+    );
+  },
+
+
+  getOrder: async (orderId) => {
+
+    return apiClient.get(
+      API_ENDPOINTS.ORDERS.GET_ONE(orderId)
+    );
+  },
+
+};
