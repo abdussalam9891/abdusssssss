@@ -239,6 +239,67 @@ export const productService = {
   },
 
 
+  /*
+   * Same store endpoint as getPublicProductById above, but resolves
+   * by `slug` instead of the backend `_id` — confirmed working
+   * against banshiwaale's live backend:
+   *
+   *   GET /product/public/store/:domain?slug=<slug>
+   *
+   * Response shape is identical to the id-based lookup.
+   */
+
+  getPublicProductBySlug: async (slug) => {
+
+    if (!slug) {
+
+      throw new Error(
+        "Product slug is required."
+      );
+
+    }
+
+
+    const params =
+      new URLSearchParams();
+
+
+    params.set(
+      "slug",
+      slug
+    );
+
+
+    const endpoint =
+      `${API_ENDPOINTS.PRODUCTS.PUBLIC_BY_STORE(
+        STORE_DOMAIN
+      )}?${params.toString()}`;
+
+
+    const response =
+      await apiClient.get(
+        endpoint
+      );
+
+
+    const product =
+      response?.data?.products?.[0] ||
+      response?.data ||
+      null;
+
+
+    if (
+      !product ||
+      !product._id
+    ) {
+      return null;
+    }
+
+
+    return product;
+  },
+
+
   // ==========================================
   // SIMILAR PRODUCTS
   // ==========================================

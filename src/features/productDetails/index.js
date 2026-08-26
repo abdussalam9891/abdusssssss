@@ -1,6 +1,6 @@
 import { productService } from "../../services/productService.js";
 
-import { getProductId } from "./query.js";
+import { getProductId, getProductSlug } from "./query.js";
 import { setProduct } from "./state.js";
 import { normalizeProduct } from "./model.js";
 import { initGallery } from "./gallery.js";
@@ -300,11 +300,14 @@ export async function initProductDetailsPage() {
   if (!container) return;
 
 
+  const productSlug =
+    getProductSlug();
+
   const productId =
     getProductId();
 
 
-  if (!productId) {
+  if (!productSlug && !productId) {
 
     renderNotFound(container);
 
@@ -319,10 +322,17 @@ export async function initProductDetailsPage() {
 
   try {
 
+    // Slug takes priority when both are present — it's the
+    // human-readable identifier the API is built around, `id` is
+    // kept only as a fallback for links that predate the slug.
     const response =
-      await productService.getPublicProductById(
-        productId
-      );
+      productSlug
+        ? await productService.getPublicProductBySlug(
+            productSlug
+          )
+        : await productService.getPublicProductById(
+            productId
+          );
 
 
     product =

@@ -11,6 +11,7 @@ import {
 
 import { addToCart } from "../cart/cartState.js";
 import { showToast } from "../../utils/toast.js";
+import { getProductDetailsHref } from "../../utils/format.js";
 
 import { createQuickViewModal } from "../../components/quickView/quickViewModal.js";
 
@@ -846,8 +847,9 @@ function renderProduct(product) {
       </button>
 
       <a
-        href="/pages/product-details.html?id=${encodeURIComponent(
-          product.id
+        href="${getProductDetailsHref(
+          product.id,
+          product.slug
         )}"
 
         class="

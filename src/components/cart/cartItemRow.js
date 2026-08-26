@@ -1,6 +1,7 @@
 import {
   escapeHtml,
   formatPrice,
+  getProductDetailsHref,
 } from "../../utils/format.js";
 
 
@@ -67,11 +68,7 @@ export function createCartItemRow(item) {
 >
 
   <a
-    href="${
-      item.id
-        ? `/pages/product-details.html?id=${encodeURIComponent(item.id)}`
-        : "#"
-    }"
+    href="${getProductDetailsHref(item.id, item.slug)}"
 
     class="
       h-20
@@ -128,11 +125,7 @@ export function createCartItemRow(item) {
     <div>
 
       <a
-        href="${
-          item.slug
-            ? `/pages/product-details.html?id=${encodeURIComponent(item.id)}`
-            : "#"
-        }"
+        href="${getProductDetailsHref(item.id, item.slug)}"
 
         class="
           line-clamp-2

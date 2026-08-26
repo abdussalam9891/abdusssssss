@@ -1,4 +1,4 @@
-import { escapeHtml, formatPrice } from "../../utils/format.js";
+import { escapeHtml, formatPrice, getProductDetailsHref } from "../../utils/format.js";
 
 
 // Self-contained inline placeholder — mirrors
@@ -83,7 +83,7 @@ export function createWishlistCard(product) {
     Number(product.totalReviews) || 0;
 
   const detailsHref =
-    `/pages/product-details.html?id=${encodeURIComponent(productId)}`;
+    getProductDetailsHref(productId, product.slug);
 
 
   return `
