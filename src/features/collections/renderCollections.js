@@ -7,7 +7,12 @@ const CATEGORY_IMAGES = {
   "Silver Bracelet": "./src/assets/bracelet.png",
   "Silver Kada": "./src/assets/kada.png",
   "Silver Pendant": "./src/assets/pendant.png",
+  "Kids Bangles": "./src/assets/kids_bangle.png",
 };
+
+// Used for any backend category without a dedicated image above,
+// so new categories still show up instead of being silently dropped.
+const FALLBACK_CATEGORY_IMAGE = "./src/assets/banshiwala-gold.png";
 
 // Local fallback built from the same images the live backend
 // categories render with, so a failed/empty categories request
@@ -61,9 +66,6 @@ export async function renderCollections() {
 
     const collections =
       categories
-        // Only categories we have local art for — skip the rest
-        // rather than showing a broken/incorrect image for them.
-        .filter((category) => CATEGORY_IMAGES[category.name])
         .map((category) => ({
 
           id: category._id,
@@ -72,7 +74,12 @@ export async function renderCollections() {
 
           subtitle: "Explore Collection",
 
-          image: CATEGORY_IMAGES[category.name],
+          // Categories without dedicated art (e.g. newly added ones)
+          // still render, using the brand fallback instead of being
+          // silently skipped.
+          image:
+            CATEGORY_IMAGES[category.name] ||
+            FALLBACK_CATEGORY_IMAGE,
 
           // Use category name for product filtering
           url:
