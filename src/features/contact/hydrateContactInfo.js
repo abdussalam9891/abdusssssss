@@ -31,6 +31,32 @@ const UNAVAILABLE = {
 };
 
 
+function formatIndianPhoneDisplay(raw) {
+
+  const trimmed = (raw || "").trim();
+
+  if (!trimmed) {
+    return "";
+  }
+
+  if (trimmed.startsWith("+")) {
+    return trimmed;
+  }
+
+  const digits = trimmed.replace(/\D/g, "");
+
+  if (!digits) {
+    return trimmed;
+  }
+
+  if (digits.length === 12 && digits.startsWith("91")) {
+    return `+${digits.slice(0, 2)} ${digits.slice(2)}`;
+  }
+
+  return `+91 ${digits}`;
+}
+
+
 function setText(selector, value) {
 
   document
@@ -152,8 +178,8 @@ export async function hydrateContactInfo() {
 
     setText(
       "[data-contact-whatsapp-text]",
-      whatsapp ||
-      phone ||
+      formatIndianPhoneDisplay(whatsapp) ||
+      formatIndianPhoneDisplay(phone) ||
       UNAVAILABLE.whatsapp
     );
 
@@ -178,7 +204,7 @@ export async function hydrateContactInfo() {
 
     setText(
       "[data-contact-phone-text]",
-      phone || UNAVAILABLE.phone
+      formatIndianPhoneDisplay(phone) || UNAVAILABLE.phone
     );
 
 
