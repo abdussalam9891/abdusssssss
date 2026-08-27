@@ -120,12 +120,27 @@
 
   <link
     rel="icon"
-    href="/favicon.ico"
+    href="../favicon.ico"
+    sizes="any"
+  />
+
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="96x96"
+    href="../favicon-96x96.png"
+  />
+
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="512x512"
+    href="../favicon-512x512.png"
   />
 
   <link
     rel="apple-touch-icon"
-    href="/apple-touch-icon.png"
+    href="../apple-touch-icon.png"
   />
 
   <!-- ==========================================
@@ -1142,9 +1157,10 @@
           text-[#6B6B6B]
         "
       >
-        Every banshiwale creation goes through a thoughtful journey,
-        ensuring exceptional craftsmanship, quality, and elegance before
-        it reaches you.
+        From a single spark of inspiration to the piece resting in your
+        hands, every banshiwale creation passes through fourteen
+        unhurried stages of craftsmanship — where design, fire, and
+        precision come together to make something meant to last.
       </p>
 
     </div>
@@ -1155,395 +1171,2596 @@
       class="
         relative
 
+        mx-auto
         mt-24
-
-        grid
-        gap-14
-
-        md:grid-cols-2
-        xl:grid-cols-4
+        max-w-7xl
       "
     >
 
-      <!-- Connecting Line -->
+      <!-- Connecting Line (mobile: straight) -->
 
       <div
         class="
           absolute
-          left-0
-          right-0
-          top-10
+          left-8
+          top-2
+          bottom-2
 
           hidden
-          xl:block
-
-          h-px
+          w-px
 
           bg-[#E8E2DA]
+
+          sm:block
+          md:hidden
         "
       ></div>
 
-      <!-- STEP 1 -->
+      <!-- Connecting Line (desktop: curved spine) -->
+
+      <svg
+        class="
+          pointer-events-none
+          absolute
+          left-1/2
+          top-0
+
+          hidden
+          h-full
+          w-24
+
+          -translate-x-1/2
+
+          md:block
+        "
+        viewBox="0 0 100 1400"
+        preserveAspectRatio="none"
+        fill="none"
+      >
+
+        <path
+          d="M50,0 C50,25 25,25 25,50 C25,75 50,75 50,100 C50,125 75,125 75,150 C75,175 50,175 50,200 C50,225 25,225 25,250 C25,275 50,275 50,300 C50,325 75,325 75,350 C75,375 50,375 50,400 C50,425 25,425 25,450 C25,475 50,475 50,500 C50,525 75,525 75,550 C75,575 50,575 50,600 C50,625 25,625 25,650 C25,675 50,675 50,700 C50,725 75,725 75,750 C75,775 50,775 50,800 C50,825 25,825 25,850 C25,875 50,875 50,900 C50,925 75,925 75,950 C75,975 50,975 50,1000 C50,1025 25,1025 25,1050 C25,1075 50,1075 50,1100 C50,1125 75,1125 75,1150 C75,1175 50,1175 50,1200 C50,1225 25,1225 25,1250 C25,1275 50,1275 50,1300 C50,1325 75,1325 75,1350 C75,1375 50,1375 50,1400"
+          stroke="#E8E2DA"
+          stroke-width="2"
+          vector-effect="non-scaling-stroke"
+        />
+
+      </svg>
 
       <div
         class="
-          relative
+          space-y-16
 
-          reveal
-
-          text-center
+          md:space-y-20
         "
       >
 
-        <div
-          class="
-            relative
-            z-10
-
-            mx-auto
-
-            flex
-            h-20
-            w-20
-
-            items-center
-            justify-center
-
-            rounded-full
-
-            bg-[#181818]
-
-            text-white
-          "
-        >
-
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-9 w-9"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="1.7"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"
-            />
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="m15 5 4 4"
-            />
-          </svg>
-
-        </div>
-
-        <h3
-          class="
-            mt-8
-
-            font-serif
-            text-2xl
-
-            text-[#181818]
-          "
-        >
-          Design
-        </h3>
-
-        <p
-          class="
-            mt-5
-
-            leading-8
-
-            text-[#6B6B6B]
-          "
-        >
-          Every collection begins with thoughtful sketches inspired by
-          timeless elegance and modern lifestyles.
-        </p>
-
-      </div>
-
-      <!-- STEP 2 -->
-
-      <div
-        class="
-          relative
-
-          reveal
-
-          text-center
-        "
-      >
+        <!-- STEP 01 -->
 
         <div
           class="
-            relative
-            z-10
+            reveal
+            reveal-left
 
-            mx-auto
+            relative
 
             flex
-            h-20
-            w-20
+            gap-8
 
-            items-center
-            justify-center
-
-            rounded-full
-
-            bg-[#181818]
-
-            text-white
+            md:grid
+            md:grid-cols-2
+            md:items-center
+            md:gap-x-12
           "
         >
 
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-9 w-9"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="1.7"
+          <div
+            class="
+              relative
+              z-10
+
+              flex
+              h-16
+              w-16
+              shrink-0
+
+              items-center
+              justify-center
+
+              rounded-full
+
+              bg-[#181818]
+
+              font-serif
+              text-lg
+
+              text-white
+
+              md:hidden
+            "
           >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="m15 12-9.373 9.373a1 1 0 0 1-3.001-3L12 9"
-            />
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="m18 15 4-4"
-            />
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172v-.344a2 2 0 0 0-.586-1.414l-1.657-1.657A6 6 0 0 0 12.516 3H9l1.243 1.243A6 6 0 0 1 12 8.485V10l2 2h1.172a2 2 0 0 1 1.414.586L18.5 14.5"
-            />
-          </svg>
+            01
+          </div>
+
+          <div
+            class="
+              flex
+              flex-1
+              flex-col
+              gap-6
+
+              sm:flex-row
+              sm:items-start
+              sm:justify-between
+
+              md:col-start-1
+              md:flex-row-reverse
+              md:pr-10
+            "
+          >
+
+            <div
+              class="
+                sm:max-w-md
+              "
+            >
+
+              <p
+                class="
+                  text-xs
+                  font-medium
+                  uppercase
+
+                  tracking-[0.18em]
+
+                  text-[#A07936]
+                "
+              >
+                CAD Designing
+              </p>
+
+              <h3
+                class="
+                  mt-2
+
+                  font-serif
+                  text-2xl
+
+                  text-[#181818]
+                "
+              >
+                Where a Sketch Earns Its Shape
+              </h3>
+
+              <p
+                class="
+                  mt-4
+
+                  leading-8
+
+                  text-[#6B6B6B]
+                "
+              >
+                Every design starts as a pencil line, not a mouse click.
+                Once the sketch holds up, it moves into CAD, where our
+                designers work the curves and clearances down to a tenth
+                of a millimetre — long before any silver gets involved.
+              </p>
+
+            </div>
+
+            <div
+              class="
+                h-32
+                w-full
+                shrink-0
+
+                overflow-hidden
+                rounded-2xl
+
+                sm:h-44
+                sm:w-44
+
+                md:h-40
+                md:w-40
+              "
+            >
+
+              <img
+                src="https://i.pinimg.com/736x/22/f3/f9/22f3f94124b946438bdc8dba2b43ec0c.jpg"
+                alt="Hand-drawn sketch of a jewellery design"
+                class="
+                  h-full
+                  w-full
+                  object-cover
+                "
+              />
+
+            </div>
+
+          </div>
+
+          <div
+            class="
+              absolute
+              top-1/2
+              left-[calc(50%-1.5rem)]
+
+              z-10
+
+              hidden
+
+              h-16
+              w-16
+
+              -translate-x-1/2
+              -translate-y-1/2
+
+              items-center
+              justify-center
+
+              rounded-full
+
+              bg-[#181818]
+
+              font-serif
+              text-lg
+
+              text-white
+
+              md:flex
+            "
+          >
+            01
+          </div>
 
         </div>
 
-        <h3
-          class="
-            mt-8
-
-            font-serif
-            text-2xl
-
-            text-[#181818]
-          "
-        >
-          Craftsmanship
-        </h3>
-
-        <p
-          class="
-            mt-5
-
-            leading-8
-
-            text-[#6B6B6B]
-          "
-        >
-          Skilled artisans transform each design into beautifully crafted
-          sterling silver jewellery.
-        </p>
-
-      </div>
-
-      <!-- STEP 3 -->
-
-      <div
-        class="
-          relative
-
-          reveal
-
-          text-center
-        "
-      >
+        <!-- STEP 02 -->
 
         <div
           class="
-            relative
-            z-10
+            reveal
+            reveal-right
 
-            mx-auto
+            relative
 
             flex
-            h-20
-            w-20
+            gap-8
 
-            items-center
-            justify-center
-
-            rounded-full
-
-            bg-[#181818]
-
-            text-white
+            md:grid
+            md:grid-cols-2
+            md:items-center
+            md:gap-x-12
           "
         >
 
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-9 w-9"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="1.7"
+          <div
+            class="
+              relative
+              z-10
+
+              flex
+              h-16
+              w-16
+              shrink-0
+
+              items-center
+              justify-center
+
+              rounded-full
+
+              bg-[#181818]
+
+              font-serif
+              text-lg
+
+              text-white
+
+              md:hidden
+            "
           >
-            <rect
-              width="8"
-              height="4"
-              x="8"
-              y="2"
-              rx="1"
-              ry="1"
-            />
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"
-            />
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="m9 14 2 2 4-4"
-            />
-          </svg>
+            02
+          </div>
+
+          <div
+            class="
+              flex
+              flex-1
+              flex-col
+              gap-6
+
+              sm:flex-row
+              sm:items-start
+              sm:justify-between
+
+              md:col-start-2
+              md:pl-10
+            "
+          >
+
+            <div
+              class="
+                sm:max-w-md
+              "
+            >
+
+              <p
+                class="
+                  text-xs
+                  font-medium
+                  uppercase
+
+                  tracking-[0.18em]
+
+                  text-[#A07936]
+                "
+              >
+                Die &amp; Mould Making
+              </p>
+
+              <h3
+                class="
+                  mt-2
+
+                  font-serif
+                  text-2xl
+
+                  text-[#181818]
+                "
+              >
+                Carving a Shape That Can Repeat Itself
+              </h3>
+
+              <p
+                class="
+                  mt-4
+
+                  leading-8
+
+                  text-[#6B6B6B]
+                "
+              >
+                A master die is cut from hardened steel, tooth by tooth,
+                until it matches the design exactly. It's this one die
+                that lets us reproduce the same piece a hundred times over
+                without the tenth copy looking any different from the first.
+              </p>
+
+            </div>
+
+            <div
+              class="
+                h-32
+                w-full
+                shrink-0
+
+                overflow-hidden
+                rounded-2xl
+
+                sm:h-44
+                sm:w-44
+
+                md:h-40
+                md:w-40
+              "
+            >
+
+              <img
+                src="https://i.pinimg.com/736x/35/fe/7e/35fe7e77b107ed07cbf58e93627c2d31.jpg"
+                alt="Tray of hand-carved metal jewellery dies"
+                class="
+                  h-full
+                  w-full
+                  object-cover
+                "
+              />
+
+            </div>
+
+          </div>
+
+          <div
+            class="
+              absolute
+              top-1/2
+              left-[calc(50%+1.5rem)]
+
+              z-10
+
+              hidden
+
+              h-16
+              w-16
+
+              -translate-x-1/2
+              -translate-y-1/2
+
+              items-center
+              justify-center
+
+              rounded-full
+
+              bg-[#181818]
+
+              font-serif
+              text-lg
+
+              text-white
+
+              md:flex
+            "
+          >
+            02
+          </div>
 
         </div>
 
-        <h3
-          class="
-            mt-8
-
-            font-serif
-            text-2xl
-
-            text-[#181818]
-          "
-        >
-          Quality Check
-        </h3>
-
-        <p
-          class="
-            mt-5
-
-            leading-8
-
-            text-[#6B6B6B]
-          "
-        >
-          Every piece is carefully inspected to ensure exceptional
-          finishing, comfort, and durability.
-        </p>
-
-      </div>
-
-      <!-- STEP 4 -->
-
-      <div
-        class="
-          relative
-
-          reveal
-
-          text-center
-        "
-      >
+        <!-- STEP 03 -->
 
         <div
           class="
-            relative
-            z-10
+            reveal
+            reveal-left
 
-            mx-auto
+            relative
 
             flex
-            h-20
-            w-20
+            gap-8
 
-            items-center
-            justify-center
-
-            rounded-full
-
-            bg-[#181818]
-
-            text-white
+            md:grid
+            md:grid-cols-2
+            md:items-center
+            md:gap-x-12
           "
         >
 
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-9 w-9"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="1.7"
+          <div
+            class="
+              relative
+              z-10
+
+              flex
+              h-16
+              w-16
+              shrink-0
+
+              items-center
+              justify-center
+
+              rounded-full
+
+              bg-[#181818]
+
+              font-serif
+              text-lg
+
+              text-white
+
+              md:hidden
+            "
           >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M12 22V12"
-            />
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="m16 17 2 2 4-4"
-            />
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M21 11.127V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.729l7 4a2 2 0 0 0 2 .001l1.32-.753"
-            />
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M3.29 7 12 12l8.71-5"
-            />
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="m7.5 4.27 8.997 5.148"
-            />
-          </svg>
+            03
+          </div>
+
+          <div
+            class="
+              flex
+              flex-1
+              flex-col
+              gap-6
+
+              sm:flex-row
+              sm:items-start
+              sm:justify-between
+
+              md:col-start-1
+              md:flex-row-reverse
+              md:pr-10
+            "
+          >
+
+            <div
+              class="
+                sm:max-w-md
+              "
+            >
+
+              <p
+                class="
+                  text-xs
+                  font-medium
+                  uppercase
+
+                  tracking-[0.18em]
+
+                  text-[#A07936]
+                "
+              >
+                Wax Injection
+              </p>
+
+              <h3
+                class="
+                  mt-2
+
+                  font-serif
+                  text-2xl
+
+                  text-[#181818]
+                "
+              >
+                A Soft Copy of a Hard Idea
+              </h3>
+
+              <p
+                class="
+                  mt-4
+
+                  leading-8
+
+                  text-[#6B6B6B]
+                "
+              >
+                Molten wax is injected into the die under pressure, left
+                to set for a few minutes, then eased out by hand — a
+                near-perfect twin of the final piece, soft enough to hold
+                yet firm enough to carry every detail forward.
+              </p>
+
+            </div>
+
+            <div
+              class="
+                h-32
+                w-full
+                shrink-0
+
+                overflow-hidden
+                rounded-2xl
+
+                sm:h-44
+                sm:w-44
+
+                md:h-40
+                md:w-40
+              "
+            >
+
+              <img
+                src="../src/assets/process/step03-filling.jpg"
+                alt="Wax ring patterns injected from a mould"
+                class="
+                  h-full
+                  w-full
+                  object-cover
+                "
+              />
+
+            </div>
+
+          </div>
+
+          <div
+            class="
+              absolute
+              top-1/2
+              left-[calc(50%-1.5rem)]
+
+              z-10
+
+              hidden
+
+              h-16
+              w-16
+
+              -translate-x-1/2
+              -translate-y-1/2
+
+              items-center
+              justify-center
+
+              rounded-full
+
+              bg-[#181818]
+
+              font-serif
+              text-lg
+
+              text-white
+
+              md:flex
+            "
+          >
+            03
+          </div>
 
         </div>
 
-        <h3
+        <!-- STEP 04 -->
+
+        <div
           class="
-            mt-8
+            reveal
+            reveal-right
 
-            font-serif
-            text-2xl
+            relative
 
-            text-[#181818]
+            flex
+            gap-8
+
+            md:grid
+            md:grid-cols-2
+            md:items-center
+            md:gap-x-12
           "
         >
-          Delivered to You
-        </h3>
 
-        <p
+          <div
+            class="
+              relative
+              z-10
+
+              flex
+              h-16
+              w-16
+              shrink-0
+
+              items-center
+              justify-center
+
+              rounded-full
+
+              bg-[#181818]
+
+              font-serif
+              text-lg
+
+              text-white
+
+              md:hidden
+            "
+          >
+            04
+          </div>
+
+          <div
+            class="
+              flex
+              flex-1
+              flex-col
+              gap-6
+
+              sm:flex-row
+              sm:items-start
+              sm:justify-between
+
+              md:col-start-2
+              md:pl-10
+            "
+          >
+
+            <div
+              class="
+                sm:max-w-md
+              "
+            >
+
+              <p
+                class="
+                  text-xs
+                  font-medium
+                  uppercase
+
+                  tracking-[0.18em]
+
+                  text-[#A07936]
+                "
+              >
+                Wax Tree Assembly
+              </p>
+
+              <h3
+                class="
+                  mt-2
+
+                  font-serif
+                  text-2xl
+
+                  text-[#181818]
+                "
+              >
+                Building a Tree to Feed the Fire
+              </h3>
+
+              <p
+                class="
+                  mt-4
+
+                  leading-8
+
+                  text-[#6B6B6B]
+                "
+              >
+                Each wax pattern is hand-soldered onto a central wax stem
+                with a heated spatula, angled just so the metal will flow
+                evenly later. A single tree can carry forty pieces or
+                more, all destined to be cast in one pour.
+              </p>
+
+            </div>
+
+            <div
+              class="
+                h-32
+                w-full
+                shrink-0
+
+                overflow-hidden
+                rounded-2xl
+
+                sm:h-44
+                sm:w-44
+
+                md:h-40
+                md:w-40
+              "
+            >
+
+              <img
+                src="https://i.pinimg.com/736x/c8/85/0c/c8850cab35d8632579ea74a734a12ce5.jpg"
+                alt="A wax tree formed from multiple wax patterns"
+                class="
+                  h-full
+                  w-full
+                  object-cover
+                "
+              />
+
+            </div>
+
+          </div>
+
+          <div
+            class="
+              absolute
+              top-1/2
+              left-[calc(50%+1.5rem)]
+
+              z-10
+
+              hidden
+
+              h-16
+              w-16
+
+              -translate-x-1/2
+              -translate-y-1/2
+
+              items-center
+              justify-center
+
+              rounded-full
+
+              bg-[#181818]
+
+              font-serif
+              text-lg
+
+              text-white
+
+              md:flex
+            "
+          >
+            04
+          </div>
+
+        </div>
+
+        <!-- STEP 05 -->
+
+        <div
           class="
-            mt-5
+            reveal
+            reveal-left
 
-            leading-8
+            relative
 
-            text-[#6B6B6B]
+            flex
+            gap-8
+
+            md:grid
+            md:grid-cols-2
+            md:items-center
+            md:gap-x-12
           "
         >
-          Beautifully packaged and delivered with care, ready to become
-          part of your story.
-        </p>
+
+          <div
+            class="
+              relative
+              z-10
+
+              flex
+              h-16
+              w-16
+              shrink-0
+
+              items-center
+              justify-center
+
+              rounded-full
+
+              bg-[#181818]
+
+              font-serif
+              text-lg
+
+              text-white
+
+              md:hidden
+            "
+          >
+            05
+          </div>
+
+          <div
+            class="
+              flex
+              flex-1
+              flex-col
+              gap-6
+
+              sm:flex-row
+              sm:items-start
+              sm:justify-between
+
+              md:col-start-1
+              md:flex-row-reverse
+              md:pr-10
+            "
+          >
+
+            <div
+              class="
+                sm:max-w-md
+              "
+            >
+
+              <p
+                class="
+                  text-xs
+                  font-medium
+                  uppercase
+
+                  tracking-[0.18em]
+
+                  text-[#A07936]
+                "
+              >
+                Investment Casting
+              </p>
+
+              <h3
+                class="
+                  mt-2
+
+                  font-serif
+                  text-2xl
+
+                  text-[#181818]
+                "
+              >
+                Buried Before It's Born
+              </h3>
+
+              <p
+                class="
+                  mt-4
+
+                  leading-8
+
+                  text-[#6B6B6B]
+                "
+              >
+                The wax tree is set inside a steel flask and flooded with
+                a gypsum-bonded investment slurry under vacuum, pulling
+                out every trapped air bubble. Left to cure for hours, it
+                hardens into the exact negative of everything the wax was.
+              </p>
+
+            </div>
+
+            <div
+              class="
+                h-32
+                w-full
+                shrink-0
+
+                overflow-hidden
+                rounded-2xl
+
+                sm:h-44
+                sm:w-44
+
+                md:h-40
+                md:w-40
+              "
+            >
+
+              <img
+                src="https://i.pinimg.com/736x/03/d8/bf/03d8bf60fe1b44babb993ddda1c18508.jpg"
+                alt="A flask being lifted after investment casting"
+                class="
+                  h-full
+                  w-full
+                  object-cover
+                "
+              />
+
+            </div>
+
+          </div>
+
+          <div
+            class="
+              absolute
+              top-1/2
+              left-[calc(50%-1.5rem)]
+
+              z-10
+
+              hidden
+
+              h-16
+              w-16
+
+              -translate-x-1/2
+              -translate-y-1/2
+
+              items-center
+              justify-center
+
+              rounded-full
+
+              bg-[#181818]
+
+              font-serif
+              text-lg
+
+              text-white
+
+              md:flex
+            "
+          >
+            05
+          </div>
+
+        </div>
+
+        <!-- STEP 06 -->
+
+        <div
+          class="
+            reveal
+            reveal-right
+
+            relative
+
+            flex
+            gap-8
+
+            md:grid
+            md:grid-cols-2
+            md:items-center
+            md:gap-x-12
+          "
+        >
+
+          <div
+            class="
+              relative
+              z-10
+
+              flex
+              h-16
+              w-16
+              shrink-0
+
+              items-center
+              justify-center
+
+              rounded-full
+
+              bg-[#181818]
+
+              font-serif
+              text-lg
+
+              text-white
+
+              md:hidden
+            "
+          >
+            06
+          </div>
+
+          <div
+            class="
+              flex
+              flex-1
+              flex-col
+              gap-6
+
+              sm:flex-row
+              sm:items-start
+              sm:justify-between
+
+              md:col-start-2
+              md:pl-10
+            "
+          >
+
+            <div
+              class="
+                sm:max-w-md
+              "
+            >
+
+              <p
+                class="
+                  text-xs
+                  font-medium
+                  uppercase
+
+                  tracking-[0.18em]
+
+                  text-[#A07936]
+                "
+              >
+                Burnout
+              </p>
+
+              <h3
+                class="
+                  mt-2
+
+                  font-serif
+                  text-2xl
+
+                  text-[#181818]
+                "
+              >
+                The Wax Keeps Its Promise, Then Leaves
+              </h3>
+
+              <p
+                class="
+                  mt-4
+
+                  leading-8
+
+                  text-[#6B6B6B]
+                "
+              >
+                The flask climbs through the kiln in stages — past 150°C,
+                then 370°C, on toward 730°C — over several unhurried
+                hours. Every trace of wax melts and burns clean away,
+                leaving a cavity that remembers its shape perfectly.
+              </p>
+
+            </div>
+
+            <div
+              class="
+                h-32
+                w-full
+                shrink-0
+
+                overflow-hidden
+                rounded-2xl
+
+                sm:h-44
+                sm:w-44
+
+                md:h-40
+                md:w-40
+              "
+            >
+
+              <img
+                src="../src/assets/process/step06-heating.jpg"
+                alt="A glowing burnout kiln melting away the wax"
+                class="
+                  h-full
+                  w-full
+                  object-cover
+                "
+              />
+
+            </div>
+
+          </div>
+
+          <div
+            class="
+              absolute
+              top-1/2
+              left-[calc(50%+1.5rem)]
+
+              z-10
+
+              hidden
+
+              h-16
+              w-16
+
+              -translate-x-1/2
+              -translate-y-1/2
+
+              items-center
+              justify-center
+
+              rounded-full
+
+              bg-[#181818]
+
+              font-serif
+              text-lg
+
+              text-white
+
+              md:flex
+            "
+          >
+            06
+          </div>
+
+        </div>
+
+        <!-- STEP 07 -->
+
+        <div
+          class="
+            reveal
+            reveal-left
+
+            relative
+
+            flex
+            gap-8
+
+            md:grid
+            md:grid-cols-2
+            md:items-center
+            md:gap-x-12
+          "
+        >
+
+          <div
+            class="
+              relative
+              z-10
+
+              flex
+              h-16
+              w-16
+              shrink-0
+
+              items-center
+              justify-center
+
+              rounded-full
+
+              bg-[#181818]
+
+              font-serif
+              text-lg
+
+              text-white
+
+              md:hidden
+            "
+          >
+            07
+          </div>
+
+          <div
+            class="
+              flex
+              flex-1
+              flex-col
+              gap-6
+
+              sm:flex-row
+              sm:items-start
+              sm:justify-between
+
+              md:col-start-1
+              md:flex-row-reverse
+              md:pr-10
+            "
+          >
+
+            <div
+              class="
+                sm:max-w-md
+              "
+            >
+
+              <p
+                class="
+                  text-xs
+                  font-medium
+                  uppercase
+
+                  tracking-[0.18em]
+
+                  text-[#A07936]
+                "
+              >
+                Silver Melting
+              </p>
+
+              <h3
+                class="
+                  mt-2
+
+                  font-serif
+                  text-2xl
+
+                  text-[#181818]
+                "
+              >
+                925 Finds Its Fire
+              </h3>
+
+              <p
+                class="
+                  mt-4
+
+                  leading-8
+
+                  text-[#6B6B6B]
+                "
+              >
+                Sterling silver, alloyed to 92.5% purity for strength, is
+                heated past 890°C until it turns liquid and mirror-bright.
+                Misjudge the heat by even a little and the casting fails
+                — so this step is timed by eye as much as by gauge.
+              </p>
+
+            </div>
+
+            <div
+              class="
+                h-32
+                w-full
+                shrink-0
+
+                overflow-hidden
+                rounded-2xl
+
+                sm:h-44
+                sm:w-44
+
+                md:h-40
+                md:w-40
+              "
+            >
+
+              <img
+                src="https://i.pinimg.com/736x/db/5b/2e/db5b2e3930550ecb649bf0c205c14f6b.jpg"
+                alt="Molten metal glowing as it is poured"
+                class="
+                  h-full
+                  w-full
+                  object-cover
+                "
+              />
+
+            </div>
+
+          </div>
+
+          <div
+            class="
+              absolute
+              top-1/2
+              left-[calc(50%-1.5rem)]
+
+              z-10
+
+              hidden
+
+              h-16
+              w-16
+
+              -translate-x-1/2
+              -translate-y-1/2
+
+              items-center
+              justify-center
+
+              rounded-full
+
+              bg-[#181818]
+
+              font-serif
+              text-lg
+
+              text-white
+
+              md:flex
+            "
+          >
+            07
+          </div>
+
+        </div>
+
+        <!-- STEP 08 -->
+
+        <div
+          class="
+            reveal
+            reveal-right
+
+            relative
+
+            flex
+            gap-8
+
+            md:grid
+            md:grid-cols-2
+            md:items-center
+            md:gap-x-12
+          "
+        >
+
+          <div
+            class="
+              relative
+              z-10
+
+              flex
+              h-16
+              w-16
+              shrink-0
+
+              items-center
+              justify-center
+
+              rounded-full
+
+              bg-[#181818]
+
+              font-serif
+              text-lg
+
+              text-white
+
+              md:hidden
+            "
+          >
+            08
+          </div>
+
+          <div
+            class="
+              flex
+              flex-1
+              flex-col
+              gap-6
+
+              sm:flex-row
+              sm:items-start
+              sm:justify-between
+
+              md:col-start-2
+              md:pl-10
+            "
+          >
+
+            <div
+              class="
+                sm:max-w-md
+              "
+            >
+
+              <p
+                class="
+                  text-xs
+                  font-medium
+                  uppercase
+
+                  tracking-[0.18em]
+
+                  text-[#A07936]
+                "
+              >
+                Vacuum Casting
+              </p>
+
+              <h3
+                class="
+                  mt-2
+
+                  font-serif
+                  text-2xl
+
+                  text-[#181818]
+                "
+              >
+                Molten Silver Chases Every Corner
+              </h3>
+
+              <p
+                class="
+                  mt-4
+
+                  leading-8
+
+                  text-[#6B6B6B]
+                "
+              >
+                The still-glowing flask is locked onto the caster, and
+                molten silver is pulled in by vacuum or flung in by
+                centrifugal force — reaching every groove the wax once
+                filled before it's given barely a minute to set.
+              </p>
+
+            </div>
+
+            <div
+              class="
+                h-32
+                w-full
+                shrink-0
+
+                overflow-hidden
+                rounded-2xl
+
+                sm:h-44
+                sm:w-44
+
+                md:h-40
+                md:w-40
+              "
+            >
+
+              <img
+                src="../src/assets/process/step08-casting.jpg"
+                alt="A vacuum casting machine used to cast jewellery"
+                class="
+                  h-full
+                  w-full
+                  object-cover
+                "
+              />
+
+            </div>
+
+          </div>
+
+          <div
+            class="
+              absolute
+              top-1/2
+              left-[calc(50%+1.5rem)]
+
+              z-10
+
+              hidden
+
+              h-16
+              w-16
+
+              -translate-x-1/2
+              -translate-y-1/2
+
+              items-center
+              justify-center
+
+              rounded-full
+
+              bg-[#181818]
+
+              font-serif
+              text-lg
+
+              text-white
+
+              md:flex
+            "
+          >
+            08
+          </div>
+
+        </div>
+
+        <!-- STEP 09 -->
+
+        <div
+          class="
+            reveal
+            reveal-left
+
+            relative
+
+            flex
+            gap-8
+
+            md:grid
+            md:grid-cols-2
+            md:items-center
+            md:gap-x-12
+          "
+        >
+
+          <div
+            class="
+              relative
+              z-10
+
+              flex
+              h-16
+              w-16
+              shrink-0
+
+              items-center
+              justify-center
+
+              rounded-full
+
+              bg-[#181818]
+
+              font-serif
+              text-lg
+
+              text-white
+
+              md:hidden
+            "
+          >
+            09
+          </div>
+
+          <div
+            class="
+              flex
+              flex-1
+              flex-col
+              gap-6
+
+              sm:flex-row
+              sm:items-start
+              sm:justify-between
+
+              md:col-start-1
+              md:flex-row-reverse
+              md:pr-10
+            "
+          >
+
+            <div
+              class="
+                sm:max-w-md
+              "
+            >
+
+              <p
+                class="
+                  text-xs
+                  font-medium
+                  uppercase
+
+                  tracking-[0.18em]
+
+                  text-[#A07936]
+                "
+              >
+                Quenching &amp; Devesting
+              </p>
+
+              <h3
+                class="
+                  mt-2
+
+                  font-serif
+                  text-2xl
+
+                  text-[#181818]
+                "
+              >
+                Freed From the Mould That Made It
+              </h3>
+
+              <p
+                class="
+                  mt-4
+
+                  leading-8
+
+                  text-[#6B6B6B]
+                "
+              >
+                The flask is plunged into cold water while still hot, and
+                the shock shatters the investment on contact. What comes
+                out is a blackened, unpolished silver tree — rough to
+                look at, but already carrying the design drawn weeks ago.
+              </p>
+
+            </div>
+
+            <div
+              class="
+                h-32
+                w-full
+                shrink-0
+
+                overflow-hidden
+                rounded-2xl
+
+                sm:h-44
+                sm:w-44
+
+                md:h-40
+                md:w-40
+              "
+            >
+
+              <img
+                src="../src/assets/process/step09-washing.jpg"
+                alt="A freshly cast silver tree after the investment is washed away"
+                class="
+                  h-full
+                  w-full
+                  object-cover
+                "
+              />
+
+            </div>
+
+          </div>
+
+          <div
+            class="
+              absolute
+              top-1/2
+              left-[calc(50%-1.5rem)]
+
+              z-10
+
+              hidden
+
+              h-16
+              w-16
+
+              -translate-x-1/2
+              -translate-y-1/2
+
+              items-center
+              justify-center
+
+              rounded-full
+
+              bg-[#181818]
+
+              font-serif
+              text-lg
+
+              text-white
+
+              md:flex
+            "
+          >
+            09
+          </div>
+
+        </div>
+
+        <!-- STEP 10 -->
+
+        <div
+          class="
+            reveal
+            reveal-right
+
+            relative
+
+            flex
+            gap-8
+
+            md:grid
+            md:grid-cols-2
+            md:items-center
+            md:gap-x-12
+          "
+        >
+
+          <div
+            class="
+              relative
+              z-10
+
+              flex
+              h-16
+              w-16
+              shrink-0
+
+              items-center
+              justify-center
+
+              rounded-full
+
+              bg-[#181818]
+
+              font-serif
+              text-lg
+
+              text-white
+
+              md:hidden
+            "
+          >
+            10
+          </div>
+
+          <div
+            class="
+              flex
+              flex-1
+              flex-col
+              gap-6
+
+              sm:flex-row
+              sm:items-start
+              sm:justify-between
+
+              md:col-start-2
+              md:pl-10
+            "
+          >
+
+            <div
+              class="
+                sm:max-w-md
+              "
+            >
+
+              <p
+                class="
+                  text-xs
+                  font-medium
+                  uppercase
+
+                  tracking-[0.18em]
+
+                  text-[#A07936]
+                "
+              >
+                Sprue Cutting
+              </p>
+
+              <h3
+                class="
+                  mt-2
+
+                  font-serif
+                  text-2xl
+
+                  text-[#181818]
+                "
+              >
+                Separated to Stand Alone
+              </h3>
+
+              <p
+                class="
+                  mt-4
+
+                  leading-8
+
+                  text-[#6B6B6B]
+                "
+              >
+                Each piece is cut away from the tree with a jeweller's
+                saw, close enough to the join that almost no silver goes
+                to waste. What's left of the sprue is filed flush by
+                hand — the last trace of the tree it grew from.
+              </p>
+
+            </div>
+
+            <div
+              class="
+                h-32
+                w-full
+                shrink-0
+
+                overflow-hidden
+                rounded-2xl
+
+                sm:h-44
+                sm:w-44
+
+                md:h-40
+                md:w-40
+              "
+            >
+
+              <img
+                src="../src/assets/process/step10-cutting.jpg"
+                alt="A hand holding a cast metal tree of rings ready to be cut"
+                class="
+                  h-full
+                  w-full
+                  object-cover
+                "
+              />
+
+            </div>
+
+          </div>
+
+          <div
+            class="
+              absolute
+              top-1/2
+              left-[calc(50%+1.5rem)]
+
+              z-10
+
+              hidden
+
+              h-16
+              w-16
+
+              -translate-x-1/2
+              -translate-y-1/2
+
+              items-center
+              justify-center
+
+              rounded-full
+
+              bg-[#181818]
+
+              font-serif
+              text-lg
+
+              text-white
+
+              md:flex
+            "
+          >
+            10
+          </div>
+
+        </div>
+
+        <!-- STEP 11 -->
+
+        <div
+          class="
+            reveal
+            reveal-left
+
+            relative
+
+            flex
+            gap-8
+
+            md:grid
+            md:grid-cols-2
+            md:items-center
+            md:gap-x-12
+          "
+        >
+
+          <div
+            class="
+              relative
+              z-10
+
+              flex
+              h-16
+              w-16
+              shrink-0
+
+              items-center
+              justify-center
+
+              rounded-full
+
+              bg-[#181818]
+
+              font-serif
+              text-lg
+
+              text-white
+
+              md:hidden
+            "
+          >
+            11
+          </div>
+
+          <div
+            class="
+              flex
+              flex-1
+              flex-col
+              gap-6
+
+              sm:flex-row
+              sm:items-start
+              sm:justify-between
+
+              md:col-start-1
+              md:flex-row-reverse
+              md:pr-10
+            "
+          >
+
+            <div
+              class="
+                sm:max-w-md
+              "
+            >
+
+              <p
+                class="
+                  text-xs
+                  font-medium
+                  uppercase
+
+                  tracking-[0.18em]
+
+                  text-[#A07936]
+                "
+              >
+                Soldering &amp; Assembly
+              </p>
+
+              <h3
+                class="
+                  mt-2
+
+                  font-serif
+                  text-2xl
+
+                  text-[#181818]
+                "
+              >
+                Where Parts Become One Piece
+              </h3>
+
+              <p
+                class="
+                  mt-4
+
+                  leading-8
+
+                  text-[#6B6B6B]
+                "
+              >
+                Clasps, jump rings, pin backs, and hinges are torch-soldered
+                into place at just enough heat to fuse the joint without
+                touching the metal around it. Loose components stop being
+                parts here and start being jewellery.
+              </p>
+
+            </div>
+
+            <div
+              class="
+                h-32
+                w-full
+                shrink-0
+
+                overflow-hidden
+                rounded-2xl
+
+                sm:h-44
+                sm:w-44
+
+                md:h-40
+                md:w-40
+              "
+            >
+
+              <img
+                src="../src/assets/process/step11-assembly.jpg"
+                alt="A jump ring being closed during jewellery assembly"
+                class="
+                  h-full
+                  w-full
+                  object-cover
+                "
+              />
+
+            </div>
+
+          </div>
+
+          <div
+            class="
+              absolute
+              top-1/2
+              left-[calc(50%-1.5rem)]
+
+              z-10
+
+              hidden
+
+              h-16
+              w-16
+
+              -translate-x-1/2
+              -translate-y-1/2
+
+              items-center
+              justify-center
+
+              rounded-full
+
+              bg-[#181818]
+
+              font-serif
+              text-lg
+
+              text-white
+
+              md:flex
+            "
+          >
+            11
+          </div>
+
+        </div>
+
+        <!-- STEP 12 -->
+
+        <div
+          class="
+            reveal
+            reveal-right
+
+            relative
+
+            flex
+            gap-8
+
+            md:grid
+            md:grid-cols-2
+            md:items-center
+            md:gap-x-12
+          "
+        >
+
+          <div
+            class="
+              relative
+              z-10
+
+              flex
+              h-16
+              w-16
+              shrink-0
+
+              items-center
+              justify-center
+
+              rounded-full
+
+              bg-[#181818]
+
+              font-serif
+              text-lg
+
+              text-white
+
+              md:hidden
+            "
+          >
+            12
+          </div>
+
+          <div
+            class="
+              flex
+              flex-1
+              flex-col
+              gap-6
+
+              sm:flex-row
+              sm:items-start
+              sm:justify-between
+
+              md:col-start-2
+              md:pl-10
+            "
+          >
+
+            <div
+              class="
+                sm:max-w-md
+              "
+            >
+
+              <p
+                class="
+                  text-xs
+                  font-medium
+                  uppercase
+
+                  tracking-[0.18em]
+
+                  text-[#A07936]
+                "
+              >
+                Filing &amp; Fitting
+              </p>
+
+              <h3
+                class="
+                  mt-2
+
+                  font-serif
+                  text-2xl
+
+                  text-[#181818]
+                "
+              >
+                Nothing Leaves Without Passing This
+              </h3>
+
+              <p
+                class="
+                  mt-4
+
+                  leading-8
+
+                  text-[#6B6B6B]
+                "
+              >
+                Every hinge is worked open and shut, every clasp clicked,
+                every ring checked against its size gauge. Casting seams
+                are filed away by hand until only smooth metal remains —
+                comfort checked long before shine enters the picture.
+              </p>
+
+            </div>
+
+            <div
+              class="
+                h-32
+                w-full
+                shrink-0
+
+                overflow-hidden
+                rounded-2xl
+
+                sm:h-44
+                sm:w-44
+
+                md:h-40
+                md:w-40
+              "
+            >
+
+              <img
+                src="../src/assets/process/step12-filing-setting.jpg"
+                alt="A stone being carefully set by hand into a jewellery piece"
+                class="
+                  h-full
+                  w-full
+                  object-cover
+                "
+              />
+
+            </div>
+
+          </div>
+
+          <div
+            class="
+              absolute
+              top-1/2
+              left-[calc(50%+1.5rem)]
+
+              z-10
+
+              hidden
+
+              h-16
+              w-16
+
+              -translate-x-1/2
+              -translate-y-1/2
+
+              items-center
+              justify-center
+
+              rounded-full
+
+              bg-[#181818]
+
+              font-serif
+              text-lg
+
+              text-white
+
+              md:flex
+            "
+          >
+            12
+          </div>
+
+        </div>
+
+        <!-- STEP 13 -->
+
+        <div
+          class="
+            reveal
+            reveal-left
+
+            relative
+
+            flex
+            gap-8
+
+            md:grid
+            md:grid-cols-2
+            md:items-center
+            md:gap-x-12
+          "
+        >
+
+          <div
+            class="
+              relative
+              z-10
+
+              flex
+              h-16
+              w-16
+              shrink-0
+
+              items-center
+              justify-center
+
+              rounded-full
+
+              bg-[#181818]
+
+              font-serif
+              text-lg
+
+              text-white
+
+              md:hidden
+            "
+          >
+            13
+          </div>
+
+          <div
+            class="
+              flex
+              flex-1
+              flex-col
+              gap-6
+
+              sm:flex-row
+              sm:items-start
+              sm:justify-between
+
+              md:col-start-1
+              md:flex-row-reverse
+              md:pr-10
+            "
+          >
+
+            <div
+              class="
+                sm:max-w-md
+              "
+            >
+
+              <p
+                class="
+                  text-xs
+                  font-medium
+                  uppercase
+
+                  tracking-[0.18em]
+
+                  text-[#A07936]
+                "
+              >
+                Tumble Finishing
+              </p>
+
+              <h3
+                class="
+                  mt-2
+
+                  font-serif
+                  text-2xl
+
+                  text-[#181818]
+                "
+              >
+                The Rough Edges Give In First
+              </h3>
+
+              <p
+                class="
+                  mt-4
+
+                  leading-8
+
+                  text-[#6B6B6B]
+                "
+              >
+                Pieces spend close to an hour tumbling with fine steel
+                pins in a magnetic finisher, reaching into grooves and
+                joints no hand tool can. It won't shine yet — but every
+                surface comes out even, ready for the polish that will.
+              </p>
+
+            </div>
+
+            <div
+              class="
+                h-32
+                w-full
+                shrink-0
+
+                overflow-hidden
+                rounded-2xl
+
+                sm:h-44
+                sm:w-44
+
+                md:h-40
+                md:w-40
+              "
+            >
+
+              <img
+                src="../src/assets/process/step13-grinding.jpg"
+                alt="A magnetic tumbler used to smooth jewellery surfaces"
+                class="
+                  h-full
+                  w-full
+                  object-cover
+                "
+              />
+
+            </div>
+
+          </div>
+
+          <div
+            class="
+              absolute
+              top-1/2
+              left-[calc(50%-1.5rem)]
+
+              z-10
+
+              hidden
+
+              h-16
+              w-16
+
+              -translate-x-1/2
+              -translate-y-1/2
+
+              items-center
+              justify-center
+
+              rounded-full
+
+              bg-[#181818]
+
+              font-serif
+              text-lg
+
+              text-white
+
+              md:flex
+            "
+          >
+            13
+          </div>
+
+        </div>
+
+        <!-- STEP 14 -->
+
+        <div
+          class="
+            reveal
+            reveal-right
+
+            relative
+
+            flex
+            gap-8
+
+            md:grid
+            md:grid-cols-2
+            md:items-center
+            md:gap-x-12
+          "
+        >
+
+          <div
+            class="
+              relative
+              z-10
+
+              flex
+              h-16
+              w-16
+              shrink-0
+
+              items-center
+              justify-center
+
+              rounded-full
+
+              bg-[#A07936]
+
+              font-serif
+              text-lg
+
+              text-white
+
+              md:hidden
+            "
+          >
+            14
+          </div>
+
+          <div
+            class="
+              flex
+              flex-1
+              flex-col
+              gap-6
+
+              sm:flex-row
+              sm:items-start
+              sm:justify-between
+
+              md:col-start-2
+              md:pl-10
+            "
+          >
+
+            <div
+              class="
+                sm:max-w-md
+              "
+            >
+
+              <p
+                class="
+                  text-xs
+                  font-medium
+                  uppercase
+
+                  tracking-[0.18em]
+
+                  text-[#A07936]
+                "
+              >
+                Polishing &amp; Rhodium Plating
+              </p>
+
+              <h3
+                class="
+                  mt-2
+
+                  font-serif
+                  text-2xl
+
+                  text-[#181818]
+                "
+              >
+                Ready to Leave Our Hands
+              </h3>
+
+              <p
+                class="
+                  mt-4
+
+                  leading-8
+
+                  text-[#6B6B6B]
+                "
+              >
+                Each piece is hand-buffed against cloth mops loaded with
+                polishing compound until it holds a mirror. A final
+                rhodium plating locks that shine in and guards it against
+                tarnish — the last touch before it becomes yours.
+              </p>
+
+            </div>
+
+            <div
+              class="
+                h-32
+                w-full
+                shrink-0
+
+                overflow-hidden
+                rounded-2xl
+
+                sm:h-44
+                sm:w-44
+
+                md:h-40
+                md:w-40
+              "
+            >
+
+              <img
+                src="../src/assets/process/step14-polishing.jpg"
+                alt="Buffing wheels used to polish jewellery to a mirror shine"
+                class="
+                  h-full
+                  w-full
+                  object-cover
+                "
+              />
+
+            </div>
+
+          </div>
+
+          <div
+            class="
+              absolute
+              top-1/2
+              left-[calc(50%+1.5rem)]
+
+              z-10
+
+              hidden
+
+              h-16
+              w-16
+
+              -translate-x-1/2
+              -translate-y-1/2
+
+              items-center
+              justify-center
+
+              rounded-full
+
+              bg-[#A07936]
+
+              font-serif
+              text-lg
+
+              text-white
+
+              md:flex
+            "
+          >
+            14
+          </div>
+
+        </div>
 
       </div>
 
