@@ -5,7 +5,7 @@ import { apiClient } from "./apiClient.js";
 /*
  * Same shared-backend caveat as services/cartService.js — this
  * mirrors Mivo Jewels' working checkout/Cashfree integration rather
- * than an independently-confirmed contract for banshiwaale's own
+ * than an independently-confirmed contract for banshiwale's own
  * traffic.
  *
  *   POST /orders/createorder
