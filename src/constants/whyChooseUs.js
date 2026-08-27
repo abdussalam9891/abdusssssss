@@ -11,10 +11,10 @@ export const WHY_CHOOSE_US = [
 
   {
     id: 4,
-    title: "Easy Returns",
+    title: "Handcrafted Excellence",
     description:
-      "Enjoy a hassle-free return process designed for complete peace of mind.",
-    icon: "return",
+      "Each piece is carefully handcrafted with meticulous attention to detail.",
+    icon: "craftsmanship",
   },
 
   {
