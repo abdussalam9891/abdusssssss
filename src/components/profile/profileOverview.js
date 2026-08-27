@@ -279,7 +279,7 @@ export function createProfileOverview({
       label: "My Orders",
       description: "Track current and past orders",
       iconName: "package",
-      href: "/pages/orders.html",
+      tab: "orders",
     })}
 
     ${createQuickAction({
