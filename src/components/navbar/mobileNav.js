@@ -574,11 +574,11 @@ export function createMobileNav() {
   <a
     href="/index.html"
     class="inline-flex items-center"
-    aria-label="Banshiwala Home"
+    aria-label="Banshiwale Home"
   >
     <img
       src="/src/assets/logo.png"
-      alt="Banshiwala"
+      alt="Banshiwale"
       class="h-16 w-16 object-contain"
     />
   </a>
