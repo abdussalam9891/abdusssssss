@@ -12,7 +12,28 @@ export function createLoginForm() {
 
   <!-- Email -->
 
-  <div>
+  <div class="relative">
+
+    <span
+      class="
+        pointer-events-none
+
+        absolute
+        left-4
+        top-1/2
+
+        -translate-y-1/2
+
+        text-[#A07936]
+      "
+    >
+
+      <i
+        data-lucide="mail"
+        class="h-4 w-4"
+      ></i>
+
+    </span>
 
     <input
       id="email"
@@ -33,9 +54,10 @@ export function createLoginForm() {
         border
         border-[#E7E7E7]
 
-        bg-white
+        bg-[#FCFBF9]
 
-        px-4
+        pl-11
+        pr-4
 
         text-[14px]
 
@@ -47,6 +69,7 @@ export function createLoginForm() {
         duration-300
 
         focus:border-[#A07936]
+        focus:bg-white
         focus:ring-4
         focus:ring-[#A07936]/10
       "
@@ -88,6 +111,27 @@ export function createLoginForm() {
 
     <div class="relative">
 
+      <span
+        class="
+          pointer-events-none
+
+          absolute
+          left-4
+          top-1/2
+
+          -translate-y-1/2
+
+          text-[#A07936]
+        "
+      >
+
+        <i
+          data-lucide="lock"
+          class="h-4 w-4"
+        ></i>
+
+      </span>
+
       <input
 
 
@@ -109,9 +153,9 @@ export function createLoginForm() {
           border
           border-[#E7E7E7]
 
-          bg-white
+          bg-[#FCFBF9]
 
-          px-4
+          pl-11
           pr-11
 
           text-[14px]
@@ -124,6 +168,7 @@ export function createLoginForm() {
           duration-300
 
           focus:border-[#A07936]
+          focus:bg-white
           focus:ring-4
           focus:ring-[#A07936]/10
         "
@@ -224,6 +269,13 @@ export function createLoginForm() {
       tracking-[0.18em]
 
       text-white
+
+      shadow-[0_10px_26px_rgba(24,24,24,.22)]
+
+      transition-shadow
+      duration-300
+
+      hover:shadow-[0_14px_32px_rgba(160,121,54,.28)]
     "
   >
 
@@ -256,6 +308,39 @@ export function createLoginForm() {
 
   </button>
 
+  <!-- Divider -->
+
+  <div
+    class="
+      mt-5
+
+      flex
+      items-center
+
+      gap-3
+    "
+  >
+
+    <span class="h-px flex-1 bg-[#ECECEC]"></span>
+
+    <span
+      class="
+        text-[11px]
+
+        uppercase
+
+        tracking-[0.2em]
+
+        text-[#999]
+      "
+    >
+      Or continue with
+    </span>
+
+    <span class="h-px flex-1 bg-[#ECECEC]"></span>
+
+  </div>
+
 <!-- Google -->
 
 <button
@@ -263,7 +348,6 @@ export function createLoginForm() {
   type="button"
   class="
     group
-    mt-5
 
     flex
     h-10
