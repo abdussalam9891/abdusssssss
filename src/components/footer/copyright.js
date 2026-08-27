@@ -85,20 +85,6 @@ export function createCopyright() {
 
         <li>
           <a
-            href="/pages/refund-policy.html"
-            class="
-              text-white/50
-              transition-colors
-              duration-300
-              hover:text-[#A07936]
-            "
-          >
-            Refund Policy
-          </a>
-        </li>
-
-        <li>
-          <a
             href="/pages/shipping-policy.html"
             class="
               text-white/50
