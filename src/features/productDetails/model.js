@@ -400,6 +400,7 @@ export function formatPrice(value) {
 }
 
 
+
 // Shared by productInfo.js's stock badge and productTabs.js's
 // Specifications tab so "Availability" reads the same way in
 // both places instead of two separate derivations drifting apart.
@@ -428,12 +429,28 @@ export function getAvailabilityLabel(product) {
 
 export function formatDiscount(product) {
 
-  if (!product?.hasDiscount) return "";
+  // discountValue is always the percentage number itself
+  // (e.g. 5 means "5% off"), regardless of discountType —
+  // mirrors components/showcase/showcaseCard.js.
+  if (product?.discountValue > 0) {
+    return `${product.discountValue}% OFF`;
+  }
 
 
-  return product.discountType === "Percentage"
-    ? `${product.discountValue}% OFF`
-    : `${formatPrice(product.discountValue)} OFF`;
+  // Backend didn't send a discountValue, but the final price is
+  // still lower than the base price — derive the badge from
+  // the actual price gap so it never goes missing.
+  if (product?.price && product.finalPrice < product.price) {
+
+    const percentOff = Math.round(
+      ((product.price - product.finalPrice) / product.price) * 100
+    );
+
+    return percentOff > 0 ? `${percentOff}% OFF` : "";
+  }
+
+
+  return "";
 }
 
 
