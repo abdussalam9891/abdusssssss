@@ -214,7 +214,6 @@ export function createFooterLinks(socialLinks = {}) {
     createFooterLink("/pages/terms-and-conditions.html", "Terms And Condition"),
     createFooterLink("/pages/privacy-policy.html", "Privacy Policy"),
     createFooterLink("/pages/shipping-policy.html", "Shipping Policy"),
-    createFooterLink("/pages/refund-policy.html", "Returns & Refund Policy"),
   ].join("");
 
   return `
@@ -344,16 +343,37 @@ export function createFooterLinks(socialLinks = {}) {
     <a
       href="#"
       data-contact-email
-      class="block text-white/60 transition hover:text-[#A07936]"
+      class="flex items-center gap-2 text-white/60 transition hover:text-[#A07936]"
     >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="h-4 w-4 shrink-0"
+      >
+        <path d="M4 5h16v14H4z" />
+        <path d="m4 6 8 7 8-7" />
+      </svg>
       <span data-contact-email-text>Loading…</span>
     </a>
 
     <a
       href="#"
       data-contact-phone
-      class="block text-white/60 transition hover:text-[#A07936]"
+      class="flex items-center gap-2 text-white/60 transition hover:text-[#A07936]"
     >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        class="h-4 w-4 shrink-0"
+      >
+        <path d="M6.6 10.8c1.4 2.7 3.6 4.9 6.3 6.3l2.1-2.1c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.5.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.4 21 3 13.6 3 4.5c0-.6.4-1 1-1H7.6c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.5.1.4 0 .8-.2 1L6.6 10.8Z" />
+      </svg>
       <span data-contact-phone-text>Loading…</span>
     </a>
 
