@@ -200,7 +200,7 @@ function createShipping() {
   return createList([
     "Orders are dispatched after quality checks.",
     "Secure packaging for every order.",
-    "Return eligibility follows our Refund Policy.",
+    "All sales are final; we do not offer returns or refunds.",
     "Dedicated WhatsApp support for order updates.",
   ]);
 }
@@ -234,7 +234,7 @@ export function createProductTabs(product) {
     },
 
     {
-      title: "Shipping & Returns",
+      title: "Shipping",
       content: createShipping(),
     },
 
