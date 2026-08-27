@@ -22,29 +22,40 @@ export function createForgotPasswordForm() {
           Email Address
         </label>
 
-        <input
-          id="email"
-          name="email"
-          type="email"
-          placeholder="Abc@example.com"
-          autocomplete="email"
-          required
-          class="
-            w-full
-            rounded-2xl
-            border
-            border-[#E7E7E7]
-            px-5
-            py-4
-            text-[15px]
-            outline-none
-            transition-all
-            duration-300
-            focus:border-[#A07936]
-            focus:ring-4
-            focus:ring-[#A07936]/10
-          "
-        >
+        <div class="relative">
+
+          <span class="pointer-events-none absolute left-5 top-1/2 -translate-y-1/2 text-[#A07936]">
+            <i data-lucide="mail" class="h-4 w-4"></i>
+          </span>
+
+          <input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="Abc@example.com"
+            autocomplete="email"
+            required
+            class="
+              w-full
+              rounded-2xl
+              border
+              border-[#E7E7E7]
+              bg-[#FCFBF9]
+              py-4
+              pl-12
+              pr-5
+              text-[15px]
+              outline-none
+              transition-all
+              duration-300
+              focus:border-[#A07936]
+              focus:bg-white
+              focus:ring-4
+              focus:ring-[#A07936]/10
+            "
+          >
+
+        </div>
 
       </div>
 
@@ -89,14 +100,17 @@ export function createForgotPasswordForm() {
               rounded-2xl
               border
               border-[#E7E7E7]
+              bg-[#FCFBF9]
               px-5
               py-4
+              text-center
               text-[15px]
               tracking-[0.3em]
               outline-none
               transition-all
               duration-300
               focus:border-[#A07936]
+              focus:bg-white
               focus:ring-4
               focus:ring-[#A07936]/10
             "
@@ -132,28 +146,39 @@ export function createForgotPasswordForm() {
             New Password
           </label>
 
-          <input
-            id="newPassword"
-            name="newPassword"
-            type="password"
-            autocomplete="new-password"
-            placeholder="Enter new password"
-            class="
-              w-full
-              rounded-2xl
-              border
-              border-[#E7E7E7]
-              px-5
-              py-4
-              text-[15px]
-              outline-none
-              transition-all
-              duration-300
-              focus:border-[#A07936]
-              focus:ring-4
-              focus:ring-[#A07936]/10
-            "
-          >
+          <div class="relative">
+
+            <span class="pointer-events-none absolute left-5 top-1/2 -translate-y-1/2 text-[#A07936]">
+              <i data-lucide="lock" class="h-4 w-4"></i>
+            </span>
+
+            <input
+              id="newPassword"
+              name="newPassword"
+              type="password"
+              autocomplete="new-password"
+              placeholder="Enter new password"
+              class="
+                w-full
+                rounded-2xl
+                border
+                border-[#E7E7E7]
+                bg-[#FCFBF9]
+                py-4
+                pl-12
+                pr-5
+                text-[15px]
+                outline-none
+                transition-all
+                duration-300
+                focus:border-[#A07936]
+                focus:bg-white
+                focus:ring-4
+                focus:ring-[#A07936]/10
+              "
+            >
+
+          </div>
 
         </div>
 
@@ -175,28 +200,39 @@ export function createForgotPasswordForm() {
             Confirm New Password
           </label>
 
-          <input
-            id="confirmPassword"
-            name="confirmPassword"
-            type="password"
-            autocomplete="new-password"
-            placeholder="Confirm new password"
-            class="
-              w-full
-              rounded-2xl
-              border
-              border-[#E7E7E7]
-              px-5
-              py-4
-              text-[15px]
-              outline-none
-              transition-all
-              duration-300
-              focus:border-[#A07936]
-              focus:ring-4
-              focus:ring-[#A07936]/10
-            "
-          >
+          <div class="relative">
+
+            <span class="pointer-events-none absolute left-5 top-1/2 -translate-y-1/2 text-[#A07936]">
+              <i data-lucide="lock" class="h-4 w-4"></i>
+            </span>
+
+            <input
+              id="confirmPassword"
+              name="confirmPassword"
+              type="password"
+              autocomplete="new-password"
+              placeholder="Confirm new password"
+              class="
+                w-full
+                rounded-2xl
+                border
+                border-[#E7E7E7]
+                bg-[#FCFBF9]
+                py-4
+                pl-12
+                pr-5
+                text-[15px]
+                outline-none
+                transition-all
+                duration-300
+                focus:border-[#A07936]
+                focus:bg-white
+                focus:ring-4
+                focus:ring-[#A07936]/10
+              "
+            >
+
+          </div>
 
         </div>
 
@@ -224,6 +260,10 @@ export function createForgotPasswordForm() {
           uppercase
           tracking-[0.28em]
           text-white
+          shadow-[0_10px_26px_rgba(24,24,24,.22)]
+          transition-shadow
+          duration-300
+          hover:shadow-[0_14px_32px_rgba(160,121,54,.28)]
         "
       >
 
