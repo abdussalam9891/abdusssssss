@@ -242,7 +242,7 @@ export const productService = {
   /*
    * Same store endpoint as getPublicProductById above, but resolves
    * by `slug` instead of the backend `_id` — confirmed working
-   * against banshiwaale's live backend:
+   * against banshiwale's live backend:
    *
    *   GET /product/public/store/:domain?slug=<slug>
    *
