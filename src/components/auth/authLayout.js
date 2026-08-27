@@ -1,6 +1,7 @@
 export function createAuthLayout({
   title,
   description,
+  eyebrow = "banshiwale",
   form,
 }) {
   return `
@@ -13,7 +14,7 @@ flex
 items-center
 justify-center
 
-min-h-screen
+h-screen
 
 overflow-hidden
 
@@ -77,7 +78,8 @@ lg:p-4
 
       flex
 
-       h-full
+      h-full
+      max-h-full
 
       w-full
       max-w-7xl
@@ -91,9 +93,29 @@ lg:p-4
 
       bg-white
 
-      shadow-[0_25px_70px_rgba(0,0,0,.08)]
+      shadow-[0_30px_90px_rgba(24,24,24,.12)]
     "
   >
+
+    <!-- Gold Hairline Accent -->
+
+    <div
+      class="
+        pointer-events-none
+
+        absolute
+        inset-x-0
+        top-0
+        z-20
+
+        h-[2px]
+
+        bg-gradient-to-r
+        from-transparent
+        via-[#C6A153]
+        to-transparent
+      "
+    ></div>
 
     <!-- LEFT SHOWCASE -->
 
@@ -310,10 +332,14 @@ lg:p-4
       class="
   flex
 
+  h-full
+  max-h-full
   w-full
 
   items-center
   justify-center
+
+  overflow-y-auto
 
   bg-[#FCFBF9]
 
@@ -337,11 +363,9 @@ lg:p-4
         <div
           class="
             px-6
-            mt-2
             py-1
 
             sm:px-8
-            sm:py-2
           "
         >
 
@@ -414,15 +438,88 @@ lg:p-4
 
           </a>
 
+          <!-- Brand Mark -->
+
+          <div
+            class="
+              flex
+
+              items-center
+              justify-center
+            "
+          >
+
+            <div
+              class="
+                flex
+
+                h-10
+                w-10
+
+                items-center
+                justify-center
+
+                rounded-full
+
+                border
+                border-[#E8D2A5]
+
+                bg-[#FCFBF9]
+
+                shadow-[0_8px_20px_rgba(160,121,54,.18)]
+              "
+            >
+
+              <img
+                src="/src/assets/logo.png"
+
+                alt="banshiwale"
+
+                class="
+                  h-6
+                  w-6
+
+                  object-contain
+                "
+              >
+
+            </div>
+
+          </div>
+
+          <!-- Eyebrow -->
+
+          <p
+            class="
+              mt-2
+
+              text-center
+
+              text-[11px]
+
+              font-semibold
+
+              uppercase
+
+              tracking-[0.35em]
+
+              text-[#A07936]
+            "
+          >
+            ${eyebrow}
+          </p>
+
           <!-- Heading -->
 
           <h1
             class="
+              mt-1
+
               text-center
 
               font-serif
 
-              text-[34px]
+              text-[26px]
 
               tracking-tight
 
@@ -434,17 +531,34 @@ lg:p-4
 
           </h1>
 
+          <!-- Divider -->
 
+          <div
+            class="
+              mx-auto
+
+              mt-2
+              mb-1
+
+              h-[2px]
+              w-10
+
+              bg-gradient-to-r
+              from-transparent
+              via-[#A07936]
+              to-transparent
+            "
+          ></div>
 
           <p
   class="
-    mt-2
+    mt-1
 
     text-center
 
-    text-[14px]
+    text-[13px]
 
-    leading-7
+    leading-5
 
     text-[#7A7A7A]
   "
@@ -455,7 +569,7 @@ lg:p-4
 
           <!-- Form -->
 
-          <div class="mt-8">
+          <div class="mt-4">
 
             ${form}
 
