@@ -5,6 +5,8 @@ export function createRegisterPage() {
   return createAuthLayout({
     title: "Create Account",
 
+    eyebrow: "Join Us",
+
     description:
       "Join banshiwale and start shopping.",
 
