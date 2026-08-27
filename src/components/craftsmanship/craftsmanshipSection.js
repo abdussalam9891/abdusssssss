@@ -54,7 +54,7 @@ lg:gap-8
 >
 
       <img
-  src="./src/assets/images/hero5.jpg"
+  src="./src/assets/multipleCategories.png"
   alt="banshiwale Sterling Silver"
   loading="lazy"
 
