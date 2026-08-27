@@ -6,6 +6,7 @@ const NAV_ITEMS = [
   { tab: "overview", label: "Overview", icon: "layout-grid" },
   { tab: "info", label: "My Profile", icon: "user-round" },
   { tab: "addresses", label: "Addresses", icon: "map-pin" },
+  { tab: "orders", label: "My Orders", icon: "package" },
 ];
 
 
@@ -183,14 +184,6 @@ export function createProfileSidebar(user, activeTab = "overview") {
   <!-- SITE LINKS -->
 
   <div class="space-y-1 p-3">
-
-    <a
-      href="/pages/orders.html"
-      class="${externalLinkClasses()}"
-    >
-      ${icon("package", "h-[17px] w-[17px]")}
-      <span>My Orders</span>
-    </a>
 
     <a
       href="/pages/wishlist.html"
