@@ -75,9 +75,9 @@ function createDiscount(product) {
   const label =
     product.discountType === "Percentage"
       ? `${discountValue}% OFF`
-      : `₹${Math.round(discountValue).toLocaleString(
+      : `${Math.round(discountValue).toLocaleString(
           "en-IN"
-        )} OFF`;
+        )} % OFF`;
 
   return `
 <span
@@ -177,70 +177,6 @@ function createWishlistButton(product) {
 >
   <i
     data-lucide="heart"
-
-    class="
-      h-[15px]
-      w-[15px]
-
-      lg:h-[17px]
-      lg:w-[17px]
-    "
-  ></i>
-</button>
-`;
-}
-
-
-function createQuickViewButton(product) {
-  return `
-<button
-  type="button"
-
-  aria-label="Quick view ${product.name || "product"}"
-
-  data-product-id="${product._id || ""}"
-
-  class="
-    quick-view-button
-
-    flex
-
-    h-9
-    w-9
-
-    lg:h-10
-    lg:w-10
-
-    items-center
-    justify-center
-
-    rounded-full
-
-    border
-    border-[#EEE7DB]
-
-    bg-white/95
-
-    text-[#181818]
-
-    backdrop-blur
-
-    shadow-[0_8px_20px_rgba(0,0,0,.08)]
-
-    transition-all
-    duration-300
-
-    hover:-translate-y-1
-
-    hover:border-[#C9A45C]
-
-    hover:text-[#C9A45C]
-
-    hover:shadow-[0_16px_35px_rgba(0,0,0,.12)]
-  "
->
-  <i
-    data-lucide="eye"
 
     class="
       h-[15px]
@@ -423,19 +359,9 @@ export function createShowcaseCard(
 
         gap-2
         lg:gap-2.5
-
-        opacity-100
-
-        transition-opacity
-        duration-300
-
-        lg:opacity-0
-
-        lg:group-hover:opacity-100
       "
     >
       ${createWishlistButton(product)}
-      ${createQuickViewButton(product)}
     </div>
 
 
@@ -555,7 +481,7 @@ export function createShowcaseCard(
 
    <h3
   class="
-    line-clamp-2
+    truncate
 
     font-serif
 
@@ -564,10 +490,6 @@ export function createShowcaseCard(
     lg:text-[26px]
 
     leading-tight
-
-    min-h-[46px]
-    sm:min-h-[50px]
-    lg:min-h-[66px]
 
     tracking-[-0.025em]
 
