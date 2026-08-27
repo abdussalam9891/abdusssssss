@@ -2,125 +2,173 @@ export function createRegisterForm() {
   return `
     <form
       id="registerForm"
-      class="space-y-3"
+      class="space-y-2"
     >
 
 <!-- First Name + Last Name -->
 <div class="grid grid-cols-2 gap-2">
 
   <!-- First Name -->
-  <input
-  id="firstName"
-  name="firstName"
-  type="text"
-  placeholder="First Name *"
-  autocomplete="given-name"
-  required
-  maxlength="50"
-  class="
-    h-10
-    w-full
-    rounded-2xl
-    border
-    border-[#E7E7E7]
-    px-4
-    text-[14px]
-    placeholder:text-[#999]
-    outline-none
-    transition-all
-    duration-300
-    focus:border-[#A07936]
-    focus:ring-4
-    focus:ring-[#A07936]/10
-  "
->
+  <div class="relative">
+
+    <span class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#A07936]">
+      <i data-lucide="user" class="h-4 w-4"></i>
+    </span>
+
+    <input
+    id="firstName"
+    name="firstName"
+    type="text"
+    placeholder="First Name *"
+    autocomplete="given-name"
+    required
+    maxlength="50"
+    class="
+      h-10
+      w-full
+      rounded-2xl
+      border
+      border-[#E7E7E7]
+      bg-[#FCFBF9]
+      pl-11
+      pr-4
+      text-[14px]
+      placeholder:text-[#999]
+      outline-none
+      transition-all
+      duration-300
+      focus:border-[#A07936]
+      focus:bg-white
+      focus:ring-4
+      focus:ring-[#A07936]/10
+    "
+  >
+
+  </div>
 
 
   <!-- Last Name -->
-  <input
-  id="lastName"
-  name="lastName"
-  type="text"
-  placeholder="Last Name *"
-  autocomplete="family-name"
-  required
-  maxlength="50"
-  class="
-    h-10
-    w-full
-    rounded-2xl
-    border
-    border-[#E7E7E7]
-    px-4
-    text-[14px]
-    placeholder:text-[#999]
-    outline-none
-    transition-all
-    duration-300
-    focus:border-[#A07936]
-    focus:ring-4
-    focus:ring-[#A07936]/10
-  "
->
+  <div class="relative">
+
+    <span class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#A07936]">
+      <i data-lucide="user" class="h-4 w-4"></i>
+    </span>
+
+    <input
+    id="lastName"
+    name="lastName"
+    type="text"
+    placeholder="Last Name *"
+    autocomplete="family-name"
+    required
+    maxlength="50"
+    class="
+      h-10
+      w-full
+      rounded-2xl
+      border
+      border-[#E7E7E7]
+      bg-[#FCFBF9]
+      pl-11
+      pr-4
+      text-[14px]
+      placeholder:text-[#999]
+      outline-none
+      transition-all
+      duration-300
+      focus:border-[#A07936]
+      focus:bg-white
+      focus:ring-4
+      focus:ring-[#A07936]/10
+    "
+  >
+
+  </div>
 
 </div>
 
       <!-- Email -->
-      <input
-        id="email"
-        name="email"
-        type="email"
-        placeholder="Email Address *"
-        autocomplete="email"
-        required
-        class="
-          h-10
-          w-full
-          rounded-2xl
-          border
-          border-[#E7E7E7]
-          px-4
-          text-[14px]
-          placeholder:text-[#999]
-          outline-none
-          transition-all
-          duration-300
-          focus:border-[#A07936]
-          focus:ring-4
-          focus:ring-[#A07936]/10
-        "
-      >
+      <div class="relative">
+
+        <span class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#A07936]">
+          <i data-lucide="mail" class="h-4 w-4"></i>
+        </span>
+
+        <input
+          id="email"
+          name="email"
+          type="email"
+          placeholder="Email Address *"
+          autocomplete="email"
+          required
+          class="
+            h-10
+            w-full
+            rounded-2xl
+            border
+            border-[#E7E7E7]
+            bg-[#FCFBF9]
+            pl-11
+            pr-4
+            text-[14px]
+            placeholder:text-[#999]
+            outline-none
+            transition-all
+            duration-300
+            focus:border-[#A07936]
+            focus:bg-white
+            focus:ring-4
+            focus:ring-[#A07936]/10
+          "
+        >
+
+      </div>
 
       <!-- Mobile Number -->
-     <input
-  id="mobileNumber"
-  name="mobileNumber"
-  type="tel"
-  placeholder="Mobile Number *"
-  autocomplete="tel"
-  inputmode="numeric"
-  maxlength="10"
-  required
-  class="
-    h-10
-    w-full
-    rounded-2xl
-    border
-    border-[#E7E7E7]
-    px-4
-    text-[14px]
-    placeholder:text-[#999]
-    outline-none
-    transition-all
-    duration-300
-    focus:border-[#A07936]
-    focus:ring-4
-    focus:ring-[#A07936]/10
-  "
->
+      <div class="relative">
+
+        <span class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#A07936]">
+          <i data-lucide="phone" class="h-4 w-4"></i>
+        </span>
+
+        <input
+    id="mobileNumber"
+    name="mobileNumber"
+    type="tel"
+    placeholder="Mobile Number *"
+    autocomplete="tel"
+    inputmode="numeric"
+    maxlength="10"
+    required
+    class="
+      h-10
+      w-full
+      rounded-2xl
+      border
+      border-[#E7E7E7]
+      bg-[#FCFBF9]
+      pl-11
+      pr-4
+      text-[14px]
+      placeholder:text-[#999]
+      outline-none
+      transition-all
+      duration-300
+      focus:border-[#A07936]
+      focus:bg-white
+      focus:ring-4
+      focus:ring-[#A07936]/10
+    "
+  >
+
+      </div>
 
       <!-- Password -->
       <div class="relative">
+
+        <span class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#A07936]">
+          <i data-lucide="lock" class="h-4 w-4"></i>
+        </span>
 
         <input
           id="password"
@@ -136,7 +184,8 @@ export function createRegisterForm() {
             rounded-2xl
             border
             border-[#E7E7E7]
-            px-4
+            bg-[#FCFBF9]
+            pl-11
             pr-11
             text-[14px]
             placeholder:text-[#999]
@@ -144,6 +193,7 @@ export function createRegisterForm() {
             transition-all
             duration-300
             focus:border-[#A07936]
+            focus:bg-white
             focus:ring-4
             focus:ring-[#A07936]/10
           "
@@ -174,6 +224,10 @@ export function createRegisterForm() {
       <!-- Confirm Password -->
       <div class="relative">
 
+        <span class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#A07936]">
+          <i data-lucide="lock" class="h-4 w-4"></i>
+        </span>
+
         <input
           id="confirmPassword"
           name="confirmPassword"
@@ -188,7 +242,8 @@ export function createRegisterForm() {
             rounded-2xl
             border
             border-[#E7E7E7]
-            px-4
+            bg-[#FCFBF9]
+            pl-11
             pr-11
             text-[14px]
             placeholder:text-[#999]
@@ -196,6 +251,7 @@ export function createRegisterForm() {
             transition-all
             duration-300
             focus:border-[#A07936]
+            focus:bg-white
             focus:ring-4
             focus:ring-[#A07936]/10
           "
@@ -296,6 +352,10 @@ export function createRegisterForm() {
           uppercase
           tracking-[0.18em]
           text-white
+          shadow-[0_10px_26px_rgba(24,24,24,.22)]
+          transition-shadow
+          duration-300
+          hover:shadow-[0_14px_32px_rgba(160,121,54,.28)]
         "
       >
 
@@ -323,13 +383,40 @@ export function createRegisterForm() {
 
       </button>
 
+      <!-- Divider -->
+
+      <div
+        class="
+          mt-3
+          flex
+          items-center
+          gap-3
+        "
+      >
+
+        <span class="h-px flex-1 bg-[#ECECEC]"></span>
+
+        <span
+          class="
+            text-[11px]
+            uppercase
+            tracking-[0.2em]
+            text-[#999]
+          "
+        >
+          Or continue with
+        </span>
+
+        <span class="h-px flex-1 bg-[#ECECEC]"></span>
+
+      </div>
+
       <!-- Google Login -->
       <button
         id="googleLoginBtn"
         type="button"
         class="
           group
-          mt-5
           flex
           h-10
           w-full
