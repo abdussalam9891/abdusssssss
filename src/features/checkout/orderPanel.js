@@ -314,7 +314,7 @@ function buildLocalOrder({ orderNumber, items, address, totals }) {
  * the Cashfree handoff below mirror Mivo's confirmed, working
  * checkout integration (see services/ordersService.js's header
  * comment) rather than an independently-verified contract for
- * banshiwaale's own traffic.
+ * banshiwale's own traffic.
  *
  * COD completes immediately: the order is created, the cart is
  * cleared, and the confirmation screen shows right away. Online
