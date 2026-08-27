@@ -161,7 +161,16 @@ export function createProfileLayout() {
       "
     >
 
-      <aside id="profileSidebar"></aside>
+      <aside
+        id="profileSidebar"
+
+        class="
+          lg:sticky
+          lg:top-32
+
+          lg:self-start
+        "
+      ></aside>
 
       <div id="profileContent">
 
@@ -174,6 +183,11 @@ export function createProfileLayout() {
 
         <div
           id="profileAddressesPanel"
+          class="hidden"
+        ></div>
+
+        <div
+          id="profileOrdersPanel"
           class="hidden"
         ></div>
 
