@@ -12,7 +12,7 @@ const ICONS = {
 
   shield: "shield-check",
 
-  return: "rotate-ccw",
+  craftsmanship: "gem",
 
   gift: "gift",
 
