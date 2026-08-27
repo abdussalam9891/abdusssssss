@@ -140,15 +140,32 @@ export function createDesktopNav(
     hover:opacity-80
   "
 >
-  <img
-    src="/src/assets/logo.png"
-    alt="Banshiwale"
+  <span
+    id="navbarLogoWrap"
     class="
-      h-24
-      w-24
-      object-contain
+      block
+      h-12
+      w-12
+      lg:h-20
+      lg:w-20
+      shrink-0
+      overflow-hidden
+      rounded-full
     "
   >
+    <img
+      id="navbarLogo"
+      src="/src/assets/logo-white.png"
+      data-logo-scrolled="/src/assets/logo.png"
+      data-logo-top="/src/assets/logo-white.png"
+      alt="Banshiwale"
+      class="
+        h-full
+        w-full
+        object-cover
+      "
+    >
+  </span>
 </a>
 
     <!-- Desktop Navigation -->
