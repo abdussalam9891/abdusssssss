@@ -75,11 +75,6 @@ export const FOOTER_NAVIGATION = {
       label: "Shipping",
       href: "/pages/shipping.html",
     },
-
-    {
-      label: "Returns",
-      href: "/pages/refund-policy.html",
-    },
   ],
 
   company: [
