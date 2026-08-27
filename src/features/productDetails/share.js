@@ -23,7 +23,7 @@ export function initShareButton() {
         window.location.href;
 
       const title =
-        product?.name || "Banshiwaale";
+        product?.name || "Banshiwale";
 
 
       if (navigator.share) {
