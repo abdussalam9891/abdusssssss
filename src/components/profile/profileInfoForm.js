@@ -34,10 +34,10 @@ const INPUT_CLASSES = `
 `;
 
 
-function field({ id, name, label, type = "text", value = "", disabled = false, extra = "" }) {
+function field({ id, name, label, type = "text", value = "", disabled = false, extra = "", wrapperClass = "" }) {
 
   return `
-<div>
+<div class="${wrapperClass}">
 
   <label
     for="${id}"
@@ -71,6 +71,18 @@ function field({ id, name, label, type = "text", value = "", disabled = false, e
 }
 
 
+// yyyy-mm-dd, matching <input type="date">'s expected value/max format.
+function toDateInputValue(value) {
+
+  if (!value) return "";
+
+  const isoLike =
+    String(value).slice(0, 10);
+
+  return /^\d{4}-\d{2}-\d{2}$/.test(isoLike) ? isoLike : "";
+}
+
+
 export function createProfileInfoForm(user = {}) {
 
   const firstName =
@@ -84,6 +96,12 @@ export function createProfileInfoForm(user = {}) {
 
   const mobileNumber =
     user?.mobileNumber || user?.phone || "";
+
+  const dob =
+    toDateInputValue(user?.dob || user?.dateOfBirth);
+
+  const todayIso =
+    new Date().toISOString().slice(0, 10);
 
   return `
 
@@ -167,6 +185,15 @@ export function createProfileInfoForm(user = {}) {
       type: "tel",
       value: mobileNumber,
       extra: 'autocomplete="tel" inputmode="numeric" maxlength="10" required',
+    })}
+
+    ${field({
+      id: "profileDob",
+      name: "dob",
+      label: `Date of Birth <span class="font-normal text-[#A5A09A]">(Optional)</span>`,
+      type: "date",
+      value: dob,
+      extra: `autocomplete="bday" max="${todayIso}"`,
     })}
 
     <div class="sm:col-span-2">
