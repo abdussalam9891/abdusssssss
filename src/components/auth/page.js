@@ -3,10 +3,12 @@ import { createLoginForm } from "./loginForm.js";
 
 export function createLoginPage() {
   return createAuthLayout({
-    title: "Sign In",
+    title: "Welcome Back",
+
+    eyebrow: "Sign In",
 
     description:
-      "Welcome back. Sign in to access your account, wishlist and orders.",
+      "Access your account, wishlist and orders.",
 
     form: createLoginForm(),
   });
