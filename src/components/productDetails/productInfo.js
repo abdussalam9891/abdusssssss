@@ -200,100 +200,7 @@ function createSku(product) {
     ${escapeHtml(product.sku)}
   </span>
 </p>
-`;
-}
 
-
-function createPriceBreakdown(product) {
-
-  const rows = [
-    {
-      label: "Base Price",
-      value: formatPrice(product.price),
-    },
-    {
-      label: "Making Charges",
-      value:
-        product.makingCharges !== null
-          ? `${product.makingCharges}%`
-          : "",
-    },
-    {
-      label: "Tax Rate",
-      value:
-        product.taxRate !== null
-          ? `${product.taxRate}%`
-          : "",
-    },
-  ].filter((row) => row.value);
-
-
-  if (!rows.length) return "";
-
-
-  return `
-<div
-  class="
-    rounded-xl
-    sm:rounded-2xl
-
-    border
-    border-[#ECE5D8]
-
-    bg-[#FBF9F5]
-
-    px-4
-    sm:px-5
-
-    divide-y
-    divide-[#ECE5D8]
-  "
->
-
-  ${rows
-    .map(
-      (row) => `
-<div
-  class="
-    flex
-
-    items-center
-    justify-between
-
-    gap-4
-
-    py-3
-  "
->
-
-  <span
-    class="
-      text-[13px]
-
-      text-[#8A8A8A]
-    "
-  >
-    ${escapeHtml(row.label)}
-  </span>
-
-  <span
-    class="
-      text-[13px]
-
-      font-medium
-
-      text-[#181818]
-    "
-  >
-    ${escapeHtml(row.value)}
-  </span>
-
-</div>
-`
-    )
-    .join("")}
-
-</div>
 `;
 }
 
@@ -625,11 +532,6 @@ export function createProductInfo(product) {
   <!-- Price -->
 
   ${createPricing(product)}
-
-
-  <!-- Base Price / Making Charges / Tax Rate -->
-
-  ${createPriceBreakdown(product)}
 
 
   <!-- Stock + SKU -->
