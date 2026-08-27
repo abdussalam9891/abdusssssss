@@ -69,6 +69,9 @@ export function initProfileInfo() {
     const mobileNumber =
       form.mobileNumber.value.trim();
 
+    const dob =
+      form.dob.value;
+
 
     if (!firstName || !NAME_REGEX.test(firstName)) {
 
@@ -113,6 +116,20 @@ export function initProfileInfo() {
     }
 
 
+    if (dob && new Date(dob) > new Date()) {
+
+      showToast({
+        type: "warning",
+        title: "Invalid Date of Birth",
+        message: "Date of birth can't be in the future.",
+      });
+
+      form.dob.focus();
+
+      return;
+    }
+
+
     const currentUser =
       getCurrentUser();
 
@@ -144,6 +161,7 @@ export function initProfileInfo() {
         firstName,
         lastName,
         mobileNumber,
+        dob: dob || null,
       });
 
 
