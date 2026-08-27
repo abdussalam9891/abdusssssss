@@ -30,8 +30,6 @@ import { initWishlistSync } from "./features/wishlist/wishlistState.js";
 
 import { initQuickAdd } from "./features/quickAdd/index.js";
 
-import { initQuickView } from "./features/quickView/index.js";
-
 import {
   initAuthModal,
   initGuestEngagement,
@@ -87,12 +85,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   // card's Add to Cart button and the wishlist page's Move to Cart
   // button (see features/quickAdd/index.js).
   initQuickAdd();
-
-
-  // Product preview modal opened from every showcase card's eye
-  // icon (see features/quickView/index.js) — shows photos, price
-  // and sizes without leaving the listing.
-  initQuickView();
 
 
   // WhatsApp button is completely independent.
