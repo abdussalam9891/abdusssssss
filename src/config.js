@@ -5,7 +5,7 @@
 
   export const API_BASE_URL ="https://pm3721cg-3000.inc1.devtunnels.ms";
 
- 
+
 
 
 export const GOOGLE_CLIENT_ID =
@@ -92,7 +92,7 @@ export const API_ENDPOINTS = {
 
   // This store and Mivo Jewels run on the same backend — the shape
   // below mirrors Mivo's confirmed, working frontend integration
-  // rather than an independent probe against banshiwaale's own
+  // rather than an independent probe against banshiwale's own
   // traffic, per services/cartService.js's header comment.
   CART: {
     ADD: "/addtocart/addToCart",
