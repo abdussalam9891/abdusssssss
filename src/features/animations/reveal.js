@@ -56,8 +56,8 @@ export function initRevealAnimations() {
         });
       },
       {
-        threshold: 0.15,
-        rootMargin: "0px 0px -60px 0px",
+        threshold: 0,
+        rootMargin: "0px 0px 0px 0px",
       }
     );
   }
