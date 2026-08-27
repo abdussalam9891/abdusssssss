@@ -107,7 +107,7 @@ export function createProductGallery(product) {
       border
       border-[#ECE5D8]
 
-      bg-[#FCFBF9]
+      bg-white
 
       aspect-square
     "
