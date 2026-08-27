@@ -40,7 +40,7 @@ export function createTestimonialsSection() {
           text-[#181818]
         "
       >
-        Trusted by our community
+        Crafted to be worn every day
       </p>
 
     </div>
