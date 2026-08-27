@@ -5,7 +5,8 @@ import { apiClient } from "./apiClient.js";
 /*
  * Verified live against the real backend (2026-08-24, logged-in
  * account) — not just inferred from Mivo Jewels' frontend anymore,
- * though Mivo and banshiwaale do share this same backend.
+
+
  *
  *   GET /addtocart/getcart?domain=:domain
  *     -> { success, cart: { items: [
