@@ -2,7 +2,7 @@ import { icon } from "../../utils/icon.js";
 
 const ICONS = {
   shield: "shield-check", // 925 Certified
-  return: "rotate-ccw",   // Easy Returns
+  craftsmanship: "gem",   // Handcrafted Excellence
   gift: "gift",           // Gift Ready
   support: "messages-square", // Customer Support
 };
