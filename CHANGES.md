@@ -548,3 +548,287 @@ one photo on an item.
 | `8afef0a` | feat(profile): add My Orders links to profile sidebar and quick actions |
 
 Look up any of these with `git show <hash>` for the exact code diff.
+
+---
+
+# Batch 4 (77 commits)
+
+## 1. Site-wide favicon rollout
+
+Every page (`index.html` and everything under `pages/`) used a single bare
+`/favicon.ico` link. **Now** each page ships a full favicon set — 96x96 and
+512x512 PNGs plus an Apple touch icon — linked with relative (`../`/`./`)
+paths instead of absolute ones, so the icons resolve correctly regardless of
+how deep the page is served from.
+
+**Files:** `apple-touch-icon.png`, `favicon-96x96.png`, `favicon-512x512.png`,
+`favicon.ico` *(new)*, plus `index.html` and all 16 files under `pages/`
+(each gets its own commit in the list below). `src/assets/icons/` (16/32/48
+PNGs, *new*) was also added for future favicon/manifest use but isn't wired
+into any page yet.
+
+## 2. Quick View removed
+
+The Quick View modal added in Batch 3 (photo gallery + size/Add-to-Cart
+without leaving the listing) has been removed — the eye icon, its modal, and
+the feature logic are all gone; showcase cards now only show the wishlist
+button.
+
+**Files:** `src/components/quickView/quickViewModal.js`,
+`src/features/quickView/index.js` *(both deleted)*,
+`src/components/showcase/showcaseCard.js`, `src/main.js`.
+
+## 3. Store-wide shift to "all sales final" (no returns/refunds)
+
+The store no longer offers a returns/refund policy. The dedicated refund
+page, every link to it, and every "Easy Returns" mention across the site
+were removed or reworded, replaced with a "Handcrafted Excellence" feature
+and honest all-sales-final copy.
+
+**Files:**
+- `pages/refund-policy.html` *(deleted)*.
+- `src/components/footer/copyright.js`, `src/components/footer/footerLinks.js`
+  (also adds email/phone icon glyphs to the Contact Us column — a separate,
+  unrelated tweak that happened to land in the same file),
+  `src/constants/navigation.js` — drop the Refund Policy link/entry.
+- `pages/contact.html` — the "Can I return a product?" FAQ answer now says
+  all sales are final instead of pointing at a return policy.
+- `pages/shipping-policy.html` — the damage-claim resolution wording no
+  longer mentions refund/exchange, only replacement.
+- `src/components/productDetails/productTabs.js` — "Shipping & Returns" tab
+  renamed to "Shipping"; the refund-policy bullet dropped from its content.
+- `src/components/productDetails/benefitsRow.js`,
+  `src/components/whyChooseUs/featureCard.js` — the return-arrow icon swapped
+  for a gem/craftsmanship icon.
+- `src/constants/whyChooseUs.js` — the "Easy Returns" feature card replaced
+  with "Handcrafted Excellence".
+
+## 4. About page: expanded craftsmanship journey
+
+The About page's craftsmanship section went from a plain 4-step grid to a
+detailed, photographed 14-stage journey (filling → heating → casting →
+washing → cutting → assembly → filing/setting → grinding → polishing, each
+with its own photo and a curved connecting spine on desktop).
+
+**Files:** `pages/about.html`, `src/assets/process/*.jpg` *(9 new step
+photos)*.
+
+## 5. Collections: new category image + safer fallback
+
+`renderCollections.js` now has art for a "Kids Bangles" category, and
+categories without dedicated local art no longer get silently filtered out
+of the shop-by-category section — they render using a brand fallback image
+instead of disappearing.
+
+**Known issue (left as-is intentionally):** the fallback image constant
+points at `src/assets/banshiwala-gold.png`, but that file was deleted in
+this same batch. Any category that falls through to the fallback will show
+a broken image until this is pointed at an asset that still exists.
+
+**Files:** `src/features/collections/renderCollections.js`,
+`src/assets/kids_bangle.png` *(new)*, `src/assets/banshiwala-gold.png`
+*(deleted)*. Separately, `src/components/craftsmanship/craftsmanshipSection.js`
+swapped its placeholder `hero5.jpg` for the new `src/assets/multipleCategories.png`.
+
+## 6. Navbar logo now swaps on scroll
+
+The navbar logo used to be a single static image. **Now** it's wrapped in a
+circular mask and swaps between a circular gold coin mark (`logo-white.png`,
+shown over the transparent top-of-page navbar) and the wider brand lockup
+(`logo.png`, shown once the navbar goes solid on scroll), with matching
+`object-fit` changes so neither version looks cropped or squashed.
+
+**Files:** `src/assets/logo-white.png` *(new)*,
+`src/components/navbar/desktopNav.js`, `src/features/navbar/scroll.js`.
+Separately, `src/components/navbar/mobileNav.js` fixed a "Banshiwala" →
+"Banshiwale" typo in the mobile logo's alt text.
+
+## 7. Search overlay: real live search + redesign
+
+The search overlay used to be a dark modal with only static "popular search"
+shortcuts — typing into it did nothing. **Now:**
+- The panel was redesigned from a dark, centered modal to a full-width,
+  light, editorial-style panel (serif heading, gold accents, slide-down
+  animation).
+- Typing actually searches: a debounced (350ms) call to the real product
+  API renders a results grid (image, name, category, price with strike-
+  through original price when discounted), with loading, empty-query, and
+  no-results states.
+
+**Files:** `src/components/navbar/searchOverlay.js` (markup/styling),
+`src/features/navbar/searchOverlay.js` (live search behavior).
+
+## 8. Testimonials: dropped fabricated names/ratings
+
+The testimonials section previously showed invented customer names and
+5-star ratings attached to real products — nothing backing those was ever
+collected. **Now** each card is an honest, non-attributed product highlight
+(a short headline + review sentence, no name, no star rating), and the
+section subheading changed from "Trusted by our community" to "Crafted to be
+worn every day" to match.
+
+**Files:** `src/components/testimonials/testimonialCard.js`,
+`src/components/testimonials/testimonialSection.js`,
+`src/constants/testimonials.js`.
+
+## 9. Auth pages redesign
+
+Login, register, and forgot-password pages got a visual refresh: a gold
+hairline accent and circular brand mark at the top of the shared layout, an
+"eyebrow" label above each heading, icon-prefixed inputs (mail/lock/user/
+phone glyphs), tighter vertical spacing, and an "Or continue with" divider
+above the Google button.
+
+**Files:** `src/components/auth/authLayout.js`, `loginForm.js`, `page.js`,
+`forgotPasswordForm.js`, `forgotPasswordPage.js`, `registerForm.js`,
+`registerPage.js`.
+
+## 10. Contact page polish
+
+WhatsApp/Email/Phone rows on the Contact page now show an icon badge next to
+each method instead of plain text, and phone numbers hydrated from the
+backend are formatted with a `+91` country-code prefix instead of shown raw.
+A "Banshiwaale" → "Banshiwale" label typo was also fixed.
+
+**Files:** `src/components/contact/contactForm.js`,
+`src/features/contact/hydrateContactInfo.js`.
+
+## 11. My Orders moved into the Profile page as a tab
+
+Previously "My Orders" was only reachable as a separate page
+(`pages/orders.html`, added in Batch 3). **Now** the profile page has its
+own "My Orders" tab (mirroring `components/orders/ordersLayout.js`'s
+loading/empty/error/list states, minus the login state since the profile
+shell already gates on it) — the sidebar nav item and the overview quick
+action both open this tab instead of navigating away. `pages/orders.html`
+itself is untouched and still works as a direct link.
+
+Separately, the profile form gained an optional Date of Birth field
+(validated to not be in the future, persisted alongside the rest of the
+profile update).
+
+**Files:** `src/components/profile/ordersPanel.js`, `src/features/profile/orders.js`
+*(new)*, `src/components/profile/profileLayout.js`, `profileSidebar.js`,
+`profileOverview.js`, `src/features/profile/profilePageInit.js` (orders tab);
+`src/components/profile/profileInfoForm.js`, `src/features/profile/profileInfo.js`
+(date of birth).
+
+## 12. Discounts are now always percentage-based
+
+`getAvailabilityLabel`'s sibling `formatDiscount()` used to branch on
+`discountType` to show either a `%` or a flat `₹` amount off. **Now** it
+always treats `discountValue` as a percentage (matching
+`showcaseCard.js`'s existing behavior), and falls back to deriving a percent-
+off figure from the gap between `price` and `finalPrice` when the backend
+doesn't send `discountValue` at all — so a discount badge is never silently
+missing. Note: `showcaseCard.js`'s non-percentage label branch now renders
+like `"500 % OFF"` (with a stray space before the `%`) rather than the old
+`"₹500 OFF"`.
+
+**Files:** `src/features/productDetails/model.js`,
+`src/components/showcase/showcaseCard.js` (see item 2's commit).
+
+## 13. Smaller, unrelated tweaks
+
+- **Product page** — the Base Price / Making Charges / Tax Rate price
+  breakdown added in Batch 2 was removed from the product page entirely.
+  *(`src/components/productDetails/productInfo.js`)*
+- **Product gallery** — the thumbnail frame background changed from an
+  off-white tint to plain white. *(`src/components/productDetails/productGallery.js`)*
+- **Reveal animations** — elements now reveal as soon as they cross the
+  viewport edge instead of waiting for a 60px scroll-margin and 15%
+  visibility threshold. *(`src/features/animations/reveal.js`)*
+- **Homepage** — the unused `<section id="marquee">` and its
+  `initMarquee()` call were removed. *(`index.html`, `src/pages/homePage.js`)*
+- Several backend-integration comments across the codebase had a
+  "banshiwaale" → "banshiwale" spelling typo fixed (no behavior change):
+  `src/config.js`, `src/features/productDetails/share.js`,
+  `src/features/checkout/checkoutPageInit.js`, `orderPanel.js`,
+  `src/features/orders/model.js`, `src/services/cartService.js`,
+  `ordersService.js`, `productService.js`, `src/components/hero/slides.js`.
+
+---
+
+## Batch 4 commit list (oldest → newest)
+
+| Commit | Message |
+|---|---|
+| `1baa7c1` | feat(assets): add favicon.ico, 96x96/512x512 PNGs, and apple-touch-icon |
+| `6c19dee` | chore(assets): add 16/32/48 icon set for future favicon/manifest use |
+| `76bca8b` | feat(assets): add 9 step photos for the about page craftsmanship journey |
+| `71a9e5b` | feat(assets): add circular logo-white.png navbar mark |
+| `ce01153` | feat(assets): add kids_bangle.png collection image |
+| `871039e` | feat(assets): add multipleCategories.png craftsmanship section image |
+| `68fe557` | chore(cart): switch to the new favicon set |
+| `4c88754` | chore(checkout): switch to the new favicon set |
+| `1012509` | chore(faq): switch to the new favicon set |
+| `cfb1606` | chore(auth): switch forgot-password page to the new favicon set |
+| `7859ce2` | chore(auth): switch login page to the new favicon set |
+| `a01ed62` | chore(orders): switch to the new favicon set |
+| `90fc524` | chore(privacy-policy): switch to the new favicon set |
+| `c15fbcb` | chore(product-details): switch to the new favicon set |
+| `3b8d10f` | chore(products): switch to the new favicon set |
+| `bbff463` | chore(profile): switch to the new favicon set |
+| `7661be4` | chore(auth): switch register page to the new favicon set |
+| `7c845e3` | chore(terms): switch to the new favicon set |
+| `579e33d` | chore(wishlist): switch to the new favicon set |
+| `d0883e7` | chore(quickView): remove quick view modal component |
+| `3fd1362` | chore(quickView): remove quick view feature logic |
+| `3defb66` | refactor(showcase): remove quick-view trigger, simplify card title and discount label |
+| `d6e83aa` | chore(main): stop initializing the removed quick view modal |
+| `4210b64` | refactor(testimonials): drop star ratings, rename reviewer field to a non-attributed headline |
+| `99be703` | content(testimonials): update section subheading copy |
+| `be77c2a` | content(testimonials): replace fabricated reviewer names and ratings with honest product highlights |
+| `5d3aa6e` | style(auth): add gold hairline accent, brand mark, and eyebrow label to auth layout |
+| `6208ee8` | style(auth): add icon-prefixed inputs and a social-login divider to login form |
+| `d7225ad` | content(auth): update login page heading and eyebrow copy |
+| `4cde597` | style(auth): wrap forgot-password inputs in icon-prefixed fields |
+| `082ecb7` | content(auth): add eyebrow label to forgot-password page |
+| `13c1c27` | style(auth): add icon-prefixed inputs and a social-login divider to register form |
+| `e58168e` | content(auth): add eyebrow label to register page |
+| `50edb9c` | style(navbar): redesign search overlay from dark modal to light editorial panel |
+| `6519ece` | feat(navbar): wire up debounced live product search with results grid in search overlay |
+| `ab1b80f` | feat(navbar): wrap desktop nav logo in a circular mask with scroll-state data attributes |
+| `178f358` | feat(navbar): swap logo image and object-fit between top and scrolled states |
+| `654b419` | fix(navbar): correct Banshiwala typo to Banshiwale in mobile nav logo alt text |
+| `4779cf0` | feat(contact): add icon badges to WhatsApp/Email/Phone rows, fix Banshiwaale typo |
+| `d2d84ae` | feat(contact): format hydrated phone numbers with a +91 country code prefix |
+| `d0d4fc8` | chore(pages): delete refund-policy page — site now sells all-sales-final |
+| `2c29687` | chore(footer): drop Refund Policy link from copyright bar |
+| `705d1c6` | feat(footer): add email/phone icons to Contact Us column, drop Refund Policy link |
+| `d328110` | chore(nav): remove Refund Policy entry from footer navigation constants |
+| `6a371d3` | content(contact): replace return-policy FAQ answer with all-sales-final wording, switch favicon set |
+| `d713c6d` | content(shipping-policy): drop refund/exchange mention from claims wording, switch favicon set |
+| `4358100` | content(product-details): rename Shipping & Returns tab to Shipping, drop refund-policy line |
+| `8f50cf5` | content(product-details): swap return icon for craftsmanship icon in benefits row |
+| `fc7bb9d` | content(why-choose-us): swap return icon for craftsmanship icon in feature card map |
+| `49e9324` | content(why-choose-us): replace Easy Returns feature with Handcrafted Excellence |
+| `26568f0` | feat(about): rebuild craftsmanship section into a detailed 14-stage journey, switch favicon set |
+| `2a19350` | chore(assets): remove banshiwala-gold.png |
+| `7b31bf0` | feat(collections): render Kids Bangles category, fall back to brand image for unmapped categories |
+| `ada2e05` | chore(craftsmanship): swap hero5.jpg placeholder for multipleCategories.png imagery |
+| `6bd5083` | feat(profile): add orders panel shell component for the profile page's orders tab |
+| `1c7e85b` | feat(profile): add orders tab feature logic, reusing the orders model and services |
+| `269b404` | feat(profile): add sticky sidebar positioning and orders panel container to layout |
+| `824e6f8` | feat(profile): add My Orders tab to sidebar nav, drop external orders page link |
+| `5eb8cd4` | refactor(profile): point My Orders quick action at the new orders tab instead of external page |
+| `2633dd4` | feat(profile): wire up orders tab initialization |
+| `aac898c` | feat(profile): add optional date-of-birth field to profile form |
+| `5d7eb09` | feat(profile): validate and persist date-of-birth on profile save |
+| `2f866eb` | docs(config): correct banshiwaale typo in cart-contract comment |
+| `0b78cfd` | feat(product-details): treat discountValue as a percentage, derive it from price gap when missing |
+| `5d565e9` | fix(product-details): correct Banshiwaale typo in share fallback title |
+| `e5571fb` | docs(checkout): correct banshiwaale typo in Cashfree integration comment |
+| `3e0d767` | docs(checkout): correct banshiwaale typo in checkout integration comment |
+| `43fb9e8` | docs(orders): correct banshiwaale typo in order-image shape comment |
+| `1b6278e` | docs(cart): correct banshiwaale typo in backend-contract comment |
+| `22d4598` | docs(orders): correct banshiwaale typo in orders integration comment |
+| `2ab1aaa` | docs(products): correct banshiwaale typo in slug-lookup comment |
+| `f07c258` | fix(hero): correct Banshiwaale typo in slide alt text fallback |
+| `d26166b` | style(product-details): use white background for gallery thumbnail frame |
+| `28eeda3` | style(animations): reveal elements immediately instead of waiting for scroll offset |
+| `598adbc` | chore(home): remove unused marquee section, switch favicon set |
+| `6edd5a8` | chore(home): stop initializing the removed marquee feature |
+| `123d4b2` | refactor(product-details): remove Base Price/Making Charges/Tax Rate breakdown section |
+
+Look up any of these with `git show <hash>` for the exact code diff.
