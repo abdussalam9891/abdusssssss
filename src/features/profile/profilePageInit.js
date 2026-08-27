@@ -10,6 +10,7 @@ import { createProfileOverview } from "../../components/profile/profileOverview.
 
 import { initProfileInfo } from "./profileInfo.js";
 import { initProfileAddresses } from "./addresses.js";
+import { initProfileOrders } from "./orders.js";
 
 
 /*
@@ -23,6 +24,7 @@ const PANEL_IDS = {
   overview: "profileOverviewPanel",
   info: "profileInfoPanel",
   addresses: "profileAddressesPanel",
+  orders: "profileOrdersPanel",
 };
 
 let activeTab = "overview";
@@ -239,6 +241,15 @@ function render() {
   } catch (error) {
     console.error(
       "[Profile] Failed to render addresses:",
+      error
+    );
+  }
+
+  try {
+    initProfileOrders();
+  } catch (error) {
+    console.error(
+      "[Profile] Failed to render orders:",
       error
     );
   }
