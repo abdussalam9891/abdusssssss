@@ -1,21 +1,6 @@
 import { PRODUCTS } from "../../constants/products.js";
 import { getProductImages } from "../../utils/getProductImages.js";
 
-function createStars(rating) {
-  return Array.from({ length: rating })
-    .map(
-      () => `
-<svg
-  class="h-4 w-4 md:h-5 md:w-5 fill-[#181818]"
-  viewBox="0 0 20 20"
->
-  <path d="M9.049.927c.3-.921 1.603-.921 1.902 0l1.24 3.818a1 1 0 0 0 .95.69h4.014c.969 0 1.371 1.24.588 1.81l-3.247 2.36a1 1 0 0 0-.364 1.118l1.24 3.817c.3.922-.755 1.688-1.54 1.118l-3.247-2.359a1 1 0 0 0-1.176 0L6.162 15.66c-.784.57-1.838-.196-1.539-1.118l1.24-3.817a1 1 0 0 0-.364-1.118L2.252 7.245c-.783-.57-.38-1.81.588-1.81h4.014a1 1 0 0 0 .951-.69L9.05.927Z"/>
-</svg>
-`
-    )
-    .join("");
-}
-
 export function createTestimonialCard(testimonial) {
   const product = PRODUCTS.find(
     (item) => item.id === testimonial.productId
@@ -77,29 +62,10 @@ export function createTestimonialCard(testimonial) {
   "
 >
 
-  <!-- Rating -->
-
-  <div
-    class="
-      flex
-      items-center
-      justify-center
-
-      gap-1
-    "
-  >
-
-    ${createStars(testimonial.rating)}
-
-  </div>
-
-  <!-- Name -->
+  <!-- Headline -->
 
   <h3
     class="
-      mt-4
-      md:mt-6
-
       font-serif
 
       text-[22px]
@@ -108,7 +74,7 @@ export function createTestimonialCard(testimonial) {
       text-[#181818]
     "
   >
-    ${testimonial.name}
+    ${testimonial.headline}
   </h3>
 
   <!-- Review -->
