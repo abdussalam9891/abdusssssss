@@ -10,9 +10,6 @@ import { initCraftsmanship }
 import { initHero }
   from "../features/hero/index.js";
 
-import { initMarquee }
-  from "../features/marquee/index.js";
-
 import { initShowcase }
   from "../features/showcase/index.js";
 
@@ -108,11 +105,6 @@ export async function initHomePage() {
     [
       "initShowcase",
       initShowcase,
-    ],
-
-    [
-      "initMarquee",
-      initMarquee,
     ],
 
     [
