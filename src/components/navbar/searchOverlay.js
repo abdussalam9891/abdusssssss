@@ -7,18 +7,28 @@ export function createSearchOverlay() {
         type="button"
         class="
           popular-search-btn
+
           rounded-full
+
           border
-          border-white/10
-          px-4
-          py-2
-          text-sm
-          text-white
+          border-[#EEE7DB]
+
+          bg-[#FBF4E7]/40
+
+          px-5
+          py-2.5
+
+          text-[13px]
+          font-medium
+
+          text-[#181818]
+
           transition-all
           duration-300
+
           hover:border-[#A07936]
-          hover:text-[#A07936]
-          hover:bg-white/5
+          hover:bg-[#A07936]
+          hover:text-white
         "
         data-category="${item.slug}"
         data-href="${item.href}"
@@ -41,146 +51,159 @@ export function createSearchOverlay() {
     class="
       absolute
       inset-0
-      bg-black/70
-      backdrop-blur-md
+
+      bg-[#181818]/50
+      backdrop-blur-sm
+
       opacity-0
+
       transition-opacity
-      duration-300
+      duration-500
     "
   ></div>
 
-  <!-- Modal -->
+  <!-- Panel -->
 
   <div
     id="searchModal"
     class="
       absolute
-      left-1/2
-      top-24
+      inset-x-0
+      top-0
 
-      w-[92%]
-      max-w-2xl
+      max-h-[92vh]
+      overflow-y-auto
+      no-scrollbar
 
-      -translate-x-1/2
-      -translate-y-4
+      -translate-y-full
 
-      rounded-3xl
+      bg-white
 
-      border
-      border-white/10
+      rounded-b-[28px]
+      sm:rounded-b-[36px]
 
-      bg-[#181818]
-
-      shadow-2xl
+      shadow-[0_30px_80px_rgba(0,0,0,.25)]
 
       opacity-0
-      scale-95
 
       transition-all
-      duration-300
+      duration-500
+      ease-out
     "
   >
 
-    <!-- Header -->
-
     <div
       class="
-        flex
-        items-center
-        justify-between
-
-        border-b
-        border-white/10
+        mx-auto
+        max-w-4xl
 
         px-6
-        py-5
+        py-10
+
+        sm:px-10
+        sm:py-14
       "
     >
 
-      <h2
-        class="
-          text-lg
-          font-semibold
-          uppercase
-          tracking-[0.15em]
-          text-white
-        "
-      >
-        Search Jewellery
-      </h2>
+      <!-- Header -->
 
-      <button
-        id="closeSearchBtn"
-        type="button"
-        aria-label="Close Search"
-        class="
-          flex
-          h-10
-          w-10
-          items-center
-          justify-center
-          rounded-full
-          transition
-          hover:bg-white/5
-          hover:text-[#A07936]
-        "
-      >
+      <div class="flex items-start justify-between gap-6">
 
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          stroke-width="1.8"
+        <div>
+
+          <p
+            class="
+              text-[11px]
+              uppercase
+              tracking-[0.3em]
+              text-[#A07936]
+            "
+          >
+            Banshiwale
+          </p>
+
+          <h2
+            class="
+              mt-2
+
+              font-serif
+              italic
+
+              text-3xl
+              sm:text-4xl
+
+              tracking-[-0.02em]
+
+              text-[#181818]
+            "
+          >
+            Find Your Piece
+          </h2>
+
+        </div>
+
+        <button
+          id="closeSearchBtn"
+          type="button"
+          aria-label="Close Search"
+          class="
+            flex
+            h-11
+            w-11
+            shrink-0
+            items-center
+            justify-center
+
+            rounded-full
+
+            border
+            border-[#EEE7DB]
+
+            text-[#181818]
+
+            transition-all
+            duration-300
+
+            hover:rotate-90
+            hover:border-[#A07936]
+            hover:text-[#A07936]
+          "
         >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M6 6l12 12M18 6L6 18"
-          />
-        </svg>
+          <i
+            data-lucide="x"
+            class="h-5 w-5"
+          ></i>
+        </button>
 
-      </button>
+      </div>
 
-    </div>
-
-    <!-- Search Box -->
-
-    <div class="p-6">
+      <!-- Search Box -->
 
       <div
         class="
+          mt-8
+          sm:mt-10
+
           flex
           items-center
           gap-4
 
-          rounded-2xl
-          border
-          border-white/10
+          border-b-2
+          border-[#181818]/10
 
-          px-5
-          py-4
+          pb-4
 
-          transition
+          transition-colors
+          duration-300
+
           focus-within:border-[#A07936]
         "
       >
 
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-5 w-5 text-white/50"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          stroke-width="1.8"
-        >
-          <circle cx="11" cy="11" r="7" />
-          <path
-            d="M20 20L16.65 16.65"
-            stroke-linecap="round"
-          />
-        </svg>
+        <i
+          data-lucide="search"
+          class="h-6 w-6 shrink-0 text-[#A07936]"
+        ></i>
 
         <input
           id="searchInput"
@@ -190,93 +213,123 @@ export function createSearchOverlay() {
           class="
             w-full
             bg-transparent
-            text-white
-            placeholder:text-white/40
+
+            font-serif
+
+            text-xl
+            sm:text-2xl
+
+            text-[#181818]
+
+            placeholder:text-[#B9B2A6]
+
             outline-none
           "
         />
 
       </div>
 
-    </div>
+      <!-- Popular Searches -->
 
-    <!-- Popular Searches -->
+      <div class="mt-8 sm:mt-10">
 
-    <div class="px-6">
-
-      <h3
-        class="
-          mb-4
-          text-xs
-          uppercase
-          tracking-[0.2em]
-          text-white/40
-        "
-      >
-        Popular Searches
-      </h3>
-
-      <div
-        class="
-          flex
-          flex-wrap
-          gap-3
-        "
-      >
-        ${popularSearches}
-      </div>
-
-    </div>
-
-    <!-- Search Results -->
-
-    <div
-      id="searchResults"
-      class="
-        mt-8
-        border-t
-        border-white/10
-        p-6
-      "
-    >
-
-      <div
-        id="searchEmptyState"
-        class="
-          py-10
-          text-center
-        "
-      >
-
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="mx-auto mb-4 h-10 w-10 text-white/30"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          stroke-width="1.6"
-        >
-          <circle cx="11" cy="11" r="7"/>
-          <path
-            d="M20 20L16.65 16.65"
-            stroke-linecap="round"
-          />
-        </svg>
-
-        <h4
+        <h3
           class="
-            mb-2
-            text-lg
-            font-medium
-            text-white
+            mb-4
+
+            flex
+            items-center
+            gap-2
+
+            text-[11px]
+            uppercase
+            tracking-[0.25em]
+            text-[#9A9184]
           "
         >
-          Start typing to search
-        </h4>
+          <i
+            data-lucide="sparkles"
+            class="h-3.5 w-3.5 text-[#A07936]"
+          ></i>
+          Trending Searches
+        </h3>
 
-        <p class="text-sm text-white/50">
-          Search by product name, category or collection.
-        </p>
+        <div
+          class="
+            flex
+            flex-wrap
+            gap-3
+          "
+        >
+          ${popularSearches}
+        </div>
+
+      </div>
+
+      <!-- Search Results -->
+
+      <div
+        id="searchResults"
+        class="
+          mt-10
+
+          border-t
+          border-[#F2ECE3]
+
+          pt-8
+        "
+      >
+
+        <div
+          id="searchEmptyState"
+          class="
+            py-14
+            text-center
+          "
+        >
+
+          <div
+            class="
+              mx-auto
+              mb-5
+
+              flex
+              h-16
+              w-16
+
+              items-center
+              justify-center
+
+              rounded-full
+
+              bg-[#FBF4E7]
+            "
+          >
+            <i
+              data-lucide="gem"
+              class="h-7 w-7 text-[#A07936]"
+            ></i>
+          </div>
+
+          <h4
+            class="
+              mb-2
+
+              font-serif
+
+              text-xl
+
+              text-[#181818]
+            "
+          >
+            Start typing to search
+          </h4>
+
+          <p class="text-sm text-[#8A8A8A]">
+            Search by product name, category or collection.
+          </p>
+
+        </div>
 
       </div>
 
