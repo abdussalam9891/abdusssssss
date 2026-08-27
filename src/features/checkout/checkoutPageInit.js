@@ -145,7 +145,7 @@ function clearPaymentReturnParams() {
 /*
  * This store and Mivo Jewels share one backend — the redirect dance
  * below mirrors Mivo's confirmed, working Cashfree return flow
- * rather than an independently-verified contract for banshiwaale's
+ * rather than an independently-verified contract for banshiwale's
  * own traffic (see services/ordersService.js's header comment).
  *
  * Cashfree's hosted checkout first sends the browser back to this
