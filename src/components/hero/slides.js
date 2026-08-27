@@ -50,7 +50,7 @@ export function createHeroSlides(heroSlides = []) {
 
           <img
             src="${slide.image?.url || ""}"
-            alt="${slide.heading || "Banshiwaale Jewellery"}"
+            alt="${slide.heading || "Banshiwale Jewellery"}"
             loading="${index === 0 ? "eager" : "lazy"}"
             fetchpriority="${index === 0 ? "high" : "auto"}"
             draggable="false"
