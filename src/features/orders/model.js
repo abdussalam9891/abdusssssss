@@ -54,7 +54,7 @@ function resolveProductImage(item) {
     item?.productId ??
     item?.product;
 
-  // Confirmed live: banshiwaale's /orders/my-orders returns each
+  // Confirmed live: banshiwale's /orders/my-orders returns each
   // item's own `image` as an array of URL strings (a snapshot taken
   // at order time), not a single string — unlike every other image
   // field on this backend. A bare string is also accepted in case
