@@ -2,6 +2,8 @@ import { createFooterLinks } from "./footerLinks.js";
 
 import { createCopyright } from "./copyright.js";
 
+import { createSeoLinks } from "./seoLinks.js";
+
 export function createFooter() {
 
   return `
@@ -17,6 +19,8 @@ export function createFooter() {
   ${createFooterLinks()}
 
   ${createCopyright()}
+
+  ${createSeoLinks()}
 
 </footer>
 `;
