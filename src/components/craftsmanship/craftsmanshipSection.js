@@ -54,8 +54,8 @@ lg:gap-8
 >
 
       <img
-  src="./src/assets/multipleCategories.png"
-  alt="banshiwale Sterling Silver"
+  src="/src/assets/images/sterlingsilver.jpeg"
+  alt="Artisan hand-finishing a banshiwale sterling silver piece"
   loading="lazy"
 
   class="
@@ -91,7 +91,7 @@ lg:gap-8
 
 <div
   class="
-    
+
 
     group
 
@@ -150,9 +150,10 @@ lg:gap-8
       group-hover:translate-x-2
     "
   >
-    Every banshiwale piece is handcrafted from certified 925 sterling
-    silver, combining timeless craftsmanship with modern design.
-    Built for everyday confidence and made to stay with you for years.
+    Every banshiwale piece begins as certified 925 sterling silver,
+    shaped and finished by hand under the eye of skilled artisans.
+    No shortcuts, no plating that fades with time — just jewellery
+    built for daily wear and made to stay with you for years.
   </p>
 
   <!-- CTA -->
