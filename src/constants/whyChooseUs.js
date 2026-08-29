@@ -1,35 +1,50 @@
 export const WHY_CHOOSE_US = [
 
-  
+  {
+    id: 1,
+    title: "100% Certified Jewellery",
+    description:
+      "Every piece comes with certification, guaranteeing its authenticity and purity.",
+    icon: "certified",
+  },
+
+  {
+    id: 2,
+    title: "Lifetime Exchange & BuyBack",
+    description:
+      "Exchange or sell back your jewellery anytime, for life.",
+    icon: "exchange",
+  },
+
   {
     id: 3,
-    title: "Secure Checkout",
+    title: "100% Transparency",
     description:
-      "Every payment is protected through trusted and encrypted payment gateways.",
-    icon: "shield",
+      "Clear, honest pricing with no hidden charges, ever.",
+    icon: "transparency",
   },
 
   {
     id: 4,
-    title: "Handcrafted Excellence",
+    title: "Free Shipping",
     description:
-      "Each piece is carefully handcrafted with meticulous attention to detail.",
-    icon: "craftsmanship",
+      "Enjoy free, insured shipping on every order, anywhere.",
+    icon: "shipping",
   },
 
   {
     id: 5,
-    title: "Premium Packaging",
+    title: "No Compromise on Ethics",
     description:
-      "Every order arrives in beautifully crafted packaging, perfect for gifting or personal keepsakes.",
-    icon: "gift",
+      "Responsibly sourced materials and fair practices at every step.",
+    icon: "ethics",
   },
 
   {
     id: 6,
-    title: "Dedicated Support",
+    title: "A World of Designs",
     description:
-      "Our team is always here to assist you before, during and after your purchase.",
-    icon: "support",
+      "A vast collection of designs crafted to suit every taste.",
+    icon: "designs",
   },
 ];
