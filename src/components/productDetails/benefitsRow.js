@@ -10,13 +10,17 @@ import { icon } from "../../utils/icon.js";
 
 const ICONS = {
 
-  shield: "shield-check",
+  certified: "award",
 
-  craftsmanship: "gem",
+  exchange: "repeat",
 
-  gift: "gift",
+  transparency: "search-check",
 
-  support: "messages-square",
+  shipping: "truck",
+
+  ethics: "handshake",
+
+  designs: "globe",
 
 };
 
