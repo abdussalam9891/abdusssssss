@@ -40,7 +40,7 @@ export function createTestimonialCard(testimonial) {
     border
     border-[#F2ECE4]
 
-    bg-[#FCFBF9]
+    bg-white
 
     px-5
     py-6
@@ -53,8 +53,6 @@ export function createTestimonialCard(testimonial) {
     duration-500
 
     hover:scale-[1.02]
-
-    hover:bg-white
 
     hover:border-[#C9A45C]
 
@@ -171,61 +169,8 @@ export function createTestimonialCard(testimonial) {
           ${product.name}
         </h4>
 
-        <span
-          class="
-            mt-1
-            md:mt-2
 
-            inline-flex
 
-            items-center
-
-            gap-2
-
-            text-[11px]
-            md:text-[12px]
-
-            font-medium
-
-            uppercase
-
-            tracking-[0.18em]
-
-            text-[#A07936]
-          "
-        >
-
-          View Product
-
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-
-            fill="none"
-
-            viewBox="0 0 24 24"
-
-            stroke="currentColor"
-
-            class="
-              h-3.5
-              w-3.5
-
-              transition-transform
-              duration-300
-
-              group-hover:translate-x-1
-            "
-          >
-
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-
-              d="M9 5l7 7-7 7"
-            />
-
-          </svg>
 
         </span>
 
