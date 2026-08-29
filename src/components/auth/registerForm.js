@@ -2,7 +2,7 @@ export function createRegisterForm() {
   return `
     <form
       id="registerForm"
-      class="space-y-2"
+      class="space-y-1.5"
     >
 
 <!-- First Name + Last Name -->
@@ -387,7 +387,7 @@ export function createRegisterForm() {
 
       <div
         class="
-          mt-3
+          mt-2
           flex
           items-center
           gap-3
