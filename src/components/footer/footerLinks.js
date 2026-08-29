@@ -228,14 +228,16 @@ export function createFooterLinks(socialLinks = {}) {
       max-w-7xl
       gap-12
       px-6
-      py-16
+      pt-16
+      pb-8
 
       md:grid-cols-2
 
       lg:grid-cols-[1.3fr_0.85fr_0.95fr_0.85fr_1.3fr]
       lg:gap-10
       lg:px-8
-      lg:py-20
+      lg:pt-20
+      lg:pb-10
 
     "
   >
