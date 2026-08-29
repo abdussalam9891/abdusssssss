@@ -7,9 +7,6 @@ export function createRegisterPage() {
 
     eyebrow: "Join Us",
 
-    description:
-      "Join banshiwale and start shopping.",
-
     form: createRegisterForm(),
   });
 }
