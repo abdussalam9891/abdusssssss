@@ -1,99 +1,142 @@
 import { icon } from "../../utils/icon.js";
 
 const ICONS = {
-  shield: "shield-check", // 925 Certified
-  craftsmanship: "gem",   // Handcrafted Excellence
-  gift: "gift",           // Gift Ready
-  support: "messages-square", // Customer Support
+  certified: "award",
+  exchange: "repeat",
+  transparency: "search-check",
+  shipping: "truck",
+  ethics: "handshake",
+  designs: "globe",
+  arrow: "arrow-right",         // Arrow CTA
 };
 
 export function createFeatureCard(feature) {
   return `
     <div
       class="
+        reveal
         group
+        relative
         flex
         flex-col
         items-center
-        justify-center
+        justify-between
+        rounded-2xl
+        bg-white
+        px-5
+        pb-7
+        pt-14
         text-center
-
-        px-2
-        py-6
-
-       
-
+        border
+        border-[#F1E1BC]/60
+        shadow-[0_10px_30px_-5px_rgba(0,0,0,0.06)]
         transition-all
-        duration-700
-        ease-out
+        duration-300
+        hover:-translate-y-1
+        hover:shadow-xl
+        sm:px-6
+        sm:pb-8
+        sm:pt-16
       "
     >
-
+      <!-- Top Badge Icon -->
       <div
         class="
+          absolute
+          -top-7
           flex
-
-          h-16
-          w-16
-
-          lg:h-20
-          lg:w-20
-
+          h-14
+          w-14
           items-center
           justify-center
-
-          rounded-full
-
-          border
-          border-[#EDEDED]
-
-          transition-all
-          duration-500
-
-          group-hover:-translate-y-1
-          group-hover:scale-110
-          group-hover:border-[#A07936]
+          rounded-2xl
+          bg-gradient-to-b
+          from-[#FBF3E2]
+          to-[#F1E1BC]
+          ring-1
+          ring-[#A07936]/25
+          shadow-[0_8px_20px_-6px_rgba(160,121,54,0.35)]
+          transition-transform
+          duration-300
+          group-hover:scale-105
+          sm:h-16
+          sm:w-16
         "
       >
-
         ${icon(
-          ICONS[feature.icon],
+    ICONS[feature.icon] || feature.icon,
+    `
+            h-7
+            w-7
+            text-[#A07936]
+            sm:h-8
+            sm:w-8
           `
-            h-9
-            w-9
-
-            lg:h-10
-            lg:w-10
-
-            text-[#181818]
-
-            transition-all
-            duration-500
-
-            group-hover:scale-110
-            group-hover:text-[#A07936]
-          `
-        )}
-
+  )}
       </div>
 
-      <h3
+      <!-- Card Content -->
+      <div>
+        <h3
+          class="
+            font-serif
+            text-xl
+            font-semibold
+            text-[#181818]
+            sm:text-2xl
+          "
+        >
+          ${feature.title}
+        </h3>
+
+        ${feature.description || feature.desc
+      ? `
+          <p
+            class="
+              mt-3
+              text-xs
+              leading-6
+              text-[#6B6B6B]
+              sm:text-sm
+              sm:leading-7
+            "
+          >
+            ${feature.description || feature.desc}
+          </p>
+        `
+      : ""
+    }
+      </div>
+
+      <!-- Bottom Arrow CTA -->
+      <div
         class="
-          mt-5
-
-          font-serif
-
-          text-lg
-          tracking-wide
-
-          text-[#181818]
-
-          lg:text-xl
+          mt-6
+          flex
+          h-9
+          w-9
+          items-center
+          justify-center
+          rounded-full
+          bg-[#FBF3E2]
+          text-[#A07936]
+          transition-colors
+          duration-300
+          group-hover:bg-[#A07936]
+          group-hover:text-white
+          sm:h-10
+          sm:w-10
         "
       >
-        ${feature.title}
-      </h3>
-
+        ${ICONS.arrow
+      ? icon(ICONS.arrow, "h-4 w-4 stroke-[2.5]")
+      : `
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        `
+    }
+      </div>
     </div>
   `;
 }
