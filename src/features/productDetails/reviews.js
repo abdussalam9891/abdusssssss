@@ -46,83 +46,129 @@ function getReviewDate(review) {
 }
 
 
-function createReviewCard(review) {
+// function createReviewCard(review) {
 
-  const text =
-    review?.reviewText ||
-    review?.comment ||
-    "";
+//   const text =
+//     review?.reviewText ||
+//     review?.comment ||
+//     "";
+
+//   return `
+
+// <div
+//   class="
+//     rounded-2xl
+
+//     border
+//     border-[#ECE5D8]
+
+//     bg-white
+
+//     p-5
+
+//     text-left
+//   "
+// >
+
+//   ${createStars(Number(review?.rating) || 0, "h-4 w-4")}
+
+//   <p
+//     class="
+//       mt-3
+
+//       text-[14px]
+
+//       leading-6
+
+//       text-[#555]
+//     "
+//   >
+//     &ldquo;${escapeHtml(text)}&rdquo;
+//   </p>
+
+//   <div
+//     class="
+//       mt-4
+
+//       flex
+
+//       items-center
+
+//       justify-between
+
+//       border-t
+//       border-[#F2ECE3]
+
+//       pt-3
+//     "
+//   >
+
+//     <span
+//       class="
+//         text-[13px]
+
+//         font-medium
+
+//         text-[#181818]
+//       "
+//     >
+//       ${escapeHtml(getReviewerName(review))}
+//     </span>
+
+//     <span class="text-[12px] text-[#B0AA9D]">
+//       ${escapeHtml(getReviewDate(review))}
+//     </span>
+
+//   </div>
+
+// </div>
+
+// `;
+// }
+
+
+function createReviewCard(review) {
+  const text = review?.reviewText || review?.comment || "";
 
   return `
+<div class="relative flex h-[300px] w-full flex-col justify-between rounded-2xl bg-white p-6 shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-gray-100 transition-all duration-300 hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
 
-<div
-  class="
-    rounded-2xl
+  <div>
+    <!-- Top Quote Mark & Stars -->
+    <div class="flex items-center gap-2 mb-3">
+      <span class="text-3xl font-serif font-bold text-red-100 leading-none select-none">“</span>
+      <div class="flex items-center text-[#F5A623]">
+        ${createStars(Number(review?.rating) || 0, "h-4 w-4 fill-current")}
+      </div>
+    </div>
 
-    border
-    border-[#ECE5D8]
+    <!-- Review Text with Hidden Scroll -->
+    <div class="max-h-[140px] overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden pr-1">
+      <p class="text-[13px] leading-relaxed text-[#4A4A4A] font-normal">
+        "${escapeHtml(text)}"
+      </p>
+    </div>
+  </div>
 
-    bg-white
+  <!-- User Details Footer -->
+  <div class="flex items-center gap-3 pt-3 border-t border-gray-100/80">
+    <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-red-50 text-red-500">
+      <svg class="h-4 w-4 fill-current" viewBox="0 0 24 24">
+        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+      </svg>
+    </div>
 
-    p-5
-
-    text-left
-  "
->
-
-  ${createStars(Number(review?.rating) || 0, "h-4 w-4")}
-
-  <p
-    class="
-      mt-3
-
-      text-[14px]
-
-      leading-6
-
-      text-[#555]
-    "
-  >
-    &ldquo;${escapeHtml(text)}&rdquo;
-  </p>
-
-  <div
-    class="
-      mt-4
-
-      flex
-
-      items-center
-
-      justify-between
-
-      border-t
-      border-[#F2ECE3]
-
-      pt-3
-    "
-  >
-
-    <span
-      class="
-        text-[13px]
-
-        font-medium
-
-        text-[#181818]
-      "
-    >
-      ${escapeHtml(getReviewerName(review))}
-    </span>
-
-    <span class="text-[12px] text-[#B0AA9D]">
-      ${escapeHtml(getReviewDate(review))}
-    </span>
-
+    <div class="flex flex-col min-w-0">
+      <span class="truncate text-[13px] font-semibold text-[#1F1F1F]">
+        ${escapeHtml(getReviewerName(review))}
+      </span>
+      <span class="text-[11px] text-[#8C8C8C]">
+        ${escapeHtml(getReviewDate(review))}
+      </span>
+    </div>
   </div>
 
 </div>
-
 `;
 }
 
