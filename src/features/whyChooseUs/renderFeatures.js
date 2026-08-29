@@ -8,6 +8,7 @@ export function renderWhyChooseUs() {
   if (!container) return;
 
   container.innerHTML = WHY_CHOOSE_US
+    .slice(0, 4)
     .map(createFeatureCard)
     .join("");
 
