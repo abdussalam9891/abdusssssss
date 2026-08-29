@@ -49,6 +49,41 @@
 }
 
 /* ================================
+   WORD CYCLE (rotating tagline)
+================================ */
+
+.word-cycle {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  animation: word-cycle-fade 7.5s ease-in-out infinite;
+}
+
+@keyframes word-cycle-fade {
+
+  0%,
+  4% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  8%,
+  25% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  30%,
+  100% {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+
+}
+
+/* ================================
    ACCESSIBILITY
 ================================ */
 
@@ -59,6 +94,17 @@
     opacity: 1;
     transform: none;
     transition: none;
+  }
+
+  .word-cycle {
+    position: static;
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+
+  .word-cycle:not(:first-child) {
+    display: none;
   }
 
 }
