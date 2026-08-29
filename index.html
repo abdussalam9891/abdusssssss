@@ -305,101 +305,97 @@
 
 <!-- Lifestyle Video Section -->
 
-<section
-      class="reveal relative w-full h-[75vh] min-h-[240px] sm:h-[300px] lg:h-[380px] overflow-hidden py-14"
-    >
-      <!-- VIDEO -->
-      <video
-        autoplay
-        muted
-        loop
-        preload="none"
-        playsinline
-        class="absolute inset-0 w-full h-full object-cover"
-      >
-        <source src="./src/assets/v-1.mp4" type="video/mp4" />
-      </video>
+<section class="reveal relative w-full bg-[#121212] py-8 md:py-16 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-stretch gap-6">
 
-      <!-- OVERLAY -->
-      <div
-        class="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent"
-      ></div>
-
-      <!-- CONTENT -->
-      <div
-        class="relative z-10 h-full flex items-center justify-center text-center px-6"
-      >
-        <div class="max-w-xl">
-          <!-- Label -->
-
-
-
-
-          <!-- CTA -->
-         <a
-  href="./pages/products.html?category=earrings"
-  class="
-    group
-
-    relative
-
-    inline-flex
-    items-center
-    justify-center
-
-    overflow-hidden
-
-    border
-    border-white
-
-    px-6
-    py-3
-
-    text-[0.95rem]
-    tracking-wide
-
-    text-white
-  "
->
-
-  <!-- Animated Background -->
-  <span
-    class="
-      absolute
-      inset-0
-
-      origin-left
-      scale-x-0
-
-      bg-white
-
-      transition-transform
-      duration-700
-      ease-[cubic-bezier(0.22,1,0.36,1)]
-
-      group-hover:scale-x-100
-    "
-  ></span>
-
-  <!-- Button Text -->
-  <span
-    class="
-      relative
-      z-10
-
-      transition-colors
-      duration-300
-
-      group-hover:text-black
-    "
-  >
-    Explore Collection
-  </span>
-
-</a>
-        </div>
+    <div id="video-accordion" class="flex-1 flex gap-3 h-[360px] sm:h-[420px] lg:h-[480px] w-full">
+      
+      <div class="video-card group relative flex-1 transition-all duration-700 ease-in-out rounded-2xl overflow-hidden cursor-pointer bg-black select-none">
+        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover pointer-events-none">
+          <source src="./src/assets/bws4.mp4" type="video/mp4" />
+        </video>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
       </div>
-    </section>
+
+      <div class="video-card group relative flex-1 transition-all duration-700 ease-in-out rounded-2xl overflow-hidden cursor-pointer bg-black select-none">
+        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover pointer-events-none">
+          <source src="./src/assets/bws3.mp4" type="video/mp4" />
+        </video>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+      </div>
+
+      <div class="video-card group relative flex-1 transition-all duration-700 ease-in-out rounded-2xl overflow-hidden cursor-pointer bg-black select-none">
+        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover pointer-events-none">
+          <source src="./src/assets/bws1.mp4" type="video/mp4" />
+        </video>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+      </div>
+
+      <div class="video-card group relative flex-[3] transition-all duration-700 ease-in-out rounded-2xl overflow-hidden cursor-pointer bg-black select-none">
+        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover pointer-events-none">
+          <source src="./src/assets/bw.mp4" type="video/mp4" />
+        </video>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+      </div>
+
+    </div>
+
+
+<div class="w-full lg:w-[420px] rounded-3xl bg-[#121212] p-6 sm:p-8 text-white flex flex-col justify-between shadow-2xl border border-white/10 relative overflow-hidden">
+
+  <div class="absolute -top-16 -right-16 w-36 h-36 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
+
+  <div class="relative z-10">
+
+    <h2 class="text-2xl sm:text-3xl font-serif font-medium text-white leading-snug">
+      The Story of Banshiwale
+    </h2>
+
+    <div class="relative h-5 mt-2 overflow-hidden">
+      <span class="word-cycle text-xs uppercase tracking-[0.25em] font-medium text-[#A07936]">Love</span>
+      <span class="word-cycle text-xs uppercase tracking-[0.25em] font-medium text-[#A07936]" style="animation-delay: 2.5s">Devotion</span>
+      <span class="word-cycle text-xs uppercase tracking-[0.25em] font-medium text-[#A07936]" style="animation-delay: 5s">Peace</span>
+    </div>
+
+    <p class="text-sm text-white/80 mt-4 font-light leading-relaxed">
+      Banshiwale is a celebration of the timeless charm of
+      <span class="text-[#A07936] font-medium">Shri Krishna</span>,
+      the divine soul whose flute carries the melody of love, devotion,
+      and peace.
+    </p>
+
+    <p class="text-sm text-white/80 mt-4 font-light leading-relaxed">
+      Inspired by the enchanting presence of Krishna, Banshiwale brings
+      together <span class="text-[#A07936] font-medium">tradition, elegance, and devotion</span>
+      in a beautiful expression of faith. Every detail reflects the warmth
+      of his smile, the magic of his bansuri, and the eternal bond of love
+      he shares with his devotees.
+    </p>
+
+    <div class="mt-7 pt-6 border-t border-white/15">
+
+      <p class="text-xs uppercase tracking-[0.2em] text-white/60 font-medium">
+        A melody of faith
+      </p>
+
+      <p class="text-sm sm:text-base text-white/90 mt-2 font-serif italic leading-relaxed">
+        “Where there is Krishna, there is love, peace, and a melody that
+        stays forever in the heart.”
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+</section>
+
+
+
 
 <!-- craftmanship  -->
 <section id="craftsmanship"></section>
@@ -415,7 +411,7 @@
 
     <!-- Heading -->
 
-    <div class="mx-auto mb-6 max-w-xl text-center md:mb-8 lg:mb-10">
+    <div class="mx-auto mb-10 max-w-xl text-center md:mb-12 lg:mb-14">
 
 
 
@@ -491,7 +487,84 @@
   <!-- Main JS -->
   <!-- ========================================= -->
 <script src="https://unpkg.com/lucide@latest" defer></script>
+<script>
+  // --- ACCORDION AUTO-PLAY & INTERACTION LOGIC ---
+  const accordion = document.getElementById('video-accordion');
+  const cards = accordion.querySelectorAll('.video-card');
+  let currentIndex = 3; // Video 4 se start hoga
+  let autoSlideTimer = null;
+  const slideDuration = 3000; // 3 seconds per slide
 
+  function activateCard(index) {
+    cards.forEach((card, i) => {
+      if (i === index) {
+        card.classList.remove('flex-1');
+        card.classList.add('flex-[3]');
+      } else {
+        card.classList.remove('flex-[3]');
+        card.classList.add('flex-1');
+      }
+    });
+    currentIndex = index;
+  }
+
+  function startAutoSlide() {
+    stopAutoSlide();
+    autoSlideTimer = setInterval(() => {
+      let nextIndex = (currentIndex + 1) % cards.length;
+      activateCard(nextIndex);
+    }, slideDuration);
+  }
+
+  function stopAutoSlide() {
+    if (autoSlideTimer) clearInterval(autoSlideTimer);
+  }
+
+  // Hover/Click events for each card
+  cards.forEach((card, index) => {
+    // Desktop hover & Mobile touch/click
+    card.addEventListener('mouseenter', () => {
+      stopAutoSlide();
+      activateCard(index);
+    });
+
+    card.addEventListener('click', () => {
+      stopAutoSlide();
+      activateCard(index);
+    });
+  });
+
+  // Cursor container se bahar aane par auto-slide dubara start ho jayega
+  accordion.addEventListener('mouseleave', () => {
+    startAutoSlide();
+  });
+
+  // Start auto switch on load
+  startAutoSlide();
+
+  // --- COUPON CLIPBOARD LOGIC ---
+  function copyCouponCode(button, code) {
+    navigator.clipboard.writeText(code).then(() => {
+      const textContainer = button.querySelector('.btn-text');
+      const originalHTML = textContainer.innerHTML;
+      
+      textContainer.innerHTML = `
+        <svg class="w-4 h-4 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+        </svg>
+        Copied!
+      `;
+      button.classList.add('bg-green-100');
+
+      setTimeout(() => {
+        textContainer.innerHTML = originalHTML;
+        button.classList.remove('bg-green-100');
+      }, 2000);
+    }).catch(err => {
+      console.error('Failed to copy: ', err);
+    });
+  }
+</script>
 <script
   type="module"
   src="./src/main.js"
