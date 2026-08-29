@@ -39,31 +39,9 @@ lg:p-4
     "
   ></div>
 
-  <!-- Decorative Ring -->
 
-  <div
-    class="
-      pointer-events-none
 
-      absolute
 
-      left-1/2
-      -top-40
-
-      h-[420px]
-      w-[420px]
-
-      -translate-x-1/2
-
-      rounded-full
-
-      border
-
-      border-[#E8DAC4]
-
-      opacity-40
-    "
-  ></div>
 
   <!-- Main Wrapper -->
 
@@ -138,25 +116,7 @@ lg:p-4
 
       <!-- Ambient Glow -->
 
-      <div
-        class="
-          pointer-events-none
 
-          absolute
-
-          right-[-120px]
-          bottom-[-120px]
-
-          h-[310px]
-          w-[320px]
-
-          rounded-full
-
-          bg-[#E8D2A5]/25
-
-          blur-[120px]
-        "
-      ></div>
 
       <!-- Brand Monogram -->
 
@@ -188,7 +148,7 @@ lg:p-4
       <!-- Background Image -->
 
       <img
-        src="/src/assets/images/auth1.jpg"
+        src="/src/assets/images/sterlingsilver.jpeg"
 
         alt="Luxury Jewellery"
 
@@ -343,9 +303,11 @@ lg:p-4
 
   bg-[#FCFBF9]
 
-  p-4
+  p-2
 
   lg:w-[55%]
+
+  lg:p-4
 
   border-l
   border-[#ECE4D8]
@@ -376,7 +338,7 @@ lg:p-4
             href="/index.html"
 
             class="
-              mb-2
+              mb-0
 
               inline-flex
 
@@ -390,10 +352,13 @@ lg:p-4
 
               border-[#E8E8E8]
 
-              px-4
-              py-2
+              px-3
+              py-1.5
 
               text-[13px]
+
+              lg:px-4
+              lg:py-2
 
               font-medium
 
@@ -449,41 +414,21 @@ lg:p-4
             "
           >
 
-            <div
+            <img
+              src="/src/assets/logo-whitee.png"
+
+              alt="banshiwale"
+
               class="
-                flex
+                h-16
+                w-16
 
-                h-10
-                w-10
+                object-contain
 
-                items-center
-                justify-center
-
-                rounded-full
-
-                border
-                border-[#E8D2A5]
-
-                bg-[#FCFBF9]
-
-                shadow-[0_8px_20px_rgba(160,121,54,.18)]
+                lg:h-28
+                lg:w-28
               "
             >
-
-              <img
-                src="/src/assets/logo.png"
-
-                alt="banshiwale"
-
-                class="
-                  h-6
-                  w-6
-
-                  object-contain
-                "
-              >
-
-            </div>
 
           </div>
 
@@ -491,7 +436,7 @@ lg:p-4
 
           <p
             class="
-              mt-2
+              mt-1
 
               text-center
 
@@ -513,7 +458,7 @@ lg:p-4
 
           <h1
             class="
-              mt-1
+              mt-0
 
               text-center
 
@@ -531,28 +476,11 @@ lg:p-4
 
           </h1>
 
-          <!-- Divider -->
-
-          <div
-            class="
-              mx-auto
-
-              mt-2
-              mb-1
-
-              h-[2px]
-              w-10
-
-              bg-gradient-to-r
-              from-transparent
-              via-[#A07936]
-              to-transparent
-            "
-          ></div>
-
-          <p
+          ${
+            description
+              ? `<p
   class="
-    mt-1
+    mt-3
 
     text-center
 
@@ -564,12 +492,14 @@ lg:p-4
   "
 >
   ${description}
-</p>
+</p>`
+              : ""
+          }
 
 
           <!-- Form -->
 
-          <div class="mt-4">
+          <div class="mt-1">
 
             ${form}
 
