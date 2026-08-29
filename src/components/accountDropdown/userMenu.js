@@ -1,4 +1,4 @@
- 
+
 
 export function createUserMenu(user) {
   const fullName =
@@ -23,7 +23,7 @@ export function createUserMenu(user) {
 
       <!-- USER HEADER -->
 
-      <div class="px-5 py-5">
+      <div class="px-5 pb-4 pt-4">
 
         <div class="flex items-center gap-4">
 
@@ -84,7 +84,7 @@ export function createUserMenu(user) {
 
       <!-- ACCOUNT LINKS -->
 
-      <div class="py-2">
+      <div class="py-1">
 
         <a
           href="/pages/profile.html"
@@ -94,7 +94,7 @@ export function createUserMenu(user) {
             items-center
             gap-3
             px-5
-            py-3
+            py-2.5
             text-[14px]
             text-[#55514B]
             transition-colors
@@ -140,7 +140,7 @@ export function createUserMenu(user) {
             items-center
             gap-3
             px-5
-            py-3
+            py-2.5
             text-[14px]
             text-[#55514B]
             transition-colors
@@ -186,7 +186,7 @@ export function createUserMenu(user) {
             items-center
             gap-3
             px-5
-            py-3
+            py-2.5
             text-[14px]
             text-[#55514B]
             transition-colors
@@ -233,7 +233,7 @@ export function createUserMenu(user) {
             items-center
             gap-3
             px-5
-            py-3
+            py-2.5
             text-[14px]
             text-[#55514B]
             transition-colors
@@ -275,7 +275,7 @@ export function createUserMenu(user) {
 
       <!-- LOGOUT -->
 
-      <div class="px-5 pb-5 pt-2">
+      <div class="px-5 pb-4 pt-2">
 
         <button
           id="logoutBtn"
