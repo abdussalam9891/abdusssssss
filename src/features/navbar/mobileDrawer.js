@@ -48,11 +48,7 @@ export function initMobileDrawer() {
   logoutBtn.disabled = true;
 
   try {
-    console.log("MOBILE LOGOUT CLICKED");
-
     await logout();
-
-    console.log("LOGOUT SUCCESS");
 
     closeDrawer();
 

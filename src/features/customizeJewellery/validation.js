@@ -360,15 +360,8 @@ export function initCustomizeJewelleryValidation() {
       });
 
 
-      const response =
-        await customizeService.createRequest(
-          formData
-        );
-
-
-      console.log(
-        "[Customize] API response:",
-        response
+      await customizeService.createRequest(
+        formData
       );
 
 

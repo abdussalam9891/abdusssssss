@@ -176,12 +176,6 @@ export async function initHomePage() {
       `[HOME] ${failedModules.length} module(s) failed.`
     );
 
-  } else {
-
-    console.log(
-      "[HOME] All modules initialized successfully."
-    );
-
   }
 
 }

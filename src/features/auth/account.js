@@ -103,23 +103,6 @@ export function initAccount() {
 
   wrapper.addEventListener("click", async (event) => {
 
-
-    console.log(
-    "WRAPPER CLICK:",
-    event.target
-  );
-
-  const logoutBtn =
-    event.target.closest("#logoutBtn");
-
-  console.log(
-    "LOGOUT BTN FOUND:",
-    logoutBtn
-  );
-
-
-  
-
     // --------------------------------------
     // LOGIN
     // --------------------------------------
@@ -151,16 +134,12 @@ export function initAccount() {
     event.preventDefault();
     event.stopPropagation();
 
-    console.log("DESKTOP LOGOUT CLICKED");
-
     if (logoutBtn.disabled) return;
 
     logoutBtn.disabled = true;
 
     try {
       await logout();
-
-      console.log("DESKTOP LOGOUT SUCCESS");
 
       closeDropdown();
 

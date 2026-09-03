@@ -39,11 +39,6 @@ export async function renderCollections() {
     const categories =
       await websiteService.getCategories();
 
-    console.log(
-      "[Collections] Backend categories:",
-      categories
-    );
-
     if (
       !Array.isArray(categories) ||
       !categories.length

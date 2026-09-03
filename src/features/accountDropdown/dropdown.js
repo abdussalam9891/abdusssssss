@@ -4,7 +4,6 @@ let closeTimeout;
 
 export function initAccountDropdown() {
 
-   console.log("initAccountDropdown RAN");
 
   const wrapper = document.getElementById("accountWrapper");
   const dropdown = document.getElementById("accountDropdown");

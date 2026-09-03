@@ -139,16 +139,6 @@ export const customizeProductService = {
         );
       });
 
-    console.log(
-      "[Customize] Selected Category:",
-      selectedCategory
-    );
-
-    console.log(
-      "[Customize] Filtered Products:",
-      filteredProducts
-    );
-
     return filteredProducts;
   },
 };
