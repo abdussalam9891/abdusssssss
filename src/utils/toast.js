@@ -1,5 +1,18 @@
 let activeToasts = 0;
 
+// title/message ultimately land in innerHTML below and often carry
+// backend-provided text (e.g. error.message), so escape the same way
+// productDetails/model.js escapes review content before interpolation.
+function escapeHtml(value) {
+
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 const ICONS = {
   success: "check-circle-2",
   error: "circle-x",
@@ -128,7 +141,7 @@ font-medium
 text-[#181818]
 "
 >
-${title}
+${escapeHtml(title)}
 </h4>
 
 <p
@@ -141,7 +154,7 @@ leading-6
 text-[#666]
 "
 >
-${message}
+${escapeHtml(message)}
 </p>
 
 </div>

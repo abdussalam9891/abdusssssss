@@ -6,6 +6,6 @@ export function isAuthPage() {
   return (
     path.endsWith("/login.html") ||
     path.endsWith("/register.html") ||
-    path.endsWith("/forgot-password.html")
+    path.endsWith("/forgotpassword.html")
   );
 }
