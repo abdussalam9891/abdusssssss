@@ -1,5 +1,7 @@
 import { productService } from "../../services/productService.js";
 
+import { isActiveProduct } from "../../utils/productStatus.js";
+
 import { isLoggedIn } from "../auth/authState.js";
 import { openAuthModal } from "../auth/index.js";
 
@@ -128,7 +130,8 @@ async function renderWishlist() {
       .filter(
         (result) =>
           result.status === "fulfilled" &&
-          result.value
+          result.value &&
+          isActiveProduct(result.value)
       )
       .map(
         (result) => result.value
