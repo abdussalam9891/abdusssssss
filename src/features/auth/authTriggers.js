@@ -2,6 +2,7 @@
 import { createAuthModal } from "./authModal.js";
 import { AUTH_MODAL_DATA } from "./authModalData.js";
 import { isAuthPage } from "../../utils/isAuthPage.js";
+import { rememberAuthRedirect } from "../../utils/authRedirect.js";
 
 let initialized = false;
 
@@ -73,6 +74,12 @@ export function openAuthModal(type = "timer") {
    if (isAuthPage()) return;
 
 
+  // Both buttons below navigate to the login / register page, so
+  // remember where the customer was — validation.js sends them back
+  // here once they're signed in.
+  rememberAuthRedirect();
+
+
 
   const data =
     AUTH_MODAL_DATA[type] ||
@@ -98,10 +105,25 @@ export function openAuthModal(type = "timer") {
       "authModalIcon"
     );
 
-  icon.setAttribute(
-    "data-lucide",
-    data.icon
-  );
+  const iconImg =
+    document.getElementById(
+      "authModalIconImg"
+    );
+
+  if (data.image) {
+    icon.classList.add("hidden");
+    iconImg.src = data.image;
+    iconImg.classList.remove("hidden");
+  } else {
+    iconImg.classList.add("hidden");
+    iconImg.src = "";
+    icon.classList.remove("hidden");
+
+    icon.setAttribute(
+      "data-lucide",
+      data.icon
+    );
+  }
 
   // Primary Button
   const primary =
