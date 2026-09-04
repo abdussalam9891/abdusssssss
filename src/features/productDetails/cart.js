@@ -1,6 +1,8 @@
 import { productState } from "./state.js";
 import { addToCart } from "../cart/cartState.js";
+import { requireAuth } from "../auth/authGuard.js";
 import { showToast } from "../../utils/toast.js";
+import { buildCartSize } from "../../utils/cartLine.js";
 
 
 const ADD_TO_CART_BUTTON_IDS = [
@@ -30,7 +32,12 @@ function buildCartItem() {
     image: product.gallery?.[0] || "",
     price: product.price,
     finalPrice: product.finalPrice,
-    size: productState.selectedSize?.label || "",
+    // Size and variant travel together in the one field the
+    // backend keys a line by — see utils/cartLine.js.
+    size: buildCartSize(
+      productState.selectedSize?.label,
+      productState.selectedVariant
+    ),
     quantity: productState.quantity,
   };
 }
@@ -58,7 +65,7 @@ export function initAddToCart() {
 
     button.addEventListener(
       "click",
-      async () => {
+      () => {
 
         const item =
           buildCartItem();
@@ -66,33 +73,40 @@ export function initAddToCart() {
         if (!item) return;
 
 
-        try {
+        // The cart is account-bound, so a guest gets the sign-in
+        // modal instead — and lands back on this page afterwards
+        // (see utils/authRedirect.js) to add the piece for real.
+        requireAuth(async () => {
 
-          await addToCart(item);
+          try {
 
-          showToast({
-            type: "success",
-            title: "Added to Cart",
-            message:
-              `${item.name} × ${item.quantity} added to your cart.`,
-          });
+            await addToCart(item);
 
-        } catch (error) {
+            showToast({
+              type: "success",
+              title: "Added to Cart",
+              message:
+                `${item.name} × ${item.quantity} added to your cart.`,
+            });
 
-          console.error(
-            "[Cart] Failed to add to cart:",
-            error
-          );
+          } catch (error) {
 
-          showToast({
-            type: "error",
-            title: "Couldn't Add to Cart",
-            message:
-              error?.message ||
-              "Something went wrong. Please try again.",
-          });
+            console.error(
+              "[Cart] Failed to add to cart:",
+              error
+            );
 
-        }
+            showToast({
+              type: "error",
+              title: "Couldn't Add to Cart",
+              message:
+                error?.message ||
+                "Something went wrong. Please try again.",
+            });
+
+          }
+
+        }, "cart");
 
       }
     );
@@ -114,7 +128,7 @@ export function initBuyNow() {
 
     button.addEventListener(
       "click",
-      async () => {
+      () => {
 
         const item =
           buildCartItem();
@@ -122,29 +136,34 @@ export function initBuyNow() {
         if (!item) return;
 
 
-        try {
+        // Checkout needs an account too — same gate as Add to Cart.
+        requireAuth(async () => {
 
-          await addToCart(item);
+          try {
 
-          window.location.href =
-            "/pages/checkout.html";
+            await addToCart(item);
 
-        } catch (error) {
+            window.location.href =
+              "/pages/checkout.html";
 
-          console.error(
-            "[Cart] Failed to add to cart:",
-            error
-          );
+          } catch (error) {
 
-          showToast({
-            type: "error",
-            title: "Couldn't Add to Cart",
-            message:
-              error?.message ||
-              "Something went wrong. Please try again.",
-          });
+            console.error(
+              "[Cart] Failed to add to cart:",
+              error
+            );
 
-        }
+            showToast({
+              type: "error",
+              title: "Couldn't Add to Cart",
+              message:
+                error?.message ||
+                "Something went wrong. Please try again.",
+            });
+
+          }
+
+        }, "cart");
 
       }
     );
