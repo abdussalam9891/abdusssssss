@@ -1,4 +1,9 @@
-import { getCartItems, clearCart, getGiftWrap } from "../cart/cartState.js";
+import {
+  getCartItems,
+  clearCart,
+  getGiftWrap,
+  repairCartImages,
+} from "../cart/cartState.js";
 import { createOrderSummary } from "../../components/checkout/orderSummary.js";
 import { offersService } from "../../services/offersService.js";
 import { ordersService } from "../../services/ordersService.js";
@@ -488,6 +493,11 @@ export function initOrderPanel(onPlaced) {
   renderSection();
 
   loadCoupons();
+
+
+  // Same dead-thumbnail repair the cart page does — the summary
+  // lists the very same lines (see features/cart/cartState.js).
+  repairCartImages();
 
 
   container.addEventListener("click", (event) => {
