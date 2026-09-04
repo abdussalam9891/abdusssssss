@@ -11,9 +11,6 @@ export function initScroll() {
   const navbarItems =
     navbar.querySelectorAll(".navbar-text");
 
-  const logo = document.getElementById("navbarLogo");
-  const logoWrap = document.getElementById("navbarLogoWrap");
-
   let ticking = false;
 
   function updateNavbar() {
@@ -22,38 +19,6 @@ export function initScroll() {
 
     navbar.classList.toggle("h-16", scrolled);
     navbar.classList.toggle("h-20", !scrolled);
-
-    if (logo) {
-      const nextSrc = scrolled
-        ? logo.dataset.logoScrolled
-        : logo.dataset.logoTop;
-
-      if (nextSrc && logo.getAttribute("src") !== nextSrc) {
-        logo.setAttribute("src", nextSrc);
-      }
-
-      // logo-white.png is a circular coin mark, cropped to
-      // fill its wrapper. logo.png is a wider lockup that
-      // needs to be shown in full instead of cropped.
-      logo.classList.toggle("object-cover", !scrolled);
-      logo.classList.toggle("object-contain", scrolled);
-    }
-
-    if (logoWrap) {
-      logoWrap.classList.toggle("rounded-full", !scrolled);
-      logoWrap.classList.toggle("overflow-hidden", !scrolled);
-
-      // Bump the logo up slightly once the navbar goes black.
-      logoWrap.classList.toggle("h-12", !scrolled);
-      logoWrap.classList.toggle("w-12", !scrolled);
-      logoWrap.classList.toggle("lg:h-20", !scrolled);
-      logoWrap.classList.toggle("lg:w-20", !scrolled);
-
-      logoWrap.classList.toggle("h-14", scrolled);
-      logoWrap.classList.toggle("w-14", scrolled);
-      logoWrap.classList.toggle("lg:h-24", scrolled);
-      logoWrap.classList.toggle("lg:w-24", scrolled);
-    }
 
     if (scrolled) {
       navbar.classList.remove(
