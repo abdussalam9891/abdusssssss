@@ -4,6 +4,8 @@ import {
   getProductDetailsHref,
 } from "../../utils/format.js";
 
+import { formatCartSize } from "../../utils/cartLine.js";
+
 
 // Self-contained inline placeholder — mirrors
 // features/productDetails/model.js's PLACEHOLDER_IMAGE so a
@@ -157,9 +159,9 @@ export function createCartItemRow(item) {
       >
         ${
           [
-            item.size
-              ? `Size: ${escapeHtml(item.size)}`
-              : "",
+            // item.size carries the variant too — utils/cartLine.js
+            // splits it back into "Size: 18 · SILVER".
+            escapeHtml(formatCartSize(item.size)),
 
             item.sku
               ? `SKU: ${escapeHtml(item.sku)}`
