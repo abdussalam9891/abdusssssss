@@ -616,6 +616,27 @@ async function confirmAdd() {
   }
 
 
+  // Every clickable size option is already disabled at 0 stock (see
+  // createSizeOption above) — this only catches pickDefaultSize()
+  // having defaulted to one because every size was out of stock.
+  if (
+    typeof state.selectedSize?.stock === "number" &&
+    state.selectedSize.stock <= 0
+  ) {
+
+    if (errorMessage) {
+
+      errorMessage.textContent =
+        "This size is currently out of stock.";
+
+      errorMessage.classList.remove("hidden");
+
+    }
+
+    return;
+  }
+
+
   state.submitting = true;
 
   if (confirmButton) confirmButton.disabled = true;

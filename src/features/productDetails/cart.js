@@ -16,6 +16,26 @@ const BUY_NOW_BUTTON_IDS = [
 ];
 
 
+/*
+ * A number here — including 0 — is the backend's own count for the
+ * selected size (null/undefined means it didn't report one, treated
+ * as available per model.js's pickDefaultSize). The Add to Cart/Buy
+ * Now buttons only disable on the product-wide `inStock` flag, which
+ * says nothing about this specific size, so a size explicitly at 0
+ * needs its own check here.
+ */
+function isSelectedSizeOutOfStock() {
+
+  const stock =
+    productState.selectedSize?.stock;
+
+  return (
+    typeof stock === "number" &&
+    stock <= 0
+  );
+}
+
+
 function buildCartItem() {
 
   const product =
@@ -66,6 +86,18 @@ export function initAddToCart() {
     button.addEventListener(
       "click",
       () => {
+
+        if (isSelectedSizeOutOfStock()) {
+
+          showToast({
+            type: "error",
+            title: "Out of Stock",
+            message: "This size is currently out of stock.",
+          });
+
+          return;
+        }
+
 
         const item =
           buildCartItem();
@@ -129,6 +161,18 @@ export function initBuyNow() {
     button.addEventListener(
       "click",
       () => {
+
+        if (isSelectedSizeOutOfStock()) {
+
+          showToast({
+            type: "error",
+            title: "Out of Stock",
+            message: "This size is currently out of stock.",
+          });
+
+          return;
+        }
+
 
         const item =
           buildCartItem();

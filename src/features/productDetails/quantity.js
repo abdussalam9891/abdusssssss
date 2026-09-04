@@ -21,11 +21,12 @@ function getMax() {
   const sizeStock =
     productState.selectedSize?.stock;
 
-  if (
-    typeof sizeStock === "number" &&
-    sizeStock > 0
-  ) {
-    return sizeStock;
+  // A number here — including 0 — is the backend's own count for
+  // this specific size and overrides the product-wide figure below.
+  // Only the absence of one (null/undefined, per model.js's
+  // normalizeSizes) falls back to it.
+  if (typeof sizeStock === "number") {
+    return Math.max(sizeStock, 0);
   }
 
 
