@@ -1,10 +1,17 @@
 import { productService } from "../../services/productService.js";
 
+import { isActiveProduct } from "../../utils/productStatus.js";
+
 import {
   formatPrice,
   getProductDetailsHref,
   escapeHtml,
 } from "../../utils/format.js";
+
+import {
+  getPrimaryImage,
+  PLACEHOLDER_IMAGE,
+} from "../../utils/productImages.js";
 
 
 let isOpen = false;
@@ -15,14 +22,7 @@ const RESULTS_LIMIT = 6;
 
 
 function getResultImage(product) {
-  const images = Array.isArray(product.images)
-    ? product.images
-    : [];
-
-  return (
-    images.find((image) => image?.url)?.url ||
-    "/assets/images/placeholder.webp"
-  );
+  return getPrimaryImage(product);
 }
 
 
@@ -81,7 +81,7 @@ function createSearchResultItem(product) {
       src="${getResultImage(product)}"
       alt="${name}"
       loading="lazy"
-      onerror="this.onerror=null;this.src='/assets/images/placeholder.webp';"
+      onerror="this.onerror=null;this.src='${PLACEHOLDER_IMAGE}';"
       class="
         h-full
         w-full
@@ -379,7 +379,9 @@ ${
       if (currentRequestId !== requestId) return;
 
       const products =
-        response?.data?.products || [];
+        (response?.data?.products || []).filter(
+          isActiveProduct
+        );
 
       const total =
         Number(response?.data?.total) ||
@@ -422,15 +424,54 @@ ${
     );
   });
 
-  input.addEventListener("keydown", (event) => {
+  input.addEventListener("keydown", async (event) => {
     if (event.key !== "Enter") return;
 
     const query = input.value.trim();
 
     if (!query) return;
 
-    window.location.href =
-      `/pages/products.html?search=${encodeURIComponent(query)}`;
+    event.preventDefault();
+    clearTimeout(debounceTimer);
+
+    const goToListing = () => {
+      window.location.href =
+        `/pages/products.html?search=${encodeURIComponent(query)}`;
+    };
+
+    try {
+      const response =
+        await productService.getPublicProducts({
+          search: query,
+          limit: RESULTS_LIMIT,
+          page: 1,
+        });
+
+      const products = response?.data?.products || [];
+      const normalizedQuery = query.toLowerCase();
+
+      const exactMatch = products.find(
+        (product) =>
+          isActiveProduct(product) &&
+          (product.name || "").trim().toLowerCase() ===
+          normalizedQuery
+      );
+
+      if (exactMatch) {
+        window.location.href = getProductDetailsHref(
+          exactMatch._id,
+          exactMatch.slug
+        );
+        return;
+      }
+    } catch (error) {
+      console.error(
+        "[Search] Failed to resolve exact match:",
+        error
+      );
+    }
+
+    goToListing();
   });
 
   popularButtons.forEach((button) => {
