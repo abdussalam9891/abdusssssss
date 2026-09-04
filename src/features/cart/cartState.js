@@ -1,32 +1,85 @@
 import { cartService } from "../../services/cartService.js";
+import { productService } from "../../services/productService.js";
+import { isImageReachable } from "../../utils/pruneBrokenImages.js";
 import { isLoggedIn } from "../auth/authState.js";
 
 
 /*
- * Guests get a localStorage cart (unchanged from before). A logged-
- * in user's cart lives on the backend (see services/cartService.js)
- * and is mirrored into the same in-memory shape here, refreshed on
- * every login/logout via initCartSync() — mirrors
- * features/wishlist/wishlistState.js's pattern.
+ * The cart is account-bound: it lives on the backend (see
+ * services/cartService.js) and is mirrored into this in-memory
+ * cache, refreshed on every login/logout via initCartSync() —
+ * mirrors features/wishlist/wishlistState.js's pattern.
  *
- * Item shape (both sources normalize to this):
+ * There is no guest cart. Every Add to Cart trigger sitewide goes
+ * through requireAuth() first (features/auth/authGuard.js), so a
+ * signed-out visitor gets the sign-in modal instead; the mutations
+ * below refuse to run for one as a backstop.
+ *
+ * Item shape (as normalized by cartService.js):
  *   { id, name, slug, sku, image, price, finalPrice, size, quantity, stock }
  *
  * Verified live: the backend matches/updates cart lines by product +
- * size, same as the guest/localStorage cart below — two sizes of the
- * same product stay separate lines either way (see cartService.js's
- * header comment for the full verified contract, including the
- * caveat about a productId that no longer resolves to a real
- * product).
+ * size, so two sizes of the same product stay separate lines (see
+ * cartService.js's header comment for the full verified contract,
+ * including the caveat about a productId that no longer resolves to
+ * a real product).
+ *
+ * `size` is not only the size: it is the whole per-line option key,
+ * with the chosen variant packed in beside the size label, because
+ * the backend has no variant field of its own (see utils/cartLine.js).
+ * Build it with buildCartSize() before calling addToCart, and read it
+ * back with parseCartSize()/formatCartSize() when displaying a line.
+ *
+ * price/finalPrice come back from the backend looked up by productId
+ * ALONE — it has no idea which variant a line is for, so every line
+ * for a given product comes back with the same backend-reported
+ * price regardless of variant. addToCart() overrides this with the
+ * price actually shown to the shopper (see CART_PRICE_KEY below).
  */
-
-const STORAGE_KEY = "banshiwale_cart_items";
 
 // Gift wrap has no backend field (see services/ordersService.js's
 // header comment on the order-creation contract) — it's a
 // client-only preference, persisted here so the choice made on the
 // cart page survives navigating to the separate checkout page.
 const GIFT_WRAP_KEY = "banshiwale_gift_wrap";
+
+// Where the old guest cart used to be kept. Cleared on load so a
+// visitor who built one before the cart became account-bound isn't
+// left with orphaned data in their browser.
+const LEGACY_GUEST_CART_KEY = "banshiwale_cart_items";
+
+/*
+ * productId -> the photo the shopper was actually looking at when
+ * they added the line. The backend keeps one thumbnail url per line
+ * and does not always have one to give (a product published with a
+ * single image whose record predates that capture comes back with
+ * `image: ""`), which left the cart row, the checkout summary and
+ * the order panel showing a grey placeholder for a piece whose photo
+ * the site had just rendered a moment earlier.
+ *
+ * Persisted rather than kept in memory because Add to Cart happens
+ * on the product page and the thumbnail is needed after a full
+ * navigation to /pages/cart.html.
+ */
+const CART_IMAGE_KEY = "banshiwale_cart_thumbs";
+
+/*
+ * `id::size` -> the price/finalPrice the shopper actually saw for
+ * that variant when they added it to the cart.
+ *
+ * The backend has no variant field (see the contract notes above):
+ * GET /getcart returns price/finalPrice looked up by productId
+ * alone, so two variants of the same product in the same size come
+ * back from the backend with the SAME price — the base product's,
+ * not the selected variant's — even though the line itself (keyed
+ * by productId + selectedSize, which packs the variant in) is kept
+ * separate. Remembering the real price here and overriding the
+ * backend's figure in setItems() is the only way a cart line shows
+ * the price the shopper actually chose. Keyed by size (not just
+ * productId) so distinct variants of one product don't clobber each
+ * other's remembered price the way a single remembered image would.
+ */
+const CART_PRICE_KEY = "banshiwale_cart_prices";
 
 let items = [];
 
@@ -35,58 +88,277 @@ let items = [];
 let loadPromise = null;
 
 
-function readLocalCart() {
+try {
+
+  localStorage.removeItem(LEGACY_GUEST_CART_KEY);
+
+} catch (error) {
+
+  console.warn(
+    "[Cart] Could not clear the legacy guest cart:",
+    error
+  );
+
+}
+
+
+function readRememberedImages() {
 
   try {
 
     const stored =
       JSON.parse(
-        localStorage.getItem(STORAGE_KEY)
+        localStorage.getItem(CART_IMAGE_KEY) || "{}"
       );
 
-    return Array.isArray(stored)
-      ? stored.filter(
-          (item) => item?.id && item.quantity > 0
-        )
-      : [];
+    return stored && typeof stored === "object"
+      ? stored
+      : {};
 
   } catch (error) {
 
     console.warn(
-      "[Cart] Stored cart could not be read:",
+      "[Cart] Could not read the remembered thumbnails:",
       error
     );
 
-    return [];
+    return {};
   }
 
 }
 
 
-function writeLocalCart(nextItems) {
+function writeRememberedImages(map) {
 
   try {
 
     localStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify(nextItems)
+      CART_IMAGE_KEY,
+      JSON.stringify(map)
     );
 
   } catch (error) {
 
     console.warn(
-      "[Cart] Could not persist cart:",
+      "[Cart] Could not persist the remembered thumbnails:",
       error
     );
 
   }
 
+}
+
+
+/*
+ * Records the photo the shopper was looking at when they added a
+ * line — every Add to Cart trigger already passes one (see
+ * features/productDetails/cart.js and features/quickAdd/index.js).
+ */
+function rememberCartImage(productId, image) {
+
+  if (!productId || !image) return;
+
+
+  const map =
+    readRememberedImages();
+
+  if (map[productId] === image) return;
+
+
+  map[productId] = image;
+
+  writeRememberedImages(map);
+}
+
+
+function priceKey(productId, size) {
+
+  return `${productId}::${size || ""}`;
+}
+
+
+function readRememberedPrices() {
+
+  try {
+
+    const stored =
+      JSON.parse(
+        localStorage.getItem(CART_PRICE_KEY) || "{}"
+      );
+
+    return stored && typeof stored === "object"
+      ? stored
+      : {};
+
+  } catch (error) {
+
+    console.warn(
+      "[Cart] Could not read the remembered prices:",
+      error
+    );
+
+    return {};
+  }
+
+}
+
+
+function writeRememberedPrices(map) {
+
+  try {
+
+    localStorage.setItem(
+      CART_PRICE_KEY,
+      JSON.stringify(map)
+    );
+
+  } catch (error) {
+
+    console.warn(
+      "[Cart] Could not persist the remembered prices:",
+      error
+    );
+
+  }
+
+}
+
+
+/*
+ * Records the price/finalPrice the shopper actually saw for this
+ * variant — every Add to Cart trigger already passes them (see
+ * features/productDetails/cart.js and features/quickAdd/index.js).
+ */
+function rememberCartPrice(productId, size, price, finalPrice) {
+
+  if (!productId) return;
+  if (price == null && finalPrice == null) return;
+
+
+  const map =
+    readRememberedPrices();
+
+  const key =
+    priceKey(productId, size);
+
+  map[key] = { price, finalPrice };
+
+  writeRememberedPrices(map);
+}
+
+
+/*
+ * Overrides the backend's price/finalPrice — looked up by productId
+ * alone, so it's the same for every variant of a product — with the
+ * figure actually shown to the shopper for this specific line, and
+ * forgets lines no longer in the cart so the store doesn't grow
+ * without bound.
+ */
+function applyRememberedPrices(nextItems) {
+
+  const map =
+    readRememberedPrices();
+
+
+  const resolved =
+    nextItems.map((item) => {
+
+      const remembered =
+        map[priceKey(item.id, item.size)];
+
+      if (!remembered) return item;
+
+
+      return {
+        ...item,
+        price: remembered.price ?? item.price,
+        finalPrice: remembered.finalPrice ?? item.finalPrice,
+      };
+
+    });
+
+
+  if (!nextItems.length) return resolved;
+
+
+  const stillCarted =
+    Object.fromEntries(
+      Object.entries(map).filter(
+        ([key]) =>
+          nextItems.some(
+            (item) => priceKey(item.id, item.size) === key
+          )
+      )
+    );
+
+  if (
+    Object.keys(stillCarted).length !==
+    Object.keys(map).length
+  ) {
+    writeRememberedPrices(stillCarted);
+  }
+
+
+  return resolved;
+}
+
+
+/*
+ * Fills in any line the backend returned without a thumbnail, and
+ * forgets the products that are no longer in the cart so the store
+ * doesn't grow without bound.
+ */
+function applyRememberedImages(nextItems) {
+
+  const map =
+    readRememberedImages();
+
+
+  const resolved =
+    nextItems.map((item) =>
+      item.image || !map[item.id]
+        ? item
+        : { ...item, image: map[item.id] }
+    );
+
+
+  /*
+   * An empty list is as often "signed out" or "the load failed" as
+   * it is "the cart is empty", and dropping every remembered
+   * thumbnail on those would defeat the point, so pruning only
+   * happens against a cart that actually has lines.
+   */
+  if (!nextItems.length) return resolved;
+
+
+  const stillCarted =
+    Object.fromEntries(
+      Object.entries(map).filter(
+        ([productId]) =>
+          nextItems.some(
+            (item) => item.id === productId
+          )
+      )
+    );
+
+  if (
+    Object.keys(stillCarted).length !==
+    Object.keys(map).length
+  ) {
+    writeRememberedImages(stillCarted);
+  }
+
+
+  return resolved;
 }
 
 
 function setItems(nextItems) {
 
-  items = nextItems;
+  items =
+    applyRememberedPrices(
+      applyRememberedImages(nextItems)
+    );
 
   window.dispatchEvent(
     new CustomEvent("cartChanged", {
@@ -97,11 +369,25 @@ function setItems(nextItems) {
 }
 
 
+/*
+ * Backstop for the mutations below: every caller is already behind
+ * requireAuth(), so reaching one of these signed out is a bug, not
+ * something a customer should ever see.
+ */
+function warnSignedOut(action) {
+
+  console.warn(
+    `[Cart] Ignored ${action} — the cart requires a signed-in customer.`
+  );
+
+}
+
+
 export function loadCart() {
 
   if (!isLoggedIn()) {
 
-    setItems(readLocalCart());
+    setItems([]);
 
     return Promise.resolve(items);
   }
@@ -156,6 +442,197 @@ export function initCartSync() {
 }
 
 
+/*
+ * The catalog's own photos for a cart line, best first. The cart
+ * line itself carries only the single thumbnail the backend
+ * captured when the line was added, so a replacement has to come
+ * from the product.
+ */
+async function findWorkingImage(item) {
+
+  let product;
+
+  try {
+
+    product =
+      await productService.getPublicProductById(
+        item.id
+      );
+
+  } catch (error) {
+
+    console.warn(
+      "[Cart] Could not re-resolve the image for",
+      item.name || item.id,
+      error
+    );
+
+    return null;
+  }
+
+
+  const urls =
+    Array.isArray(product?.images)
+      ? [...product.images]
+          .sort(
+            (a, b) =>
+              (a?.position ?? 0) -
+              (b?.position ?? 0)
+          )
+          .map((image) => image?.url)
+          .filter(Boolean)
+      : [];
+
+
+  for (const url of urls) {
+
+    // The line's own url is what just failed.
+    if (url === item.image) continue;
+
+    if (await isImageReachable(url)) return url;
+
+  }
+
+
+  return null;
+}
+
+
+/*
+ * The backend stores one thumbnail url per cart line, captured when
+ * the line was added. If that image's file is missing from storage
+ * the row shows a grey placeholder even though the product still
+ * has working photos, so the line is re-resolved from the catalog
+ * instead.
+ *
+ * Deliberately not part of loadCart(): every page runs that to fill
+ * the header badge, and probing there would pull down the whole
+ * cart's imagery just to render a count. Pages that actually show
+ * thumbnails call this after their first paint. A line whose image
+ * loads costs one cache hit and no request.
+ *
+ * That first paint happens before the cart itself has come back
+ * from the backend, though, so the opening call almost always sees
+ * an empty list. Re-running on every later cartChanged is what
+ * makes it land: the listener is attached once, and a pass over
+ * lines whose images already resolve is answered entirely from the
+ * probe cache.
+ */
+let repairListenerAttached = false;
+
+let repairing = false;
+
+// A cartChanged that arrived mid-pass — the lines it carries have
+// not been looked at yet, so a fresh pass follows the current one.
+let repairRequested = false;
+
+
+export async function repairCartImages() {
+
+  if (!repairListenerAttached) {
+
+    repairListenerAttached = true;
+
+    window.addEventListener(
+      "cartChanged",
+      () => {
+        repairCartImages();
+      }
+    );
+
+  }
+
+
+  /*
+   * runImageRepair()'s own setItems() dispatches cartChanged and so
+   * re-enters here. Queueing rather than dropping keeps a real load
+   * that lands mid-pass from being swallowed too; the follow-up
+   * pass costs only probe-cache hits when nothing has changed.
+   */
+  if (repairing) {
+
+    repairRequested = true;
+
+    return items;
+  }
+
+
+  repairing = true;
+
+
+  try {
+
+    do {
+
+      repairRequested = false;
+
+      await runImageRepair();
+
+    } while (repairRequested);
+
+  } finally {
+
+    repairing = false;
+
+  }
+
+
+  return items;
+}
+
+
+async function runImageRepair() {
+
+  const replacements =
+    await Promise.all(
+      items.map(async (item) => {
+
+        if (
+          item.image &&
+          await isImageReachable(item.image)
+        ) {
+          return null;
+        }
+
+        return findWorkingImage(item);
+      })
+    );
+
+
+  if (!replacements.some(Boolean)) return items;
+
+
+  // A url that had to be re-resolved once will need re-resolving on
+  // every page that shows this line, so the working one replaces
+  // whatever was remembered for the product.
+  items.forEach((item, index) => {
+
+    if (replacements[index]) {
+
+      rememberCartImage(
+        item.id,
+        replacements[index]
+      );
+
+    }
+
+  });
+
+
+  setItems(
+    items.map(
+      (item, index) =>
+        replacements[index]
+          ? { ...item, image: replacements[index] }
+          : item
+    )
+  );
+
+
+  return items;
+}
+
+
 export function getCartItems() {
 
   return items;
@@ -204,9 +681,8 @@ export function setGiftWrap(value) {
 
 /*
  * A line's `stock` is only meaningful once the backend has reported
- * it (logged-in cart); a guest/local-cart item never carries a stock
- * figure at all, so treat that absence as "available" rather than
- * blocking checkout on data we don't have.
+ * it; treat an absent figure as "available" rather than blocking
+ * checkout on data we don't have.
  */
 export function getAvailableCartItems() {
 
@@ -247,142 +723,91 @@ export function getCartSubtotal() {
 
 export async function addToCart({
   id,
-  name,
-  slug,
-  sku,
-  image,
-  price,
-  finalPrice,
   size = "",
   quantity = 1,
+  image = "",
+  price = null,
+  finalPrice = null,
 }) {
 
   if (!id || quantity < 1) return;
 
 
-  if (isLoggedIn()) {
+  if (!isLoggedIn()) {
 
-    await cartService.addToCart({
-      productId: id,
-      quantity,
-      size,
-    });
+    warnSignedOut("add to cart");
 
-    await loadCart();
-
-    return;
-  }
-
-
-  const local =
-    readLocalCart();
-
-  const existingIndex =
-    local.findIndex(
-      (item) =>
-        item.id === id &&
-        (item.size || "") === (size || "")
+    throw new Error(
+      "Please sign in to add items to your cart."
     );
-
-
-  if (existingIndex > -1) {
-
-    local[existingIndex] = {
-      ...local[existingIndex],
-      quantity:
-        local[existingIndex].quantity + quantity,
-    };
-
-  } else {
-
-    local.push({
-      id,
-      name: name || "",
-      slug: slug || "",
-      sku: sku || "",
-      image: image || "",
-      price: price ?? null,
-      finalPrice: finalPrice ?? price ?? null,
-      size: size || "",
-      quantity,
-    });
-
   }
 
 
-  writeLocalCart(local);
+  // The backend takes no image with the line (see
+  // services/cartService.js's verified contract), so the photo the
+  // shopper just chose is kept here and used for the row whenever
+  // the cart comes back without one of its own.
+  rememberCartImage(id, image);
 
-  setItems(local);
+  // Same story for price: the backend looks it up by productId
+  // alone, so it can't tell one variant's price from another's (see
+  // CART_PRICE_KEY above) — the actual figure the shopper saw has to
+  // be kept here too.
+  rememberCartPrice(id, size, price, finalPrice);
+
+
+  await cartService.addToCart({
+    productId: id,
+    quantity,
+    size,
+  });
+
+  await loadCart();
 }
 
 
 export async function updateCartItemQuantity(id, size, quantity) {
 
-  if (isLoggedIn()) {
+  if (!isLoggedIn()) {
 
-    if (quantity < 1) {
-
-      await removeCartItem(id, size);
-
-      return;
-    }
-
-
-    await cartService.addToCart({
-      productId: id,
-      quantity,
-      size,
-      setQuantity: true,
-    });
-
-    await loadCart();
+    warnSignedOut("quantity update");
 
     return;
   }
 
 
-  const local =
-    readLocalCart()
-      .map((item) =>
-        item.id === id &&
-        (item.size || "") === (size || "")
-          ? { ...item, quantity }
-          : item
-      )
-      .filter((item) => item.quantity > 0);
+  if (quantity < 1) {
+
+    await removeCartItem(id, size);
+
+    return;
+  }
 
 
-  writeLocalCart(local);
+  await cartService.addToCart({
+    productId: id,
+    quantity,
+    size,
+    setQuantity: true,
+  });
 
-  setItems(local);
+  await loadCart();
 }
 
 
 export async function removeCartItem(id, size) {
 
-  if (isLoggedIn()) {
+  if (!isLoggedIn()) {
 
-    await cartService.removeFromCart(id);
-
-    await loadCart();
+    warnSignedOut("item removal");
 
     return;
   }
 
 
-  const local =
-    readLocalCart().filter(
-      (item) =>
-        !(
-          item.id === id &&
-          (item.size || "") === (size || "")
-        )
-    );
+  await cartService.removeFromCart(id, size);
 
-
-  writeLocalCart(local);
-
-  setItems(local);
+  await loadCart();
 }
 
 
@@ -391,30 +816,30 @@ export async function clearCart() {
   setGiftWrap(false);
 
 
-  if (isLoggedIn()) {
+  if (!isLoggedIn()) {
 
-    await Promise.all(
-      items.map((item) =>
-        cartService
-          .removeFromCart(item.id)
-          .catch((error) => {
+    warnSignedOut("cart clear");
 
-            console.error(
-              "[Cart] Failed to clear item:",
-              error
-            );
-
-          })
-      )
-    );
-
-    await loadCart();
+    setItems([]);
 
     return;
   }
 
 
-  writeLocalCart([]);
+  await Promise.all(
+    items.map((item) =>
+      cartService
+        .removeFromCart(item.id, item.size)
+        .catch((error) => {
 
-  setItems([]);
+          console.error(
+            "[Cart] Failed to clear item:",
+            error
+          );
+
+        })
+    )
+  );
+
+  await loadCart();
 }
