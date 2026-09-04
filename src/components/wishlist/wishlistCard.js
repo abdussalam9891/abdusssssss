@@ -1,20 +1,9 @@
 import { escapeHtml, formatPrice, getProductDetailsHref } from "../../utils/format.js";
 
-
-// Self-contained inline placeholder — mirrors
-// features/productDetails/model.js's PLACEHOLDER_IMAGE (and
-// components/cart/cartItemRow.js's copy of the same) so a broken
-// product thumbnail never falls back to another broken image path.
-const PLACEHOLDER_IMAGE =
-  "data:image/svg+xml;utf8," +
-  encodeURIComponent(
-    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">` +
-    `<rect width="400" height="400" fill="#FCFBF9"/>` +
-    `<path d="M140 250 L190 170 L225 215 L260 160 L305 250 Z" ` +
-    `fill="none" stroke="#D8CBB0" stroke-width="10" stroke-linejoin="round"/>` +
-    `<circle cx="170" cy="140" r="20" fill="none" stroke="#D8CBB0" stroke-width="10"/>` +
-    `</svg>`
-  );
+import {
+  getPrimaryImage,
+  PLACEHOLDER_IMAGE,
+} from "../../utils/productImages.js";
 
 
 /*
@@ -24,26 +13,6 @@ const PLACEHOLDER_IMAGE =
  * palette/typography rather than copying GIVA's colors. Only used
  * on the wishlist page, unlike components/showcase/showcaseCard.js.
  */
-
-
-function getProductImage(product) {
-
-  const images = Array.isArray(product.images)
-    ? [...product.images]
-        .sort(
-          (a, b) =>
-            (a?.position ?? 0) -
-            (b?.position ?? 0)
-        )
-        .map((image) => image?.url)
-        .filter(Boolean)
-    : [];
-
-  return (
-    images[0] ||
-    PLACEHOLDER_IMAGE
-  );
-}
 
 
 function getProductPrice(product) {
@@ -68,7 +37,7 @@ export function createWishlistCard(product) {
   const productId = product._id;
 
   const image =
-    getProductImage(product);
+    getPrimaryImage(product);
 
   const price =
     getProductPrice(product);
