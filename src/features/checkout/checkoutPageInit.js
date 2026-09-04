@@ -149,13 +149,23 @@ function clearPaymentReturnParams() {
  * own traffic (see services/ordersService.js's header comment).
  *
  * Cashfree's hosted checkout first sends the browser back to this
- * page with `?cf_order_id=...`; the backend itself then needs to
- * see that value (at ORDERS.CF_PAYMENT_RETURN) to confirm the
- * payment and redirect again — this time with `?status=success` or
- * `?status=failed` and, on success, `?orderId=...` — before this
- * page can show a real confirmation.
+ * page with `?cf_order_id=...`. The backend then needs to see that
+ * value (at ORDERS.CF_PAYMENT_RETURN) to confirm the payment, and
+ * responds with a redirect carrying `?status=success` (plus
+ * `?orderId=...`) or `?status=failed` — but confirmed live, that
+ * redirect's target is `<redirectUrl>/checkout?...`, a fixed path
+ * this static, multi-page site has no route for (see "doubt or
+ * question.md" #10 for the full trace). Navigating the browser
+ * there directly 404s regardless of how this site ends up hosted.
+ *
+ * So instead of `window.location.href`-ing to the backend endpoint,
+ * this fetches it in the background and lets the browser's own
+ * fetch implementation follow the redirect chain silently — we only
+ * read the *query string* off the final resolved URL (`response.url`)
+ * and apply that to this page ourselves, without ever actually
+ * navigating to the (broken) path the backend built.
  */
-function handleCfOrderIdRedirect() {
+async function handleCfOrderIdRedirect() {
 
   const params =
     new URLSearchParams(window.location.search);
@@ -163,13 +173,50 @@ function handleCfOrderIdRedirect() {
   const cfOrderId =
     params.get("cf_order_id");
 
-  if (!cfOrderId) return false;
+  if (!cfOrderId) return;
 
 
-  window.location.href =
-    `${API_BASE_URL}/orders/cf-payment-return?cf_order_id=${encodeURIComponent(cfOrderId)}`;
+  let finalUrl = null;
 
-  return true;
+  try {
+
+    const res =
+      await fetch(
+        `${API_BASE_URL}/orders/cf-payment-return?cf_order_id=${encodeURIComponent(cfOrderId)}`,
+        {
+          credentials: "include",
+          redirect: "follow",
+        }
+      );
+
+    finalUrl = res.url;
+
+  } catch (error) {
+
+    console.error(
+      "[Checkout] Failed to confirm Cashfree payment:",
+      error
+    );
+
+  }
+
+
+  const recoveredSearch =
+    finalUrl
+      ? new URL(finalUrl).search
+      : "?status=failed";
+
+  const url =
+    new URL(window.location.href);
+
+  url.search = recoveredSearch;
+
+  window.history.replaceState(
+    {},
+    "",
+    url.toString()
+  );
+
 }
 
 
@@ -384,15 +431,17 @@ export function initCheckoutPage() {
   initRetryButton();
 
 
-  // A Cashfree redirect in progress takes over the whole page —
-  // skip the normal render() below until it resolves (or navigates
-  // away entirely, for the cf_order_id leg).
-  if (handleCfOrderIdRedirect()) return;
+  // If a Cashfree redirect is in progress, resolve it (rewriting
+  // this page's own query string from the backend's response) before
+  // reading `?status=...` below — see handleCfOrderIdRedirect's
+  // comment for why this no longer navigates the browser anywhere.
+  handleCfOrderIdRedirect().then(() => {
 
+    handlePaymentStatusRedirect().then((handled) => {
 
-  handlePaymentStatusRedirect().then((handled) => {
+      if (!handled) render();
 
-    if (!handled) render();
+    });
 
   });
 
