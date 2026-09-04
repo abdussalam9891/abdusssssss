@@ -1,4 +1,5 @@
 import { escapeHtml, formatPrice } from "../../utils/format.js";
+import { formatCartSize } from "../../utils/cartLine.js";
 
 
 // Self-contained inline placeholder — mirrors
@@ -168,9 +169,7 @@ function createOrderItemRow(item) {
       >
         ${
           [
-            item.selectedSize
-              ? `Size: ${escapeHtml(item.selectedSize)}`
-              : "",
+            escapeHtml(formatCartSize(item.selectedSize)),
 
             `Qty: ${item.quantity}`,
           ]
