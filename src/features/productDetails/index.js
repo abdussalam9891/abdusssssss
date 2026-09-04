@@ -1,12 +1,16 @@
 import { productService } from "../../services/productService.js";
 
+import { isActiveProduct } from "../../utils/productStatus.js";
+
 import { getProductId, getProductSlug } from "./query.js";
 import { setProduct } from "./state.js";
 import { normalizeProduct } from "./model.js";
+import { pruneProductImages } from "../../utils/pruneBrokenImages.js";
 import { initGallery } from "./gallery.js";
 import { initQuantitySelector } from "./quantity.js";
 import { initWishlistToggle } from "./wishlist.js";
 import { initSizeSelector } from "./size.js";
+import { initVariantSelector } from "./variant.js";
 import { initDeliveryChecker } from "./delivery.js";
 import { initAddToCart, initBuyNow } from "./cart.js";
 import { initShareButton } from "./share.js";
@@ -254,6 +258,8 @@ function renderProduct(container, product) {
 
   initSizeSelector();
 
+  initVariantSelector();
+
   initQuantitySelector();
 
   initWishlistToggle();
@@ -376,6 +382,26 @@ export async function initProductDetailsPage() {
 
     return;
   }
+
+
+  // A direct link/bookmark to a product the admin has since
+  // unpublished must 404 like any other missing product, not
+  // render a fully purchasable page.
+  if (!isActiveProduct(product)) {
+
+    renderNotFound(container);
+
+    return;
+  }
+
+
+  /*
+   * Drop gallery images whose files are missing from storage before
+   * anything renders. Without this a dead url still claims the
+   * first slide and a thumbnail, so the product opens on a
+   * placeholder even though its other photos are fine.
+   */
+  await pruneProductImages(product);
 
 
   setProduct(product);
