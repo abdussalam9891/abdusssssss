@@ -11,9 +11,9 @@ export function createSearchOverlay() {
           rounded-full
 
           border
-          border-[#EEE7DB]
+          border-[#A07936]
 
-          bg-[#FBF4E7]/40
+          bg-[#A07936]
 
           px-5
           py-2.5
@@ -21,14 +21,13 @@ export function createSearchOverlay() {
           text-[13px]
           font-medium
 
-          text-[#181818]
+          text-white
 
           transition-all
           duration-300
 
-          hover:border-[#A07936]
-          hover:bg-[#A07936]
-          hover:text-white
+          hover:border-[#8a6528]
+          hover:bg-[#8a6528]
         "
         data-category="${item.slug}"
         data-href="${item.href}"
@@ -157,16 +156,17 @@ export function createSearchOverlay() {
             rounded-full
 
             border
-            border-[#EEE7DB]
+            border-[#A07936]
+            bg-[#A07936]
 
-            text-[#181818]
+            text-white
 
             transition-all
             duration-300
 
             hover:rotate-90
-            hover:border-[#A07936]
-            hover:text-[#A07936]
+            hover:border-[#8a6529]
+            hover:bg-[#8a6529]
           "
         >
           <i
@@ -299,16 +299,13 @@ export function createSearchOverlay() {
 
               items-center
               justify-center
-
-              rounded-full
-
-              bg-[#FBF4E7]
             "
           >
-            <i
-              data-lucide="gem"
-              class="h-7 w-7 text-[#A07936]"
-            ></i>
+            <img
+              src="/src/assets/logo-white.png"
+              alt="Banshiwale"
+              class="h-32 w-32 object-contain"
+            />
           </div>
 
           <h4
