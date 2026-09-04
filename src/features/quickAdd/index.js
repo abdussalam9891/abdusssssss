@@ -3,14 +3,21 @@ import { productService } from "../../services/productService.js";
 import {
   normalizeProduct,
   pickDefaultSize,
+  pickDefaultVariant,
   formatPrice,
   escapeHtml,
   PLACEHOLDER_IMAGE,
 } from "../productDetails/model.js";
 
+import { applyVariantToProduct } from "../productDetails/state.js";
+
+import { pruneProductImages } from "../../utils/pruneBrokenImages.js";
+
 import { addToCart } from "../cart/cartState.js";
 import { removeFromWishlist } from "../wishlist/wishlistState.js";
+import { requireAuth } from "../auth/authGuard.js";
 import { showToast } from "../../utils/toast.js";
+import { buildCartSize } from "../../utils/cartLine.js";
 
 import { createQuickAddModal } from "../../components/quickAdd/quickAddModal.js";
 
@@ -31,6 +38,7 @@ const TRIGGER_SELECTOR =
 let state = {
   product: null,
   selectedSize: null,
+  selectedVariant: null,
   source: null,
   submitting: false,
 };
@@ -41,6 +49,7 @@ function resetState(source) {
   state = {
     product: null,
     selectedSize: null,
+    selectedVariant: null,
     source,
     submitting: false,
   };
@@ -240,6 +249,88 @@ function createSizeOption(size, isActive) {
 }
 
 
+function createVariantOption(variant, isActive) {
+
+  const thumb =
+    variant.images?.[0] || "";
+
+  return `
+<button
+  type="button"
+
+  data-variant-id="${escapeHtml(variant.id)}"
+
+  aria-label="${escapeHtml(variant.label)}"
+
+  class="
+    quick-add-variant-option
+
+    flex
+
+    items-center
+
+    gap-2
+
+    rounded-lg
+
+    border
+
+    py-1.5
+    pl-1.5
+    pr-3.5
+
+    text-[13px]
+
+    font-medium
+
+    transition-all
+    duration-300
+
+    ${
+      isActive
+        ? "border-[#A07936]"
+        : "border-[#ECE5D8]"
+    }
+
+    text-[#181818]
+
+    hover:border-[#A07936]
+    active:scale-95
+  "
+>
+  ${
+    thumb
+      ? `
+<img
+  src="${escapeHtml(thumb)}"
+
+  alt=""
+
+  loading="lazy"
+
+  onerror="this.onerror=null;this.src='${PLACEHOLDER_IMAGE}';"
+
+  class="
+    h-8
+    w-8
+
+    shrink-0
+
+    rounded-md
+
+    object-cover
+  "
+/>
+`
+      : ""
+  }
+  ${escapeHtml(variant.label)}
+</button>
+`;
+
+}
+
+
 function renderProduct(product) {
 
   const { body } = getElements();
@@ -250,8 +341,26 @@ function renderProduct(product) {
   const sizes =
     product.availableSizes;
 
+  const variants =
+    product.variants;
+
   const image =
     product.gallery?.[0] || PLACEHOLDER_IMAGE;
+
+
+  const title =
+    document.getElementById("quickAddModalTitle");
+
+  if (title) {
+
+    title.textContent =
+      variants.length && sizes.length
+        ? "Choose Options"
+        : variants.length
+          ? "Select Option"
+          : "Select Size";
+
+  }
 
 
   body.innerHTML = `
@@ -319,6 +428,54 @@ function renderProduct(product) {
   </div>
 
 </div>
+
+${
+  variants.length
+    ? `
+<div class="mt-6">
+
+  <p
+    class="
+      text-[12px]
+
+      font-semibold
+
+      uppercase
+
+      tracking-[0.22em]
+
+      text-[#A07936]
+    "
+  >
+    Select Option
+  </p>
+
+  <div
+    id="quickAddVariantOptions"
+
+    class="
+      mt-3
+
+      flex
+      flex-wrap
+
+      gap-2.5
+    "
+  >
+    ${variants
+      .map((variant) =>
+        createVariantOption(
+          variant,
+          variant.id === state.selectedVariant?.id
+        )
+      )
+      .join("")}
+  </div>
+
+</div>
+`
+    : ""
+}
 
 ${
   sizes.length
@@ -480,7 +637,12 @@ async function confirmAdd() {
       image: product.gallery?.[0] || "",
       price: product.price,
       finalPrice: product.finalPrice,
-      size: state.selectedSize?.label || "",
+      // Size and variant travel together in the one field the
+      // backend keys a line by — see utils/cartLine.js.
+      size: buildCartSize(
+        state.selectedSize?.label,
+        state.selectedVariant
+      ),
       quantity: 1,
     });
 
@@ -558,12 +720,44 @@ async function openForProduct(productId, source) {
     const normalized =
       normalizeProduct(product);
 
+
+    /*
+     * A product can be published with a photo whose file never
+     * reached storage — the url is in the payload but answers 403.
+     * The product-details page already drops those before building
+     * its gallery (features/productDetails/index.js); doing the
+     * same here matters twice over, because gallery[0] is both what
+     * this modal shows and the thumbnail addToCart() remembers for
+     * the cart line, so a dead url carted here would follow the
+     * shopper all the way to checkout.
+     */
+    await pruneProductImages(normalized);
+
     state.product = normalized;
 
 
-    // No size/variant to choose — add straight to cart, same as
-    // the product-details page does for a product with no sizes.
-    if (!normalized.availableSizes.length) {
+    // A default variant (if any) drives price/image from the
+    // start, same as the product-details page — see
+    // features/productDetails/state.js's setProduct.
+    state.selectedVariant =
+      pickDefaultVariant(normalized);
+
+    if (state.selectedVariant) {
+
+      applyVariantToProduct(
+        normalized,
+        state.selectedVariant
+      );
+
+    }
+
+
+    // No size or variant to choose — add straight to cart, same
+    // as the product-details page does for a product with neither.
+    if (
+      !normalized.availableSizes.length &&
+      !normalized.variants.length
+    ) {
 
       await confirmAdd();
 
@@ -629,14 +823,21 @@ export function initQuickAdd() {
           : "card";
 
 
-      openForProduct(productId, source).catch((error) => {
+      // Adding to cart needs an account, so check before fetching
+      // the product — a guest gets the sign-in modal, not a size
+      // picker they can't act on.
+      requireAuth(() => {
 
-        console.error(
-          "[Quick Add] Unexpected error:",
-          error
-        );
+        openForProduct(productId, source).catch((error) => {
 
-      });
+          console.error(
+            "[Quick Add] Unexpected error:",
+            error
+          );
+
+        });
+
+      }, "cart");
 
     }
   );
@@ -652,6 +853,34 @@ export function initQuickAdd() {
         event.target.id === "quickAddModalOverlay"
       ) {
         closeModal();
+        return;
+      }
+
+
+      const variantOption =
+        event.target.closest(".quick-add-variant-option");
+
+      if (variantOption) {
+
+        const variant =
+          state.product?.variants.find(
+            (candidate) =>
+              candidate.id === variantOption.dataset.variantId
+          );
+
+        if (variant && state.product) {
+
+          state.selectedVariant = variant;
+
+          applyVariantToProduct(
+            state.product,
+            variant
+          );
+
+          renderProduct(state.product);
+
+        }
+
         return;
       }
 
