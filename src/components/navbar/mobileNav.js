@@ -579,7 +579,9 @@ export function createMobileNav() {
     <img
       src="/src/assets/logo.png"
       alt="Banshiwale"
-      class="h-16 w-16 object-contain"
+      class="h-14
+        w-14
+        object-contain"
     />
   </a>
 
