@@ -24,9 +24,7 @@ export function createTestimonialCard(testimonial) {
   "
 >
 
-<a
-  href="../../pages/productDetails.html?id=${product.id}"
-
+<div
   class="
     group
 
@@ -180,7 +178,7 @@ export function createTestimonialCard(testimonial) {
 
   </div>
 
-</a>
+</div>
 
 </div>
 
