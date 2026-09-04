@@ -1,4 +1,5 @@
 import { escapeHtml, formatPrice } from "../../utils/format.js";
+import { formatCartSize } from "../../utils/cartLine.js";
 
 
 // Mirrors components/cart/cartItemRow.js's inline placeholder so a
@@ -76,7 +77,7 @@ function createOrderItem(item) {
     <p class="mt-1 text-[12px] text-[#8A8A8A]">
       ${
         [
-          item.size ? `Size: ${escapeHtml(item.size)}` : "",
+          escapeHtml(formatCartSize(item.size)),
           `Qty: ${item.quantity}`,
         ]
           .filter(Boolean)
