@@ -6,6 +6,19 @@ import {
 import { apiClient } from "./apiClient.js";
 
 
+/*
+ * Heads-up for any listing/filter UI: of the options accepted
+ * below, the public store endpoint only really applies
+ * `subCategory` and `search` (plus `page`/`limit`). `sort`,
+ * `minPrice`/`maxPrice` and `badge` are taken and silently
+ * ignored — every `sort` value comes back in the same order, a
+ * narrowed price range returns the whole catalog, and products
+ * carry no `badge` field at all. They are still sent, for the
+ * day the backend implements them.
+ *
+ * features/products applies those three in the browser instead;
+ * see features/products/pipeline.js.
+ */
 export const productService = {
 
   getPublicProducts: async ({
