@@ -122,6 +122,8 @@ export function createAuthModal() {
           items-center
           justify-center
 
+          overflow-hidden
+
           rounded-full
 
           bg-[#FAF4E9]
@@ -140,6 +142,20 @@ export function createAuthModal() {
             text-[#A07936]
           "
         ></i>
+
+        <img
+          id="authModalIconImg"
+          src=""
+          alt="Banshiwale"
+          class="
+            hidden
+
+            h-full
+            w-full
+
+            object-cover
+          "
+        />
 
       </div>
 
