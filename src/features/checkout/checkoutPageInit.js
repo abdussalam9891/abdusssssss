@@ -141,30 +141,6 @@ function clearPaymentReturnParams() {
 
 }
 
-
-/*
- * This store and Mivo Jewels share one backend — the redirect dance
- * below mirrors Mivo's confirmed, working Cashfree return flow
- * rather than an independently-verified contract for banshiwale's
- * own traffic (see services/ordersService.js's header comment).
- *
- * Cashfree's hosted checkout first sends the browser back to this
- * page with `?cf_order_id=...`. The backend then needs to see that
- * value (at ORDERS.CF_PAYMENT_RETURN) to confirm the payment, and
- * responds with a redirect carrying `?status=success` (plus
- * `?orderId=...`) or `?status=failed` — but confirmed live, that
- * redirect's target is `<redirectUrl>/checkout?...`, a fixed path
- * this static, multi-page site has no route for (see "doubt or
- * question.md" #10 for the full trace). Navigating the browser
- * there directly 404s regardless of how this site ends up hosted.
- *
- * So instead of `window.location.href`-ing to the backend endpoint,
- * this fetches it in the background and lets the browser's own
- * fetch implementation follow the redirect chain silently — we only
- * read the *query string* off the final resolved URL (`response.url`)
- * and apply that to this page ourselves, without ever actually
- * navigating to the (broken) path the backend built.
- */
 async function handleCfOrderIdRedirect() {
 
   const params =
