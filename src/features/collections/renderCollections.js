@@ -2,12 +2,13 @@ import { websiteService } from "../../services/websiteService.js";
 import { createCollectionCard } from "../../components/collections/collectionCard.js";
 
 const CATEGORY_IMAGES = {
-  "Silver Rings": "./src/assets/ring.png",
-  "Silver Chains": "./src/assets/chain.png",
-  "Silver Bracelet": "./src/assets/bracelet.png",
-  "Silver Kada": "./src/assets/kada.png",
-  "Silver Pendant": "./src/assets/pendant.png",
-  "Kids Bangles": "./src/assets/kids_bangle.png",
+  "Rings": "./src/assets/silverring.jpg",
+  "Chains": "./src/assets/silverchain.jpeg",
+  "Bracelet": "./src/assets/silverbracelet.jpeg",
+  "Kada": "./src/assets/silverkada.jpg",
+  "Pendant": "./src/assets/silverpendant.jpg",
+  "Bansuri": "./src/assets/silverbansuri.jpg",
+  "Bangles": "./src/assets/silverkids.jpg",
 };
 
 // Used for any backend category without a dedicated image above,
