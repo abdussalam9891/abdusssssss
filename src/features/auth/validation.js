@@ -3,6 +3,7 @@ import {
 } from "../../config.js";
 import { authService } from "../../services/authService.js";
 import { showToast } from "../../utils/toast.js";
+import { consumeAuthRedirect } from "../../utils/authRedirect.js";
 
 // import { hydrateAuth } from "./authState.js";
 
@@ -74,12 +75,6 @@ export function initLoginValidation() {
             });
 
 
-          console.log(
-            "GOOGLE LOGIN RESPONSE:",
-            result
-          );
-
-
           // ==================================
           // GET YOUR APPLICATION JWT
           // ==================================
@@ -132,8 +127,10 @@ export function initLoginValidation() {
           // REDIRECT
           // ==================================
 
+          // Back to whatever page opened the sign-in modal (e.g.
+          // the product they were adding to cart), or the homepage.
           window.location.href =
-            "/index.html";
+            consumeAuthRedirect();
 
 
         } catch (error) {
@@ -210,11 +207,6 @@ export function initLoginValidation() {
         });
 
 
-        console.log(
-          "Google Identity Services initialized."
-        );
-
-
         return true;
 
       };
@@ -247,7 +239,36 @@ export function initLoginValidation() {
 
 
         // Open Google authentication
-        window.google.accounts.id.prompt();
+        window.google.accounts.id.prompt(
+          (notification) => {
+
+            if (
+              notification.isNotDisplayed() ||
+              notification.isSkippedMoment()
+            ) {
+
+              const reason =
+                notification.getNotDisplayedReason?.() ||
+                notification.getSkippedReason?.();
+
+              console.error(
+                "GOOGLE PROMPT NOT DISPLAYED:",
+                reason
+              );
+
+              showToast({
+                type: "error",
+                title: "Google Sign-In Unavailable",
+                message:
+                  reason === "unregistered_origin"
+                    ? "This site isn't authorized for Google Sign-In yet. Add this origin in Google Cloud Console."
+                    : "Google Sign-In couldn't start. Please try again.",
+              });
+
+            }
+
+          }
+        );
 
       }
     );
@@ -339,12 +360,6 @@ export function initLoginValidation() {
           });
 
 
-        console.log(
-          "LOGIN RESPONSE:",
-          response
-        );
-
-
         // ====================================
         // GET JWT
         // ====================================
@@ -397,8 +412,10 @@ export function initLoginValidation() {
         // REDIRECT
         // ====================================
 
+        // Back to whatever page opened the sign-in modal (e.g. the
+        // product they were adding to cart), or the homepage.
         window.location.href =
-          "/index.html";
+          consumeAuthRedirect();
 
 
       } catch (error) {
