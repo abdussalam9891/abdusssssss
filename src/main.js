@@ -38,6 +38,26 @@ import {
 import { hydrateAuth } from "./features/auth/authState.js";
 
 
+// Must be registered on some page visit *before* the customer reaches
+// Cashfree, so it's already active by the time they're redirected back
+// — see sw.js's own comment for what this actually works around
+// (the shared backend's broken Cashfree return-redirect path).
+if ("serviceWorker" in navigator) {
+
+  navigator.serviceWorker
+    .register("/sw.js")
+    .catch((error) => {
+
+      console.error(
+        "[ServiceWorker] Registration failed:",
+        error
+      );
+
+    });
+
+}
+
+
 document.addEventListener("DOMContentLoaded", async () => {
 
   // =========================================
