@@ -69,6 +69,22 @@ export function createSeoLinks() {
 
   const newArrivalsLink = "/pages/products.html?tag=new";
 
+  // Occasion/recipient are opaque backend tags on the product, same
+  // as category — these labels assume the admin panel tags products
+  // with these exact words (matching is case/plural-insensitive, see
+  // normalizeForComparison, but not a fuzzy search). A label with no
+  // real match just lands on an empty grid rather than the wrong one.
+  const occasionLink = (occasion) =>
+    `/pages/products.html?occasion=${encodeURIComponent(occasion)}`;
+
+  const recipientLink = (recipient) =>
+    `/pages/products.html?recipient=${encodeURIComponent(recipient)}`;
+
+  const occasionRecipientLink = (occasion, recipient) =>
+    `/pages/products.html?occasion=${encodeURIComponent(
+      occasion
+    )}&recipient=${encodeURIComponent(recipient)}`;
+
   const rows = [
     {
       label: "Shop by Category",
@@ -100,13 +116,16 @@ export function createSeoLinks() {
     {
       label: "Shop by Occasion",
       links: [
-        { label: "Birthday Gifts", href: "/pages/products.html" },
-        { label: "Anniversary Gifts", href: "/pages/products.html" },
-        { label: "Wedding Gifts", href: "/pages/products.html" },
-        { label: "Gifts For Him", href: "/pages/products.html" },
-        { label: "Gifts For Boyfriend", href: "/pages/products.html" },
-        { label: "Gifts For Husband", href: "/pages/products.html" },
-        { label: "Rakhi Gifts For Brother", href: "/pages/products.html" },
+        { label: "Birthday Gifts", href: occasionLink("Birthday") },
+        { label: "Anniversary Gifts", href: occasionLink("Anniversary") },
+        { label: "Wedding Gifts", href: occasionLink("Wedding") },
+        { label: "Gifts For Him", href: recipientLink("Him") },
+        { label: "Gifts For Boyfriend", href: recipientLink("Boyfriend") },
+        { label: "Gifts For Husband", href: recipientLink("Husband") },
+        {
+          label: "Rakhi Gifts For Brother",
+          href: occasionRecipientLink("Rakhi", "Brother"),
+        },
       ],
     },
   ];

@@ -1,4 +1,8 @@
 import { productsState } from "./state.js";
+import {
+  normalizeForComparison,
+  toStringList,
+} from "../../utils/categoryMatch.js";
 
 
 /*
@@ -113,6 +117,63 @@ function applyPriceFilter(products) {
 }
 
 
+// Neither `occasion` nor `recipient` is a server-side filter (see the
+// note at the top of this file), so — like price/badge — this runs
+// over the already-fetched set. Values are opaque backend strings, so
+// matching goes through normalizeForComparison the same way category
+// facets do, rather than requiring an exact string match.
+function productHasAnyValue(product, field, selected) {
+
+  if (!selected.length) return true;
+
+
+  const productValues =
+    toStringList(product?.[field]).map(
+      normalizeForComparison
+    );
+
+
+  return selected.some(
+    (value) =>
+      productValues.includes(
+        normalizeForComparison(value)
+      )
+  );
+}
+
+
+function applyOccasionFilter(products) {
+
+  const occasions =
+    productsState.filters.occasions;
+
+
+  if (!occasions.length) return products;
+
+
+  return products.filter(
+    (product) =>
+      productHasAnyValue(product, "occasion", occasions)
+  );
+}
+
+
+function applyRecipientFilter(products) {
+
+  const recipients =
+    productsState.filters.recipients;
+
+
+  if (!recipients.length) return products;
+
+
+  return products.filter(
+    (product) =>
+      productHasAnyValue(product, "recipient", recipients)
+  );
+}
+
+
 function applyBadgeFilter(products) {
 
   const badges =
@@ -202,7 +263,11 @@ export function applyProductsPipeline() {
   const matched =
     applySort(
       applyBadgeFilter(
-        applyPriceFilter(source)
+        applyRecipientFilter(
+          applyOccasionFilter(
+            applyPriceFilter(source)
+          )
+        )
       )
     );
 

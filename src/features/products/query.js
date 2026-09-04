@@ -20,6 +20,24 @@ export function getProductsQuery() {
         : [],
 
 
+    occasion:
+      params.get("occasion")
+        ? params
+            .get("occasion")
+            .split(",")
+            .filter(Boolean)
+        : [],
+
+
+    recipient:
+      params.get("recipient")
+        ? params
+            .get("recipient")
+            .split(",")
+            .filter(Boolean)
+        : [],
+
+
     /*
      * `tag` is the legacy alias used by the New Arrivals links
      * (/pages/products.html?tag=new). It means the same thing as
@@ -111,6 +129,14 @@ export function restoreProductsStateFromURL() {
     query.category;
 
 
+  productsState.filters.occasions =
+    query.occasion;
+
+
+  productsState.filters.recipients =
+    query.recipient;
+
+
   productsState.filters.badges =
     query.badge.map(
       (badge) =>
@@ -160,6 +186,30 @@ export function updateProductsURL() {
     params.set(
       "badge",
       productsState.filters.badges.join(",")
+    );
+
+  }
+
+
+  if (
+    productsState.filters.occasions.length
+  ) {
+
+    params.set(
+      "occasion",
+      productsState.filters.occasions.join(",")
+    );
+
+  }
+
+
+  if (
+    productsState.filters.recipients.length
+  ) {
+
+    params.set(
+      "recipient",
+      productsState.filters.recipients.join(",")
     );
 
   }

@@ -1179,6 +1179,8 @@ export function initFilterEvents(
           categories: [],
           badges: [],
           price: null,
+          occasions: [],
+          recipients: [],
         };
 
 

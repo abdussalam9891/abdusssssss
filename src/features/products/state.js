@@ -26,6 +26,8 @@ export const productsState = {
     categories: [],
     badges: [],
     price: null,
+    occasions: [],
+    recipients: [],
   },
 
   // Distinct `subCategory` values sampled from real product data
