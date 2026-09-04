@@ -1,11 +1,13 @@
+// Published-status filtering is applied once, upstream, to every
+// tab's product set (see features/showcase/renderShowcase.js) —
+// these filters only distinguish one tab from another.
 export const SHOWCASE_TABS = [
   {
     id: "trending",
 
     label: "Trending",
 
-    filter: (product) =>
-      product.status?.toLowerCase() === "active",
+    filter: () => true,
   },
 
   {
@@ -13,8 +15,7 @@ export const SHOWCASE_TABS = [
 
     label: "Recommended",
 
-    filter: (product) =>
-      product.status?.toLowerCase() === "active",
+    filter: () => true,
   },
 
   {
