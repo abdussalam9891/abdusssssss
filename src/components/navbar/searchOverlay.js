@@ -110,21 +110,8 @@ export function createSearchOverlay() {
 
         <div>
 
-          <p
-            class="
-              text-[11px]
-              uppercase
-              tracking-[0.3em]
-              text-[#A07936]
-            "
-          >
-            Banshiwale
-          </p>
-
           <h2
             class="
-              mt-2
-
               font-serif
               italic
 
@@ -291,20 +278,20 @@ export function createSearchOverlay() {
           <div
             class="
               mx-auto
-              mb-5
+              mb-1
 
               flex
-              h-16
-              w-16
+              h-24
+              w-24
 
               items-center
               justify-center
             "
           >
             <img
-              src="/src/assets/logo-white.png"
+              src="/src/assets/logo.png"
               alt="Banshiwale"
-              class="h-32 w-32 object-contain"
+              class="h-24 w-24 object-contain"
             />
           </div>
 
