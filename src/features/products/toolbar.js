@@ -1,5 +1,26 @@
 import { productsState } from "./state.js";
 import { updateProductsURL } from "./query.js";
+import { openMobileFilters } from "./filters.js";
+
+
+// Number of filter groups currently narrowing the results, shown
+// on the mobile "Filters" button — the sidebar itself is off-screen
+// there, so without this there is no sign that a filter is active.
+function countActiveFilters() {
+
+  const {
+    categories,
+    badges,
+    price,
+  } = productsState.filters;
+
+
+  return (
+    categories.length +
+    badges.length +
+    (price ? 1 : 0)
+  );
+}
 
 
 export function createProductsToolbar() {
@@ -49,7 +70,7 @@ export function createProductsToolbar() {
 
           self-start
 
-          px-5
+          lg:px-5
           py-2.5
         "
       >
@@ -85,12 +106,9 @@ export function createProductsToolbar() {
       <div
         class="
           flex
-          flex-col
+          items-center
 
           gap-3
-
-          sm:flex-row
-          sm:items-center
         "
       >
 
@@ -99,9 +117,14 @@ export function createProductsToolbar() {
 
           type="button"
 
+          aria-controls="mobileFiltersDrawer"
+          aria-expanded="false"
+
           class="
             inline-flex
             lg:hidden
+
+            shrink-0
 
             items-center
             justify-center
@@ -123,7 +146,36 @@ export function createProductsToolbar() {
           "
         >
 
+          <i
+            data-lucide="sliders-horizontal"
+            class="h-4 w-4"
+          ></i>
+
           Filters
+
+          <span
+            id="mobileFilterCount"
+
+            class="
+              hidden
+
+              h-5
+              min-w-5
+
+              items-center
+              justify-center
+
+              rounded-full
+
+              bg-[#A07936]
+
+              px-1.5
+
+              text-[11px]
+              font-semibold
+              text-white
+            "
+          ></span>
 
         </button>
 
@@ -131,6 +183,9 @@ export function createProductsToolbar() {
         <div
           class="
             flex
+            flex-1
+            lg:flex-none
+
             items-center
             gap-3
           "
@@ -139,7 +194,7 @@ export function createProductsToolbar() {
           <span
             class="
               hidden
-              sm:block
+              lg:block
 
               text-sm
               text-[#777]
@@ -152,10 +207,14 @@ export function createProductsToolbar() {
           <select
             id="productsSort"
 
+            aria-label="Sort products"
+
             class="
               h-11
 
-              min-w-[220px]
+              w-full
+              lg:w-auto
+              lg:min-w-[220px]
 
               rounded-full
 
@@ -223,12 +282,17 @@ export function renderProductsToolbar() {
   if (!container) return;
 
 
+  // Rendered once, then only its values are updated — re-writing
+  // the markup would drop the listeners bound in initToolbarEvents.
   if (
     !container.innerHTML.trim()
   ) {
 
     container.innerHTML =
       createProductsToolbar();
+
+
+    window.lucide?.createIcons();
 
   }
 
@@ -259,6 +323,35 @@ export function renderProductsToolbar() {
       productsState.sort;
 
   }
+
+
+  const filterCount =
+    document.getElementById(
+      "mobileFilterCount"
+    );
+
+
+  if (filterCount) {
+
+    const active =
+      countActiveFilters();
+
+
+    filterCount.textContent =
+      active;
+
+
+    filterCount.classList.toggle(
+      "hidden",
+      active === 0
+    );
+
+    filterCount.classList.toggle(
+      "inline-flex",
+      active > 0
+    );
+
+  }
 }
 
 
@@ -266,30 +359,28 @@ export function initToolbarEvents(
   onSort
 ) {
 
-  const sort =
-    document.getElementById(
+  document
+    .getElementById(
       "productsSort"
+    )
+    ?.addEventListener(
+      "change",
+      async (event) => {
+
+        productsState.sort =
+          event.target.value;
+
+
+        productsState.page = 1;
+
+
+        updateProductsURL();
+
+
+        await onSort();
+
+      }
     );
-
-
-  sort?.addEventListener(
-    "change",
-    async (event) => {
-
-      productsState.sort =
-        event.target.value;
-
-
-      productsState.page = 1;
-
-
-      updateProductsURL();
-
-
-      await onSort();
-
-    }
-  );
 
 
   document
@@ -298,25 +389,6 @@ export function initToolbarEvents(
     )
     ?.addEventListener(
       "click",
-      () => {
-
-        document
-          .getElementById(
-            "mobileFiltersDrawer"
-          )
-          ?.classList.remove(
-            "translate-x-full"
-          );
-
-
-        document
-          .getElementById(
-            "mobileFiltersOverlay"
-          )
-          ?.classList.remove(
-            "hidden"
-          );
-
-      }
+      openMobileFilters
     );
 }
