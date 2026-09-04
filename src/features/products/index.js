@@ -10,7 +10,12 @@ import {
 import {
   fetchProducts,
   fetchCategoryFacets,
+  hasFreshProductsCache,
 } from "./api.js";
+
+import {
+  applyProductsPipeline,
+} from "./pipeline.js";
 
 import {
   normalizeForComparison,
@@ -163,9 +168,72 @@ async function loadCategoryFilterOptions() {
 }
 
 
+// Everything downstream of the fetched product set: the price /
+// collection filter, the sort and the pagination the backend can't
+// do (see pipeline.js), then the UI that reflects them.
+function renderProducts() {
+
+  const requestedPage =
+    productsState.page;
+
+
+  applyProductsPipeline();
+
+
+  // A bookmarked ?page=9, or a filter that shrank the result set,
+  // gets clamped to the last real page — keep the URL in step
+  // with what is actually on screen.
+  if (productsState.page !== requestedPage) {
+    updateProductsURL();
+  }
+
+
+  renderProductsGrid();
+
+
+  renderProductsToolbar();
+
+
+  renderProductsPagination(
+    async (page) => {
+
+      productsState.page =
+        page;
+
+
+      updateProductsURL();
+
+
+      // Paging never changes what the backend returns, so this
+      // re-slices the already-fetched set instead of refetching.
+      renderProducts();
+
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+
+    }
+  );
+
+
+  updateHeroCount();
+}
+
+
 async function loadProducts() {
 
-  renderProductsLoading();
+  // Sort, price, collection and page changes are all served from
+  // the cached result set — showing a spinner for them would flash
+  // the grid away for no reason.
+  const willHitNetwork =
+    !hasFreshProductsCache();
+
+
+  if (willHitNetwork) {
+    renderProductsLoading();
+  }
 
 
   try {
@@ -173,51 +241,7 @@ async function loadProducts() {
     await fetchProducts();
 
 
-    // ========================================
-    // RENDER GRID
-    // ========================================
-
-    renderProductsGrid();
-
-
-    // ========================================
-    // RENDER TOOLBAR
-    // ========================================
-
-    renderProductsToolbar();
-
-
-    // ========================================
-    // RENDER PAGINATION
-    // ========================================
-
-    renderProductsPagination(
-      async (page) => {
-
-        productsState.page =
-          page;
-
-
-        updateProductsURL();
-
-
-        await loadProducts();
-
-
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth",
-        });
-
-      }
-    );
-
-
-    // ========================================
-    // HERO COUNT
-    // ========================================
-
-    updateHeroCount();
+    renderProducts();
 
 
   } catch (error) {
@@ -230,6 +254,8 @@ async function loadProducts() {
 
     // The hero, toolbar and filters stay on screen; only the
     // backend-dependent grid degrades.
+    productsState.fetchedProducts = [];
+
     productsState.products = [];
 
     productsState.total = 0;
