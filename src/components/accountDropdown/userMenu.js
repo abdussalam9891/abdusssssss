@@ -84,7 +84,7 @@ export function createUserMenu(user) {
 
       <!-- ACCOUNT LINKS -->
 
-      <div class="py-1">
+      <div class="space-y-1 px-2.5 py-1.5">
 
         <a
           href="/pages/profile.html"
@@ -93,26 +93,38 @@ export function createUserMenu(user) {
             flex
             items-center
             gap-3
-            px-5
+            rounded-2xl
+            px-3
             py-2.5
             text-[14px]
+            font-medium
             text-[#55514B]
-            transition-colors
-            duration-200
-            hover:bg-[#FCFAF7]
-            hover:text-[#A07936]
+            transition-all
+            duration-300
+            hover:bg-[#A07936]
+            hover:text-white
+            hover:shadow-[0_10px_24px_rgba(160,121,54,0.28)]
           "
         >
-          <i
-            data-lucide="user-round"
+          <span
             class="
-              h-[17px]
-              w-[17px]
-              text-[#99938B]
-              transition-colors
-              group-hover:text-[#A07936]
+              flex
+              h-8
+              w-8
+              shrink-0
+              items-center
+              justify-center
+              rounded-full
+              bg-[#FAF7F1]
+              text-[#A07936]
+              transition-all
+              duration-300
+              group-hover:bg-white/20
+              group-hover:text-white
             "
-          ></i>
+          >
+            <i data-lucide="user-round" class="h-[16px] w-[16px]"></i>
+          </span>
 
           <span>My Profile</span>
 
@@ -124,9 +136,9 @@ export function createUserMenu(user) {
               w-4
               text-[#C8C1B7]
               transition-transform
-              duration-200
+              duration-300
               group-hover:translate-x-1
-              group-hover:text-[#A07936]
+              group-hover:text-white
             "
           ></i>
         </a>
@@ -139,26 +151,38 @@ export function createUserMenu(user) {
             flex
             items-center
             gap-3
-            px-5
+            rounded-2xl
+            px-3
             py-2.5
             text-[14px]
+            font-medium
             text-[#55514B]
-            transition-colors
-            duration-200
-            hover:bg-[#FCFAF7]
-            hover:text-[#A07936]
+            transition-all
+            duration-300
+            hover:bg-[#A07936]
+            hover:text-white
+            hover:shadow-[0_10px_24px_rgba(160,121,54,0.28)]
           "
         >
-          <i
-            data-lucide="package"
+          <span
             class="
-              h-[17px]
-              w-[17px]
-              text-[#99938B]
-              transition-colors
-              group-hover:text-[#A07936]
+              flex
+              h-8
+              w-8
+              shrink-0
+              items-center
+              justify-center
+              rounded-full
+              bg-[#FAF7F1]
+              text-[#A07936]
+              transition-all
+              duration-300
+              group-hover:bg-white/20
+              group-hover:text-white
             "
-          ></i>
+          >
+            <i data-lucide="package" class="h-[16px] w-[16px]"></i>
+          </span>
 
           <span>Orders</span>
 
@@ -170,9 +194,9 @@ export function createUserMenu(user) {
               w-4
               text-[#C8C1B7]
               transition-transform
-              duration-200
+              duration-300
               group-hover:translate-x-1
-              group-hover:text-[#A07936]
+              group-hover:text-white
             "
           ></i>
         </a>
@@ -185,26 +209,38 @@ export function createUserMenu(user) {
             flex
             items-center
             gap-3
-            px-5
+            rounded-2xl
+            px-3
             py-2.5
             text-[14px]
+            font-medium
             text-[#55514B]
-            transition-colors
-            duration-200
-            hover:bg-[#FCFAF7]
-            hover:text-[#A07936]
+            transition-all
+            duration-300
+            hover:bg-[#A07936]
+            hover:text-white
+            hover:shadow-[0_10px_24px_rgba(160,121,54,0.28)]
           "
         >
-          <i
-            data-lucide="heart"
+          <span
             class="
-              h-[17px]
-              w-[17px]
-              text-[#99938B]
-              transition-colors
-              group-hover:text-[#A07936]
+              flex
+              h-8
+              w-8
+              shrink-0
+              items-center
+              justify-center
+              rounded-full
+              bg-[#FAF7F1]
+              text-[#A07936]
+              transition-all
+              duration-300
+              group-hover:bg-white/20
+              group-hover:text-white
             "
-          ></i>
+          >
+            <i data-lucide="heart" class="h-[16px] w-[16px]"></i>
+          </span>
 
           <span>Wishlist</span>
 
@@ -216,9 +252,9 @@ export function createUserMenu(user) {
               w-4
               text-[#C8C1B7]
               transition-transform
-              duration-200
+              duration-300
               group-hover:translate-x-1
-              group-hover:text-[#A07936]
+              group-hover:text-white
             "
           ></i>
         </a>
@@ -232,26 +268,38 @@ export function createUserMenu(user) {
             flex
             items-center
             gap-3
-            px-5
+            rounded-2xl
+            px-3
             py-2.5
             text-[14px]
+            font-medium
             text-[#55514B]
-            transition-colors
-            duration-200
-            hover:bg-[#FCFAF7]
-            hover:text-[#A07936]
+            transition-all
+            duration-300
+            hover:bg-[#A07936]
+            hover:text-white
+            hover:shadow-[0_10px_24px_rgba(160,121,54,0.28)]
           "
         >
-          <i
-            data-lucide="sparkles"
+          <span
             class="
-              h-[17px]
-              w-[17px]
-              text-[#99938B]
-              transition-colors
-              group-hover:text-[#A07936]
+              flex
+              h-8
+              w-8
+              shrink-0
+              items-center
+              justify-center
+              rounded-full
+              bg-[#FAF7F1]
+              text-[#A07936]
+              transition-all
+              duration-300
+              group-hover:bg-white/20
+              group-hover:text-white
             "
-          ></i>
+          >
+            <i data-lucide="sparkles" class="h-[16px] w-[16px]"></i>
+          </span>
 
           <span>Custom Jewellery</span>
 
@@ -263,9 +311,9 @@ export function createUserMenu(user) {
               w-4
               text-[#C8C1B7]
               transition-transform
-              duration-200
+              duration-300
               group-hover:translate-x-1
-              group-hover:text-[#A07936]
+              group-hover:text-white
             "
           ></i>
         </a>
@@ -289,16 +337,16 @@ export function createUserMenu(user) {
             gap-2
             rounded-full
             border
-            border-[#E8E1D8]
+            border-[#181818]
+            bg-[#181818]
             py-2.5
             text-[13px]
             font-medium
-            text-[#6D6861]
+            text-white
             transition-all
             duration-300
-            hover:border-[#181818]
-            hover:bg-[#181818]
-            hover:text-white
+            hover:border-[#A07936]
+            hover:bg-[#A07936]
           "
         >
           <i
