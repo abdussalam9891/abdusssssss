@@ -5,6 +5,7 @@ import {
   removeCartItem,
   getGiftWrap,
   setGiftWrap,
+  repairCartImages,
 } from "./cartState.js";
 
 import { isLoggedIn } from "../auth/authState.js";
@@ -154,8 +155,9 @@ function renderCart() {
 
 async function loadGiftCards() {
 
-  // Gift cards belong to the logged-in customer — a guest cart has
-  // no account to look them up against.
+  // Gift cards belong to the logged-in customer. The cart page is
+  // only reachable with an account, but the badge/cart cache can
+  // render before auth has resolved, so check anyway.
   if (!isLoggedIn()) return;
 
 
@@ -209,8 +211,8 @@ function initItemControls() {
         event.target.closest(".cart-item-remove")
       ) {
 
-        // writeCart() (inside removeCartItem) dispatches
-        // cartChanged, which re-renders below.
+        // removeCartItem() dispatches cartChanged once the
+        // backend has been updated, which re-renders below.
         removeCartItem(id, size);
 
         return;
@@ -333,6 +335,14 @@ export function initCartPage() {
 
 
   loadGiftCards();
+
+
+  /*
+   * Swaps in a real photo for any line whose stored thumbnail no
+   * longer resolves — it re-renders through cartChanged once it
+   * finds one, so the rows above paint immediately either way.
+   */
+  repairCartImages();
 
 
   window.addEventListener(
