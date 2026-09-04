@@ -1,6 +1,9 @@
-// import { getProductImages } from "../../utils/getProductImages.js";
 import { toStringList } from "../../utils/categoryMatch.js";
 import { escapeHtml } from "../../features/productDetails/model.js";
+import {
+  getCardImages,
+  PLACEHOLDER_IMAGE,
+} from "../../utils/productImages.js";
 import { getProductDetailsHref } from "../../utils/format.js";
 
 
@@ -206,33 +209,6 @@ function getProductCategory(product) {
 }
 
 
-function getProductImages(product) {
-  const images = Array.isArray(product.images)
-    ? [...product.images]
-        .sort(
-          (a, b) =>
-            (a?.position ?? 0) -
-            (b?.position ?? 0)
-        )
-        .map((image) => image?.url)
-        .filter(Boolean)
-    : [];
-
-  const front =
-    images[0] ||
-    "/assets/images/placeholder.webp";
-
-  const back =
-    images[1] ||
-    front;
-
-  return {
-    front,
-    back,
-  };
-}
-
-
 function getProductPrice(product) {
   const finalPrice = Number(product.finalPrice);
 
@@ -253,8 +229,13 @@ export function createShowcaseCard(
 ) {
   if (!product) return "";
 
+  // `hasHover` is false for a product the backend has published
+  // with a single photo: the card then renders one image that zooms
+  // gently on hover, instead of cross-fading that photo into a copy
+  // of itself. Nothing is hardcoded per product — the day a second
+  // photo is added, the swap below starts working on its own.
   const images =
-    getProductImages(product);
+    getCardImages(product);
 
   const price =
     getProductPrice(product);
@@ -300,8 +281,7 @@ export function createShowcaseCard(
           w-[72%]
           sm:w-[48%]
           md:w-[34%]
-          lg:w-[24%]
-          xl:w-[21%]
+          lg:w-[calc((100%-96px)/4)]
 
           snap-start
         `
@@ -376,6 +356,14 @@ export function createShowcaseCard(
 
       loading="lazy"
 
+      onerror="
+        this.onerror=function(){
+          this.onerror=null;
+          this.src='${PLACEHOLDER_IMAGE}';
+        };
+        this.src='${images.frontFallback}';
+      "
+
       class="
         absolute
         inset-0
@@ -393,12 +381,22 @@ export function createShowcaseCard(
 
         opacity-100
 
-        group-hover:opacity-0
-        group-hover:scale-110
+        ${
+          images.hasHover
+            ? `
+              group-hover:opacity-0
+              group-hover:scale-110
+            `
+            : `
+              group-hover:scale-105
+            `
+        }
       "
     />
 
-
+${
+  images.hasHover
+    ? `
     <!-- ========================================
          BACK IMAGE
     ========================================= -->
@@ -411,8 +409,11 @@ export function createShowcaseCard(
       loading="lazy"
 
       onerror="
-        this.onerror=null;
-        this.src='${images.front}';
+        this.onerror=function(){
+          this.onerror=null;
+          this.src='${PLACEHOLDER_IMAGE}';
+        };
+        this.src='${images.backFallback}';
       "
 
       class="
@@ -433,6 +434,9 @@ export function createShowcaseCard(
         group-hover:scale-105
       "
     />
+`
+    : ""
+}
 
 
     <!-- ========================================
