@@ -6,6 +6,8 @@ import { createShowcaseCard } from "../../components/showcase/showcaseCard.js";
 
 import { STORE_DOMAIN } from "../../config.js";
 
+import { isActiveProduct } from "../../utils/productStatus.js";
+
 
 /*
  * Only backend product ids are stored locally; the products
@@ -139,7 +141,8 @@ export async function initRecentlyViewed() {
       .filter(
         (result) =>
           result.status === "fulfilled" &&
-          result.value
+          result.value &&
+          isActiveProduct(result.value)
       )
       .map(
         (result) => result.value
