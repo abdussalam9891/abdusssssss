@@ -1,15 +1,6 @@
 import { API_ENDPOINTS } from "../config.js";
 import { apiClient } from "./apiClient.js";
 
-
-/*
- * GET /giftcardscustomer/mycard  (requires auth — logged-in user's
- * own gift cards only)
- *   -> { success, data: [ { _id, giftCode, amount } ] }
- *
- * Mirrors Mivo Jewels' confirmed-working frontend integration, same
- * shared-backend caveat as services/cartService.js's header comment.
- */
 export const giftCardsService = {
 
   getMyGiftCards: async () => {
