@@ -79,16 +79,11 @@ export const API_ENDPOINTS = {
       `/customercoupons/getAvailableCoupons/${encodeURIComponent(domain)}`,
   },
 
-  // Same shared-backend caveat as CART/ORDERS above — mirrors Mivo's
-  // confirmed, working frontend integration.
+ 
   GIFT_CARDS: {
     MY_CARDS: "/giftcardscustomer/mycard",
   },
 
-  // This store and Mivo Jewels run on the same backend — the shape
-  // below mirrors Mivo's confirmed, working frontend integration
-  // rather than an independent probe against banshiwale's own
-  // traffic, per services/cartService.js's header comment.
   CART: {
     ADD: "/addtocart/addToCart",
     GET: (domain) =>
@@ -97,8 +92,7 @@ export const API_ENDPOINTS = {
       `/addtocart/removecart/${productId}`,
   },
 
-  // Same shared-backend caveat as CART above — mirrors Mivo's
-  // confirmed order/Cashfree integration (see services/ordersService.js).
+
   ORDERS: {
     CREATE: "/orders/createorder",
     GET_ONE: (orderId) =>
