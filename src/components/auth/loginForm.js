@@ -431,7 +431,7 @@ export function createLoginForm() {
     "
   >
 
-    New to banshiwale?
+      Don't have an account?
 
     <a
 
