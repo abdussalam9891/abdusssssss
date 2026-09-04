@@ -73,6 +73,7 @@ export function createDesktopNav(
   id="navbar"
   class="
     h-20
+    lg:h-24
     bg-transparent
     border-b
     border-transparent
@@ -144,25 +145,21 @@ export function createDesktopNav(
     id="navbarLogoWrap"
     class="
       block
-      h-12
-      w-12
-      lg:h-20
-      lg:w-20
+      h-20
+      w-20
+      lg:h-32
+      lg:w-32
       shrink-0
-      overflow-hidden
-      rounded-full
     "
   >
     <img
       id="navbarLogo"
-      src="/src/assets/logo-white.png"
-      data-logo-scrolled="/src/assets/logo.png"
-      data-logo-top="/src/assets/logo-white.png"
+      src="/src/assets/logo.png"
       alt="Banshiwale"
       class="
         h-full
         w-full
-        object-cover
+        object-contain
       "
     >
   </span>
