@@ -1,5 +1,5 @@
 import {
-  getCartItems,
+  getAvailableCartItems,
   clearCart,
   getGiftWrap,
   repairCartImages,
@@ -81,7 +81,7 @@ function renderSection() {
 
 
   const items =
-    getCartItems();
+    getAvailableCartItems();
 
   const totals =
     computeTotals(items);
@@ -220,7 +220,7 @@ function applyCoupon(rawCode) {
 
 
   const { totalFinal } =
-    computeTotals(getCartItems());
+    computeTotals(getAvailableCartItems());
 
   const minPurchase =
     Number(coupon.minPurchase) || 0;
@@ -347,7 +347,7 @@ async function handlePlaceOrder() {
 
 
   const items =
-    getCartItems();
+    getAvailableCartItems();
 
   if (!items.length) return;
 
