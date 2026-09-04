@@ -42,6 +42,17 @@ export function initScroll() {
     if (logoWrap) {
       logoWrap.classList.toggle("rounded-full", !scrolled);
       logoWrap.classList.toggle("overflow-hidden", !scrolled);
+
+      // Bump the logo up slightly once the navbar goes black.
+      logoWrap.classList.toggle("h-12", !scrolled);
+      logoWrap.classList.toggle("w-12", !scrolled);
+      logoWrap.classList.toggle("lg:h-20", !scrolled);
+      logoWrap.classList.toggle("lg:w-20", !scrolled);
+
+      logoWrap.classList.toggle("h-14", scrolled);
+      logoWrap.classList.toggle("w-14", scrolled);
+      logoWrap.classList.toggle("lg:h-24", scrolled);
+      logoWrap.classList.toggle("lg:w-24", scrolled);
     }
 
     if (scrolled) {
