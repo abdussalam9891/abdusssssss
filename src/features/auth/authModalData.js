@@ -1,8 +1,35 @@
 export const AUTH_MODAL_DATA = {
 
+  cart: {
+
+    icon: "shopping-bag",
+
+    title: "Sign in to Add to Cart",
+
+    subtitle:
+      "Sign in to add this piece to your cart and keep it saved across your devices.",
+
+    primaryButton: {
+
+      text: "Sign In",
+
+      href: "/pages/login.html",
+
+    },
+
+    secondaryButton: {
+
+      text: "Create Account",
+
+      href: "/pages/register.html",
+
+    },
+
+  },
+
   timer: {
 
-    icon: "gem",
+    image: "/favicon-512x512.png",
 
     title: "Welcome to banshiwale",
 
