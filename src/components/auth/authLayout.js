@@ -415,18 +415,21 @@ lg:p-4
           >
 
             <img
-              src="/src/assets/logo-whitee.png"
+              src="/src/assets/logo.png"
 
               alt="banshiwale"
 
               class="
-                h-16
-                w-16
+               h-24
+  w-24
 
-                object-contain
+  sm:h-28
+  sm:w-28
 
-                lg:h-28
-                lg:w-28
+  lg:h-36
+  lg:w-36
+
+    object-contain
               "
             >
 
