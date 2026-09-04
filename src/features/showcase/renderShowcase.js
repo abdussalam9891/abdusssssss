@@ -1,6 +1,7 @@
 import { SHOWCASE_TABS } from "../../constants/showcaseProducts.js";
 import { createShowcaseCard } from "../../components/showcase/showcaseCard.js";
 import { productService } from "../../services/productService.js";
+import { isActiveProduct } from "../../utils/productStatus.js";
 
 let products = [];
 let loadFailed = false;
@@ -127,8 +128,14 @@ export function renderShowcase(activeTab = "trending") {
     return;
   }
 
+  // Every tab draws from the same unfiltered fetch, so the
+  // published-only check has to live here rather than per-tab —
+  // "New Arrivals" and "Best Sellers" don't apply it themselves
+  // (see constants/showcaseProducts.js).
   const filteredProducts =
-    products.filter(selectedTab.filter);
+    products
+      .filter(isActiveProduct)
+      .filter(selectedTab.filter);
 
   container.innerHTML =
     filteredProducts.length
