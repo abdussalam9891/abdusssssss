@@ -314,21 +314,7 @@ function buildLocalOrder({ orderNumber, items, address, totals }) {
 }
 
 
-/*
- * This store and Mivo Jewels share one backend — order creation and
- * the Cashfree handoff below mirror Mivo's confirmed, working
- * checkout integration (see services/ordersService.js's header
- * comment) rather than an independently-verified contract for
- * banshiwale's own traffic.
- *
- * COD completes immediately: the order is created, the cart is
- * cleared, and the confirmation screen shows right away. Online
- * payment hands off to Cashfree's hosted checkout (window.Cashfree,
- * loaded via pages/checkout.html's SDK script tag) — the browser
- * navigates away entirely, and the cart is only cleared once the
- * customer is redirected back with a confirmed success status (see
- * features/checkout/checkoutPageInit.js's payment-return handling).
- */
+
 async function handlePlaceOrder() {
 
   const address =
