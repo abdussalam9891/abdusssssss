@@ -11,6 +11,12 @@
  */
 
 
+import {
+  PLACEHOLDER_IMAGE,
+  toGalleryUrls,
+} from "../../utils/productImages.js";
+
+
 function toArray(value) {
 
   if (Array.isArray(value)) {
@@ -61,24 +67,15 @@ function toNumber(value) {
 }
 
 
+/*
+ * Ordering, de-duplication and the object-or-string shape question
+ * all live in utils/productImages.js, so the gallery the
+ * product-details page reads is the same list every product card
+ * counts — a product with one photo has one entry everywhere.
+ */
 function normalizeGallery(images) {
 
-  if (!Array.isArray(images)) return [];
-
-
-  return [...images]
-    .sort(
-      (a, b) =>
-        (a?.position ?? 0) -
-        (b?.position ?? 0)
-    )
-    .map(
-      (image) =>
-        typeof image === "string"
-          ? image
-          : image?.url
-    )
-    .filter(Boolean);
+  return toGalleryUrls(images);
 }
 
 
@@ -166,6 +163,128 @@ function normalizeSizes(sizes) {
 
 
 /*
+ * `variantPricing` entries are full pricing objects (their own
+ * price/tax/discount breakdown), not simple option pairs, and
+ * they're inconsistent in practice: some carry `attributes`
+ * (e.g. METAL: SILVER) and their own `images`, others carry
+ * neither (confirmed live — a product can have a second variant
+ * with empty attributes/images but a different finalPrice). A
+ * variant with no images of its own falls back to the base
+ * product gallery rather than rendering blank, and one with no
+ * attributes is the base product itself, so it carries the
+ * product's own name.
+ */
+function normalizeVariants(variantPricing, baseGallery, baseName) {
+
+  if (!Array.isArray(variantPricing)) return [];
+
+
+  return variantPricing
+    .map((variant, index) => {
+
+      const attributes =
+        normalizeAttributes(variant?.attributes);
+
+      const images =
+        normalizeGallery(variant?.images);
+
+      const price =
+        toNumber(variant?.price);
+
+      const finalPrice =
+        toNumber(variant?.finalPrice);
+
+      // No attributes to build a real name from (e.g. "Gold /
+      // Small") means this entry is the plain product rather than
+      // a finish of it, so it reads as the product's own name.
+      // Price is only a last resort — a chip labelled "₹1,471"
+      // repeats the price line beside it and names nothing.
+      const label =
+        attributes.length
+          ? attributes
+              .map((attribute) => attribute.value)
+              .join(" / ")
+          : baseName ||
+            formatPrice(finalPrice ?? price) ||
+            `Option ${index + 1}`;
+
+      return {
+
+        id: variant?._id || "",
+
+        label,
+
+        attributes,
+
+        // An entry with no attributes represents the base product
+        // itself (see the label logic above), so its gallery must
+        // stay the base product's own photos — the ones showcase
+        // cards show — even if the backend happens to have stored
+        // an unrelated `images` array on that entry. Only a real
+        // attributed finish (METAL: SILVER and friends) gets to
+        // swap in its own photos.
+        images:
+          attributes.length && images.length
+            ? images
+            : baseGallery,
+
+        price,
+
+        finalPrice:
+          finalPrice ?? price,
+
+        discountType:
+          variant?.discountType || "",
+
+        discountValue:
+          toNumber(variant?.discountValue) || 0,
+
+        makingCharges:
+          toNumber(variant?.makingCharges),
+
+        taxRate:
+          toNumber(variant?.taxRate),
+
+      };
+    })
+    .filter(
+      (variant) => variant.id
+    )
+    // The base product leads the option row; the attributed
+    // finishes are secondary and follow it. Sort is stable, so
+    // those keep their backend order among themselves.
+    .sort(
+      (a, b) =>
+        (a.attributes.length ? 1 : 0) -
+        (b.attributes.length ? 1 : 0)
+    );
+}
+
+
+/*
+ * The backend marks no variantPricing entry as the default, but
+ * the entry with no attributes is the base product itself — the
+ * attributed ones (METAL: SILVER and friends) are finishes of it
+ * — so that entry is the one to land on. Order is not a reliable
+ * signal: live products list the attributed variant first, which
+ * is why the first entry is no longer taken as primary.
+ */
+export function pickDefaultVariant(product) {
+
+  const variants =
+    product?.variants || [];
+
+  return (
+    variants.find(
+      (variant) => !variant.attributes.length
+    ) ||
+    variants[0] ||
+    null
+  );
+}
+
+
+/*
  * Default to the first size that isn't explicitly out of stock
  * (stock === 0). A size with no stock figure at all (stock ===
  * null) is treated as available, since the backend simply didn't
@@ -210,6 +329,9 @@ export function normalizeProduct(product) {
     toNumber(product.stock) ??
     toNumber(product.quantity);
 
+  const gallery =
+    normalizeGallery(product.images);
+
 
   return {
 
@@ -237,11 +359,17 @@ export function normalizeProduct(product) {
     // MEDIA
     // ----------------------------------------
 
-    gallery:
-      normalizeGallery(product.images),
+    gallery,
 
     videos:
       normalizeVideos(product),
+
+    variants:
+      normalizeVariants(
+        product.variantPricing,
+        gallery,
+        product.name || ""
+      ),
 
 
     // ----------------------------------------
@@ -362,25 +490,13 @@ export function normalizeProduct(product) {
 // ==========================================
 
 /*
- * A self-contained inline placeholder for a gallery image that
- * fails to load. Deliberately not a file path — the only path
- * referenced elsewhere in this codebase for this purpose
- * (/assets/images/placeholder.webp, used by showcaseCard.js)
- * does not exist under either assets/ or src/assets/, so a
- * broken product image would otherwise fall back to another
- * broken image.
+ * The placeholder for an image that fails to load now lives in
+ * utils/productImages.js beside the gallery helpers, and is
+ * re-exported here because the product-details components have
+ * always imported it from this module.
  */
 
-export const PLACEHOLDER_IMAGE =
-  "data:image/svg+xml;utf8," +
-  encodeURIComponent(
-    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">` +
-    `<rect width="400" height="400" fill="#FCFBF9"/>` +
-    `<path d="M140 250 L190 170 L225 215 L260 160 L305 250 Z" ` +
-    `fill="none" stroke="#D8CBB0" stroke-width="10" stroke-linejoin="round"/>` +
-    `<circle cx="170" cy="140" r="20" fill="none" stroke="#D8CBB0" stroke-width="10"/>` +
-    `</svg>`
-  );
+export { PLACEHOLDER_IMAGE };
 
 
 // ==========================================
