@@ -2,32 +2,6 @@ import { API_ENDPOINTS, STORE_DOMAIN } from "../config.js";
 import { apiClient } from "./apiClient.js";
 
 
-/*
- * Same shared-backend caveat as services/cartService.js — this
- * mirrors Mivo Jewels' working checkout/Cashfree integration rather
- * than an independently-confirmed contract for banshiwale's own
- * traffic.
- *
- *   POST /orders/createorder
- *     body: {
- *       items: [{ productId, quantity, finalPrice, selectedSize }],
- *       totalMRP, totalDiscount, totalAmount,
- *       address: { name, street, city, state, postalCode, mobile },
- *       paymentMethod: "COD" | "Online",
- *       domain, redirectUrl,
- *     }
- *     -> COD:    { success, order: { orderNumber, ... } }
- *     -> Online: { success, data: { environment, paymentSessionId } }
- *
- *   GET /orders/getorder/:orderId
- *     -> { success, order: { orderNumber, totalAmount, ... } }
- *
- * Response envelopes above aren't pinned down against a live
- * authenticated reply for this store yet, so callers should treat
- * every field on the returned object as optional and fall back
- * gracefully (see features/checkout/orderPanel.js's normalizeOrder).
- */
-
 export const ordersService = {
 
   createOrder: async (payload) => {
