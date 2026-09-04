@@ -4,6 +4,8 @@ import { productState } from "./state.js";
 
 import { createShowcaseCard } from "../../components/showcase/showcaseCard.js";
 
+import { isActiveProduct } from "../../utils/productStatus.js";
+
 
 const RELATED_LIMIT = 8;
 
@@ -116,7 +118,8 @@ export async function initRelatedProducts() {
       .filter(
         (product) =>
           product?._id &&
-          product._id !== current.id
+          product._id !== current.id &&
+          isActiveProduct(product)
       )
       .slice(0, RELATED_LIMIT);
 
