@@ -14,6 +14,7 @@ import {
   formatPrice,
   getAvailabilityLabel,
   pickDefaultSize,
+  pickDefaultVariant,
 } from "../../features/productDetails/model.js";
 
 
@@ -205,7 +206,7 @@ function createSku(product) {
 }
 
 
-function createPricing(product) {
+export function createPricing(product) {
 
   const finalPrice =
     formatPrice(product.finalPrice);
@@ -363,6 +364,151 @@ function createPricing(product) {
 `
       : ""
   }
+
+</div>
+`;
+}
+
+
+function createVariants(product) {
+
+  if (!product.variants.length) return "";
+
+
+  // Must be the same pick state.js applied to the product on
+  // load, or the highlighted chip and the price/gallery below it
+  // would describe two different variants.
+  const selected =
+    pickDefaultVariant(product);
+
+
+  return `
+<div>
+
+  <p
+    class="
+      text-[12px]
+
+      font-semibold
+
+      uppercase
+
+      tracking-[0.22em]
+
+      text-[#A07936]
+    "
+  >
+    Select Option
+  </p>
+
+
+  <div
+    id="productVariantOptions"
+
+    class="
+      mt-4
+
+      flex
+      flex-wrap
+
+      gap-3
+    "
+  >
+
+    ${product.variants
+      .map((variant) => {
+
+        const isDefault =
+          variant.id === selected?.id;
+
+        const thumb =
+          variant.images[0] || "";
+
+        return `
+<button
+  type="button"
+
+  data-variant-id="${escapeHtml(variant.id)}"
+
+  aria-label="${escapeHtml(variant.label)}"
+
+  class="
+    product-variant-option
+
+    flex
+
+    items-center
+
+    gap-2
+
+    rounded-lg
+    sm:rounded-xl
+
+    border
+
+    py-1.5
+    pl-1.5
+    pr-3.5
+
+    sm:py-2
+    sm:pl-2
+    sm:pr-4
+
+    text-[13px]
+    sm:text-[14px]
+
+    font-medium
+
+    transition-all
+    duration-300
+
+    ${
+      isDefault
+        ? "border-[#A07936]"
+        : "border-[#ECE5D8]"
+    }
+
+    text-[#181818]
+
+    hover:border-[#A07936]
+    active:scale-95
+  "
+>
+  ${
+    thumb
+      ? `
+<img
+  src="${escapeHtml(thumb)}"
+
+  alt=""
+
+  loading="lazy"
+
+  class="
+    h-8
+    w-8
+
+    sm:h-9
+    sm:w-9
+
+    shrink-0
+
+    rounded-md
+    sm:rounded-lg
+
+    object-cover
+  "
+/>
+`
+      : ""
+  }
+  ${escapeHtml(variant.label)}
+</button>
+`;
+      })
+      .join("")}
+
+  </div>
 
 </div>
 `;
@@ -531,7 +677,9 @@ export function createProductInfo(product) {
 
   <!-- Price -->
 
-  ${createPricing(product)}
+  <div id="productPricing">
+    ${createPricing(product)}
+  </div>
 
 
   <!-- Stock + SKU -->
@@ -554,6 +702,11 @@ export function createProductInfo(product) {
   <!-- Delivery Check -->
 
   ${createDeliveryChecker()}
+
+
+  <!-- Variants -->
+
+  ${createVariants(product)}
 
 
   <!-- Sizes -->
