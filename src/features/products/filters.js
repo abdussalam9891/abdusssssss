@@ -6,10 +6,22 @@ import { normalizeForComparison } from "../../utils/categoryMatch.js";
 
 const PRODUCT_FILTERS = {
 
-  badges: [
-    "BESTSELLER",
-    "NEW",
-    "LIMITED",
+  /*
+   * The catalog has no `badge`/`tag` field — the backend never
+   * sends one, and `?badge=...` is ignored. "New Arrivals" is the
+   * one collection real product data can back, derived from
+   * `createdAt` (see isNewArrival in pipeline.js), which is also
+   * what finally makes the existing `?tag=new` links across the
+   * navbar, hero and footer filter anything.
+   *
+   * Bestseller/Limited were dropped rather than faked: nothing in
+   * the product payload distinguishes them.
+   */
+  collections: [
+    {
+      value: "NEW",
+      label: "New Arrivals",
+    },
   ],
 
   // Bounds for the price range slider (and its paired number
@@ -143,38 +155,165 @@ export function createProductsFilters() {
 
   return `
 
+<!--
+  One panel, two layouts: below lg it is a slide-in drawer over the
+  grid (the filters used to be plain "hidden lg:block", so on a
+  phone there was no way to reach them at all), from lg up it is
+  the same static sidebar as before. Deliberately NOT duplicated
+  per breakpoint, so every element id below — and the single
+  handler bound to it — stays unique.
+-->
+
+<!--
+  z-index: above the fixed site header (z-100) and the floating
+  customize/WhatsApp buttons (z-90/85), which would otherwise
+  paint on top of the open drawer, but below the nav drawer
+  (z-999), search overlay (z-1000) and the modals (z-200).
+-->
+
+<div
+  id="mobileFiltersOverlay"
+
+  class="
+    fixed
+    inset-0
+
+    z-[140]
+
+    hidden
+
+    bg-black/50
+
+    lg:hidden
+  "
+></div>
+
+
+<div
+  id="mobileFiltersDrawer"
+
+  role="dialog"
+  aria-modal="true"
+  aria-label="Product filters"
+
+  class="
+    fixed
+    inset-y-0
+    right-0
+
+    z-[150]
+
+    w-[88%]
+    max-w-[380px]
+
+    translate-x-full
+
+    overflow-y-auto
+    overscroll-contain
+
+    bg-white
+
+    shadow-2xl
+
+    transition-transform
+    duration-300
+    ease-out
+
+    lg:static
+    lg:z-auto
+
+    lg:w-auto
+    lg:max-w-none
+
+    lg:translate-x-0
+
+    lg:overflow-visible
+
+    lg:bg-transparent
+    lg:shadow-none
+
+    lg:transition-none
+  "
+>
+
 <aside
   id="productsFilters"
 
   class="
-    hidden
-    lg:block
+    lg:sticky
+    lg:top-28
 
-    sticky
-    top-28
+    min-h-full
+    lg:min-h-0
+    lg:h-fit
 
-    h-fit
+    lg:rounded-2xl
 
-    rounded-2xl
-
-    border
-    border-[#ECE6DF]
+    lg:border
+    lg:border-[#ECE6DF]
 
     bg-white
 
-    p-7
+    p-6
+    lg:p-7
   "
 >
 
-  <h3
+  <div
     class="
-      text-xl
-      font-semibold
-      text-[#181818]
+      flex
+      items-center
+      justify-between
+
+      gap-4
     "
   >
-    Filters
-  </h3>
+
+    <h3
+      class="
+        text-xl
+        font-semibold
+        text-[#181818]
+      "
+    >
+      Filters
+    </h3>
+
+
+    <button
+      id="closeMobileFilters"
+
+      type="button"
+
+      aria-label="Close filters"
+
+      class="
+        inline-flex
+        lg:hidden
+
+        h-9
+        w-9
+
+        shrink-0
+
+        items-center
+        justify-center
+
+        rounded-full
+
+        border
+        border-[#ECE6DF]
+
+        text-[#181818]
+      "
+    >
+      <i
+        data-lucide="x"
+        class="h-4 w-4"
+      ></i>
+    </button>
+
+  </div>
 
 
   <!-- CATEGORY -->
@@ -248,6 +387,8 @@ export function createProductsFilters() {
 
         data-filter="price"
 
+        aria-label="Minimum price"
+
         min="0"
         inputmode="numeric"
 
@@ -279,6 +420,8 @@ export function createProductsFilters() {
         type="number"
 
         data-filter="price"
+
+        aria-label="Maximum price"
 
         min="0"
         inputmode="numeric"
@@ -322,6 +465,8 @@ export function createProductsFilters() {
 
         data-filter="price"
 
+        aria-label="Minimum price slider"
+
         min="${PRODUCT_FILTERS.priceSlider.min}"
         max="${PRODUCT_FILTERS.priceSlider.max}"
         step="${PRODUCT_FILTERS.priceSlider.step}"
@@ -334,6 +479,8 @@ export function createProductsFilters() {
         type="range"
 
         data-filter="price"
+
+        aria-label="Maximum price slider"
 
         min="${PRODUCT_FILTERS.priceSlider.min}"
         max="${PRODUCT_FILTERS.priceSlider.max}"
@@ -388,9 +535,9 @@ export function createProductsFilters() {
 
     <div class="space-y-4">
 
-      ${PRODUCT_FILTERS.badges
+      ${PRODUCT_FILTERS.collections
         .map(
-          (badge) => `
+          (collection) => `
 
 <label
   class="
@@ -407,7 +554,7 @@ export function createProductsFilters() {
 
     data-filter="badge"
 
-    value="${badge}"
+    value="${collection.value}"
 
     class="
       h-4
@@ -423,7 +570,7 @@ export function createProductsFilters() {
       text-[#555]
     "
   >
-    ${badge}
+    ${collection.label}
   </span>
 
 </label>
@@ -437,36 +584,75 @@ export function createProductsFilters() {
   </div>
 
 
-  <button
-    id="clearFilters"
-
-    type="button"
-
+  <div
     class="
       mt-10
 
-      w-full
-
-      rounded-lg
-
-      border
-      border-[#181818]
-
-      px-5
-      py-3
-
-      text-sm
-
-      transition
-
-      hover:bg-[#181818]
-      hover:text-white
+      flex
+      gap-3
     "
   >
-    Clear Filters
-  </button>
+
+    <button
+      id="clearFilters"
+
+      type="button"
+
+      class="
+        flex-1
+
+        rounded-lg
+
+        border
+        border-[#181818]
+
+        px-5
+        py-3
+
+        text-sm
+
+        transition
+
+        hover:bg-[#181818]
+        hover:text-white
+      "
+    >
+      Clear Filters
+    </button>
+
+
+    <!--
+      Filters already apply as they change; this only dismisses the
+      drawer so the results underneath become visible.
+    -->
+    <button
+      id="applyMobileFilters"
+
+      type="button"
+
+      class="
+        flex-1
+        lg:hidden
+
+        rounded-lg
+
+        bg-[#181818]
+
+        px-5
+        py-3
+
+        text-sm
+        text-white
+      "
+    >
+      Show Results
+    </button>
+
+  </div>
 
 </aside>
+
+</div>
 
 `;
 }
@@ -485,13 +671,158 @@ export function renderProductsFilters() {
 
   container.innerHTML =
     createProductsFilters();
+
+
+  // The drawer's close control is a lucide <i> placeholder.
+  window.lucide?.createIcons();
+}
+
+
+// ==========================================
+// MOBILE DRAWER
+// ==========================================
+
+// Matches Tailwind's `lg` breakpoint, which is what switches the
+// panel between drawer and sidebar in the markup above.
+const DESKTOP_BREAKPOINT = 1024;
+
+
+export function openMobileFilters() {
+
+  const drawer =
+    document.getElementById(
+      "mobileFiltersDrawer"
+    );
+
+
+  if (!drawer) return;
+
+
+  drawer.classList.remove(
+    "translate-x-full"
+  );
+
+
+  document
+    .getElementById(
+      "mobileFiltersOverlay"
+    )
+    ?.classList.remove(
+      "hidden"
+    );
+
+
+  // Stops the product grid behind the drawer from scrolling along
+  // with the touch gesture.
+  document.body.style.overflow =
+    "hidden";
+
+
+  document
+    .getElementById(
+      "mobileFilterButton"
+    )
+    ?.setAttribute(
+      "aria-expanded",
+      "true"
+    );
+}
+
+
+export function closeMobileFilters() {
+
+  document
+    .getElementById(
+      "mobileFiltersDrawer"
+    )
+    ?.classList.add(
+      "translate-x-full"
+    );
+
+
+  document
+    .getElementById(
+      "mobileFiltersOverlay"
+    )
+    ?.classList.add(
+      "hidden"
+    );
+
+
+  document.body.style.overflow =
+    "";
+
+
+  document
+    .getElementById(
+      "mobileFilterButton"
+    )
+    ?.setAttribute(
+      "aria-expanded",
+      "false"
+    );
+}
+
+
+function initMobileFiltersEvents() {
+
+  [
+    "closeMobileFilters",
+    "applyMobileFilters",
+    "mobileFiltersOverlay",
+  ].forEach(
+    (id) => {
+
+      document
+        .getElementById(id)
+        ?.addEventListener(
+          "click",
+          closeMobileFilters
+        );
+
+    }
+  );
+
+
+  document.addEventListener(
+    "keydown",
+    (event) => {
+
+      if (event.key === "Escape") {
+        closeMobileFilters();
+      }
+
+    }
+  );
+
+
+  // Rotating to landscape / resizing past the breakpoint turns the
+  // drawer back into the static sidebar. The body scroll lock must
+  // not survive that, or the page stays unscrollable on desktop.
+  window.addEventListener(
+    "resize",
+    () => {
+
+      if (
+        window.innerWidth >= DESKTOP_BREAKPOINT
+      ) {
+        closeMobileFilters();
+      }
+
+    }
+  );
 }
 
 
 // Keeps the filled bar between the two thumbs, and the ₹ labels
 // beneath the slider, in sync with whatever the current min/max
 // range input values are — used both on drag and on restore.
-function refreshPriceRangeUI() {
+//
+// `sourceInput` is the number field the user is typing into, if
+// any: rewriting its value mid-keystroke fights the caret (typing
+// "500" turned into "5" then "50", cursor jumping to the end), so
+// it is left alone until the value is committed.
+function refreshPriceRangeUI(sourceInput) {
 
   const minRange =
     document.getElementById("priceMinRange");
@@ -543,8 +874,13 @@ function refreshPriceRangeUI() {
   }
 
 
-  if (minInput) minInput.value = minValue;
-  if (maxInput) maxInput.value = maxValue;
+  if (minInput && minInput !== sourceInput) {
+    minInput.value = minValue;
+  }
+
+  if (maxInput && maxInput !== sourceInput) {
+    maxInput.value = maxValue;
+  }
 
 
   if (minLabel) {
@@ -564,7 +900,7 @@ function refreshPriceRangeUI() {
 // min/max pair, so any of them can drive it. This normalizes a
 // candidate (min, max) against the slider bounds and each other,
 // applies it to every control, then repaints the fill/labels.
-function applyPriceValues(min, max) {
+function applyPriceValues(min, max, sourceInput) {
 
   const minRange =
     document.getElementById("priceMinRange");
@@ -593,7 +929,13 @@ function applyPriceValues(min, max) {
   nextMax = Math.min(Math.max(nextMax, sliderMin), sliderMax);
 
 
-  if (nextMin > nextMax) {
+  // Reorder only once the value is committed — swapping the two
+  // fields while the user is still typing into one of them makes
+  // the number jump around under the caret.
+  if (
+    nextMin > nextMax &&
+    !sourceInput
+  ) {
     [nextMin, nextMax] = [nextMax, nextMin];
   }
 
@@ -602,7 +944,7 @@ function applyPriceValues(min, max) {
   maxRange.value = nextMax;
 
 
-  refreshPriceRangeUI();
+  refreshPriceRangeUI(sourceInput);
 }
 
 
@@ -622,7 +964,7 @@ function initPriceSliderEvents() {
 
 
   // Live drag feedback only — the delegated "change" handler below
-  // commits the filter (and re-fetches) once the thumb is released.
+  // commits the filter (and re-renders) once the thumb is released.
   minRange?.addEventListener("input", () => {
 
     if (Number(minRange.value) > Number(maxRange.value)) {
@@ -647,8 +989,11 @@ function initPriceSliderEvents() {
   minInput?.addEventListener("input", () => {
 
     applyPriceValues(
-      Number(minInput.value),
-      Number(maxRange?.value)
+      minInput.value === ""
+        ? PRODUCT_FILTERS.priceSlider.min
+        : Number(minInput.value),
+      Number(maxRange?.value),
+      minInput
     );
 
   });
@@ -659,7 +1004,8 @@ function initPriceSliderEvents() {
       Number(minRange?.value),
       maxInput.value === ""
         ? PRODUCT_FILTERS.priceSlider.max
-        : Number(maxInput.value)
+        : Number(maxInput.value),
+      maxInput
     );
 
   });
@@ -699,6 +1045,8 @@ export function initFilterEvents(
 
   initPriceSliderEvents();
 
+  initMobileFiltersEvents();
+
 
   // Delegated so the category group can be re-rendered later
   // (once fetchCategoryFacets() resolves) without losing its
@@ -734,6 +1082,12 @@ export function initFilterEvents(
         );
 
 
+      const {
+        min: sliderMin,
+        max: sliderMax,
+      } = PRODUCT_FILTERS.priceSlider;
+
+
       const minInputEl =
         document.getElementById(
           "priceMinInput"
@@ -744,23 +1098,33 @@ export function initFilterEvents(
           "priceMaxInput"
         );
 
-      const {
-        min: sliderMin,
-        max: sliderMax,
-      } = PRODUCT_FILTERS.priceSlider;
 
-      const minValue =
+      // Re-normalize now that the value is committed: this is where
+      // a min/max typed the wrong way round gets swapped, and where
+      // a cleared field falls back to its slider bound.
+      applyPriceValues(
         minInputEl && minInputEl.value !== ""
           ? Number(minInputEl.value)
-          : sliderMin;
-
-      const maxValue =
+          : sliderMin,
         maxInputEl && maxInputEl.value !== ""
           ? Number(maxInputEl.value)
-          : sliderMax;
+          : sliderMax
+      );
 
-      // The full slider range means "no filter" — only send a price
-      // filter once the user has actually narrowed it down.
+
+      const minValue =
+        Number(
+          document.getElementById("priceMinRange")?.value
+        );
+
+      const maxValue =
+        Number(
+          document.getElementById("priceMaxRange")?.value
+        );
+
+
+      // The full slider range means "no filter" — only apply a
+      // price filter once the user has actually narrowed it down.
       productsState.filters.price =
         minValue <= sliderMin &&
         maxValue >= sliderMax
@@ -791,9 +1155,12 @@ export function initFilterEvents(
       "click",
       async () => {
 
+        // Scoped to checkboxes so the price number/range inputs
+        // aren't given a bogus `checked` flag; they're reset by
+        // applyPriceValues below.
         document
           .querySelectorAll(
-            "#productsFilters input"
+            '#productsFilters input[type="checkbox"]'
           )
           .forEach(
             (input) => {
