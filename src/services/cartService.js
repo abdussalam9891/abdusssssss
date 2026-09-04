@@ -25,6 +25,12 @@ import { apiClient } from "./apiClient.js";
  *     contradicts an earlier assumption mirrored from Mivo's
  *     frontend, which never exercises that case).
  *
+ *     selectedSize is the ONLY per-line option the backend
+ *     stores: there is no variant field on the way in or on the
+ *     way back out. The variant is therefore packed into this
+ *     same string by utils/cartLine.js, so two variants of one
+ *     product in the same size stay separate lines.
+ *
  *     CAVEAT: if productId doesn't resolve to a real, current
  *     product (e.g. it was deleted from the catalog after being
  *     carted), this silently no-ops — 200 { success: true }, cart
@@ -36,6 +42,9 @@ import { apiClient } from "./apiClient.js";
  *     a product with a single line (no other size in the cart) —
  *     whether this removes just one size-variant line or every line
  *     for that productId when more than one exists is unconfirmed.
+ *     selectedSize is sent along on the chance the backend narrows
+ *     by it the way addToCart does; UNVERIFIED, and harmless if the
+ *     backend ignores it (that is the behaviour we already have).
  */
 
 function extractProductId(rawId) {
@@ -103,11 +112,16 @@ export const cartService = {
   },
 
 
-  removeFromCart: async (productId) => {
+  removeFromCart: async (productId, size = "") => {
 
     return apiClient.delete(
       API_ENDPOINTS.CART.REMOVE(productId),
-      { body: { domain: STORE_DOMAIN } }
+      {
+        body: {
+          domain: STORE_DOMAIN,
+          selectedSize: size || "",
+        },
+      }
     );
   },
 
