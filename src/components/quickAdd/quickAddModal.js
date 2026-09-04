@@ -75,6 +75,8 @@ export function createQuickAddModal() {
     <div class="flex items-center justify-between">
 
       <h3
+        id="quickAddModalTitle"
+
         class="
           font-serif
 
