@@ -1,66 +1,155 @@
 import { productService } from "../../services/productService.js";
 import { productsState } from "./state.js";
+import { isActiveProduct } from "../../utils/productStatus.js";
 import {
   normalizeForComparison,
   toStringList,
 } from "../../utils/categoryMatch.js";
 
 
+/*
+ * Only `subCategory` and `search` are real server-side filters on
+ * the public store endpoint (verified against the live API — see
+ * the note at the top of pipeline.js). Price, collection and sort
+ * are applied in the browser, which means the whole matching set
+ * has to be here, not one backend page of it: sorting or price-
+ * filtering a single page would silently produce wrong results.
+ *
+ * So the backend is paged through in large chunks. The cap is a
+ * safety net against an unexpectedly huge catalog, not an expected
+ * limit — if it is ever hit, that is the point to ask the backend
+ * team for real sort/price support rather than raising it.
+ */
+const SERVER_PAGE_LIMIT = 100;
+
+const MAX_SERVER_PAGES = 20;
+
+
+/*
+ * Changing sort, price, collection or page must not re-hit the
+ * network — none of them affect what the backend returns. Only a
+ * category or search change does, so the fetched set is cached
+ * against exactly those two.
+ */
+let cache = {
+  key: null,
+  products: [],
+};
+
+
+function getServerQueryKey() {
+
+  return JSON.stringify({
+
+    categories:
+      [...productsState.filters.categories].sort(),
+
+    search:
+      productsState.search.trim().toLowerCase(),
+
+  });
+}
+
+
+// Lets the caller skip the loading spinner for a change the cache
+// already covers (sort, price, collection, page), so those feel
+// instant instead of flashing an empty grid.
+export function hasFreshProductsCache() {
+
+  return cache.key === getServerQueryKey();
+}
+
+
 export async function fetchProducts() {
 
-  const price =
-    productsState.filters.price;
+  const key =
+    getServerQueryKey();
 
 
-  const response =
-    await productService.getPublicProducts({
+  if (cache.key === key) {
 
-      page:
-        productsState.page,
-
-      limit:
-        productsState.limit,
-
-      categories:
-        productsState.filters.categories,
-
-      badges:
-        productsState.filters.badges,
-
-      minPrice:
-        price?.min,
-
-      maxPrice:
-        price?.max,
-
-      sort:
-        productsState.sort,
-
-      search:
-        productsState.search,
-
-    });
+    productsState.fetchedProducts =
+      cache.products;
 
 
-  const data =
-    response?.data || {};
+    return cache.products;
+  }
 
 
-  productsState.products =
-    Array.isArray(data.products)
-      ? data.products
-      : [];
+  const collected = [];
+
+  let page = 1;
+
+  let totalPages = 1;
 
 
-  productsState.total =
-    Number(data.total) || 0;
+  while (
+    page <= totalPages &&
+    page <= MAX_SERVER_PAGES
+  ) {
+
+    const response =
+      await productService.getPublicProducts({
+
+        page,
+
+        limit: SERVER_PAGE_LIMIT,
+
+        categories:
+          productsState.filters.categories,
+
+        search:
+          productsState.search,
+
+      });
 
 
-  productsState.totalPages =
-    Number(data.totalPages) || 0;
+    const data =
+      response?.data || {};
 
 
-  return data;
+    const products =
+      Array.isArray(data.products)
+        ? data.products
+        : [];
+
+
+    // The public store endpoint returns draft/unpublished products
+    // too (status "Inactive"), same inconsistency the showcase tabs
+    // already work around (see constants/showcaseProducts.js) — a
+    // shopper should never see a product the admin hasn't published.
+    collected.push(
+      ...products.filter(isActiveProduct)
+    );
+
+
+    totalPages =
+      Number(data.totalPages) || 1;
+
+
+    // Defensive: a backend that ignores `page` would otherwise
+    // loop MAX_SERVER_PAGES times over the same first page.
+    if (products.length < SERVER_PAGE_LIMIT) {
+      break;
+    }
+
+
+    page += 1;
+
+  }
+
+
+  cache = {
+    key,
+    products: collected,
+  };
+
+
+  productsState.fetchedProducts =
+    collected;
+
+
+  return collected;
 }
 
 
@@ -73,8 +162,8 @@ export async function fetchProducts() {
  * currently exist. Actual filtering still happens server-side via
  * fetchProducts(); this never replaces that.
  *
- * Callers must isolate failures (see initCategoryFilterOptions in
- * filters.js) — losing the facet list must not break the rest of
+ * Callers must isolate failures (see loadCategoryFilterOptions in
+ * index.js) — losing the facet list must not break the rest of
  * the filters UI or the product grid.
  */
 export async function fetchCategoryFacets() {
@@ -82,7 +171,7 @@ export async function fetchCategoryFacets() {
   const response =
     await productService.getPublicProducts({
       page: 1,
-      limit: 100,
+      limit: SERVER_PAGE_LIMIT,
     });
 
 
@@ -97,22 +186,24 @@ export async function fetchCategoryFacets() {
 
   const seen = new Map();
 
-  products.forEach((product) => {
+  products
+    .filter(isActiveProduct)
+    .forEach((product) => {
 
-    toStringList(product?.subCategory).forEach(
-      (rawValue) => {
+      toStringList(product?.subCategory).forEach(
+        (rawValue) => {
 
-        const key =
-          normalizeForComparison(rawValue);
+          const key =
+            normalizeForComparison(rawValue);
 
-        if (key && !seen.has(key)) {
-          seen.set(key, rawValue.trim());
+          if (key && !seen.has(key)) {
+            seen.set(key, rawValue.trim());
+          }
+
         }
+      );
 
-      }
-    );
-
-  });
+    });
 
 
   productsState.categoryOptions =
