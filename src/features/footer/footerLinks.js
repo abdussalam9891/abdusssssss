@@ -248,11 +248,14 @@ export function createFooterLinks(socialLinks = {}) {
 
 <div>
   <a href="/index.html" class="inline-block">
-    <img
-      src="/src/assets/logo.png"
-      alt="banshiwale"
-      class="h-24 w-24 object-contain"
-    />
+    <picture>
+      <source srcset="/src/assets/logo.webp" type="image/webp">
+      <img
+        src="/src/assets/logo.png"
+        alt="banshiwale"
+        class="h-24 w-24 object-contain"
+      />
+    </picture>
   </a>
 
   <p class="max-w-xs text-sm leading-7 text-white/60">

@@ -1,5 +1,5 @@
 import { websiteService } from "../../services/websiteService.js";
-import { createSocialIcons } from "../../components/footer/footerLinks.js";
+import { createSocialIcons } from "./footerLinks.js";
 
 export async function hydrateFooterSocialLinks() {
 

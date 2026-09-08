@@ -61,8 +61,8 @@ function createSeoRow(label, links) {
 
 export function createSeoLinks() {
   // Same backend category names the homepage's "Shop by Category"
-  // grid renders (see CATEGORY_IMAGES in features/collections/
-  // renderCollections.js) — kept in sync so these links resolve to
+  // grid renders (see CATEGORY_IMAGES in features/category/
+  // renderCategory.js) — kept in sync so these links resolve to
   // the same product listings.
   const categoryLink = (categoryName) =>
     `/pages/products.html?category=${encodeURIComponent(categoryName)}`;
