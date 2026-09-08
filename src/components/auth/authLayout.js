@@ -1,7 +1,6 @@
 export function createAuthLayout({
   title,
   description,
-  eyebrow = "banshiwale",
   form,
 }) {
   return `
@@ -14,7 +13,7 @@ flex
 items-center
 justify-center
 
-h-screen
+h-[100dvh]
 
 overflow-hidden
 
@@ -246,7 +245,9 @@ lg:p-4
 
             leading-tight
 
-            text-white
+            text-[#F9F4E9]
+
+            drop-shadow-[0_4px_24px_rgba(0,0,0,0.45)]
 
             lg:text-[52px]
           "
@@ -254,18 +255,35 @@ lg:p-4
           Crafted for Every Celebration
         </h2>
 
+        <div
+          class="
+            mt-5
+
+            h-[2px]
+            w-14
+
+            bg-gradient-to-r
+            from-[#D8B677]
+            to-transparent
+          "
+        ></div>
+
         <p
         id="authDescription"
           class="
-            mt-6
+            mt-5
 
             max-w-md
 
             text-[16px]
 
+            font-light
+
             leading-8
 
-            text-white/90
+            tracking-wide
+
+            text-[#EDE4D2]/85
           "
         >
           Join banshiwale to save your wishlist, track your orders,
@@ -325,7 +343,8 @@ lg:p-4
         <div
           class="
             px-6
-            py-1
+            pt-0
+            pb-1
 
             sm:px-8
           "
@@ -420,14 +439,14 @@ lg:p-4
               alt="banshiwale"
 
               class="
-               h-24
-  w-24
+               h-28
+  w-28
 
   sm:h-28
   sm:w-28
 
-  lg:h-36
-  lg:w-36
+  lg:h-28
+  lg:w-28
 
     object-contain
               "
@@ -435,33 +454,11 @@ lg:p-4
 
           </div>
 
-          <!-- Eyebrow -->
-
-          <p
-            class="
-              mt-1
-
-              text-center
-
-              text-[11px]
-
-              font-semibold
-
-              uppercase
-
-              tracking-[0.35em]
-
-              text-[#A07936]
-            "
-          >
-            ${eyebrow}
-          </p>
-
           <!-- Heading -->
 
           <h1
             class="
-              mt-0
+              mt-1
 
               text-center
 

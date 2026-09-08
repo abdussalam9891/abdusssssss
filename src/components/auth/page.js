@@ -5,8 +5,6 @@ export function createLoginPage() {
   return createAuthLayout({
     title: "Welcome Back",
 
-    eyebrow: "Sign In",
-
     description:
       "Access your account, wishlist and orders.",
 

@@ -5,8 +5,6 @@ export function createRegisterPage() {
   return createAuthLayout({
     title: "Create Account",
 
-    eyebrow: "Join Us",
-
     form: createRegisterForm(),
   });
 }

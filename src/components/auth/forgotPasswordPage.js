@@ -5,8 +5,6 @@ export function createForgotPasswordPage() {
   return createAuthLayout({
     title: "Forgot Password",
 
-    eyebrow: "Account Recovery",
-
     description:
       "Enter your registered email address and we'll send you a secure password reset link.",
 
