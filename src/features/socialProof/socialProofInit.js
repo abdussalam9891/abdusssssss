@@ -1,7 +1,7 @@
 import {
   createSocialProofContainer,
   createSocialProofCard,
-} from "../../components/socialProof/index.js";
+} from "./socialProofWidget.js";
 
 import { isAuthPage } from "../../utils/isAuthPage.js";
 
