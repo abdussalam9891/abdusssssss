@@ -50,6 +50,7 @@ export function createFaqCard(faq) {
     <div
       class="
         faq-item
+        group
         overflow-hidden
         rounded-3xl
         border
@@ -57,7 +58,10 @@ export function createFaqCard(faq) {
         bg-white
         transition-all
         duration-300
-        hover:shadow-lg
+        ease-out
+        hover:-translate-y-1
+        hover:border-[#D9C7A3]
+        hover:shadow-[0_20px_45px_-15px_rgba(160,121,54,0.35)]
       "
       data-category="${faq.category}"
     >
@@ -70,6 +74,7 @@ export function createFaqCard(faq) {
           w-full
           items-center
           justify-between
+          gap-6
           px-8
           py-7
           text-left
@@ -83,6 +88,9 @@ export function createFaqCard(faq) {
               text-xl
               font-medium
               text-[#181818]
+              transition-colors
+              duration-300
+              group-hover:text-[#A07936]
             "
           >
             ${faq.question}
@@ -100,6 +108,7 @@ export function createFaqCard(faq) {
             text-[#A07936]
             transition-transform
             duration-300
+            group-hover:scale-110
           "
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
