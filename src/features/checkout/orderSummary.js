@@ -2,7 +2,7 @@ import { escapeHtml, formatPrice } from "../../utils/format.js";
 import { formatCartSize } from "../../utils/cartLine.js";
 
 
-// Mirrors components/cart/cartItemRow.js's inline placeholder so a
+// Mirrors features/cart/cartItemRow.js's inline placeholder so a
 // broken product thumbnail never falls back to another broken path.
 const PLACEHOLDER_IMAGE =
   "data:image/svg+xml;utf8," +

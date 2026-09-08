@@ -1,12 +1,12 @@
 /*
  * Static page shell — mirrors components/profile/profileLayout.js
- * (sign-in-gated) and components/cart/cartLayout.js (empty state +
+ * (sign-in-gated) and features/cart/cartLayout.js (empty state +
  * content grid toggle). features/checkout/checkoutPageInit.js
  * decides which of the three states below is visible and fills in
  * the content containers at render time.
  */
 
-import { createAddressFormModal } from "../profile/addressFormModal.js";
+import { createAddressFormModal } from "../../components/profile/addressFormModal.js";
 
 
 export function createCheckoutLayout() {

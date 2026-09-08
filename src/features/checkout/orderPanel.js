@@ -4,7 +4,7 @@ import {
   getGiftWrap,
   repairCartImages,
 } from "../cart/cartState.js";
-import { createOrderSummary } from "../../components/checkout/orderSummary.js";
+import { createOrderSummary } from "./orderSummary.js";
 import { offersService } from "../../services/offersService.js";
 import { ordersService } from "../../services/ordersService.js";
 import { showToast } from "../../utils/toast.js";

@@ -1,4 +1,4 @@
-import { createPaymentMethods } from "../../components/checkout/paymentMethods.js";
+import { createPaymentMethods } from "./paymentMethods.js";
 
 
 let selectedMethod = "online";

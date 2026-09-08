@@ -1,6 +1,6 @@
 import { addressService } from "../../services/addressService.js";
 import { showToast } from "../../utils/toast.js";
-import { createAddressSelector } from "../../components/checkout/addressSelector.js";
+import { createAddressSelector } from "./addressSelector.js";
 
 
 /*

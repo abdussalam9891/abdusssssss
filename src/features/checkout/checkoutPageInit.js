@@ -1,12 +1,12 @@
 import { API_BASE_URL } from "../../config.js";
 import { isLoggedIn } from "../auth/authState.js";
-import { openAuthModal } from "../auth/index.js";
+import { openAuthModal } from "../auth/authTriggers.js";
 import { getCartItems, clearCart } from "../cart/cartState.js";
 import { ordersService } from "../../services/ordersService.js";
 import { showToast } from "../../utils/toast.js";
 
-import { createCheckoutLayout } from "../../components/checkout/checkoutLayout.js";
-import { createOrderConfirmation } from "../../components/checkout/orderConfirmation.js";
+import { createCheckoutLayout } from "./checkoutLayout.js";
+import { createOrderConfirmation } from "./orderConfirmation.js";
 
 import { initAddressPanel } from "./addressPanel.js";
 import { initPaymentPanel } from "./paymentPanel.js";
