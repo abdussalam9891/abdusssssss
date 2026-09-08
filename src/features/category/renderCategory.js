@@ -1,5 +1,5 @@
 import { websiteService } from "../../services/websiteService.js";
-import { createCollectionCard } from "../../components/collections/collectionCard.js";
+import { createCategoryCard } from "./categoryCard.js";
 
 const CATEGORY_IMAGES = {
   "Rings": "./src/assets/silverring.jpg",
@@ -18,7 +18,7 @@ const FALLBACK_CATEGORY_IMAGE = "./src/assets/banshiwala-gold.png";
 // Local fallback built from the same images the live backend
 // categories render with, so a failed/empty categories request
 // still shows the real shop-by-category art instead of stand-ins.
-function buildLocalCollections() {
+function buildLocalCategories() {
   return Object.entries(CATEGORY_IMAGES).map(([name, image]) => ({
     id: name,
     title: name,
@@ -28,10 +28,10 @@ function buildLocalCollections() {
   }));
 }
 
-export async function renderCollections() {
+export async function initCategory() {
 
   const container =
-    document.getElementById("collectionGrid");
+    document.getElementById("categoryGrid");
 
   if (!container) return;
 
@@ -45,12 +45,12 @@ export async function renderCollections() {
       !categories.length
     ) {
       console.warn(
-        "[Collections] No categories found. Using local fallback."
+        "[Category] No categories found. Using local fallback."
       );
 
       container.innerHTML =
-        buildLocalCollections()
-          .map(createCollectionCard)
+        buildLocalCategories()
+          .map(createCategoryCard)
           .join("");
 
       if (window.lucide) {
@@ -60,7 +60,7 @@ export async function renderCollections() {
       return;
     }
 
-    const collections =
+    const categoryCards =
       categories
         .map((category) => ({
 
@@ -85,14 +85,14 @@ export async function renderCollections() {
 
         }));
 
-    if (!collections.length) {
+    if (!categoryCards.length) {
       console.warn(
-        "[Collections] No backend categories matched local images. Using local fallback."
+        "[Category] No backend categories matched local images. Using local fallback."
       );
 
       container.innerHTML =
-        buildLocalCollections()
-          .map(createCollectionCard)
+        buildLocalCategories()
+          .map(createCategoryCard)
           .join("");
 
       if (window.lucide) {
@@ -103,8 +103,8 @@ export async function renderCollections() {
     }
 
     container.innerHTML =
-      collections
-        .map(createCollectionCard)
+      categoryCards
+        .map(createCategoryCard)
         .join("");
 
     // If you're using Lucide
@@ -115,13 +115,13 @@ export async function renderCollections() {
   } catch (error) {
 
     console.error(
-      "[Collections] Failed to load categories. Using local fallback.",
+      "[Category] Failed to load categories. Using local fallback.",
       error
     );
 
     container.innerHTML =
-      buildLocalCollections()
-        .map(createCollectionCard)
+      buildLocalCategories()
+        .map(createCategoryCard)
         .join("");
 
     if (window.lucide) {

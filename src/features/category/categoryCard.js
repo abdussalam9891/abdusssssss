@@ -1,7 +1,7 @@
-export function createCollectionCard(collection) {
+export function createCategoryCard(category) {
   return `
     <a
-      href="${collection.url}"
+      href="${category.url}"
       class="
         group
         block
@@ -48,8 +48,8 @@ export function createCollectionCard(collection) {
   >
 
     <img
-      src="${collection.image}"
-      alt="${collection.title}"
+      src="${category.image}"
+      alt="${category.title}"
 
       loading="lazy"
       decoding="async"
@@ -105,7 +105,7 @@ export function createCollectionCard(collection) {
             group-hover:text-[#A07936]
           "
         >
-          ${collection.title}
+          ${category.title}
         </h3>
 
       </div>
