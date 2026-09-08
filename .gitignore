@@ -1,0 +1,7 @@
+# Internal dev-notes only — this is a static site with no build/deploy-exclude
+# step, so anything tracked here ships as a publicly reachable file at the repo
+# root. These were previously removed from history in commit 3955c58 after
+# leaking unfixed backend gaps and another client's name; keep them untracked.
+rules.md
+changes.md
+doubt or question.md

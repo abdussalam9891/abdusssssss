@@ -5,12 +5,14 @@ export function createCollectionCard(collection) {
       class="
         group
         block
+        shrink-0
+        snap-start
 
-        w-[calc(50%-0.5rem)]
+        w-[calc((100vw-4rem)/5.5)]
 
-        sm:w-[240px]
+        sm:w-[calc((100%-7.5rem)/5.5)]
 
-        lg:w-[280px]
+        lg:w-[calc((100%-10rem)/5.5)]
       "
     >
 <!-- Image Card -->
@@ -36,9 +38,8 @@ export function createCollectionCard(collection) {
 
   <div
     class="
-      h-[170px]
-      sm:h-[210px]
-      lg:h-[250px]
+      aspect-[14/17]
+      sm:aspect-[8/7]
 
       w-full
 
@@ -77,7 +78,8 @@ export function createCollectionCard(collection) {
 
       <div
         class="
-          pt-4
+          pt-2
+          sm:pt-4
           lg:pt-5
 
           text-center
@@ -89,7 +91,7 @@ export function createCollectionCard(collection) {
             font-serif
             italic
 
-            text-lg
+            text-[11px]
             sm:text-xl
             lg:text-xl
 

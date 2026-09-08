@@ -41,12 +41,10 @@ export function createSocialProofCard({
   customerName,
   productLabel,
   imageUrl,
-  href,
+  timeLabel,
 }) {
   return `
-<a
-  href="${href}"
-
+<div
   class="
     relative
 
@@ -129,11 +127,6 @@ export function createSocialProofCard({
       class="
         mt-1
 
-        inline-flex
-        items-center
-
-        gap-1.5
-
         text-[10px]
         font-semibold
 
@@ -143,19 +136,7 @@ export function createSocialProofCard({
         text-[#946E1F]
       "
     >
-      <span
-        class="
-          h-1.5
-          w-1.5
-
-          rounded-full
-
-          bg-[#2E7D32]
-
-          animate-pulse
-        "
-      ></span>
-      Trending now
+      ${escapeHtml(timeLabel)}
     </p>
 
   </div>
@@ -193,6 +174,6 @@ export function createSocialProofCard({
     <i data-lucide="x" class="h-3.5 w-3.5"></i>
   </button>
 
-</a>
+</div>
 `;
 }

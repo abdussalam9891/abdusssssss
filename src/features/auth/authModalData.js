@@ -29,7 +29,7 @@ export const AUTH_MODAL_DATA = {
 
   timer: {
 
-    image: "/favicon-512x512.png",
+    image: "/src/assets/logo.png",
 
     title: "Welcome to banshiwale",
 

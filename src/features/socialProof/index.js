@@ -3,15 +3,12 @@ import {
   createSocialProofCard,
 } from "../../components/socialProof/index.js";
 
-import { productService } from "../../services/productService.js";
-import { getPrimaryImage } from "../../utils/productImages.js";
-import { getProductDetailsHref } from "../../utils/format.js";
 import { isAuthPage } from "../../utils/isAuthPage.js";
 
 // There's no real "who's browsing right now" signal from the
 // backend, so this pairs a rotating cast of fictional Indian shopper
-// names with *real* catalog products (name, photo, link all genuine)
-// rather than inventing fake products too.
+// names with static local photos of men wearing our jewellery —
+// entirely static, no backend call and nothing to click through to.
 const CUSTOMER_NAMES = [
   "Vikram Joshi",
   "Ishaan Bhatt",
@@ -29,6 +26,45 @@ const CUSTOMER_NAMES = [
   "Aditya Malhotra",
   "Divya Reddy",
   "Karan Chopra",
+];
+
+const TIME_LABELS = [
+  "Just now",
+  "1 min before",
+  "2 min before",
+  "3 min before",
+  "5 min before",
+  "8 min before",
+  "10 min before",
+];
+
+// Static local photos (men wearing the jewellery) — no product
+// fetch, no click-through, just a rotating cast of looks.
+const PRODUCTS = [
+  {
+    productLabel: "Sterling Silver Curb Bracelet",
+    imageUrl: "/src/assets/images/auth-men-silver.jpg",
+  },
+  {
+    productLabel: "Men's Chain Link Bracelet",
+    imageUrl: "/src/assets/bracelets/1-2.webp",
+  },
+  {
+    productLabel: "Men's Figaro Bracelet",
+    imageUrl: "/src/assets/bracelets/2-2.webp",
+  },
+  {
+    productLabel: "Men's Curb Chain Necklace",
+    imageUrl: "/src/assets/chains/1-2.webp",
+  },
+  {
+    productLabel: "Men's Diamond Band Ring",
+    imageUrl: "/src/assets/rings/1-2.webp",
+  },
+  {
+    productLabel: "Men's Channel Set Ring",
+    imageUrl: "/src/assets/rings/2-2.webp",
+  },
 ];
 
 const DISMISS_KEY = "socialProofDismissed";
@@ -59,10 +95,9 @@ function pickRandom(list, exclude) {
   ];
 }
 
-// Independent, backend-optional widget — a failed or empty product
-// fetch just means it never appears, same spirit as the WhatsApp
-// button's "static shell first, hydrate after" pattern (though here
-// there's nothing meaningful to show before the products arrive).
+// Fully static widget — no backend call, no product fetch, and the
+// card is never a link (see socialProofWidget.js), so there's
+// nothing to click through to.
 export async function initSocialProofToasts() {
 
   if (isExcludedPage()) return;
@@ -74,40 +109,6 @@ export async function initSocialProofToasts() {
     // without remembering a dismissal across the session.
   }
 
-  if (document.getElementById("socialProofToast")) return;
-
-  let products = [];
-
-  try {
-
-    const response =
-      await productService.getPublicProducts({
-        page: 1,
-        limit: 12,
-        sort: "featured",
-      });
-
-    products =
-      (response?.data?.products || []).filter(
-        (product) => product?.name
-      );
-
-  } catch (error) {
-
-    console.error(
-      "[SocialProof] Failed to load products for the activity widget.",
-      error
-    );
-
-  }
-
-  // Nothing to show — and nothing appended to the DOM either, so a
-  // later retry (e.g. after a transient network failure) isn't
-  // blocked by the guard above finding a stale, empty shell.
-  if (!products.length) return;
-
-  // A second init could have run while the fetch above was
-  // in-flight; re-check right before inserting.
   if (document.getElementById("socialProofToast")) return;
 
   document.body.insertAdjacentHTML(
@@ -124,12 +125,13 @@ export async function initSocialProofToasts() {
   let dismissed = false;
   let lastProduct = null;
   let lastName = "";
+  let lastTimeLabel = "";
   let cycleTimer = null;
 
   function buildEntry() {
 
     const product =
-      pickRandom(products, lastProduct);
+      pickRandom(PRODUCTS, lastProduct);
 
     lastProduct = product;
 
@@ -138,14 +140,16 @@ export async function initSocialProofToasts() {
 
     lastName = customerName;
 
+    const timeLabel =
+      pickRandom(TIME_LABELS, lastTimeLabel);
+
+    lastTimeLabel = timeLabel;
+
     return {
       customerName,
-      productLabel: product.name,
-      imageUrl: getPrimaryImage(product),
-      href: getProductDetailsHref(
-        product._id,
-        product.slug
-      ),
+      productLabel: product.productLabel,
+      imageUrl: product.imageUrl,
+      timeLabel,
     };
   }
 

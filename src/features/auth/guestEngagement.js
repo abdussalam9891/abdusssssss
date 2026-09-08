@@ -84,10 +84,10 @@ export function initGuestEngagement() {
 
   if (isAuthPage()) return;
 
-  // if (hasSeenToday()) return;
+  if (hasSeenToday()) return;
 
   setTimeout(() => {
     showGuestPrompt("timer");
     markSeen();
-  }, 2555000);
+  }, 20000);
 }
