@@ -1,4 +1,4 @@
-import { createHero } from "../../components/hero/index.js";
+import { createHero } from "./hero.js";
 import { initHeroSlider } from "./slider.js";
 import { websiteService } from "../../services/websiteService.js";
 import { HERO_SLIDES } from "../../constants/heroSlides.js";
