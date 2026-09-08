@@ -63,7 +63,17 @@ export function createReviewsSummary(product) {
   if (!hasReviews) {
 
     return `
-<div class="mt-6">
+<div
+  class="
+    mt-6
+
+    flex
+
+    flex-col
+
+    items-center
+  "
+>
 
   ${createStars(0)}
 
@@ -199,18 +209,24 @@ export function createReviewsSection(product) {
       id="productWriteReviewButton"
 
       class="
+        group
+
+        relative
+
         mt-8
 
         inline-flex
 
         items-center
+        justify-center
 
         gap-2
 
+        overflow-hidden
+
         rounded-full
 
-        border
-        border-[#181818]
+        bg-[#181818]
 
         px-6
         py-3
@@ -223,16 +239,38 @@ export function createReviewsSection(product) {
 
         tracking-[0.16em]
 
-        text-[#181818]
+        text-white
 
-        transition-colors
-        duration-300
+        transition-all
+        duration-500
 
-        hover:border-[#A07936]
-        hover:text-[#A07936]
+        hover:-translate-y-0.5
+        hover:shadow-[0_16px_32px_-10px_rgba(160,121,54,.5)]
+
+        active:scale-[0.98]
       "
     >
-      Write a Review
+      <span
+        class="
+          absolute
+          inset-0
+
+          origin-left
+
+          scale-x-0
+
+          bg-[#A07936]
+
+          transition-transform
+          duration-500
+
+          group-hover:scale-x-100
+        "
+      ></span>
+
+      <span class="relative z-10">
+        Write a Review
+      </span>
     </button>
 
   </div>
