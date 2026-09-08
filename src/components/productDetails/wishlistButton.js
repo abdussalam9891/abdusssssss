@@ -34,8 +34,8 @@ export function createWishlistButton(product) {
     gap-2
     sm:gap-3
 
-    rounded-lg
-    sm:rounded-xl
+    rounded-xl
+    sm:rounded-2xl
 
     border
     border-[#DDD7CF]
@@ -60,12 +60,17 @@ export function createWishlistButton(product) {
 
     text-[#181818]
 
+    shadow-[0_1px_2px_rgba(0,0,0,0.04)]
+
     transition-all
     duration-300
 
+    hover:-translate-y-0.5
     hover:border-[#A07936]
     hover:text-[#A07936]
+    hover:shadow-[0_14px_30px_rgba(0,0,0,0.08)]
 
+    active:translate-y-0
     active:scale-[0.98]
   "
 >
@@ -82,8 +87,10 @@ export function createWishlistButton(product) {
       sm:h-4
       sm:w-4
 
-      transition-colors
+      transition-all
       duration-300
+
+      group-hover:scale-110
     "
   ></i>
 

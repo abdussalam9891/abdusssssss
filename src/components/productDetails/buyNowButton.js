@@ -38,6 +38,9 @@ export function createBuyNowButton(product) {
     rounded-xl
     sm:rounded-2xl
 
+    border
+    border-transparent
+
     bg-[#181818]
 
     px-3
@@ -58,6 +61,8 @@ export function createBuyNowButton(product) {
 
     text-white
 
+    shadow-[0_1px_2px_rgba(0,0,0,0.08)]
+
     transition-all
     duration-500
 
@@ -65,12 +70,14 @@ export function createBuyNowButton(product) {
 
     hover:shadow-[0_22px_55px_rgba(0,0,0,.18)]
 
+    active:translate-y-0
     active:scale-[0.98]
 
     disabled:cursor-not-allowed
     disabled:translate-y-0
-    disabled:bg-[#DDD7CF]
-    disabled:text-[#8A8A8A]
+    disabled:border-[#DDD7CF]
+    disabled:bg-transparent
+    disabled:text-[#B0B0B0]
     disabled:shadow-none
   "
 >
@@ -109,6 +116,12 @@ export function createBuyNowButton(product) {
 
       sm:h-4
       sm:w-4
+
+      transition-transform
+      duration-300
+
+      group-hover:scale-110
+      group-disabled:scale-100
     "
   ></i>
 
