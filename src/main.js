@@ -18,6 +18,8 @@ import { initFloatingWhatsAppButton } from "./features/whatsapp/index.js";
 
 import { initScrollToTopButton } from "./features/scrollToTop/index.js";
 
+import { initSocialProofToasts } from "./features/socialProof/index.js";
+
 import { initCartBadgeSync } from "./features/cart/cartBadge.js";
 
 import { initCartSync } from "./features/cart/cartState.js";
@@ -128,6 +130,19 @@ document.addEventListener("DOMContentLoaded", async () => {
       error
     );
   }
+
+
+  // "X explored Y" activity widget is completely independent.
+  // Backend failure (no products to show) just means it never
+  // appears — must not block anything else.
+  initSocialProofToasts().catch((error) => {
+
+    console.error(
+      "[SocialProof] Failed to initialize:",
+      error
+    );
+
+  });
 
 
   // Resolve authentication in background.
