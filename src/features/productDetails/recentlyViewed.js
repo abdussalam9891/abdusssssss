@@ -2,7 +2,7 @@ import { productService } from "../../services/productService.js";
 
 import { productState } from "./state.js";
 
-import { createShowcaseCard } from "../../components/showcase/showcaseCard.js";
+import { createShowcaseCard } from "../../features/showcase/showcaseCard.js";
 
 import { STORE_DOMAIN } from "../../config.js";
 

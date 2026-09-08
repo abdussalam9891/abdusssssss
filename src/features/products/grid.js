@@ -1,6 +1,6 @@
 import {
   createShowcaseCard,
-} from "../../components/showcase/showcaseCard.js";
+} from "../../features/showcase/showcaseCard.js";
 
 import { productsState } from "./state.js";
 
