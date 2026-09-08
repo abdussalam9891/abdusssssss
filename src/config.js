@@ -79,7 +79,7 @@ export const API_ENDPOINTS = {
       `/customercoupons/getAvailableCoupons/${encodeURIComponent(domain)}`,
   },
 
- 
+
   GIFT_CARDS: {
     MY_CARDS: "/giftcardscustomer/mycard",
   },

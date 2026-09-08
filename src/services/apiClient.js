@@ -4,7 +4,7 @@ import { API_BASE_URL, API_ENDPOINTS } from "../config.js";
 // connection timeout (often 1-2 minutes), which leaves every
 // backend-hydrated section stuck on its loading state. Fail fast
 // instead so sections can show their error/fallback state promptly.
-const DEFAULT_TIMEOUT = 8000;
+const DEFAULT_TIMEOUT = 20000;
 
 async function request(endpoint, options = {}) {
 
