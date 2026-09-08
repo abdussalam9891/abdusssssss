@@ -279,7 +279,7 @@ export function createFooterLinks(socialLinks = {}) {
 
 <div class="footer-section">
 
-  <button
+  <div
     class="
       footer-toggle
       flex
@@ -287,21 +287,23 @@ export function createFooterLinks(socialLinks = {}) {
       items-center
       justify-between
       py-2
-      lg:cursor-default
     "
   >
 
-    <span
+    <a
+      href="/pages/contact.html"
       class="
         text-sm
         font-semibold
         uppercase
         tracking-[0.18em]
         text-white
+        transition
+        hover:text-[#A07936]
       "
     >
       Contact Us
-    </span>
+    </a>
 
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -322,7 +324,7 @@ export function createFooterLinks(socialLinks = {}) {
       <path d="m6 9 6 6 6-6"/>
     </svg>
 
-  </button>
+  </div>
 
   <div
     class="
