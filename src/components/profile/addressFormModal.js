@@ -3,7 +3,7 @@
  * features/profile/addresses.js swaps the title and pre-fills the
  * fields when editing.
  *
- * Layout mirrors components/customizeJewellery/modal.js's
+ * Layout mirrors features/customizeJewellery/modal.js's
  * responsive pattern: a full-height sheet on mobile (header +
  * scrollable body + sticky footer as flex children) that becomes a
  * centered, capped-height dialog from `sm:` up — rather than

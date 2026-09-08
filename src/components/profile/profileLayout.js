@@ -1,6 +1,6 @@
 /*
- * Static page shell. Mirrors components/wishlist/wishlistLayout.js
- * and components/cart/cartLayout.js: this file only lays out the
+ * Static page shell. Mirrors features/wishlist/wishlistLayout.js
+ * and features/cart/cartLayout.js: this file only lays out the
  * containers the feature module (features/profile/profilePageInit.js)
  * toggles between and fills in at render time — signed-out state,
  * or the account shell (sidebar + tab panels) once a user is known.

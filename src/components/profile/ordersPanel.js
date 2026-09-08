@@ -1,6 +1,6 @@
 /*
  * Static panel shell, scoped to the profile page's "orders" tab —
- * mirrors components/orders/ordersLayout.js's loading/empty/error/
+ * mirrors features/orders/ordersLayout.js's loading/empty/error/
  * list states but drops the login state (the profile shell already
  * gates everything behind isLoggedIn()) and uses its own element
  * ids so it never collides with the standalone orders page.
