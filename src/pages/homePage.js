@@ -1,26 +1,26 @@
 import { initHomeFaq }
   from "../features/homeFaq/accordion.js";
 
-import { initCollections }
-  from "../features/collections/index.js";
+import { initCategory }
+  from "../features/category/renderCategory.js";
 
 import { initCraftsmanship }
-  from "../features/craftsmanship/index.js";
+  from "../features/craftsmanship/craftsmanshipInit.js";
 
 import { initHero }
-  from "../features/hero/index.js";
+  from "../features/hero/heroInit.js";
 
 import { initShowcase }
-  from "../features/showcase/index.js";
+  from "../features/showcase/showcaseInit.js";
 
 import { initInstagramGallery }
-  from "../features/instagramGallery/index.js";
+  from "../features/instagramGallery/instagramGalleryInit.js";
 
 import { renderWhyChooseUs }
-  from "../features/whyChooseUs/index.js";
+  from "../features/whyChooseUs/renderFeatures.js";
 
 import { initAnnouncementBar }
-  from "../features/announcement/index.js";
+  from "../features/announcement/announcementInit.js";
 
 export async function initHomePage() {
 
@@ -98,8 +98,8 @@ export async function initHomePage() {
   const modules = [
 
     [
-      "initCollections",
-      initCollections,
+      "initCategory",
+      initCategory,
     ],
 
     [
