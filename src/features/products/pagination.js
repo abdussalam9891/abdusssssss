@@ -56,33 +56,51 @@ export function renderProductsPagination(
 <button
   type="button"
 
+  aria-label="Previous page"
+
   data-page="${page - 1}"
 
   ${page <= 1 ? "disabled" : ""}
 
   class="
+    flex
+    items-center
+    justify-center
+
     h-10
-    min-w-10
+    w-10
+    shrink-0
 
     rounded-full
 
     border
     border-[#E7DDD3]
 
-    px-4
-
-    text-sm
+    text-[#181818]
 
     transition
 
     disabled:cursor-not-allowed
     disabled:opacity-40
+    disabled:hover:border-[#E7DDD3]
+    disabled:hover:text-[#181818]
 
     hover:border-[#A07936]
     hover:text-[#A07936]
   "
 >
-  ←
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    class="h-4 w-4"
+  >
+    <path d="M15 18l-6-6 6-6" />
+  </svg>
 </button>
 
 `;
@@ -139,33 +157,51 @@ export function renderProductsPagination(
 <button
   type="button"
 
+  aria-label="Next page"
+
   data-page="${page + 1}"
 
   ${page >= totalPages ? "disabled" : ""}
 
   class="
+    flex
+    items-center
+    justify-center
+
     h-10
-    min-w-10
+    w-10
+    shrink-0
 
     rounded-full
 
     border
     border-[#E7DDD3]
 
-    px-4
-
-    text-sm
+    text-[#181818]
 
     transition
 
     disabled:cursor-not-allowed
     disabled:opacity-40
+    disabled:hover:border-[#E7DDD3]
+    disabled:hover:text-[#181818]
 
     hover:border-[#A07936]
     hover:text-[#A07936]
   "
 >
-  →
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    class="h-4 w-4"
+  >
+    <path d="M9 18l6-6-6-6" />
+  </svg>
 </button>
 
 `;
