@@ -1,5 +1,5 @@
 import { SHOWCASE_TABS } from "../../constants/showcaseProducts.js";
-import { createShowcaseCard } from "../../components/showcase/showcaseCard.js";
+import { createShowcaseCard } from "./showcaseCard.js";
 import { productService } from "../../services/productService.js";
 import { isActiveProduct } from "../../utils/productStatus.js";
 

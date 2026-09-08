@@ -1,5 +1,5 @@
 import { createShowcaseSection }
-  from "../../components/showcase/showcaseSection.js";
+  from "./showcaseSection.js";
 
 import {
   loadShowcaseProducts,

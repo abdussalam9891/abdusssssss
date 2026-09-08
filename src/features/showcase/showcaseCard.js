@@ -15,7 +15,7 @@ import { getProductDetailsHref } from "../../utils/format.js";
 
 
 // Compact "4.5 ★ (12)" line — mirrors the wishlist card's rating
-// format (components/wishlist/wishlistCard.js) instead of the old
+// format (features/wishlist/wishlistCard.js) instead of the old
 // full 5-star row, so adding the Add to Cart button below doesn't
 // make the card noticeably taller.
 function createCompactRating(rating, reviewCount) {
