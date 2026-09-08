@@ -1,0 +1,68 @@
+/* ==========================================
+   ANNOUNCEMENT BAR
+========================================== */
+
+.announcement-bar {
+  position: relative;
+
+  width: 100%;
+
+  overflow: hidden;
+}
+
+.announcement-track {
+  display: flex;
+  align-items: center;
+
+  width: max-content;
+
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+
+  animation: announcement-marquee 60s linear infinite;
+}
+
+/* Pause on Hover */
+
+.announcement-bar:hover .announcement-track {
+  animation-play-state: paused;
+}
+
+/* Individual Item */
+
+.announcement-item {
+  flex-shrink: 0;
+}
+
+/* Reverse Direction (optional) */
+
+.announcement-reverse .announcement-track {
+  animation-direction: reverse;
+}
+
+/* Mobile */
+
+@media (max-width: 768px) {
+
+  .announcement-track {
+    animation-duration: 25s;
+  }
+
+}
+
+/* ==========================================
+   KEYFRAMES
+========================================== */
+
+@keyframes announcement-marquee {
+
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+
+}
