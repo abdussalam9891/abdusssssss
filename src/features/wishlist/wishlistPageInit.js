@@ -3,20 +3,20 @@ import { productService } from "../../services/productService.js";
 import { isActiveProduct } from "../../utils/productStatus.js";
 
 import { isLoggedIn } from "../auth/authState.js";
-import { openAuthModal } from "../auth/index.js";
+import { openAuthModal } from "../auth/authTriggers.js";
 
 import {
   getWishlistIds,
   removeFromWishlist,
 } from "./wishlistState.js";
 
-import { createWishlistLayout } from "../../components/wishlist/wishlistLayout.js";
-import { createWishlistCard } from "../../components/wishlist/wishlistCard.js";
+import { createWishlistLayout } from "./wishlistLayout.js";
+import { createWishlistCard } from "./wishlistCard.js";
 
 
 /*
  * Every card on this page is, by definition, already saved, so
- * components/wishlist/wishlistCard.js renders a remove button
+ * features/wishlist/wishlistCard.js renders a remove button
  * (`.wishlist-remove-button`) instead of the sitewide save/heart
  * toggle — clicking it always means "take this off my wishlist."
  * features/wishlist/wishlistButtons.js (wired sitewide from

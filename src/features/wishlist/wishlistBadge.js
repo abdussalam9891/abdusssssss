@@ -3,7 +3,7 @@ import { getWishlistCount } from "./wishlistState.js";
 
 /*
  * Syncs the navbar's existing #wishlistCount badge (see
- * components/navbar/desktopNav.js) with the backend-backed
+ * features/navbar/desktopNav.js) with the backend-backed
  * wishlist (features/wishlist/wishlistState.js). Reads/writes
  * only that one existing element — the navbar component itself is
  * untouched. Runs sitewide, from main.js, since the navbar

@@ -11,7 +11,7 @@ import {
  * GIVA's wishlist card (image, rating, price, name, then a
  * remove + "Move to Cart" row) but rendered in this site's own
  * palette/typography rather than copying GIVA's colors. Only used
- * on the wishlist page, unlike components/showcase/showcaseCard.js.
+ * on the wishlist page, unlike features/showcase/showcaseCard.js.
  */
 
 

@@ -2,7 +2,7 @@
  * Static page shell. The feature module decides, at render time,
  * whether to show the empty state or the product grid — this
  * only lays out the containers it toggles between. Mirrors
- * components/cart/cartLayout.js.
+ * features/cart/cartLayout.js.
  */
 
 export function createWishlistLayout() {

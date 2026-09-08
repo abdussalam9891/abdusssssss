@@ -156,7 +156,7 @@ export function initWishlistButtons() {
 
 
   // "Move to Cart" on the wishlist page's own cards opens the
-  // shared quick-add modal (features/quickAdd/index.js), which
+  // shared quick-add modal (features/quickAdd/quickAddInit.js), which
   // fetches the current product, lets the user pick a size, adds
   // it to cart, and — only for this wishlist trigger — removes it
   // from the wishlist afterwards.
