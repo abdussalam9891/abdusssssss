@@ -2,10 +2,11 @@ import { productService } from "../../services/productService.js";
 
 import { isActiveProduct } from "../../utils/productStatus.js";
 
-import { getProductId, getProductSlug } from "./query.js";
-import { setProduct } from "./state.js";
+import { getProductId, getProductSlug, setProduct } from "./state.js";
 import { normalizeProduct } from "./model.js";
 import { pruneProductImages } from "../../utils/pruneBrokenImages.js";
+import { getProductDetailsHref } from "../../utils/format.js";
+import { setCanonicalUrl } from "../../utils/seo.js";
 import { initGallery } from "./gallery.js";
 import { initQuantitySelector } from "./quantity.js";
 import { initWishlistToggle } from "./wishlist.js";
@@ -405,6 +406,14 @@ export async function initProductDetailsPage() {
 
 
   setProduct(product);
+
+  // Canonicalize to this product's own URL (slug preferred, id as
+  // fallback — same rule getProductDetailsHref uses everywhere else)
+  // so slug/id both resolving to the same product don't read as
+  // duplicate content, and search results land on a clean URL.
+  setCanonicalUrl(
+    getProductDetailsHref(product.id, product.slug)
+  );
 
   renderProduct(container, product);
 
