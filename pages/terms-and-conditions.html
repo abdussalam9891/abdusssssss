@@ -3,6 +3,12 @@
 
 <head>
 
+  <script>
+    if (location.hostname === 'www.banshiwale.com') {
+      location.replace('https://banshiwale.com' + location.pathname + location.search + location.hash);
+    }
+  </script>
+
   <!-- ==========================================
        META
   =========================================== -->
@@ -47,6 +53,11 @@
     content="index, follow"
   />
 
+  <link
+    rel="canonical"
+    href="https://banshiwale.com/terms-and-conditions"
+  />
+
   <!-- ==========================================
        OPEN GRAPH
   =========================================== -->
@@ -73,7 +84,7 @@
 
   <meta
     property="og:url"
-    content="https://www.banshiwale.com/terms-and-conditions"
+    content="https://banshiwale.com/terms-and-conditions"
   />
 
   <!-- ==========================================
