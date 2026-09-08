@@ -312,7 +312,7 @@ export function createLoginForm() {
 
   <div
     class="
-      mt-5
+      mt-3
 
       flex
       items-center
@@ -334,7 +334,7 @@ export function createLoginForm() {
         text-[#999]
       "
     >
-      Or continue with
+      Or
     </span>
 
     <span class="h-px flex-1 bg-[#ECECEC]"></span>

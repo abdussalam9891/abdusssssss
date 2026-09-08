@@ -24,7 +24,7 @@ export function createRegisterForm() {
     required
     maxlength="50"
     class="
-      h-10
+      h-9
       w-full
       rounded-2xl
       border
@@ -63,7 +63,7 @@ export function createRegisterForm() {
     required
     maxlength="50"
     class="
-      h-10
+      h-9
       w-full
       rounded-2xl
       border
@@ -102,7 +102,7 @@ export function createRegisterForm() {
           autocomplete="email"
           required
           class="
-            h-10
+            h-9
             w-full
             rounded-2xl
             border
@@ -141,7 +141,7 @@ export function createRegisterForm() {
     maxlength="10"
     required
     class="
-      h-10
+      h-9
       w-full
       rounded-2xl
       border
@@ -179,7 +179,7 @@ export function createRegisterForm() {
           required
           class="
             password-input
-            h-10
+            h-9
             w-full
             rounded-2xl
             border
@@ -237,7 +237,7 @@ export function createRegisterForm() {
           required
           class="
             password-input
-            h-10
+            h-9
             w-full
             rounded-2xl
             border
@@ -340,7 +340,7 @@ export function createRegisterForm() {
           group
           relative
           flex
-          h-10
+          h-9
           w-full
           items-center
           justify-center
@@ -404,7 +404,7 @@ export function createRegisterForm() {
             text-[#999]
           "
         >
-          Or continue with
+          Or
         </span>
 
         <span class="h-px flex-1 bg-[#ECECEC]"></span>
@@ -418,7 +418,7 @@ export function createRegisterForm() {
         class="
           group
           flex
-          h-10
+          h-9
           w-full
           items-center
           justify-center
