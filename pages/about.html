@@ -3,6 +3,12 @@
 
 <head>
 
+  <script>
+    if (location.hostname === 'www.banshiwale.com') {
+      location.replace('https://banshiwale.com' + location.pathname + location.search + location.hash);
+    }
+  </script>
+
   <!-- ==========================================
        META
   =========================================== -->
@@ -49,7 +55,7 @@
 
   <link
     rel="canonical"
-    href="https://www.banshiwale.com/about"
+    href="https://banshiwale.com/about"
   />
 
   <!-- ==========================================
@@ -73,7 +79,7 @@
 
   <meta
     property="og:url"
-    content="https://www.banshiwale.com/about"
+    content="https://banshiwale.com/about"
   />
 
   <meta
@@ -1015,7 +1021,7 @@
           <img
             src="../src/assets/chains.jpeg"
             alt="Sterling silver jewellery being handcrafted"
-            class="h-[500px] w-full object-cover"
+            class="h-[500px] w-full object-cover transition-transform duration-700 hover:scale-105"
           />
 
           <div class="absolute inset-0 flex items-end justify-center bg-black/25 pb-10">
@@ -1032,11 +1038,13 @@
 
         <!-- STEP 01 -->
         <div class="reveal">
-          <img
-            src="../src/assets/process/step01-cad-designing.jpg"
-            alt="Hand-drawn sketch of a jewellery design"
-            class="h-56 w-full mb-6 rounded-[12px] object-cover sm:h-64"
-          />
+          <div class="mb-6 overflow-hidden rounded-[12px]">
+            <img
+              src="../src/assets/process/step01-cad-designing.jpg"
+              alt="Hand-drawn sketch of a jewellery design"
+              class="aspect-square w-full object-cover transition-transform duration-700 hover:scale-105"
+            />
+          </div>
           <p class="text-xs font-medium uppercase tracking-[0.18em] text-[#A07936]">
             01 — CAD Designing
           </p>
@@ -1050,11 +1058,13 @@
 
         <!-- STEP 02 -->
         <div class="reveal">
-          <img
-            src="../src/assets/process/step02-die-and-mould.jpg"
-            alt="Tray of hand-carved metal jewellery dies"
-            class="h-56 w-full mb-6 rounded-[12px] object-cover sm:h-64"
-          />
+          <div class="mb-6 overflow-hidden rounded-[12px]">
+            <img
+              src="../src/assets/process/step02-die-and-mould.jpg"
+              alt="Tray of hand-carved metal jewellery dies"
+              class="aspect-square w-full object-cover transition-transform duration-700 hover:scale-105"
+            />
+          </div>
           <p class="text-xs font-medium uppercase tracking-[0.18em] text-[#A07936]">
             02 — Die &amp; Mould Making
           </p>
@@ -1068,11 +1078,13 @@
 
         <!-- STEP 03 -->
         <div class="reveal">
-          <img
-            src="../src/assets/process/step03-filling.jpg"
-            alt="Wax ring patterns injected from a mould"
-            class="h-56 w-full mb-6 rounded-[12px] object-cover sm:h-64"
-          />
+          <div class="mb-6 overflow-hidden rounded-[12px]">
+            <img
+              src="../src/assets/process/step03-filling.jpg"
+              alt="Wax ring patterns injected from a mould"
+              class="aspect-square w-full object-cover transition-transform duration-700 hover:scale-105"
+            />
+          </div>
           <p class="text-xs font-medium uppercase tracking-[0.18em] text-[#A07936]">
             03 — Wax Injection
           </p>
@@ -1086,11 +1098,13 @@
 
         <!-- STEP 04 -->
         <div class="reveal">
-          <img
-            src="../src/assets/process/step04-wax-tree-assembly.jpg"
-            alt="A wax tree formed from multiple wax patterns"
-            class="h-56 w-full mb-6 rounded-[12px] object-cover sm:h-64"
-          />
+          <div class="mb-6 overflow-hidden rounded-[12px]">
+            <img
+              src="../src/assets/process/step04-wax-tree-assembly.jpg"
+              alt="A wax tree formed from multiple wax patterns"
+              class="aspect-square w-full object-cover transition-transform duration-700 hover:scale-105"
+            />
+          </div>
           <p class="text-xs font-medium uppercase tracking-[0.18em] text-[#A07936]">
             04 — Wax Tree Assembly
           </p>
@@ -1104,11 +1118,13 @@
 
         <!-- STEP 05 -->
         <div class="reveal">
-          <img
-            src="../src/assets/process/step05-investment-casting.jpg"
-            alt="A flask being lifted after investment casting"
-            class="h-56 w-full mb-6 rounded-[12px] object-cover sm:h-64"
-          />
+          <div class="mb-6 overflow-hidden rounded-[12px]">
+            <img
+              src="../src/assets/process/step05-investment-casting.jpg"
+              alt="A flask being lifted after investment casting"
+              class="aspect-square w-full object-cover transition-transform duration-700 hover:scale-105"
+            />
+          </div>
           <p class="text-xs font-medium uppercase tracking-[0.18em] text-[#A07936]">
             05 — Investment Casting
           </p>
@@ -1122,11 +1138,13 @@
 
         <!-- STEP 06 -->
         <div class="reveal">
-          <img
-            src="../src/assets/process/step06-heating.jpg"
-            alt="A glowing burnout kiln melting away the wax"
-            class="h-56 w-full mb-6 rounded-[12px] object-cover sm:h-64"
-          />
+          <div class="mb-6 overflow-hidden rounded-[12px]">
+            <img
+              src="../src/assets/process/step06-heating.jpg"
+              alt="A glowing burnout kiln melting away the wax"
+              class="aspect-square w-full object-cover transition-transform duration-700 hover:scale-105"
+            />
+          </div>
           <p class="text-xs font-medium uppercase tracking-[0.18em] text-[#A07936]">
             06 — Burnout
           </p>
@@ -1140,11 +1158,13 @@
 
         <!-- STEP 07 -->
         <div class="reveal">
-          <img
-            src="../src/assets/process/step07-silver-melting.jpg"
-            alt="Molten metal glowing as it is poured"
-            class="h-56 w-full mb-6 rounded-[12px] object-cover sm:h-64"
-          />
+          <div class="mb-6 overflow-hidden rounded-[12px]">
+            <img
+              src="../src/assets/process/step07-silver-melting.jpg"
+              alt="Molten metal glowing as it is poured"
+              class="aspect-square w-full object-cover transition-transform duration-700 hover:scale-105"
+            />
+          </div>
           <p class="text-xs font-medium uppercase tracking-[0.18em] text-[#A07936]">
             07 — Silver Melting
           </p>
@@ -1158,11 +1178,13 @@
 
         <!-- STEP 08 -->
         <div class="reveal">
-          <img
-            src="../src/assets/process/step08-casting.jpg"
-            alt="A vacuum casting machine used to cast jewellery"
-            class="h-56 w-full mb-6 rounded-[12px] object-cover sm:h-64"
-          />
+          <div class="mb-6 overflow-hidden rounded-[12px]">
+            <img
+              src="../src/assets/process/step08-casting.jpg"
+              alt="A vacuum casting machine used to cast jewellery"
+              class="aspect-square w-full object-cover transition-transform duration-700 hover:scale-105"
+            />
+          </div>
           <p class="text-xs font-medium uppercase tracking-[0.18em] text-[#A07936]">
             08 — Vacuum Casting
           </p>
@@ -1176,11 +1198,13 @@
 
         <!-- STEP 09 -->
         <div class="reveal">
-          <img
-            src="../src/assets/process/step09-washing.jpg"
-            alt="A freshly cast silver tree after the investment is washed away"
-            class="h-56 w-full mb-6 rounded-[12px] object-cover sm:h-64"
-          />
+          <div class="mb-6 overflow-hidden rounded-[12px]">
+            <img
+              src="../src/assets/process/step09-washing.jpg"
+              alt="A freshly cast silver tree after the investment is washed away"
+              class="aspect-square w-full object-cover transition-transform duration-700 hover:scale-105"
+            />
+          </div>
           <p class="text-xs font-medium uppercase tracking-[0.18em] text-[#A07936]">
             09 — Quenching &amp; Devesting
           </p>
@@ -1194,11 +1218,13 @@
 
         <!-- STEP 10 -->
         <div class="reveal">
-          <img
-            src="../src/assets/process/step10-cutting.jpg"
-            alt="A hand holding a cast metal tree of rings ready to be cut"
-            class="h-56 w-full mb-6 rounded-[12px] object-cover sm:h-64"
-          />
+          <div class="mb-6 overflow-hidden rounded-[12px]">
+            <img
+              src="../src/assets/process/step10-cutting.jpg"
+              alt="A hand holding a cast metal tree of rings ready to be cut"
+              class="aspect-square w-full object-cover transition-transform duration-700 hover:scale-105"
+            />
+          </div>
           <p class="text-xs font-medium uppercase tracking-[0.18em] text-[#A07936]">
             10 — Sprue Cutting
           </p>
@@ -1212,13 +1238,15 @@
 
         <!-- STEP 11 -->
         <div class="reveal">
-          <img
-            src="../src/assets/process/step11-assembly.jpg"
-            alt="A jump ring being closed during jewellery assembly"
-            class="h-56 w-full mb-6 rounded-[12px] object-cover sm:h-64"
-          />
+          <div class="mb-6 overflow-hidden rounded-[12px]">
+            <img
+              src="../src/assets/process/step11-assembly.jpg"
+              alt="Clasps and jump rings being torch-soldered together during jewellery assembly"
+              class="aspect-square w-full object-cover transition-transform duration-700 hover:scale-105"
+            />
+          </div>
           <p class="text-xs font-medium uppercase tracking-[0.18em] text-[#A07936]">
-            11 — Soldering &amp; Assembly
+            11 — Assembly
           </p>
           <h3 class="mt-2 font-serif text-2xl text-[#181818]">
             Where Parts Become One Piece
@@ -1230,11 +1258,13 @@
 
         <!-- STEP 12 -->
         <div class="reveal">
-          <img
-            src="../src/assets/process/step12-filing-setting.jpg"
-            alt="A stone being carefully set by hand into a jewellery piece"
-            class="h-56 w-full mb-6 rounded-[12px] object-cover sm:h-64"
-          />
+          <div class="mb-6 overflow-hidden rounded-[12px]">
+            <img
+              src="../src/assets/process/step12-filing-setting.jpg"
+              alt="A stone being carefully set by hand into a jewellery piece"
+              class="aspect-square w-full object-cover transition-transform duration-700 hover:scale-105"
+            />
+          </div>
           <p class="text-xs font-medium uppercase tracking-[0.18em] text-[#A07936]">
             12 — Filing &amp; Fitting
           </p>
@@ -1248,11 +1278,13 @@
 
         <!-- STEP 13 -->
         <div class="reveal">
-          <img
-            src="../src/assets/process/step13-grinding.jpg"
-            alt="A magnetic tumbler used to smooth jewellery surfaces"
-            class="h-56 w-full mb-6 rounded-[12px] object-cover sm:h-64"
-          />
+          <div class="mb-6 overflow-hidden rounded-[12px]">
+            <img
+              src="../src/assets/process/step13-grinding.jpg"
+              alt="A magnetic tumbler used to smooth jewellery surfaces"
+              class="aspect-square w-full object-cover transition-transform duration-700 hover:scale-105"
+            />
+          </div>
           <p class="text-xs font-medium uppercase tracking-[0.18em] text-[#A07936]">
             13 — Tumble Finishing
           </p>
@@ -1266,11 +1298,13 @@
 
         <!-- STEP 14 -->
         <div class="reveal">
-          <img
-            src="../src/assets/process/step14-polishing.jpg"
-            alt="Buffing wheels used to polish jewellery to a mirror shine"
-            class="h-56 w-full mb-6 rounded-[12px] object-cover sm:h-64"
-          />
+          <div class="mb-6 overflow-hidden rounded-[12px]">
+            <img
+              src="../src/assets/process/step14-polishing.jpg"
+              alt="Buffing wheels used to polish jewellery to a mirror shine"
+              class="aspect-square w-full object-cover transition-transform duration-700 hover:scale-105"
+            />
+          </div>
           <p class="text-xs font-medium uppercase tracking-[0.18em] text-[#A07936]">
             14 — Polishing &amp; Rhodium Plating
           </p>
