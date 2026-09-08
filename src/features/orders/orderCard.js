@@ -3,7 +3,7 @@ import { formatCartSize } from "../../utils/cartLine.js";
 
 
 // Self-contained inline placeholder — mirrors
-// components/cart/cartItemRow.js / components/wishlist/wishlistCard.js's
+// features/cart/cartItemRow.js / features/wishlist/wishlistCard.js's
 // copy of the same, so a broken/missing order-item thumbnail never
 // falls back to another broken image path.
 const PLACEHOLDER_IMAGE =

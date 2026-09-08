@@ -2,7 +2,7 @@
  * Static page shell. The feature module decides, at render time,
  * which state (login/loading/empty/error/list) to show — this only
  * lays out the containers it toggles between. Mirrors
- * components/wishlist/wishlistLayout.js.
+ * features/wishlist/wishlistLayout.js.
  */
 
 export function createOrdersLayout() {

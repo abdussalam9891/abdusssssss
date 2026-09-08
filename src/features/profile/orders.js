@@ -3,7 +3,7 @@ import { productService } from "../../services/productService.js";
 import { normalizeOrder, getProductImage } from "../orders/model.js";
 
 import { createProfileOrdersPanel } from "../../components/profile/ordersPanel.js";
-import { createOrderCard } from "../../components/orders/orderCard.js";
+import { createOrderCard } from "../../features/orders/orderCard.js";
 
 
 /*

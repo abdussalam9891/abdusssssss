@@ -1,12 +1,12 @@
 import { isLoggedIn } from "../auth/authState.js";
-import { openAuthModal } from "../auth/index.js";
+import { openAuthModal } from "../auth/authTriggers.js";
 
 import { ordersService } from "../../services/ordersService.js";
 import { productService } from "../../services/productService.js";
 import { normalizeOrder, getProductImage } from "./model.js";
 
-import { createOrdersLayout } from "../../components/orders/ordersLayout.js";
-import { createOrderCard } from "../../components/orders/orderCard.js";
+import { createOrdersLayout } from "./ordersLayout.js";
+import { createOrderCard } from "./orderCard.js";
 
 
 /*
