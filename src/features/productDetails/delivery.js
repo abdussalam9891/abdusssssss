@@ -88,11 +88,11 @@ export function initDeliveryChecker() {
 
 
       setResult(
-        `Delivery available for ` +
-        `<span class="font-medium text-[#181818]">${escapeHtml(pincode)}</span>` +
         (location
-          ? ` &mdash; delivering to ${escapeHtml(location)}.`
-          : "."),
+          ? `<span class="block font-medium text-[#181818]">Delivering to ${escapeHtml(location)}</span>`
+          : "") +
+        `<span class="block${location ? " mt-1" : ""}">Delivery available for ` +
+        `<span class="font-medium text-[#181818]">${escapeHtml(pincode)}</span></span>`,
         "success"
       );
 
