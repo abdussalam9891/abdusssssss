@@ -1,6 +1,6 @@
 import { NAVIGATION } from "../../constants/navigation.js";
 import { icon } from "../../utils/icon.js";
-import { createAccountDropdown } from "../accountDropdown/index.js";
+import { createAccountDropdown } from "../accountDropdown/renderDropdown.js";
 
 
 
@@ -152,16 +152,19 @@ export function createDesktopNav(
       shrink-0
     "
   >
-    <img
-      id="navbarLogo"
-      src="/src/assets/logo.png"
-      alt="Banshiwale"
-      class="
-        h-full
-        w-full
-        object-contain
-      "
-    >
+    <picture>
+      <source srcset="/src/assets/logo.webp" type="image/webp">
+      <img
+        id="navbarLogo"
+        src="/src/assets/logo.png"
+        alt="Banshiwale"
+        class="
+          h-full
+          w-full
+          object-contain
+        "
+      >
+    </picture>
   </span>
 </a>
 

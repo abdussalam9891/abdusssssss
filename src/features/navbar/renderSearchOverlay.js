@@ -288,11 +288,14 @@ export function createSearchOverlay() {
               justify-center
             "
           >
-            <img
-              src="/src/assets/logo.png"
-              alt="Banshiwale"
-              class="h-24 w-24 object-contain"
-            />
+            <picture>
+              <source srcset="/src/assets/logo.webp" type="image/webp">
+              <img
+                src="/src/assets/logo.png"
+                alt="Banshiwale"
+                class="h-24 w-24 object-contain"
+              />
+            </picture>
           </div>
 
           <h4

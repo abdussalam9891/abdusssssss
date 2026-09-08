@@ -1,8 +1,8 @@
 import { createNavbar }
-  from "../../components/navbar/navbar.js";
+  from "./navbar.js";
 
 import { initAnnouncementBar }
-  from "../announcement/index.js";
+  from "../announcement/announcementInit.js";
 
 import { initScroll }
   from "./scroll.js";
@@ -17,7 +17,7 @@ import { initSearchOverlay }
   from "./searchOverlay.js";
 
 import { initAccountDropdown }
-  from "../accountDropdown/index.js";
+  from "../accountDropdown/dropdown.js";
 
 import { getCurrentUser }
   from "../auth/authState.js";

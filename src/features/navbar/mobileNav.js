@@ -576,13 +576,16 @@ export function createMobileNav() {
     class="inline-flex items-center"
     aria-label="Banshiwale Home"
   >
-    <img
-      src="/src/assets/logo.png"
-      alt="Banshiwale"
-      class="h-14
-        w-14
-        object-contain"
-    />
+    <picture>
+      <source srcset="/src/assets/logo.webp" type="image/webp">
+      <img
+        src="/src/assets/logo.png"
+        alt="Banshiwale"
+        class="h-14
+          w-14
+          object-contain"
+      />
+    </picture>
   </a>
 
   <!-- CLOSE -->

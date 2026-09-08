@@ -1,6 +1,6 @@
 import { createDesktopNav } from "./desktopNav.js";
 import { createMobileNav } from "./mobileNav.js";
-import { createSearchOverlay } from "./searchOverlay.js";
+import { createSearchOverlay } from "./renderSearchOverlay.js";
  
 
 
