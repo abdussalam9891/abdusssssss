@@ -1,10 +1,8 @@
-import { initNavbar } from "./features/navbar/index.js";
+import { initNavbar } from "./features/navbar/navbarInit.js";
 import { initRevealAnimations } from "./features/animations/reveal.js";
 
-import {
-  createFooter,
-  initFooterAccordion,
-} from "./components/footer/index.js";
+import { createFooter } from "./features/footer/footer.js";
+import { initFooterAccordion } from "./features/footer/footerAccordion.js";
 
 import { hydrateFooterSocialLinks } from "./features/footer/hydrateSocialLinks.js";
 
@@ -12,13 +10,13 @@ import { initFooterNewsletter } from "./features/footer/newsletter.js";
 
 import { hydrateContactInfo } from "./features/contact/hydrateContactInfo.js";
 
-import { initToast } from "./features/toast/index.js";
+import { initToast } from "./features/toast/toastInit.js";
 
-import { initFloatingWhatsAppButton } from "./features/whatsapp/index.js";
+import { initFloatingWhatsAppButton } from "./features/whatsapp/whatsappInit.js";
 
-import { initScrollToTopButton } from "./features/scrollToTop/index.js";
+import { initScrollToTopButton } from "./features/scrollToTop/scrollToTopInit.js";
 
-import { initSocialProofToasts } from "./features/socialProof/index.js";
+import { initSocialProofToasts } from "./features/socialProof/socialProofInit.js";
 
 import { initCartBadgeSync } from "./features/cart/cartBadge.js";
 
@@ -30,12 +28,10 @@ import { initWishlistButtons } from "./features/wishlist/wishlistButtons.js";
 
 import { initWishlistSync } from "./features/wishlist/wishlistState.js";
 
-import { initQuickAdd } from "./features/quickAdd/index.js";
+import { initQuickAdd } from "./features/quickAdd/quickAddInit.js";
 
-import {
-  initAuthModal,
-  initGuestEngagement,
-} from "./features/auth/index.js";
+import { initAuthModal } from "./features/auth/authTriggers.js";
+import { initGuestEngagement } from "./features/auth/guestEngagement.js";
 
 import { hydrateAuth } from "./features/auth/authState.js";
 
@@ -105,7 +101,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Shared "pick a size, then add to cart" modal for every showcase
   // card's Add to Cart button and the wishlist page's Move to Cart
-  // button (see features/quickAdd/index.js).
+  // button (see features/quickAdd/quickAddInit.js).
   initQuickAdd();
 
 
@@ -276,7 +272,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const {
         initCustomizeJewellery,
       } = await import(
-        "./features/customizeJewellery/index.js"
+        "./features/customizeJewellery/customizeJewelleryInit.js"
       );
 
 
