@@ -10,8 +10,10 @@ import {
 
 import {
   createCustomizeJewelleryButton,
+} from "./floatingButton.js";
+import {
   createCustomizeJewelleryModal,
-} from "../../components/customizeJewellery/index.js";
+} from "./renderModal.js";
 
 
 export function initCustomizeJewellery() {

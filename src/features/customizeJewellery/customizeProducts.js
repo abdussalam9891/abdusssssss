@@ -1,7 +1,7 @@
 import {
 
   createCustomizeProductCard,
-} from "../../components/customizeJewellery/customizeProducts.js";
+} from "./renderCustomizeProducts.js";
 
 import {
   customizeProductService,
