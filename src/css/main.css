@@ -110,3 +110,47 @@
 .auth-text-animation {
   animation: fadeSlide .6s ease;
 }
+
+
+
+
+/* Lifestyle video section: below lg, show one full-size video at a time
+   instead of the desktop hover-accordion (which otherwise squeezes 4
+   videos into unusably thin strips on narrow screens). */
+@media (max-width: 1023px) {
+
+  #video-accordion {
+    position: relative;
+    display: block !important;
+  }
+
+  #video-accordion .video-card {
+    position: absolute !important;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    flex: none !important;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .5s ease-in-out;
+  }
+
+  #video-accordion .video-card.is-active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+}
+
+.video-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.35);
+  transition: background .3s ease, transform .3s ease;
+}
+
+.video-dot.is-active {
+  background: #A07936;
+  transform: scale(1.25);
+}

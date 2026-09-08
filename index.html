@@ -2,6 +2,12 @@
 <html lang="en">
 <head>
 
+  <script>
+    if (location.hostname === 'www.banshiwale.com') {
+      location.replace('https://banshiwale.com' + location.pathname + location.search + location.hash);
+    }
+  </script>
+
   <!-- ========================================= -->
   <!-- Basic Meta -->
   <!-- ========================================= -->
@@ -308,8 +314,10 @@
 <section class="reveal relative w-full bg-[#121212] py-8 md:py-16 px-4 sm:px-6 lg:px-8">
   <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-stretch gap-6">
 
-    <div id="video-accordion" class="flex-1 flex gap-3 h-[360px] sm:h-[420px] lg:h-[480px] w-full">
-      
+    <div class="flex-1 w-full flex flex-col">
+
+    <div id="video-accordion" class="flex gap-3 h-[360px] sm:h-[420px] lg:h-[480px] w-full">
+
       <div class="video-card group relative flex-1 transition-all duration-700 ease-in-out rounded-2xl overflow-hidden cursor-pointer bg-black select-none">
         <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover pointer-events-none">
           <source src="./src/assets/bws4.mp4" type="video/mp4" />
@@ -331,7 +339,7 @@
         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
       </div>
 
-      <div class="video-card group relative flex-[3] transition-all duration-700 ease-in-out rounded-2xl overflow-hidden cursor-pointer bg-black select-none">
+      <div class="video-card is-active group relative flex-[3] transition-all duration-700 ease-in-out rounded-2xl overflow-hidden cursor-pointer bg-black select-none">
         <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover pointer-events-none">
           <source src="./src/assets/bw.mp4" type="video/mp4" />
         </video>
@@ -340,8 +348,17 @@
 
     </div>
 
+    <div id="video-dots" class="flex lg:hidden justify-center gap-2 mt-4">
+      <button type="button" class="video-dot" aria-label="Video 1"></button>
+      <button type="button" class="video-dot" aria-label="Video 2"></button>
+      <button type="button" class="video-dot" aria-label="Video 3"></button>
+      <button type="button" class="video-dot is-active" aria-label="Video 4"></button>
+    </div>
 
-<div class="w-full lg:w-[420px] rounded-3xl bg-[#121212] p-6 sm:p-8 text-white flex flex-col justify-between shadow-2xl border border-white/10 relative overflow-hidden">
+    </div>
+
+
+<div class="w-full lg:w-[420px] rounded-3xl bg-transparent p-6 sm:p-8 text-white flex flex-col justify-between relative overflow-hidden">
 
   <div class="absolute -top-16 -right-16 w-36 h-36 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
 
@@ -440,9 +457,10 @@
       class="
   grid
   grid-cols-2
-  gap-y-10
+  gap-y-6
   gap-x-4
 
+  sm:gap-y-10
   lg:grid-cols-4
   lg:gap-x-8
 "
@@ -491,12 +509,14 @@
   // --- ACCORDION AUTO-PLAY & INTERACTION LOGIC ---
   const accordion = document.getElementById('video-accordion');
   const cards = accordion.querySelectorAll('.video-card');
+  const dots = document.querySelectorAll('#video-dots .video-dot');
   let currentIndex = 3; // Video 4 se start hoga
   let autoSlideTimer = null;
   const slideDuration = 3000; // 3 seconds per slide
 
   function activateCard(index) {
     cards.forEach((card, i) => {
+      card.classList.toggle('is-active', i === index);
       if (i === index) {
         card.classList.remove('flex-1');
         card.classList.add('flex-[3]');
@@ -504,6 +524,9 @@
         card.classList.remove('flex-[3]');
         card.classList.add('flex-1');
       }
+    });
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('is-active', i === index);
     });
     currentIndex = index;
   }
@@ -537,6 +560,14 @@
   // Cursor container se bahar aane par auto-slide dubara start ho jayega
   accordion.addEventListener('mouseleave', () => {
     startAutoSlide();
+  });
+
+  // Mobile dot navigation
+  dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+      stopAutoSlide();
+      activateCard(index);
+    });
   });
 
   // Start auto switch on load
