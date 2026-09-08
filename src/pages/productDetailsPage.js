@@ -1,4 +1,4 @@
-import { initProductDetailsPage } from "../features/productDetails/index.js";
+import { initProductDetailsPage } from "../features/productDetails/productDetailsInit.js";
 
 export function loadProductDetailsPage() {
 
