@@ -3,6 +3,12 @@
 
 <head>
 
+  <script>
+    if (location.hostname === 'www.banshiwale.com') {
+      location.replace('https://banshiwale.com' + location.pathname + location.search + location.hash);
+    }
+  </script>
+
   <!-- ==========================================
        META
   =========================================== -->
@@ -49,7 +55,7 @@
 
   <link
     rel="canonical"
-    href="https://www.banshiwale.com/contact"
+    href="https://banshiwale.com/contact"
   />
 
   <!-- ==========================================
@@ -73,7 +79,7 @@
 
   <meta
     property="og:url"
-    content="https://www.banshiwale.com/contact"
+    content="https://banshiwale.com/contact"
   />
 
   <meta
