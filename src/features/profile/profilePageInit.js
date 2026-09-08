@@ -1,5 +1,5 @@
 import { isLoggedIn, getCurrentUser, logout } from "../auth/authState.js";
-import { openAuthModal } from "../auth/index.js";
+import { openAuthModal } from "../auth/authTriggers.js";
 
 import { getWishlistCount } from "../wishlist/wishlistState.js";
 import { getCartCount } from "../cart/cartState.js";
