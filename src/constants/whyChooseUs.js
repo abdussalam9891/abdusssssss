@@ -18,14 +18,6 @@ export const WHY_CHOOSE_US = [
 
   {
     id: 3,
-    title: "100% Transparency",
-    description:
-      "Clear, honest pricing with no hidden charges, ever.",
-    icon: "transparency",
-  },
-
-  {
-    id: 4,
     title: "Free Shipping",
     description:
       "Enjoy free, insured shipping on every order, anywhere.",
@@ -33,15 +25,7 @@ export const WHY_CHOOSE_US = [
   },
 
   {
-    id: 5,
-    title: "No Compromise on Ethics",
-    description:
-      "Responsibly sourced materials and fair practices at every step.",
-    icon: "ethics",
-  },
-
-  {
-    id: 6,
+    id: 4,
     title: "A World of Designs",
     description:
       "A vast collection of designs crafted to suit every taste.",

@@ -14,11 +14,7 @@ const ICONS = {
 
   exchange: "repeat",
 
-  transparency: "search-check",
-
   shipping: "truck",
-
-  ethics: "handshake",
 
   designs: "globe",
 
