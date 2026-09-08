@@ -182,6 +182,8 @@ function renderReviewList(container, reviews) {
   class="
     col-span-full
 
+    text-center
+
     text-[14px]
 
     text-[#8A8A8A]
