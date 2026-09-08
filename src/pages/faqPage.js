@@ -1,6 +1,6 @@
 import {
   initFAQ,
-} from "../features/faqPage/index.js";
+} from "../features/faqPage/faqPageInit.js";
 
 
 export async function loadFAQPage() {
