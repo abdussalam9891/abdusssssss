@@ -1,0 +1,68 @@
+/* ==========================================
+   MARQUEE
+========================================== */
+
+.marquee {
+  position: relative;
+
+  width: 100%;
+
+  overflow: hidden;
+}
+
+.marquee-track {
+  display: flex;
+  align-items: center;
+
+  width: max-content;
+
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+
+  animation: marquee 48s linear infinite;
+}
+
+/* Pause animation on hover */
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* Individual Item */
+
+.marquee-item {
+  flex-shrink: 0;
+}
+
+/* Reverse Direction */
+
+.marquee-reverse .marquee-track {
+  animation-direction: reverse;
+}
+
+/* Mobile Speed */
+
+@media (max-width: 768px) {
+
+  .marquee-track {
+    animation-duration: 20s;
+  }
+
+}
+
+/* ==========================================
+   KEYFRAMES
+========================================== */
+
+@keyframes marquee {
+
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+
+}
