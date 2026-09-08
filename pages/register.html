@@ -3,6 +3,12 @@
 
 <head>
 
+  <script>
+    if (location.hostname === 'www.banshiwale.com') {
+      location.replace('https://banshiwale.com' + location.pathname + location.search + location.hash);
+    }
+  </script>
+
   <!-- ==========================================
        META
   =========================================== -->
@@ -73,7 +79,7 @@
 
   <meta
     property="og:url"
-    content="https://www.banshiwale.com/register"
+    content="https://banshiwale.com/register"
   />
 
   <!-- ==========================================
