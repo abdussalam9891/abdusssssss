@@ -71,7 +71,7 @@ export function initLoginValidation() {
 
           const result =
             await authService.googleLogin({
-              credential,
+              token: credential,
             });
 
 
