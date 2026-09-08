@@ -152,7 +152,7 @@ function writeRememberedImages(map) {
 /*
  * Records the photo the shopper was looking at when they added a
  * line — every Add to Cart trigger already passes one (see
- * features/productDetails/cart.js and features/quickAdd/index.js).
+ * features/productDetails/cart.js and features/quickAdd/quickAddInit.js).
  */
 function rememberCartImage(productId, image) {
 
@@ -227,7 +227,7 @@ function writeRememberedPrices(map) {
 /*
  * Records the price/finalPrice the shopper actually saw for this
  * variant — every Add to Cart trigger already passes them (see
- * features/productDetails/cart.js and features/quickAdd/index.js).
+ * features/productDetails/cart.js and features/quickAdd/quickAddInit.js).
  */
 function rememberCartPrice(productId, size, price, finalPrice) {
 

@@ -12,9 +12,9 @@ import { isLoggedIn } from "../auth/authState.js";
 import { giftCardsService } from "../../services/giftCardsService.js";
 import { showToast } from "../../utils/toast.js";
 
-import { createCartLayout } from "../../components/cart/cartLayout.js";
-import { createCartItemRow } from "../../components/cart/cartItemRow.js";
-import { createCartSummary } from "../../components/cart/cartSummary.js";
+import { createCartLayout } from "./cartLayout.js";
+import { createCartItemRow } from "./cartItemRow.js";
+import { createCartSummary } from "./cartSummary.js";
 
 
 // Coupons are checkout-only (see features/checkout/orderPanel.js) —

@@ -3,7 +3,7 @@ import { getCartCount } from "./cartState.js";
 
 /*
  * Syncs the navbar's existing #cartCount badge (see
- * components/navbar/desktopNav.js) with the cart cache in
+ * features/navbar/desktopNav.js) with the cart cache in
  * cartState.js. Reads/writes only that one existing element — the
  * navbar component itself is untouched. Runs sitewide, from
  * main.js, since the navbar renders on every page.
