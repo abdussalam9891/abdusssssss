@@ -78,3 +78,23 @@
   box-shadow: 0 0 0 1px #A07936;
   cursor: pointer;
 }
+
+/*
+ * The min/max price number inputs (#priceMinInput / #priceMaxInput)
+ * don't need the browser's built-in up/down stepper — typing or the
+ * range thumbs below already cover that, and the stepper just adds
+ * visual clutter to the filter.
+ */
+#priceMinInput,
+#priceMaxInput {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+#priceMinInput::-webkit-outer-spin-button,
+#priceMinInput::-webkit-inner-spin-button,
+#priceMaxInput::-webkit-outer-spin-button,
+#priceMaxInput::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

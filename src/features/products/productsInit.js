@@ -46,6 +46,7 @@ import {
   restoreFilterUI,
   initFilterEvents,
   renderCategoryOptions,
+  syncPriceSliderBounds,
 } from "./filters.js";
 
 
@@ -241,6 +242,15 @@ async function loadProducts() {
     await fetchProducts();
 
 
+    // The slider's top end must reflect this fetch's actual
+    // priciest product before the grid (and toolbar count) render,
+    // not after — otherwise a filter narrowed by the stale bound
+    // would flash and then jump.
+    syncPriceSliderBounds(
+      productsState.fetchedProducts
+    );
+
+
     renderProducts();
 
 
@@ -333,9 +343,7 @@ export async function initProductsPage() {
   // TOOLBAR EVENTS
   // ========================================
 
-  initToolbarEvents(
-    loadProducts
-  );
+  initToolbarEvents();
 
 
   // ========================================

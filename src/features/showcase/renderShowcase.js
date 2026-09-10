@@ -130,12 +130,12 @@ export function renderShowcase(activeTab = "trending") {
 
   // Every tab draws from the same unfiltered fetch, so the
   // published-only check has to live here rather than per-tab —
-  // "New Arrivals" and "Best Sellers" don't apply it themselves
-  // (see constants/showcaseProducts.js).
+  // each tab's `select` only picks/orders which of the active
+  // products it shows (see constants/showcaseProducts.js).
   const filteredProducts =
-    products
-      .filter(isActiveProduct)
-      .filter(selectedTab.filter);
+    selectedTab.select(
+      products.filter(isActiveProduct)
+    );
 
   container.innerHTML =
     filteredProducts.length

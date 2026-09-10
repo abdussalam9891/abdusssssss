@@ -30,8 +30,10 @@ const NEW_ARRIVAL_DAYS = 30;
 
 // Display and sorting both use the discounted price when the
 // backend provides one, matching what the card actually shows
-// (getProductPrice in features/showcase/showcaseCard.js).
-function getEffectivePrice(product) {
+// (getProductPrice in features/showcase/showcaseCard.js). Also used
+// by the price filter's slider bounds (see filters.js) so the top
+// of the range always matches what the "high" end actually sorts to.
+export function getEffectivePrice(product) {
 
   const finalPrice =
     Number(product?.finalPrice);

@@ -2,6 +2,7 @@ import { productsState } from "./state.js";
 import { updateProductsURL } from "./query.js";
 import { escapeHtml } from "../../utils/format.js";
 import { normalizeForComparison } from "../../utils/categoryMatch.js";
+import { getEffectivePrice } from "./pipeline.js";
 
 
 const PRODUCT_FILTERS = {
@@ -26,8 +27,11 @@ const PRODUCT_FILTERS = {
 
   // Bounds for the price range slider (and its paired number
   // inputs). There's no backend endpoint for the real catalog min/
-  // max, so this is a fixed, generous ceiling rather than derived
-  // data.
+  // max, so this starts as a placeholder ceiling and is overwritten
+  // by syncPriceSliderBounds() once real products are fetched, so
+  // the top of the bar always tracks the priciest product in the
+  // current result set (e.g. a ₹2,00,000 piece pushes it to cover
+  // that).
   priceSlider: {
     min: 0,
     max: 100000,
@@ -151,6 +155,142 @@ export function renderCategoryOptions() {
 }
 
 
+// The two number inputs, the range track/fill and the ₹ labels —
+// everything whose min/max/value depends on PRODUCT_FILTERS.priceSlider.
+// Pulled into its own function (rather than inlined in
+// createProductsFilters) so syncPriceSliderBounds() can re-render just
+// this piece once the slider's real max is known, the same pattern
+// createCategoryOptionsMarkup/renderCategoryOptions uses for the
+// category group.
+function createPriceFilterMarkup() {
+
+  return `
+
+<div class="flex items-center gap-3">
+
+  <input
+    id="priceMinInput"
+    type="number"
+
+    data-filter="price"
+
+    aria-label="Minimum price"
+
+    min="0"
+    inputmode="numeric"
+
+    placeholder="0"
+
+    class="
+      w-full
+      min-w-0
+
+      rounded-lg
+      border
+      border-[#ECE6DF]
+
+      px-3
+      py-2
+
+      text-sm
+      text-[#181818]
+
+      focus:outline-none
+      focus:border-[#A07936]
+    "
+  >
+
+  <span class="text-[#999]">-</span>
+
+  <input
+    id="priceMaxInput"
+    type="number"
+
+    data-filter="price"
+
+    aria-label="Maximum price"
+
+    min="0"
+    inputmode="numeric"
+
+    placeholder="${PRODUCT_FILTERS.priceSlider.max}"
+
+    class="
+      w-full
+      min-w-0
+
+      rounded-lg
+      border
+      border-[#ECE6DF]
+
+      px-3
+      py-2
+
+      text-sm
+      text-[#181818]
+
+      focus:outline-none
+      focus:border-[#A07936]
+    "
+  >
+
+</div>
+
+
+<div class="price-range-slider mt-6 mb-3">
+
+  <div class="price-range-track"></div>
+
+  <div
+    id="priceRangeFill"
+    class="price-range-fill"
+  ></div>
+
+  <input
+    id="priceMinRange"
+    type="range"
+
+    data-filter="price"
+
+    aria-label="Minimum price slider"
+
+    min="${PRODUCT_FILTERS.priceSlider.min}"
+    max="${PRODUCT_FILTERS.priceSlider.max}"
+    step="${PRODUCT_FILTERS.priceSlider.step}"
+
+    value="${PRODUCT_FILTERS.priceSlider.min}"
+  >
+
+  <input
+    id="priceMaxRange"
+    type="range"
+
+    data-filter="price"
+
+    aria-label="Maximum price slider"
+
+    min="${PRODUCT_FILTERS.priceSlider.min}"
+    max="${PRODUCT_FILTERS.priceSlider.max}"
+    step="${PRODUCT_FILTERS.priceSlider.step}"
+
+    value="${PRODUCT_FILTERS.priceSlider.max}"
+  >
+
+</div>
+
+
+<div class="flex items-center justify-between text-[13px] text-[#999]">
+
+  <span id="priceMinLabel">₹0</span>
+
+  <span id="priceMaxLabel">₹${PRODUCT_FILTERS.priceSlider.max.toLocaleString("en-IN")}</span>
+
+</div>
+
+`;
+}
+
+
 export function createProductsFilters() {
 
   return `
@@ -254,7 +394,7 @@ export function createProductsFilters() {
 
     bg-white
 
-    p-6
+    p-5
     lg:p-7
   "
 >
@@ -318,11 +458,12 @@ export function createProductsFilters() {
 
   <!-- CATEGORY -->
 
-  <div class="mt-9">
+  <div class="mt-6 lg:mt-9">
 
     <h4
       class="
-        mb-5
+        mb-3
+        lg:mb-5
 
         text-[12px]
 
@@ -339,7 +480,7 @@ export function createProductsFilters() {
 
     <div
       id="productsCategoryOptions"
-      class="space-y-4"
+      class="space-y-3 lg:space-y-4"
     >
 
       ${createCategoryOptionsMarkup()}
@@ -353,18 +494,21 @@ export function createProductsFilters() {
 
   <div
     class="
-      mt-10
+      mt-6
+      lg:mt-10
 
       border-t
       border-[#EFE8E0]
 
-      pt-8
+      pt-6
+      lg:pt-8
     "
   >
 
     <h4
       class="
-        mb-5
+        mb-3
+        lg:mb-5
 
         text-[12px]
 
@@ -379,124 +523,9 @@ export function createProductsFilters() {
     </h4>
 
 
-    <div class="flex items-center gap-3">
+    <div id="productsPriceFilter">
 
-      <input
-        id="priceMinInput"
-        type="number"
-
-        data-filter="price"
-
-        aria-label="Minimum price"
-
-        min="0"
-        inputmode="numeric"
-
-        placeholder="0"
-
-        class="
-          w-full
-          min-w-0
-
-          rounded-lg
-          border
-          border-[#ECE6DF]
-
-          px-3
-          py-2
-
-          text-sm
-          text-[#181818]
-
-          focus:outline-none
-          focus:border-[#A07936]
-        "
-      >
-
-      <span class="text-[#999]">-</span>
-
-      <input
-        id="priceMaxInput"
-        type="number"
-
-        data-filter="price"
-
-        aria-label="Maximum price"
-
-        min="0"
-        inputmode="numeric"
-
-        placeholder="${PRODUCT_FILTERS.priceSlider.max}"
-
-        class="
-          w-full
-          min-w-0
-
-          rounded-lg
-          border
-          border-[#ECE6DF]
-
-          px-3
-          py-2
-
-          text-sm
-          text-[#181818]
-
-          focus:outline-none
-          focus:border-[#A07936]
-        "
-      >
-
-    </div>
-
-
-    <div class="price-range-slider mt-6 mb-3">
-
-      <div class="price-range-track"></div>
-
-      <div
-        id="priceRangeFill"
-        class="price-range-fill"
-      ></div>
-
-      <input
-        id="priceMinRange"
-        type="range"
-
-        data-filter="price"
-
-        aria-label="Minimum price slider"
-
-        min="${PRODUCT_FILTERS.priceSlider.min}"
-        max="${PRODUCT_FILTERS.priceSlider.max}"
-        step="${PRODUCT_FILTERS.priceSlider.step}"
-
-        value="${PRODUCT_FILTERS.priceSlider.min}"
-      >
-
-      <input
-        id="priceMaxRange"
-        type="range"
-
-        data-filter="price"
-
-        aria-label="Maximum price slider"
-
-        min="${PRODUCT_FILTERS.priceSlider.min}"
-        max="${PRODUCT_FILTERS.priceSlider.max}"
-        step="${PRODUCT_FILTERS.priceSlider.step}"
-
-        value="${PRODUCT_FILTERS.priceSlider.max}"
-      >
-
-    </div>
-
-
-    <div class="flex items-center justify-between text-[13px] text-[#999]">
-
-      <span id="priceMinLabel">₹0</span>
-
-      <span id="priceMaxLabel">₹${PRODUCT_FILTERS.priceSlider.max.toLocaleString("en-IN")}</span>
+      ${createPriceFilterMarkup()}
 
     </div>
 
@@ -507,18 +536,21 @@ export function createProductsFilters() {
 
   <div
     class="
-      mt-10
+      mt-6
+      lg:mt-10
 
       border-t
       border-[#EFE8E0]
 
-      pt-8
+      pt-6
+      lg:pt-8
     "
   >
 
     <h4
       class="
-        mb-5
+        mb-3
+        lg:mb-5
 
         text-[12px]
 
@@ -533,7 +565,7 @@ export function createProductsFilters() {
     </h4>
 
 
-    <div class="space-y-4">
+    <div class="space-y-3 lg:space-y-4">
 
       ${PRODUCT_FILTERS.collections
         .map(
@@ -586,9 +618,15 @@ export function createProductsFilters() {
 
   <div
     class="
-      mt-10
+      mt-6
+      lg:mt-10
 
       flex
+      items-center
+
+      justify-center
+      lg:justify-start
+
       gap-3
     "
   >
@@ -599,17 +637,25 @@ export function createProductsFilters() {
       type="button"
 
       class="
-        flex-1
+        w-auto
+        lg:flex-1
 
-        rounded-lg
+        whitespace-nowrap
+
+        rounded-full
+        lg:rounded-lg
 
         border
         border-[#181818]
 
-        px-5
-        py-3
+        px-6
+        lg:px-5
 
-        text-sm
+        py-2.5
+        lg:py-3
+
+        text-[13px]
+        lg:text-sm
 
         transition
 
@@ -631,17 +677,20 @@ export function createProductsFilters() {
       type="button"
 
       class="
-        flex-1
+        w-auto
         lg:hidden
 
-        rounded-lg
+        whitespace-nowrap
+
+        rounded-full
 
         bg-[#181818]
 
-        px-5
-        py-3
+        px-6
 
-        text-sm
+        py-2.5
+
+        text-[13px]
         text-white
       "
     >
@@ -945,6 +994,105 @@ function applyPriceValues(min, max, sourceInput) {
 
 
   refreshPriceRangeUI(sourceInput);
+}
+
+
+// Rounds a raw "highest product price" up to a round number that
+// reads well as a slider ceiling (₹2,08,450 -> ₹2,20,000) rather
+// than the exact paise value, with a little headroom so the priciest
+// product's dot doesn't sit pinned at the very end of the track.
+function computeNiceMax(rawMax) {
+
+  if (!Number.isFinite(rawMax) || rawMax <= 0) {
+    return PRODUCT_FILTERS.priceSlider.max;
+  }
+
+  const withHeadroom =
+    rawMax * 1.05;
+
+  // Coarser rounding as the price grows, so a ₹2L product gets a
+  // ₹10,000-rounded ceiling instead of a fussy ₹500-rounded one.
+  const roundTo =
+    withHeadroom >= 1000000
+      ? 50000
+      : withHeadroom >= 100000
+      ? 10000
+      : withHeadroom >= 10000
+      ? 1000
+      : 100;
+
+  return (
+    Math.ceil(withHeadroom / roundTo) * roundTo
+  );
+}
+
+
+// Picks a slider step proportional to the ceiling, so dragging a
+// ₹20L range doesn't move it one rupee at a time.
+function computeStepForMax(max) {
+
+  if (max >= 1000000) return 1000;
+  if (max >= 200000) return 500;
+
+  return 100;
+}
+
+
+// Re-derives the slider's top end from the real product set just
+// fetched (see getEffectivePrice in pipeline.js — same value the
+// card displays and price-high sort uses), so "the top of the bar"
+// always matches the priciest product actually in the catalog
+// instead of a hardcoded ₹1,00,000 ceiling. Called from
+// productsInit.js right after fetchProducts() resolves, before the
+// grid renders.
+export function syncPriceSliderBounds(products) {
+
+  const container =
+    document.getElementById("productsPriceFilter");
+
+  if (!container) return;
+
+
+  const rawMax =
+    (products || []).reduce(
+      (highest, product) =>
+        Math.max(highest, getEffectivePrice(product)),
+      0
+    );
+
+
+  const nextMax =
+    computeNiceMax(rawMax);
+
+
+  if (nextMax === PRODUCT_FILTERS.priceSlider.max) {
+    return;
+  }
+
+
+  PRODUCT_FILTERS.priceSlider.max =
+    nextMax;
+
+  PRODUCT_FILTERS.priceSlider.step =
+    computeStepForMax(nextMax);
+
+
+  container.innerHTML =
+    createPriceFilterMarkup();
+
+  initPriceSliderEvents();
+
+
+  // Carry forward whatever the user already had selected (clamped to
+  // the new bounds), or the full new range if there's no active
+  // price filter yet.
+  const activePrice =
+    productsState.filters.price;
+
+  applyPriceValues(
+    activePrice?.min ?? PRODUCT_FILTERS.priceSlider.min,
+    activePrice?.max ?? PRODUCT_FILTERS.priceSlider.max
+  );
 }
 
 

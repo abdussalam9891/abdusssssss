@@ -166,29 +166,48 @@ export function createProductsHero() {
       lg:px-8
       xl:px-10
 
-      pt-36
-      pb-14
+      pt-32
+      pb-10
 
-      lg:pt-40
-      lg:pb-14
+      lg:pt-36
+      lg:pb-12
     "
   >
 
     <!-- Hero Content -->
 
-    <div class="max-w-3xl">
+    <div class="max-w-2xl">
+
+      <p
+        class="
+          mb-4
+
+          text-[11px]
+
+          font-semibold
+
+          uppercase
+
+          tracking-[0.28em]
+
+          text-[#A07936]
+        "
+      >
+        ${hero.label}
+      </p>
+
 
       <h1
         class="
           font-serif
 
-          text-5xl
-          sm:text-6xl
-          lg:text-7xl
+          text-3xl
+          sm:text-4xl
+          lg:text-5xl
 
-          leading-none
+          leading-tight
 
-          tracking-[-0.04em]
+          tracking-[-0.02em]
 
           text-[#181818]
         "
@@ -199,13 +218,13 @@ export function createProductsHero() {
 
       <p
         class="
-          mt-8
+          mt-4
 
-          max-w-2xl
+          max-w-xl
 
-          text-[17px]
+          text-[15px]
 
-          leading-9
+          leading-7
 
           text-[#666666]
         "

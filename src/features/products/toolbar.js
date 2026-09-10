@@ -179,86 +179,6 @@ export function createProductsToolbar() {
 
         </button>
 
-
-        <div
-          class="
-            flex
-            flex-1
-            lg:flex-none
-
-            items-center
-            gap-3
-          "
-        >
-
-          <span
-            class="
-              hidden
-              lg:block
-
-              text-sm
-              text-[#777]
-            "
-          >
-            Sort by
-          </span>
-
-
-          <select
-            id="productsSort"
-
-            aria-label="Sort products"
-
-            class="
-              h-11
-
-              w-full
-              lg:w-auto
-              lg:min-w-[220px]
-
-              rounded-full
-
-              border
-              border-[#E7DDD3]
-
-              bg-white
-
-              px-5
-
-              text-[15px]
-
-              text-[#181818]
-
-              outline-none
-
-              focus:border-[#A07936]
-            "
-          >
-
-            <option value="featured">
-              Featured
-            </option>
-
-            <option value="price-low">
-              Price: Low to High
-            </option>
-
-            <option value="price-high">
-              Price: High to Low
-            </option>
-
-            <option value="rating">
-              Highest Rated
-            </option>
-
-            <option value="newest">
-              Newest
-            </option>
-
-          </select>
-
-        </div>
-
       </div>
 
     </div>
@@ -311,20 +231,6 @@ export function renderProductsToolbar() {
   }
 
 
-  const sort =
-    document.getElementById(
-      "productsSort"
-    );
-
-
-  if (sort) {
-
-    sort.value =
-      productsState.sort;
-
-  }
-
-
   const filterCount =
     document.getElementById(
       "mobileFilterCount"
@@ -355,33 +261,7 @@ export function renderProductsToolbar() {
 }
 
 
-export function initToolbarEvents(
-  onSort
-) {
-
-  document
-    .getElementById(
-      "productsSort"
-    )
-    ?.addEventListener(
-      "change",
-      async (event) => {
-
-        productsState.sort =
-          event.target.value;
-
-
-        productsState.page = 1;
-
-
-        updateProductsURL();
-
-
-        await onSort();
-
-      }
-    );
-
+export function initToolbarEvents() {
 
   document
     .getElementById(
