@@ -11,6 +11,7 @@ function getFallbackHeroSlides() {
   return HERO_SLIDES.map((slide) => ({
     image: {
       url: slide.image,
+      webpSrcset: slide.webpSrcset,
     },
     heading: slide.title,
     focusX: slide.focusX,

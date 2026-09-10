@@ -338,6 +338,12 @@ function createCraftsmanshipSection() {
           "
         >
 
+          <picture>
+            <source
+              type="image/webp"
+              srcset="/src/assets/craftmanship-640.webp 640w, /src/assets/craftmanship-1000.webp 1000w"
+              sizes="(min-width: 1024px) 620px, 100vw"
+            >
           <img
             src="/src/assets/craftmanship.png"
             alt="Artisan hand-finishing a banshiwale ring at the workbench, gold dust catching the light"
@@ -355,6 +361,7 @@ function createCraftsmanshipSection() {
               group-hover:scale-105
             "
           />
+          </picture>
 
           <!-- Overlay -->
 

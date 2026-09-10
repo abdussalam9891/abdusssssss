@@ -17,25 +17,32 @@ export function createHeroSlides(heroSlides = []) {
           data-slide="${index}"
         >
 
-          <img
-            src="${slide.image?.url || ""}"
-            alt="${slide.heading || "Banshiwale Jewellery"}"
-            loading="${index === 0 ? "eager" : "lazy"}"
-            fetchpriority="${index === 0 ? "high" : "auto"}"
-            draggable="false"
+          <picture>
+            ${
+              slide.image?.webpSrcset
+                ? `<source type="image/webp" srcset="${slide.image.webpSrcset}" sizes="100vw">`
+                : ""
+            }
+            <img
+              src="${slide.image?.url || ""}"
+              alt="${slide.heading || "Banshiwale Jewellery"}"
+              loading="${index === 0 ? "eager" : "lazy"}"
+              fetchpriority="${index === 0 ? "high" : "auto"}"
+              draggable="false"
 
-            class="
-              hero-image
-              absolute
-              inset-0
-              h-full
-              w-full
-              object-cover
-              select-none
-              will-change-transform
-            "
-            style="object-position: ${slide.focusX ?? 50}% center;"
-          >
+              class="
+                hero-image
+                absolute
+                inset-0
+                h-full
+                w-full
+                object-cover
+                select-none
+                will-change-transform
+              "
+              style="object-position: ${slide.focusX ?? 50}% center;"
+            >
+          </picture>
 
           <div
             class="
