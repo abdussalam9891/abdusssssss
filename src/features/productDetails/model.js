@@ -547,7 +547,7 @@ export function formatDiscount(product) {
 
   // discountValue is always the percentage number itself
   // (e.g. 5 means "5% off"), regardless of discountType —
-  // mirrors components/showcase/showcaseCard.js.
+  // mirrors features/showcase/showcaseCard.js.
   if (product?.discountValue > 0) {
     return `${product.discountValue}% OFF`;
   }

@@ -1,6 +1,6 @@
 import {
   createForgotPasswordPage,
-} from "../components/auth/index.js";
+} from "../components/auth/authPages.js";
 
 import {
   initForgotPassword,

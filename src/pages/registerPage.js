@@ -1,4 +1,4 @@
-import { createRegisterPage } from "../components/auth/index.js";
+import { createRegisterPage } from "../components/auth/authPages.js";
 
 import { initRegister } from "../features/auth/authPage.js";
 

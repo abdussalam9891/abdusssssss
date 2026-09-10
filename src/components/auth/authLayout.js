@@ -433,24 +433,27 @@ lg:p-4
             "
           >
 
-            <img
-              src="/src/assets/logo.png"
+            <picture>
+              <source srcset="/src/assets/logo.webp" type="image/webp">
+              <img
+                src="/src/assets/logo.png"
 
-              alt="banshiwale"
+                alt="banshiwale"
 
-              class="
-               h-28
-  w-28
+                class="
+                 h-28
+    w-28
 
-  sm:h-28
-  sm:w-28
+    sm:h-28
+    sm:w-28
 
-  lg:h-28
-  lg:w-28
+    lg:h-28
+    lg:w-28
 
-    object-contain
-              "
-            >
+      object-contain
+                "
+              >
+            </picture>
 
           </div>
 

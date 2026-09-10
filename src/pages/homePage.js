@@ -13,8 +13,8 @@ import { initHero }
 import { initShowcase }
   from "../features/showcase/showcaseInit.js";
 
-import { initInstagramGallery }
-  from "../features/instagramGallery/instagramGalleryInit.js";
+import { initBestSellers }
+  from "../features/bestSellers/bestSellersInit.js";
 
 import { renderWhyChooseUs }
   from "../features/whyChooseUs/renderFeatures.js";
@@ -118,8 +118,8 @@ export async function initHomePage() {
     ],
 
     [
-      "initInstagramGallery",
-      initInstagramGallery,
+      "initBestSellers",
+      initBestSellers,
     ],
 
   ];

@@ -278,9 +278,9 @@ export function createShowcaseCard(
         ? `
           flex-shrink-0
 
-          w-[72%]
-          sm:w-[48%]
-          md:w-[34%]
+          w-[46%]
+          sm:w-[31%]
+          md:w-[23%]
           lg:w-[calc((100%-96px)/4)]
 
           snap-start

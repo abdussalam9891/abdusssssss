@@ -38,13 +38,4 @@ export const SHOWCASE_TABS = [
       return daysSinceCreation <= 30;
     },
   },
-
-  {
-    id: "bestseller",
-
-    label: "Best Sellers",
-
-    filter: (product) =>
-      product.isBestSeller === true,
-  },
 ];

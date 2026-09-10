@@ -1,4 +1,4 @@
-import { createLoginPage } from "../components/auth/index.js";
+import { createLoginPage } from "../components/auth/authPages.js";
 
 import { initLogin } from "../features/auth/authPage.js";
 
