@@ -13,6 +13,7 @@ function getFallbackHeroSlides() {
       url: slide.image,
     },
     heading: slide.title,
+    focusX: slide.focusX,
   }));
 
 }

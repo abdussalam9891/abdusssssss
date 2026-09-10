@@ -17,37 +17,6 @@ export function createHeroSlides(heroSlides = []) {
           data-slide="${index}"
         >
 
-          <!-- Blurred backdrop fill (mobile letterbox filler; hidden behind the cover image on md+) -->
-
-          <div
-            class="
-              absolute
-              inset-0
-              overflow-hidden
-              md:hidden
-            "
-            aria-hidden="true"
-          >
-
-            <img
-              src="${slide.image?.url || ""}"
-              alt=""
-              loading="${index === 0 ? "eager" : "lazy"}"
-              draggable="false"
-
-              class="
-                h-full
-                w-full
-                scale-125
-                object-cover
-                blur-2xl
-                brightness-50
-                select-none
-              "
-            >
-
-          </div>
-
           <img
             src="${slide.image?.url || ""}"
             alt="${slide.heading || "Banshiwale Jewellery"}"
@@ -61,11 +30,11 @@ export function createHeroSlides(heroSlides = []) {
               inset-0
               h-full
               w-full
-              object-contain
-              md:object-cover
+              object-cover
               select-none
               will-change-transform
             "
+            style="object-position: ${slide.focusX ?? 50}% center;"
           >
 
           <div

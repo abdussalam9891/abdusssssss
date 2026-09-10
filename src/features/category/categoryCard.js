@@ -8,11 +8,11 @@ export function createCategoryCard(category) {
         shrink-0
         snap-start
 
-        w-[calc((100vw-4rem)/5.5)]
+        w-[calc((100vw-4rem)/6)]
 
-        sm:w-[calc((100%-7.5rem)/5.5)]
+        sm:w-[calc((100%-7.5rem)/6)]
 
-        lg:w-[calc((100%-10rem)/5.5)]
+        lg:w-[calc((100%-10rem)/6)]
       "
     >
 <!-- Image Card -->
