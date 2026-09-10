@@ -25,6 +25,83 @@
     content="Discover handcrafted sterling silver jewellery from banshiwale."
   />
 
+  <!--
+    No canonical tag here on purpose. This file serves every product
+    via ?slug=/?id= (see src/features/productDetails/model.js), so
+    there is no single fixed URL to assert until a product resolves —
+    src/features/productDetails/productDetailsInit.js injects the real
+    per-product canonical at runtime (via src/utils/seo.js#setCanonicalUrl). A
+    crawler that renders this page's JS (Googlebot, given enough
+    budget) will see that real tag land in <head>.
+
+    The <noscript> fallback below only fires for a client that truly
+    never runs JS. It is NOT a fix for crawlers that fetch raw HTML
+    without rendering (Bing, most social/link-preview bots, or
+    Googlebot's first crawl pass before its render pass runs) — a
+    <link rel="canonical"> inside <noscript> is unreliable for that
+    case: some crawlers ignore <noscript> contents entirely, so those
+    clients see no canonical at all here rather than a wrong one.
+    That's the deliberate trade-off (no signal beats a wrong signal
+    pointing every product at the listing page), but it is still a
+    gap. The real fix is per-product static HTML generated at
+    deploy time so the canonical is baked into the raw response —
+    see the TODO in document.md.
+  -->
+  <noscript>
+    <link
+      rel="canonical"
+      href="https://banshiwale.com/pages/products.html"
+    />
+  </noscript>
+
+  <!-- ==========================================
+       OPEN GRAPH
+  =========================================== -->
+
+  <meta
+    property="og:title"
+    content="Product Details | Banshiwale"
+  />
+
+  <meta
+    property="og:description"
+    content="Discover handcrafted sterling silver jewellery from banshiwale."
+  />
+
+  <meta
+    property="og:type"
+    content="website"
+  />
+
+  <meta
+    property="og:image"
+    content="https://banshiwale.com/src/assets/images/og-image.jpg"
+  />
+
+  <!-- ==========================================
+       TWITTER
+  =========================================== -->
+
+  <meta
+    name="twitter:card"
+    content="summary_large_image"
+  />
+
+  <meta
+    name="twitter:title"
+    content="Product Details | Banshiwale"
+  />
+
+  <meta
+    name="twitter:description"
+    content="Discover handcrafted sterling silver jewellery from banshiwale."
+  />
+
+  <meta
+    name="twitter:image"
+    content="https://banshiwale.com/src/assets/images/og-image.jpg"
+  />
+
   <meta
     name="theme-color"
     content="#181818"

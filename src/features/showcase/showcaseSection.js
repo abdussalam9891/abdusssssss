@@ -177,9 +177,6 @@ export function createShowcaseSection() {
       <div
         class="
           overflow-visible
-
-          pt-3
-          pb-6
         "
       >
 
@@ -190,7 +187,8 @@ export function createShowcaseSection() {
           class="
             flex
 
-            gap-8
+            gap-4
+            lg:gap-8
 
             overflow-x-auto
             overflow-y-visible
@@ -203,6 +201,8 @@ export function createShowcaseSection() {
             no-scrollbar
 
             px-1
+            pt-3
+            pb-6
           "
         ></div>
 
