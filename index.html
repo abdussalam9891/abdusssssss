@@ -178,6 +178,11 @@
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" /></noscript>
 
 
+ <link rel="stylesheet" href="./src/features/animations/animations.css" />
+ <link rel="stylesheet" href="./src/features/marquee/marquee.css" />
+ <link rel="stylesheet" href="./src/features/announcement/announcement.css" />
+ <link rel="stylesheet" href="./src/features/products/priceRangeSlider.css" />
+
  <link rel="stylesheet" href="./src/css/main.css" />
 
   <!-- ========================================= -->
@@ -246,8 +251,37 @@
     relative
     h-[110vh]
     overflow-hidden
+    bg-background
   "
-></div>
+>
+  <!--
+    Static first-paint hero: initHero() (src/features/hero/heroInit.js)
+    overwrites this innerHTML once the JS bootstrap chain runs, but that
+    chain (Tailwind CDN + main.js + a dynamic import) is slow on mobile,
+    so without this the LCP image wouldn't paint until well after it. This
+    mirrors createHeroSlides()'s output for HERO_SLIDES[0] exactly so the
+    JS swap is a same-content no-op, not a visible flash.
+  -->
+  <div class="hero-slide absolute inset-0 overflow-hidden opacity-100 z-20">
+    <picture>
+      <source
+        type="image/webp"
+        srcset="./src/assets/images/hero-640.webp 640w, ./src/assets/images/hero-1080.webp 1080w, ./src/assets/images/hero-1920.webp 1920w"
+        sizes="100vw"
+      >
+      <img
+        src="./src/assets/images/hero.png"
+        alt="Bold Simple Refined"
+        loading="eager"
+        fetchpriority="high"
+        draggable="false"
+        class="hero-image absolute inset-0 h-full w-full object-cover select-none will-change-transform"
+        style="object-position: 62% center;"
+      >
+    </picture>
+    <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,.72)_0%,rgba(0,0,0,.45)_40%,rgba(0,0,0,.15)_100%)]"></div>
+  </div>
+</div>
 
 <div id="homeAnnouncement"></div>
 

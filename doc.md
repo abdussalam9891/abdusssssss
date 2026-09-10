@@ -55,7 +55,7 @@ have your case.
 | `src/utils/` | Small generic helpers (formatting, image fallback/pruning, auth redirect guard, toast trigger, category matching, etc.) shared across features/components. |
 | `src/css/main.css` | Global stylesheet (non-Tailwind custom styles/utility overrides). |
 | `src/css/pages/products.css` | Page-specific overrides for the products listing page. |
-| `src/features/*/*.css` (e.g. `announcement.css`, `marquee.css`, `animations.css`, `priceRangeSlider.css`) | Small component/feature-scoped stylesheets colocated with their JS. |
+| `src/features/*/*.css` (e.g. `announcement.css`, `marquee.css`, `animations.css`, `priceRangeSlider.css`) | Small component/feature-scoped stylesheets colocated with their JS. Loaded as their own `<link rel="stylesheet">` in every page's `<head>` (in parallel with `src/css/main.css`, not `@import`-ed from it — `@import` serializes the fetch behind main.css's own download). Add a new colocated feature CSS file's `<link>` to every `pages/*.html` + `index.html` the same way, right before the `main.css` link. |
 | `src/assets/` | Images (product photos by category, process photos, icons, etc.). `src/assets/testimonials/` is currently **unused** — the testimonials feature (see below) was removed from the site but its image folder wasn't cleaned up. |
 | `sw.js` | Service worker — only exists to fix the Cashfree payment-return redirect. See in-file comment before editing. |
 | `.htaccess` | Apache-level redirect: `www.banshiwale.com` → `banshiwale.com`. |

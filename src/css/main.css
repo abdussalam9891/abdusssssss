@@ -1,10 +1,15 @@
 
-
-@import "../features/animations/animations.css";
-@import "../features/marquee/marquee.css";
-@import "../features/announcement/announcement.css";
-@import "../features/products/priceRangeSlider.css";
-
+/*
+ * animations.css / marquee.css / announcement.css / priceRangeSlider.css
+ * used to be @import-ed here. That serializes their fetch behind this
+ * file's own download (an @import can't start until the browser has
+ * parsed the importing stylesheet), so every page paid for a 4-deep
+ * waterfall before the CSSOM was ready. They're now loaded as sibling
+ * <link rel="stylesheet"> tags (in parallel with this file) directly in
+ * each page's <head>, right before the link to this file — see index.html
+ * / pages/*.html. Keep new colocated feature CSS on that same pattern
+ * rather than reintroducing an @import here.
+ */
 
 .no-scrollbar::-webkit-scrollbar {
   display: none;
