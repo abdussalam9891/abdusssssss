@@ -144,7 +144,7 @@ export function createWishlistCard(product) {
 
           font-medium
 
-          text-[#181818]
+          text-ink
         "
       >
         ${rating.toFixed(1)}
@@ -180,7 +180,7 @@ export function createWishlistCard(product) {
 
         font-semibold
 
-        text-[#181818]
+        text-ink
       "
     >
       ${formatPrice(price)}
@@ -202,12 +202,12 @@ export function createWishlistCard(product) {
         text-[15px]
         sm:text-[17px]
 
-        text-[#181818]
+        text-ink
 
         transition-colors
         duration-300
 
-        hover:text-[#A07936]
+        hover:text-primary
       "
     >
       ${escapeHtml(name)}
@@ -259,7 +259,7 @@ export function createWishlistCard(product) {
 
           bg-white
 
-          text-[#181818]
+          text-ink
 
           transition-colors
           duration-300
@@ -305,7 +305,7 @@ export function createWishlistCard(product) {
 
           rounded-lg
 
-          bg-[#181818]
+          bg-ink
 
           px-2
           sm:px-5
@@ -325,7 +325,7 @@ export function createWishlistCard(product) {
           transition-colors
           duration-300
 
-          hover:bg-[#A07936]
+          hover:bg-primary
         "
       >
         <span class="truncate">Move to Cart</span>

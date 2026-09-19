@@ -27,7 +27,7 @@ export function initScroll() {
       );
 
       navbar.classList.add(
-        "bg-[#181818]/95",
+        "bg-ink/95",
         "backdrop-blur-xl",
         "shadow-lg",
         "border-white/10"
@@ -39,18 +39,18 @@ export function initScroll() {
           // An active nav link (e.g. the current category) keeps its
           // gold highlight regardless of scroll state — forcing
           // text-white on it here would otherwise fight the
-          // text-[#A07936] active class at equal CSS specificity.
+          // text-primary active class at equal CSS specificity.
           if (
             item.classList.contains(
-              "text-[#A07936]"
+              "text-primary"
             )
           ) {
             return;
           }
 
           item.classList.remove(
-            "text-[#181818]",
-            "text-[#181818]/90",
+            "text-ink",
+            "text-ink/90",
             "hover:bg-black/5",
             "hover:bg-white/20"
           );
@@ -62,7 +62,7 @@ export function initScroll() {
       }
     } else {
       navbar.classList.remove(
-        "bg-[#181818]/95",
+        "bg-ink/95",
         "backdrop-blur-xl",
         "shadow-lg",
         "border-white/10"
@@ -77,7 +77,7 @@ export function initScroll() {
         navbarItems.forEach((item) => {
           if (
             item.classList.contains(
-              "text-[#A07936]"
+              "text-primary"
             )
           ) {
             return;
@@ -90,7 +90,7 @@ export function initScroll() {
           );
 
           item.classList.add(
-            "text-[#181818]/90"
+            "text-ink/90"
           );
         });
       }

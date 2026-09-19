@@ -70,7 +70,7 @@ function createOrderItem(item) {
 
   <div class="min-w-0 flex-1">
 
-    <p class="line-clamp-2 text-[13px] font-medium text-[#181818]">
+    <p class="line-clamp-2 text-[13px] font-medium text-ink">
       ${escapeHtml(item.name || "Product")}
     </p>
 
@@ -87,7 +87,7 @@ function createOrderItem(item) {
 
   </div>
 
-  <p class="shrink-0 text-[14px] font-semibold text-[#181818]">
+  <p class="shrink-0 text-[14px] font-semibold text-ink">
     ${lineTotal || "—"}
   </p>
 
@@ -127,7 +127,7 @@ function createCouponRow(coupon) {
 
   <div class="min-w-0">
 
-    <p class="text-[13px] font-medium text-[#181818]">
+    <p class="text-[13px] font-medium text-ink">
       ${escapeHtml(coupon.couponCode)}
     </p>
 
@@ -154,7 +154,7 @@ function createCouponRow(coupon) {
       rounded-lg
 
       border
-      border-[#181818]
+      border-ink
 
       px-4
       py-1.5
@@ -167,13 +167,13 @@ function createCouponRow(coupon) {
 
       tracking-[0.08em]
 
-      text-[#181818]
+      text-ink
 
       transition-colors
       duration-300
 
-      hover:border-[#A07936]
-      hover:text-[#A07936]
+      hover:border-primary
+      hover:text-primary
     "
   >
     Apply
@@ -304,7 +304,7 @@ export function createOrderSummary(items = [], totals = {}, options = {}) {
   "
 >
 
-  <h2 class="font-serif text-[22px] italic text-[#181818]">
+  <h2 class="font-serif text-[22px] italic text-ink">
     Order Summary
   </h2>
 
@@ -314,7 +314,7 @@ export function createOrderSummary(items = [], totals = {}, options = {}) {
 
 
   <div class="mt-6">
-    <p class="mb-2 text-[12px] font-medium uppercase tracking-[0.14em] text-[#A07936]">
+    <p class="mb-2 text-[12px] font-medium uppercase tracking-[0.14em] text-primary">
       Available Coupons
     </p>
     ${createCouponSection(coupons, appliedCoupon, couponError)}
@@ -327,7 +327,7 @@ export function createOrderSummary(items = [], totals = {}, options = {}) {
       <span class="text-[#666]">
         Price (${itemCount} ${itemCount === 1 ? "item" : "items"})
       </span>
-      <span class="text-[#181818]">
+      <span class="text-ink">
         ${formatPrice(totalMrp) || "—"}
       </span>
     </div>
@@ -363,7 +363,7 @@ export function createOrderSummary(items = [], totals = {}, options = {}) {
         ? `
 <div class="flex items-center justify-between">
   <span class="text-[#666]">Gift Wrap</span>
-  <span class="text-[#181818]">${formatPrice(giftWrapCharge)}</span>
+  <span class="text-ink">${formatPrice(giftWrapCharge)}</span>
 </div>
 `
         : ""
@@ -396,7 +396,7 @@ export function createOrderSummary(items = [], totals = {}, options = {}) {
 
       font-semibold
 
-      text-[#181818]
+      text-ink
     "
   >
     <span>Total Amount</span>
@@ -422,7 +422,7 @@ export function createOrderSummary(items = [], totals = {}, options = {}) {
 
       rounded-2xl
 
-      bg-[#181818]
+      bg-ink
 
       px-8
       py-5
@@ -440,11 +440,11 @@ export function createOrderSummary(items = [], totals = {}, options = {}) {
       transition-all
       duration-300
 
-      hover:bg-[#A07936]
+      hover:bg-primary
 
       disabled:cursor-not-allowed
       disabled:opacity-50
-      disabled:hover:bg-[#181818]
+      disabled:hover:bg-ink
     "
   >
     <span id="checkoutPayButtonText">Place Order</span>

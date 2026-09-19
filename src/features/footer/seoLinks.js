@@ -4,7 +4,7 @@ function createSeoRow(label, links) {
       (link, index) => `
         <a
           href="${link.href}"
-          class="text-white/40 transition-colors duration-300 hover:text-[#A07936]"
+          class="text-white/40 transition-colors duration-300 hover:text-primary"
         >
           ${link.label}
         </a>
@@ -132,7 +132,7 @@ export function createSeoLinks() {
   ];
 
   return `
-<section class="bg-[#181818]">
+<section class="bg-ink">
 
   <div
     class="

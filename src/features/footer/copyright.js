@@ -2,7 +2,7 @@ export function createCopyright() {
   const year = new Date().getFullYear();
 
   return `
-<section class="bg-[#181818]">
+<section class="bg-ink">
 
   <div
     class="

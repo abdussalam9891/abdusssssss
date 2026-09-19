@@ -15,12 +15,12 @@ export function createDesktopNav(
 
     const textColor =
     theme === "dark"
-      ? "text-[#181818]"
+      ? "text-ink"
       : "text-white";
 
   const navTextColor =
     theme === "dark"
-      ? "text-[#181818]/90"
+      ? "text-ink/90"
       : "text-white/90";
 
   // const hoverBg =
@@ -48,14 +48,14 @@ export function createDesktopNav(
   ${navTextColor}
   transition-colors
   duration-300
-  hover:text-[#A07936]
+  hover:text-primary
 
   after:absolute
   after:left-0
   after:bottom-0
   after:h-[2px]
   after:w-0
-  after:bg-[#A07936]
+  after:bg-primary
   after:transition-all
   after:duration-300
 
@@ -107,7 +107,7 @@ export function createDesktopNav(
         navbar-text
         ${textColor}
         transition
-        hover:text-[#A07936]
+        hover:text-primary
         lg:hidden
       "
     >
@@ -212,7 +212,7 @@ export function createDesktopNav(
           transition-all
           duration-300
 
-          hover:text-[#A07936]
+          hover:text-primary
         "
       >
         ${icon("search")}
@@ -237,7 +237,7 @@ export function createDesktopNav(
           transition-all
           duration-300
 
-          hover:text-[#A07936]
+          hover:text-primary
         "
       >
        ${icon("heart")}
@@ -255,7 +255,7 @@ export function createDesktopNav(
             items-center
             justify-center
             rounded-full
-            bg-[#A07936]
+            bg-primary
             text-[10px]
             font-semibold
             text-black
@@ -284,7 +284,7 @@ export function createDesktopNav(
           transition-all
           duration-300
 
-          hover:text-[#A07936]
+          hover:text-primary
         "
       >
         ${icon("shopping-bag")}
@@ -302,7 +302,7 @@ export function createDesktopNav(
             items-center
             justify-center
             rounded-full
-            bg-[#A07936]
+            bg-primary
             text-[10px]
             font-semibold
             text-black
@@ -346,7 +346,7 @@ export function createDesktopNav(
       transition-all
       duration-300
 
-      hover:text-[#A07936]
+      hover:text-primary
     "
   >
 

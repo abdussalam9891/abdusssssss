@@ -45,7 +45,7 @@ export function createOrdersLayout() {
 
           italic
 
-          text-[#181818]
+          text-ink
         "
       >
         My Orders
@@ -121,7 +121,7 @@ export function createOrdersLayout() {
 
           rounded-full
 
-          bg-[#181818]
+          bg-ink
 
           px-8
           py-4
@@ -139,7 +139,7 @@ export function createOrdersLayout() {
           transition-colors
           duration-300
 
-          hover:bg-[#A07936]
+          hover:bg-primary
         "
       >
         Sign In
@@ -181,7 +181,7 @@ export function createOrdersLayout() {
 
           border-2
           border-[#ECE5D8]
-          border-t-[#A07936]
+          border-t-primary
         "
       ></span>
 
@@ -245,7 +245,7 @@ export function createOrdersLayout() {
 
           rounded-full
 
-          bg-[#181818]
+          bg-ink
 
           px-8
           py-4
@@ -263,7 +263,7 @@ export function createOrdersLayout() {
           transition-colors
           duration-300
 
-          hover:bg-[#A07936]
+          hover:bg-primary
         "
       >
         Browse Collections

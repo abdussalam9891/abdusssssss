@@ -41,7 +41,7 @@ function createNavigationLinks() {
             duration-300
 
             hover:bg-white/5
-            hover:text-[#A07936]
+            hover:text-primary
           "
         >
 
@@ -101,7 +101,7 @@ function createGuestAccount() {
           duration-300
 
           hover:bg-white/5
-          hover:text-[#A07936]
+          hover:text-primary
         "
       >
 
@@ -123,7 +123,7 @@ function createGuestAccount() {
             transition-all
             duration-300
 
-            group-hover:bg-[#A07936]/10
+            group-hover:bg-primary/10
           "
         >
 
@@ -171,7 +171,7 @@ function createGuestAccount() {
             duration-300
 
             group-hover:translate-x-1
-            group-hover:text-[#A07936]
+            group-hover:text-primary
           "
         >
           ${icon("chevron-right", "h-4 w-4")}
@@ -235,7 +235,7 @@ function createUserAccount(user) {
 
             rounded-full
 
-            bg-[#A07936]
+            bg-primary
 
             text-sm
             font-semibold
@@ -255,7 +255,7 @@ function createUserAccount(user) {
               uppercase
               tracking-[0.3em]
 
-              text-[#A07936]
+              text-primary
             "
           >
             Welcome Back
@@ -308,13 +308,13 @@ function createUserAccount(user) {
           duration-300
 
           hover:bg-white/5
-          hover:text-[#A07936]
+          hover:text-primary
         "
       >
 
         ${icon(
           "user-round",
-          "h-[17px] w-[17px] text-white/40 group-hover:text-[#A07936]"
+          "h-[17px] w-[17px] text-white/40 group-hover:text-primary"
         )}
 
         <span>
@@ -331,7 +331,7 @@ function createUserAccount(user) {
             duration-300
 
             group-hover:translate-x-1
-            group-hover:text-[#A07936]
+            group-hover:text-primary
           "
         >
           ${icon("chevron-right", "h-4 w-4")}
@@ -365,13 +365,13 @@ function createUserAccount(user) {
           duration-300
 
           hover:bg-white/5
-          hover:text-[#A07936]
+          hover:text-primary
         "
       >
 
         ${icon(
           "package",
-          "h-[17px] w-[17px] text-white/40 group-hover:text-[#A07936]"
+          "h-[17px] w-[17px] text-white/40 group-hover:text-primary"
         )}
 
         <span>
@@ -388,7 +388,7 @@ function createUserAccount(user) {
             duration-300
 
             group-hover:translate-x-1
-            group-hover:text-[#A07936]
+            group-hover:text-primary
           "
         >
           ${icon("chevron-right", "h-4 w-4")}
@@ -432,8 +432,8 @@ function createUserAccount(user) {
           transition-all
           duration-300
 
-          hover:border-[#A07936]
-          hover:bg-[#A07936]
+          hover:border-primary
+          hover:bg-primary
           hover:text-white
 
           disabled:cursor-not-allowed
@@ -545,7 +545,7 @@ export function createMobileNav() {
           border-r
           border-white/10
 
-          bg-[#181818]
+          bg-ink
 
           shadow-[25px_0_60px_rgba(0,0,0,.45)]
 
@@ -604,7 +604,7 @@ export function createMobileNav() {
       transition-all
       duration-300
       hover:bg-white/5
-      hover:text-[#A07936]
+      hover:text-primary
     "
   >
     ${icon("x", "h-6 w-6")}
@@ -673,7 +673,7 @@ export function createMobileNav() {
                   duration-300
 
                   hover:bg-white/5
-                  hover:text-[#A07936]
+                  hover:text-primary
                 "
               >
 
@@ -737,7 +737,7 @@ export function createMobileNav() {
                   duration-300
 
                   hover:bg-white/5
-                  hover:text-[#A07936]
+                  hover:text-primary
                 "
               >
 
@@ -803,7 +803,7 @@ export function createMobileNav() {
                   duration-300
 
                   hover:bg-white/5
-                  hover:text-[#A07936]
+                  hover:text-primary
                 "
               >
 
@@ -867,7 +867,7 @@ export function createMobileNav() {
                   duration-300
 
                   hover:bg-white/5
-                  hover:text-[#A07936]
+                  hover:text-primary
                 "
               >
 
@@ -931,7 +931,7 @@ export function createMobileNav() {
                   duration-300
 
                   hover:bg-white/5
-                  hover:text-[#A07936]
+                  hover:text-primary
                 "
               >
 

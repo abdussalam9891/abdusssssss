@@ -58,7 +58,7 @@ function createAddressOption(address, isSelected) {
 
     border
 
-    ${isSelected ? "border-[#A07936] bg-[#FBF7EF]" : "border-[#ECE5D8]"}
+    ${isSelected ? "border-primary bg-[#FBF7EF]" : "border-[#ECE5D8]"}
 
     p-5
 
@@ -81,7 +81,7 @@ function createAddressOption(address, isSelected) {
 
       shrink-0
 
-      accent-[#A07936]
+      accent-primary
     "
   />
 
@@ -89,7 +89,7 @@ function createAddressOption(address, isSelected) {
 
     <div class="flex flex-wrap items-center gap-2">
 
-      <p class="text-[15px] font-medium text-[#181818]">
+      <p class="text-[15px] font-medium text-ink">
         ${escapeHtml(name)}
       </p>
 
@@ -110,7 +110,7 @@ function createAddressOption(address, isSelected) {
     uppercase
     tracking-[0.14em]
 
-    text-[#A07936]
+    text-primary
   "
 >
   Default
@@ -155,8 +155,8 @@ function createAddressOption(address, isSelected) {
       transition-colors
       duration-300
 
-      hover:border-[#A07936]
-      hover:text-[#A07936]
+      hover:border-primary
+      hover:text-primary
     "
   >
     ${icon("pencil", "h-3.5 w-3.5")}
@@ -188,7 +188,7 @@ export function createAddressSelector(addresses = [], selectedId = "") {
 
   <div class="flex flex-wrap items-center justify-between gap-4">
 
-    <h2 class="font-serif text-[22px] italic text-[#181818]">
+    <h2 class="font-serif text-[22px] italic text-ink">
       Shipping Address
     </h2>
 
@@ -206,7 +206,7 @@ export function createAddressSelector(addresses = [], selectedId = "") {
         rounded-full
 
         border
-        border-[#181818]
+        border-ink
 
         px-4
         py-2
@@ -219,13 +219,13 @@ export function createAddressSelector(addresses = [], selectedId = "") {
 
         tracking-[0.14em]
 
-        text-[#181818]
+        text-ink
 
         transition-colors
         duration-300
 
-        hover:border-[#A07936]
-        hover:text-[#A07936]
+        hover:border-primary
+        hover:text-primary
       "
     >
       ${icon("plus", "h-3.5 w-3.5")}

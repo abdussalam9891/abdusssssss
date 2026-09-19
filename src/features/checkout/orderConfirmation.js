@@ -61,7 +61,7 @@ export function createOrderConfirmation(order) {
   "
 >
 
-  <div class="h-[3px] bg-gradient-to-r from-[#D8CBB0] via-[#A07936] to-[#D8CBB0]"></div>
+  <div class="h-[3px] bg-gradient-to-r from-[#D8CBB0] via-primary to-[#D8CBB0]"></div>
 
   <div class="p-8 sm:p-10">
 
@@ -80,9 +80,9 @@ export function createOrderConfirmation(order) {
         rounded-full
 
         border
-        border-[#A07936]/30
+        border-primary/30
 
-        bg-[#181818]
+        bg-ink
       "
     >
       <i data-lucide="check" class="h-7 w-7 text-[#D8CBB0]"></i>
@@ -100,13 +100,13 @@ export function createOrderConfirmation(order) {
 
         tracking-[0.24em]
 
-        text-[#A07936]
+        text-primary
       "
     >
       Order Confirmed
     </p>
 
-    <h2 class="mt-2 font-serif text-[30px] italic text-[#181818]">
+    <h2 class="mt-2 font-serif text-[30px] italic text-ink">
       Thank You For Your Order
     </h2>
 
@@ -140,24 +140,24 @@ export function createOrderConfirmation(order) {
 
       <div class="flex items-center justify-between gap-3">
         <span class="text-[#8A8A8A]">Order ID</span>
-        <span class="font-medium tracking-wide text-[#181818]">${escapeHtml(orderNumber)}</span>
+        <span class="font-medium tracking-wide text-ink">${escapeHtml(orderNumber)}</span>
       </div>
 
       <div class="flex items-center justify-between gap-3">
         <span class="text-[#8A8A8A]">Order Date</span>
-        <span class="font-medium text-[#181818]">
+        <span class="font-medium text-ink">
           ${escapeHtml(formatOrderDate(order.placedAt))}
         </span>
       </div>
 
       <div class="flex items-center justify-between gap-3">
         <span class="text-[#8A8A8A]">Items</span>
-        <span class="font-medium text-[#181818]">${itemCount}</span>
+        <span class="font-medium text-ink">${itemCount}</span>
       </div>
 
       <div class="flex items-center justify-between gap-3">
         <span class="text-[#8A8A8A]">Payment Method</span>
-        <span class="font-medium text-[#181818]">
+        <span class="font-medium text-ink">
           ${escapeHtml(PAYMENT_LABELS[order.paymentMethod] || order.paymentMethod)}
         </span>
       </div>
@@ -167,7 +167,7 @@ export function createOrderConfirmation(order) {
           ? `
 <div class="flex items-center justify-between gap-3">
   <span class="text-[#8A8A8A]">Transaction ID</span>
-  <span class="break-all text-right font-medium text-[#181818]">
+  <span class="break-all text-right font-medium text-ink">
     ${escapeHtml(transactionId)}
   </span>
 </div>
@@ -184,7 +184,7 @@ export function createOrderConfirmation(order) {
           justify-between
 
           border-t
-          border-[#A07936]/20
+          border-primary/20
 
           pt-3.5
 
@@ -193,8 +193,8 @@ export function createOrderConfirmation(order) {
           font-semibold
         "
       >
-        <span class="text-[#181818]">Total Amount</span>
-        <span class="text-[#A07936]">
+        <span class="text-ink">Total Amount</span>
+        <span class="text-primary">
           ${formatPrice(order.totals?.grandTotal) || "—"}
         </span>
       </div>
@@ -216,7 +216,7 @@ export function createOrderConfirmation(order) {
 
         rounded-full
 
-        bg-[#181818]
+        bg-ink
 
         px-8
         py-4
@@ -234,7 +234,7 @@ export function createOrderConfirmation(order) {
         transition-all
         duration-300
 
-        hover:bg-[#A07936]
+        hover:bg-primary
       "
     >
       Continue Shopping

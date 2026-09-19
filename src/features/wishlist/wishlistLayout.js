@@ -46,7 +46,7 @@ export function createWishlistLayout() {
 
           italic
 
-          text-[#181818]
+          text-ink
         "
       >
         My Wishlist
@@ -125,7 +125,7 @@ export function createWishlistLayout() {
 
           rounded-full
 
-          bg-[#181818]
+          bg-ink
 
           px-8
           py-4
@@ -143,7 +143,7 @@ export function createWishlistLayout() {
           transition-colors
           duration-300
 
-          hover:bg-[#A07936]
+          hover:bg-primary
         "
       >
         Sign In
@@ -205,7 +205,7 @@ export function createWishlistLayout() {
 
           rounded-full
 
-          bg-[#181818]
+          bg-ink
 
           px-8
           py-4
@@ -223,7 +223,7 @@ export function createWishlistLayout() {
           transition-colors
           duration-300
 
-          hover:bg-[#A07936]
+          hover:bg-primary
         "
       >
         Browse Collections

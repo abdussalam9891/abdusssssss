@@ -39,7 +39,7 @@ export function createUserMenu(user) {
               bg-[#FAF7F1]
               text-[16px]
               font-medium
-              text-[#A07936]
+              text-primary
             "
           >
             ${initial}
@@ -52,7 +52,7 @@ export function createUserMenu(user) {
                 text-[11px]
                 uppercase
                 tracking-[0.2em]
-                text-[#A07936]
+                text-primary
               "
             >
               Welcome Back
@@ -64,7 +64,7 @@ export function createUserMenu(user) {
                 truncate
                 text-[17px]
                 font-medium
-                text-[#181818]
+                text-ink
               "
             >
               ${fullName}
@@ -101,7 +101,7 @@ export function createUserMenu(user) {
             text-[#55514B]
             transition-all
             duration-300
-            hover:bg-[#A07936]
+            hover:bg-primary
             hover:text-white
             hover:shadow-[0_10px_24px_rgba(160,121,54,0.28)]
           "
@@ -116,7 +116,7 @@ export function createUserMenu(user) {
               justify-center
               rounded-full
               bg-[#FAF7F1]
-              text-[#A07936]
+              text-primary
               transition-all
               duration-300
               group-hover:bg-white/20
@@ -159,7 +159,7 @@ export function createUserMenu(user) {
             text-[#55514B]
             transition-all
             duration-300
-            hover:bg-[#A07936]
+            hover:bg-primary
             hover:text-white
             hover:shadow-[0_10px_24px_rgba(160,121,54,0.28)]
           "
@@ -174,7 +174,7 @@ export function createUserMenu(user) {
               justify-center
               rounded-full
               bg-[#FAF7F1]
-              text-[#A07936]
+              text-primary
               transition-all
               duration-300
               group-hover:bg-white/20
@@ -217,7 +217,7 @@ export function createUserMenu(user) {
             text-[#55514B]
             transition-all
             duration-300
-            hover:bg-[#A07936]
+            hover:bg-primary
             hover:text-white
             hover:shadow-[0_10px_24px_rgba(160,121,54,0.28)]
           "
@@ -232,7 +232,7 @@ export function createUserMenu(user) {
               justify-center
               rounded-full
               bg-[#FAF7F1]
-              text-[#A07936]
+              text-primary
               transition-all
               duration-300
               group-hover:bg-white/20
@@ -276,7 +276,7 @@ export function createUserMenu(user) {
             text-[#55514B]
             transition-all
             duration-300
-            hover:bg-[#A07936]
+            hover:bg-primary
             hover:text-white
             hover:shadow-[0_10px_24px_rgba(160,121,54,0.28)]
           "
@@ -291,7 +291,7 @@ export function createUserMenu(user) {
               justify-center
               rounded-full
               bg-[#FAF7F1]
-              text-[#A07936]
+              text-primary
               transition-all
               duration-300
               group-hover:bg-white/20
@@ -337,16 +337,16 @@ export function createUserMenu(user) {
             gap-2
             rounded-full
             border
-            border-[#181818]
-            bg-[#181818]
+            border-ink
+            bg-ink
             py-2.5
             text-[13px]
             font-medium
             text-white
             transition-all
             duration-300
-            hover:border-[#A07936]
-            hover:bg-[#A07936]
+            hover:border-primary
+            hover:bg-primary
           "
         >
           <i

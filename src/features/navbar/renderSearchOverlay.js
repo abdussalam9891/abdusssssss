@@ -11,9 +11,9 @@ export function createSearchOverlay() {
           rounded-full
 
           border
-          border-[#A07936]
+          border-primary
 
-          bg-[#A07936]
+          bg-primary
 
           px-5
           py-2.5
@@ -51,7 +51,7 @@ export function createSearchOverlay() {
       absolute
       inset-0
 
-      bg-[#181818]/50
+      bg-ink/50
       backdrop-blur-sm
 
       opacity-0
@@ -120,7 +120,7 @@ export function createSearchOverlay() {
 
               tracking-[-0.02em]
 
-              text-[#181818]
+              text-ink
             "
           >
             Find Your Piece
@@ -143,8 +143,8 @@ export function createSearchOverlay() {
             rounded-full
 
             border
-            border-[#A07936]
-            bg-[#A07936]
+            border-primary
+            bg-primary
 
             text-white
 
@@ -176,20 +176,20 @@ export function createSearchOverlay() {
           gap-4
 
           border-b-2
-          border-[#181818]/10
+          border-ink/10
 
           pb-4
 
           transition-colors
           duration-300
 
-          focus-within:border-[#A07936]
+          focus-within:border-primary
         "
       >
 
         <i
           data-lucide="search"
-          class="h-6 w-6 shrink-0 text-[#A07936]"
+          class="h-6 w-6 shrink-0 text-primary"
         ></i>
 
         <input
@@ -206,7 +206,7 @@ export function createSearchOverlay() {
             text-xl
             sm:text-2xl
 
-            text-[#181818]
+            text-ink
 
             placeholder:text-[#B9B2A6]
 
@@ -236,7 +236,7 @@ export function createSearchOverlay() {
         >
           <i
             data-lucide="sparkles"
-            class="h-3.5 w-3.5 text-[#A07936]"
+            class="h-3.5 w-3.5 text-primary"
           ></i>
           Trending Searches
         </h3>
@@ -306,7 +306,7 @@ export function createSearchOverlay() {
 
               text-xl
 
-              text-[#181818]
+              text-ink
             "
           >
             Start typing to search

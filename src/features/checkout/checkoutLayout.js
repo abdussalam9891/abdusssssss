@@ -49,7 +49,7 @@ export function createCheckoutLayout() {
 
           italic
 
-          text-[#181818]
+          text-ink
         "
       >
         Checkout
@@ -111,7 +111,7 @@ export function createCheckoutLayout() {
 
           rounded-full
 
-          bg-[#181818]
+          bg-ink
 
           px-8
           py-4
@@ -129,7 +129,7 @@ export function createCheckoutLayout() {
           transition-colors
           duration-300
 
-          hover:bg-[#A07936]
+          hover:bg-primary
         "
       >
         Sign In
@@ -190,7 +190,7 @@ export function createCheckoutLayout() {
 
           rounded-full
 
-          bg-[#181818]
+          bg-ink
 
           px-8
           py-4
@@ -208,7 +208,7 @@ export function createCheckoutLayout() {
           transition-colors
           duration-300
 
-          hover:bg-[#A07936]
+          hover:bg-primary
         "
       >
         Browse Collections
@@ -255,7 +255,7 @@ export function createCheckoutLayout() {
         "
       ></i>
 
-      <p class="text-[15px] font-medium text-[#181818]">
+      <p class="text-[15px] font-medium text-ink">
         Payment Failed
       </p>
 
@@ -275,7 +275,7 @@ export function createCheckoutLayout() {
 
           rounded-full
 
-          bg-[#181818]
+          bg-ink
 
           px-8
           py-4
@@ -293,7 +293,7 @@ export function createCheckoutLayout() {
           transition-colors
           duration-300
 
-          hover:bg-[#A07936]
+          hover:bg-primary
         "
       >
         Try Again

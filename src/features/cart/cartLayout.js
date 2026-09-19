@@ -44,7 +44,7 @@ export function createCartLayout() {
 
           italic
 
-          text-[#181818]
+          text-ink
         "
       >
         Shopping Cart
@@ -106,7 +106,7 @@ export function createCartLayout() {
 
           rounded-full
 
-          bg-[#181818]
+          bg-ink
 
           px-8
           py-4
@@ -124,7 +124,7 @@ export function createCartLayout() {
           transition-colors
           duration-300
 
-          hover:bg-[#A07936]
+          hover:bg-primary
         "
       >
         Browse Collections

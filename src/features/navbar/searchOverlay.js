@@ -106,12 +106,12 @@ function createSearchResultItem(product) {
 
         text-[15px]
 
-        text-[#181818]
+        text-ink
 
         transition-colors
         duration-300
 
-        group-hover:text-[#A07936]
+        group-hover:text-primary
       "
     >
       ${name}
@@ -135,7 +135,7 @@ function createSearchResultItem(product) {
 
     <div class="mt-1.5 flex items-center gap-2">
 
-      <span class="text-sm font-semibold text-[#181818]">
+      <span class="text-sm font-semibold text-ink">
         ${formatPrice(price)}
       </span>
 
@@ -207,7 +207,7 @@ export function initSearchOverlay() {
 
       border-2
       border-[#F2ECE3]
-      border-t-[#A07936]
+      border-t-primary
     "
   ></span>
 </div>
@@ -242,17 +242,17 @@ export function initSearchOverlay() {
   >
     <i
       data-lucide="search-x"
-      class="h-7 w-7 text-[#A07936]"
+      class="h-7 w-7 text-primary"
     ></i>
   </div>
 
-  <h4 class="mb-2 font-serif text-xl text-[#181818]">
+  <h4 class="mb-2 font-serif text-xl text-ink">
     No results found
   </h4>
 
   <p class="text-sm text-[#8A8A8A]">
     We couldn't find anything for
-    "<span class="text-[#181818]">${escapeHtml(query)}</span>".
+    "<span class="text-ink">${escapeHtml(query)}</span>".
     Try a different keyword.
   </p>
 
@@ -285,7 +285,7 @@ export function initSearchOverlay() {
   >
     <i
       data-lucide="triangle-alert"
-      class="h-7 w-7 text-[#A07936]"
+      class="h-7 w-7 text-primary"
     ></i>
   </div>
 
@@ -332,7 +332,7 @@ ${
 
       rounded-full
 
-      bg-[#181818]
+      bg-ink
 
       px-7
       py-3
@@ -347,7 +347,7 @@ ${
       transition-colors
       duration-300
 
-      hover:bg-[#A07936]
+      hover:bg-primary
     "
   >
     View all ${total} results

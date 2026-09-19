@@ -38,7 +38,7 @@ export function createPaymentMethods(selected = "online") {
   "
 >
 
-  <h2 class="font-serif text-[22px] italic text-[#181818]">
+  <h2 class="font-serif text-[22px] italic text-ink">
     Payment Method
   </h2>
 
@@ -74,7 +74,7 @@ export function createPaymentMethods(selected = "online") {
 
     border
 
-    ${isSelected ? "border-[#A07936] bg-[#FBF7EF]" : "border-[#ECE5D8]"}
+    ${isSelected ? "border-primary bg-[#FBF7EF]" : "border-[#ECE5D8]"}
 
     p-5
 
@@ -95,7 +95,7 @@ export function createPaymentMethods(selected = "online") {
 
       shrink-0
 
-      accent-[#A07936]
+      accent-primary
     "
   />
 
@@ -114,14 +114,14 @@ export function createPaymentMethods(selected = "online") {
 
       bg-[#FAF7F1]
 
-      text-[#A07936]
+      text-primary
     "
   >
     ${icon(option.iconName, "h-4 w-4")}
   </span>
 
   <span>
-    <span class="block text-[14px] font-medium text-[#181818]">
+    <span class="block text-[14px] font-medium text-ink">
       ${option.label}
     </span>
     <span class="block text-[12px] text-[#8A8A8A]">

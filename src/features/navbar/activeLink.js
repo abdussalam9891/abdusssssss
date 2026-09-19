@@ -17,7 +17,7 @@ export function initActiveLink() {
 
   // Remove existing active state
   navLinks.forEach((link) => {
-    link.classList.remove("text-[#A07936]");
+    link.classList.remove("text-primary");
   });
 
   // Home page
@@ -32,7 +32,7 @@ export function initActiveLink() {
   if (category) {
     navLinks.forEach((link) => {
       if (link.dataset.nav === category) {
-        link.classList.add("text-[#A07936]");
+        link.classList.add("text-primary");
       }
     });
 
@@ -43,7 +43,7 @@ export function initActiveLink() {
   if (tag === "new") {
     navLinks.forEach((link) => {
       if (link.dataset.nav === "new-arrivals") {
-        link.classList.add("text-[#A07936]");
+        link.classList.add("text-primary");
       }
     });
   }

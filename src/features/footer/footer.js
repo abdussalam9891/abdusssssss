@@ -11,7 +11,7 @@ export function createFooter() {
   id="footer"
   class="
     mt-24
-    bg-[#181818]
+    bg-ink
     text-white
   "
 >

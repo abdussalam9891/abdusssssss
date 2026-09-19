@@ -139,9 +139,9 @@ export function createCartItemRow(item) {
 
           italic
 
-          text-[#181818]
+          text-ink
 
-          hover:text-[#A07936]
+          hover:text-primary
         "
       >
         ${escapeHtml(item.name || "Product")}
@@ -204,7 +204,7 @@ export function createCartItemRow(item) {
 
     font-medium
 
-    text-[#A07936]
+    text-primary
   "
 >
   ${unitPrice} each
@@ -261,7 +261,7 @@ export function createCartItemRow(item) {
             items-center
             justify-center
 
-            text-[#181818]
+            text-ink
 
             transition-colors
             duration-300
@@ -282,7 +282,7 @@ export function createCartItemRow(item) {
 
             font-medium
 
-            text-[#181818]
+            text-ink
           "
         >
           ${item.quantity}
@@ -302,7 +302,7 @@ export function createCartItemRow(item) {
             items-center
             justify-center
 
-            text-[#181818]
+            text-ink
 
             transition-colors
             duration-300
@@ -335,7 +335,7 @@ export function createCartItemRow(item) {
 
     font-semibold
 
-    text-[#181818]
+    text-ink
   "
 >
   ${lineTotal}

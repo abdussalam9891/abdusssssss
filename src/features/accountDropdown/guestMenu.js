@@ -34,7 +34,7 @@ export function createGuestMenu() {
             justify-center
             rounded-full
             bg-[#FAF7F1]
-            text-[#A07936]
+            text-primary
             transition-all
             duration-300
             group-hover:bg-[#F3EBDD]
@@ -52,7 +52,7 @@ export function createGuestMenu() {
               text-[15px]
               font-medium
               leading-none
-              text-[#181818]
+              text-ink
             "
           >
             Log In / Sign Up
@@ -80,7 +80,7 @@ export function createGuestMenu() {
             transition-transform
             duration-300
             group-hover:translate-x-1
-            group-hover:text-[#A07936]
+            group-hover:text-primary
           "
         ></i>
       </a>
@@ -113,7 +113,7 @@ export function createGuestMenu() {
             justify-center
             rounded-full
             bg-[#FAF7F1]
-            text-[#A07936]
+            text-primary
             transition-all
             duration-300
             group-hover:bg-[#F3EBDD]
@@ -131,7 +131,7 @@ export function createGuestMenu() {
               text-[15px]
               font-medium
               leading-none
-              text-[#181818]
+              text-ink
             "
           >
             Contact Us
@@ -159,7 +159,7 @@ export function createGuestMenu() {
             transition-transform
             duration-300
             group-hover:translate-x-1
-            group-hover:text-[#A07936]
+            group-hover:text-primary
           "
         ></i>
       </a>

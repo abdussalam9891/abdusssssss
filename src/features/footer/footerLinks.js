@@ -23,8 +23,8 @@ export function createSocialIcons(socialLinks = {}) {
     text-white/70
     transition-all
     duration-300
-    hover:border-[#A07936]
-    hover:text-[#A07936]
+    hover:border-primary
+    hover:text-primary
   "
 >
   <svg
@@ -59,8 +59,8 @@ export function createSocialIcons(socialLinks = {}) {
     text-white/70
     transition-all
     duration-300
-    hover:border-[#A07936]
-    hover:text-[#A07936]
+    hover:border-primary
+    hover:text-primary
   "
 >
   <svg
@@ -100,8 +100,8 @@ export function createSocialIcons(socialLinks = {}) {
         text-white/70
         transition-all
         duration-300
-        hover:border-[#A07936]
-        hover:text-[#A07936]
+        hover:border-primary
+        hover:text-primary
       "
     >
 
@@ -191,7 +191,7 @@ function createFooterLink(href, label) {
     <li>
       <a
         href="${href}"
-        class="text-white/60 transition hover:text-[#A07936]"
+        class="text-white/60 transition hover:text-primary"
       >
         ${label}
       </a>
@@ -217,7 +217,7 @@ export function createFooterLinks(socialLinks = {}) {
   ].join("");
 
   return `
-<section class="bg-[#181818]">
+<section class="bg-ink">
 
 
 
@@ -302,7 +302,7 @@ export function createFooterLinks(socialLinks = {}) {
         tracking-[0.18em]
         text-white
         transition
-        hover:text-[#A07936]
+        hover:text-primary
       "
     >
       Contact Us
@@ -350,7 +350,7 @@ export function createFooterLinks(socialLinks = {}) {
     <a
       href="#"
       data-contact-email
-      class="flex items-center gap-2 text-white/60 transition hover:text-[#A07936]"
+      class="flex items-center gap-2 text-white/60 transition hover:text-primary"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -371,7 +371,7 @@ export function createFooterLinks(socialLinks = {}) {
     <a
       href="#"
       data-contact-phone
-      class="flex items-center gap-2 text-white/60 transition hover:text-[#A07936]"
+      class="flex items-center gap-2 text-white/60 transition hover:text-primary"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -438,7 +438,7 @@ export function createFooterLinks(socialLinks = {}) {
             outline-none
             transition-colors
             duration-300
-            focus:border-[#A07936]
+            focus:border-primary
           "
         />
 
@@ -447,7 +447,7 @@ export function createFooterLinks(socialLinks = {}) {
           class="
             shrink-0
             rounded-md
-            bg-[#A07936]
+            bg-primary
             px-4
             py-2.5
             text-sm

@@ -27,7 +27,7 @@ const STATUS_STYLES = {
   "out for delivery": "bg-[#EAF1FB] text-[#1D4E9B]",
 };
 
-const DEFAULT_STATUS_STYLE = "bg-[#FAF7F1] text-[#A07936]";
+const DEFAULT_STATUS_STYLE = "bg-[#FAF7F1] text-primary";
 
 
 function statusBadgeClasses(status) {
@@ -152,7 +152,7 @@ function createOrderItemRow(item) {
 
           font-medium
 
-          text-[#181818]
+          text-ink
         "
       >
         ${escapeHtml(item.name)}
@@ -191,7 +191,7 @@ function createOrderItemRow(item) {
 
     font-semibold
 
-    text-[#181818]
+    text-ink
   "
 >
   ${lineTotal}
@@ -384,7 +384,7 @@ export function createOrderCard(order) {
 
         font-semibold
 
-        text-[#181818]
+        text-ink
       "
     >
       Total: ${formatPrice(order.totalAmount) || "—"}

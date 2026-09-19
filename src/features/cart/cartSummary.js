@@ -78,7 +78,7 @@ function createOfferRow({ code, label, active, applyClass, removeClass }) {
 
   <div class="min-w-0">
 
-    <p class="text-[13px] font-medium text-[#181818]">
+    <p class="text-[13px] font-medium text-ink">
       ${escapeHtml(code)}
     </p>
 
@@ -101,7 +101,7 @@ function createOfferRow({ code, label, active, applyClass, removeClass }) {
       rounded-lg
 
       border
-      border-[#181818]
+      border-ink
 
       px-4
       py-1.5
@@ -114,13 +114,13 @@ function createOfferRow({ code, label, active, applyClass, removeClass }) {
 
       tracking-[0.08em]
 
-      text-[#181818]
+      text-ink
 
       transition-colors
       duration-300
 
-      hover:border-[#A07936]
-      hover:text-[#A07936]
+      hover:border-primary
+      hover:text-primary
     "
   >
     Apply
@@ -147,7 +147,7 @@ function createGiftCardSection(giftCards, appliedGiftCode) {
 
 <div class="mt-6">
 
-  <p class="mb-2 text-[12px] font-medium uppercase tracking-[0.14em] text-[#A07936]">
+  <p class="mb-2 text-[12px] font-medium uppercase tracking-[0.14em] text-primary">
     Gift Cards
   </p>
 
@@ -260,7 +260,7 @@ export function createCartSummary({
 
     rounded-2xl
 
-    bg-[#181818]
+    bg-ink
 
     px-8
     py-5
@@ -278,7 +278,7 @@ export function createCartSummary({
     transition-all
     duration-300
 
-    hover:bg-[#A07936]
+    hover:bg-primary
   "
 >
 
@@ -308,7 +308,7 @@ export function createCartSummary({
   "
 >
 
-  <h2 class="font-serif text-[24px] italic text-[#181818]">
+  <h2 class="font-serif text-[24px] italic text-ink">
     Order Summary
   </h2>
 
@@ -335,7 +335,7 @@ export function createCartSummary({
 
       text-[13px]
 
-      text-[#181818]
+      text-ink
     "
   >
     <span>Add gift wrap (₹50/item)</span>
@@ -346,7 +346,7 @@ export function createCartSummary({
 
       ${giftWrap ? "checked" : ""}
 
-      class="h-4 w-4 accent-[#181818]"
+      class="h-4 w-4 accent-ink"
     >
   </label>
 
@@ -360,7 +360,7 @@ export function createCartSummary({
       <span class="text-[#666]">
         Total MRP (${availableItemCount} ${availableItemCount === 1 ? "item" : "items"})
       </span>
-      <span class="text-[#181818]">
+      <span class="text-ink">
         ${formatPrice(totalMrp) || "—"}
       </span>
     </div>
@@ -370,7 +370,7 @@ export function createCartSummary({
         ? `
 <div class="flex items-center justify-between">
   <span class="text-[#666]">Gift Wrap</span>
-  <span class="text-[#181818]">${formatPrice(giftWrapCharge)}</span>
+  <span class="text-ink">${formatPrice(giftWrapCharge)}</span>
 </div>
 `
         : ""
@@ -409,7 +409,7 @@ export function createCartSummary({
 
       font-semibold
 
-      text-[#181818]
+      text-ink
     "
   >
     <span>Estimated Amount</span>
