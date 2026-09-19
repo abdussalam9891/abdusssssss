@@ -3,14 +3,24 @@
 
 <head>
 
+  <!-- ==========================================
+       DOMAIN REDIRECT
+  =========================================== -->
+
   <script>
     if (location.hostname === 'www.banshiwale.com') {
-      location.replace('https://banshiwale.com' + location.pathname + location.search + location.hash);
+      location.replace(
+        'https://banshiwale.com' +
+        location.pathname +
+        location.search +
+        location.hash
+      );
     }
   </script>
 
+
   <!-- ==========================================
-       META
+       BASIC META
   =========================================== -->
 
   <meta charset="UTF-8" />
@@ -25,6 +35,7 @@
     content="IE=edge"
   />
 
+
   <!-- ==========================================
        SEO
   =========================================== -->
@@ -35,22 +46,17 @@
 
   <meta
     name="description"
-    content="Read the Terms & Conditions governing the use of the banshiwale website, products, and services."
-  />
-
-  <meta
-    name="keywords"
-    content="banshiwale Terms and Conditions, Terms of Service, Sterling Silver Jewellery, Men's Jewellery"
+    content="Read Banshiwale's Terms & Conditions covering website usage, purchases, payments, shipping, returns, and other important policies."
   />
 
   <meta
     name="author"
-    content="banshiwale"
+    content="Banshiwale"
   />
 
   <meta
     name="robots"
-    content="index, follow"
+    content="index, follow, max-image-preview:large"
   />
 
   <link
@@ -58,18 +64,14 @@
     href="https://banshiwale.com/pages/terms-and-conditions.html"
   />
 
+
   <!-- ==========================================
        OPEN GRAPH
   =========================================== -->
 
   <meta
-    property="og:title"
-    content="Terms & Conditions | banshiwale"
-  />
-
-  <meta
-    property="og:description"
-    content="Review the Terms & Conditions for shopping with banshiwale."
+    property="og:locale"
+    content="en_IN"
   />
 
   <meta
@@ -78,14 +80,80 @@
   />
 
   <meta
-    property="og:image"
-    content="https://banshiwale.com/src/assets/images/og-image.jpg"
+    property="og:site_name"
+    content="Banshiwale"
+  />
+
+  <meta
+    property="og:title"
+    content="Terms & Conditions | Banshiwale"
+  />
+
+  <meta
+    property="og:description"
+    content="Review the Terms & Conditions governing the use of the Banshiwale website and shopping experience."
   />
 
   <meta
     property="og:url"
     content="https://banshiwale.com/pages/terms-and-conditions.html"
   />
+
+  <meta
+    property="og:image"
+    content="https://banshiwale.com/src/assets/images/og-image.jpg"
+  />
+
+  <meta
+    property="og:image:alt"
+    content="Banshiwale silver jewellery"
+  />
+
+  <meta
+    property="og:image:type"
+    content="image/jpeg"
+  />
+
+  <meta
+    property="og:image:width"
+    content="1200"
+  />
+
+  <meta
+    property="og:image:height"
+    content="630"
+  />
+
+
+  <!-- ==========================================
+       TWITTER / X
+  =========================================== -->
+
+  <meta
+    name="twitter:card"
+    content="summary_large_image"
+  />
+
+  <meta
+    name="twitter:title"
+    content="Terms & Conditions | Banshiwale"
+  />
+
+  <meta
+    name="twitter:description"
+    content="Read the Terms & Conditions for using the Banshiwale website and purchasing our products."
+  />
+
+  <meta
+    name="twitter:image"
+    content="https://banshiwale.com/src/assets/images/og-image.jpg"
+  />
+
+  <meta
+    name="twitter:image:alt"
+    content="Banshiwale silver jewellery"
+  />
+
 
   <!-- ==========================================
        THEME
@@ -95,6 +163,7 @@
     name="theme-color"
     content="#181818"
   />
+
 
   <!-- ==========================================
        FAVICON
@@ -125,6 +194,7 @@
     href="../apple-touch-icon.png"
   />
 
+
   <!-- ==========================================
        GOOGLE FONTS
   =========================================== -->
@@ -141,40 +211,120 @@
   />
 
   <link
-    rel="preload"
-    as="style"
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap"
-  />
-
-  <link
     rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap"
-    media="print"
-    onload="this.media='all'; this.onload=null;"
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap"
   />
 
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" /></noscript>
 
   <!-- ==========================================
        TAILWIND
   =========================================== -->
 
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    rel="stylesheet"
+    href="../src/css/tailwind.build.css"
+  />
 
   <!-- ==========================================
        CSS
   =========================================== -->
 
-  <link rel="stylesheet" href="../src/features/animations/animations.css" />
-  <link rel="stylesheet" href="../src/features/marquee/marquee.css" />
-  <link rel="stylesheet" href="../src/features/announcement/announcement.css" />
-  <link rel="stylesheet" href="../src/features/products/priceRangeSlider.css" />
+  <link
+    rel="stylesheet"
+    href="../src/features/animations/animations.css"
+  />
+
+  <link
+    rel="stylesheet"
+    href="../src/features/marquee/marquee.css"
+  />
+
+  <link
+    rel="stylesheet"
+    href="../src/features/announcement/announcement.css"
+  />
+
+  <link
+    rel="stylesheet"
+    href="../src/features/products/priceRangeSlider.css"
+  />
 
   <link
     rel="stylesheet"
     href="../src/css/main.css"
   />
 
+
+  <!-- ==========================================
+       STRUCTURED DATA
+  =========================================== -->
+
+  <script type="application/ld+json">
+
+  {
+    "@context": "https://schema.org",
+
+    "@type": "WebPage",
+
+    "@id": "https://banshiwale.com/pages/terms-and-conditions.html#webpage",
+
+    "url": "https://banshiwale.com/pages/terms-and-conditions.html",
+
+    "name": "Terms & Conditions | Banshiwale",
+
+    "description": "Terms and Conditions governing the use of the Banshiwale website and shopping experience.",
+
+    "isPartOf": {
+      "@type": "WebSite",
+      "@id": "https://banshiwale.com/#website",
+      "name": "Banshiwale",
+      "url": "https://banshiwale.com/"
+    },
+
+    "publisher": {
+      "@type": "Organization",
+      "@id": "https://banshiwale.com/#organization",
+      "name": "Banshiwale",
+      "url": "https://banshiwale.com/"
+    }
+
+  }
+
+  </script>
+
+
+  <!-- ==========================================
+       BREADCRUMB SCHEMA
+  =========================================== -->
+
+  <script type="application/ld+json">
+
+  {
+    "@context": "https://schema.org",
+
+    "@type": "BreadcrumbList",
+
+    "itemListElement": [
+
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://banshiwale.com/"
+      },
+
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Terms & Conditions",
+        "item": "https://banshiwale.com/pages/terms-and-conditions.html"
+      }
+
+    ]
+
+  }
+
+  </script>
 
 
 </head>
