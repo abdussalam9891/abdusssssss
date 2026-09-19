@@ -3,14 +3,24 @@
 
 <head>
 
+  <!-- ==========================================
+       DOMAIN REDIRECT
+  =========================================== -->
+
   <script>
     if (location.hostname === 'www.banshiwale.com') {
-      location.replace('https://banshiwale.com' + location.pathname + location.search + location.hash);
+      location.replace(
+        'https://banshiwale.com' +
+        location.pathname +
+        location.search +
+        location.hash
+      );
     }
   </script>
 
+
   <!-- ==========================================
-       META
+       BASIC META
   =========================================== -->
 
   <meta charset="UTF-8" />
@@ -25,32 +35,28 @@
     content="IE=edge"
   />
 
+
   <!-- ==========================================
        SEO
   =========================================== -->
 
   <title>
-    About Us | Banshiwale
+    About Banshiwale | Handcrafted Silver Jewellery
   </title>
 
   <meta
     name="description"
-    content="Discover the story behind banshiwale. Learn about our passion for handcrafted sterling silver jewellery, timeless craftsmanship, and our commitment to creating pieces that celebrate every moment."
-  />
-
-  <meta
-    name="keywords"
-    content="About banshiwale, banshiwale Story, Sterling Silver Jewellery, Handmade Jewellery, Indian Jewellery Brand, Premium Silver Jewellery"
+    content="Discover Banshiwale, a men's silver jewellery brand dedicated to handcrafted sterling silver jewellery, timeless designs, and exceptional craftsmanship."
   />
 
   <meta
     name="author"
-    content="banshiwale"
+    content="Banshiwale"
   />
 
   <meta
     name="robots"
-    content="index, follow"
+    content="index, follow, max-image-preview:large"
   />
 
   <link
@@ -58,23 +64,34 @@
     href="https://banshiwale.com/pages/about.html"
   />
 
+
   <!-- ==========================================
        OPEN GRAPH
   =========================================== -->
 
   <meta
-    property="og:title"
-    content="About Us | banshiwale"
-  />
-
-  <meta
-    property="og:description"
-    content="Explore the journey of banshiwale and our dedication to timeless sterling silver jewellery, exceptional craftsmanship, and meaningful design."
+    property="og:locale"
+    content="en_IN"
   />
 
   <meta
     property="og:type"
     content="website"
+  />
+
+  <meta
+    property="og:site_name"
+    content="Banshiwale"
+  />
+
+  <meta
+    property="og:title"
+    content="About Banshiwale | Handcrafted Silver Jewellery"
+  />
+
+  <meta
+    property="og:description"
+    content="Explore the story behind Banshiwale and our passion for handcrafted silver jewellery, timeless designs, and meaningful craftsmanship."
   />
 
   <meta
@@ -87,8 +104,29 @@
     content="https://banshiwale.com/src/assets/images/og-image.jpg"
   />
 
+  <meta
+    property="og:image:alt"
+    content="Banshiwale handcrafted silver jewellery"
+  />
+
+  <meta
+    property="og:image:type"
+    content="image/jpeg"
+  />
+
+  <meta
+    property="og:image:width"
+    content="1200"
+  />
+
+  <meta
+    property="og:image:height"
+    content="630"
+  />
+
+
   <!-- ==========================================
-       TWITTER
+       TWITTER / X
   =========================================== -->
 
   <meta
@@ -98,18 +136,24 @@
 
   <meta
     name="twitter:title"
-    content="About Us | banshiwale"
+    content="About Banshiwale | Handcrafted Silver Jewellery"
   />
 
   <meta
     name="twitter:description"
-    content="Learn about the people, philosophy, and craftsmanship behind banshiwale."
+    content="Learn about Banshiwale, our craftsmanship, and our passion for timeless silver jewellery."
   />
 
   <meta
     name="twitter:image"
     content="https://banshiwale.com/src/assets/images/og-image.jpg"
   />
+
+  <meta
+    name="twitter:image:alt"
+    content="Banshiwale handcrafted silver jewellery"
+  />
+
 
   <!-- ==========================================
        THEME
@@ -119,6 +163,7 @@
     name="theme-color"
     content="#181818"
   />
+
 
   <!-- ==========================================
        FAVICON
@@ -149,6 +194,7 @@
     href="../apple-touch-icon.png"
   />
 
+
   <!-- ==========================================
        GOOGLE FONTS
   =========================================== -->
@@ -165,41 +211,124 @@
   />
 
   <link
-    rel="preload"
-    as="style"
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
-  />
-
-  <link
     rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
-    media="print"
-    onload="this.media='all'; this.onload=null;"
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap"
   />
 
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" /></noscript>
 
   <!-- ==========================================
        TAILWIND
   =========================================== -->
 
-  <script src="https://cdn.tailwindcss.com"></script>
-
+  <link
+    rel="stylesheet"
+    href="../src/css/tailwind.build.css"
+  />
 
   <!-- ==========================================
        CSS
   =========================================== -->
 
-  <link rel="stylesheet" href="../src/features/animations/animations.css" />
-  <link rel="stylesheet" href="../src/features/marquee/marquee.css" />
-  <link rel="stylesheet" href="../src/features/announcement/announcement.css" />
-  <link rel="stylesheet" href="../src/features/products/priceRangeSlider.css" />
+  <link
+    rel="stylesheet"
+    href="../src/features/animations/animations.css"
+  />
+
+  <link
+    rel="stylesheet"
+    href="../src/features/marquee/marquee.css"
+  />
+
+  <link
+    rel="stylesheet"
+    href="../src/features/announcement/announcement.css"
+  />
+
+  <link
+    rel="stylesheet"
+    href="../src/features/products/priceRangeSlider.css"
+  />
 
   <link
     rel="stylesheet"
     href="../src/css/main.css"
   />
 
+
+  <!-- ==========================================
+       STRUCTURED DATA
+  =========================================== -->
+
+  <script type="application/ld+json">
+
+  {
+    "@context": "https://schema.org",
+
+    "@type": "AboutPage",
+
+    "@id": "https://banshiwale.com/pages/about.html#about",
+
+    "url": "https://banshiwale.com/pages/about.html",
+
+    "name": "About Banshiwale",
+
+    "description": "Learn about Banshiwale and our passion for handcrafted silver jewellery.",
+
+    "isPartOf": {
+      "@type": "WebSite",
+      "@id": "https://banshiwale.com/#website",
+      "name": "Banshiwale",
+      "url": "https://banshiwale.com/"
+    },
+
+    "about": {
+      "@type": "Organization",
+      "@id": "https://banshiwale.com/#organization",
+      "name": "Banshiwale",
+      "url": "https://banshiwale.com/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://banshiwale.com/src/assets/logo.png"
+      }
+    }
+
+  }
+
+  </script>
+
+
+  <!-- ==========================================
+       BREADCRUMB SCHEMA
+  =========================================== -->
+
+  <script type="application/ld+json">
+
+  {
+    "@context": "https://schema.org",
+
+    "@type": "BreadcrumbList",
+
+    "itemListElement": [
+
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://banshiwale.com/"
+      },
+
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "About Us",
+        "item": "https://banshiwale.com/pages/about.html"
+      }
+
+    ]
+
+  }
+
+  </script>
 
 
 </head>
@@ -1040,7 +1169,7 @@
           />
 
           <div class="absolute inset-0 flex items-end justify-center bg-black/25 pb-10">
-           
+
           </div>
 
         </div>
