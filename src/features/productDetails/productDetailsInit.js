@@ -5,8 +5,11 @@ import { isActiveProduct } from "../../utils/productStatus.js";
 import { getProductId, getProductSlug, setProduct } from "./state.js";
 import { normalizeProduct } from "./model.js";
 import { pruneProductImages } from "../../utils/pruneBrokenImages.js";
-import { getProductDetailsHref } from "../../utils/format.js";
-import { setCanonicalUrl } from "../../utils/seo.js";
+import {
+  applyProductSeo,
+  applyProductNotFoundSeo,
+  applyProductErrorSeo,
+} from "./structuredData.js";
 import { initGallery } from "./gallery.js";
 import { initQuantitySelector } from "./quantity.js";
 import { initWishlistToggle } from "./wishlist.js";
@@ -102,6 +105,8 @@ function renderLoading(container) {
 
 function renderNotFound(container) {
 
+  applyProductNotFoundSeo();
+
   container.innerHTML =
     createStateShell(`
 <h2
@@ -161,6 +166,8 @@ function renderNotFound(container) {
 
 
 function renderError(container) {
+
+  applyProductErrorSeo();
 
   container.innerHTML =
     createStateShell(`
@@ -407,13 +414,11 @@ export async function initProductDetailsPage() {
 
   setProduct(product);
 
-  // Canonicalize to this product's own URL (slug preferred, id as
-  // fallback — same rule getProductDetailsHref uses everywhere else)
-  // so slug/id both resolving to the same product don't read as
-  // duplicate content, and search results land on a clean URL.
-  setCanonicalUrl(
-    getProductDetailsHref(product.id, product.slug)
-  );
+  // Canonicalizes to this product's own URL (slug preferred, id as
+  // fallback) and fills in title/description/OG/Twitter/JSON-LD from
+  // the resolved product — the static markup in the head is only a
+  // generic fallback until this runs.
+  applyProductSeo(product);
 
   renderProduct(container, product);
 
