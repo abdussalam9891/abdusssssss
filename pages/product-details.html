@@ -3,13 +3,25 @@
 
 <head>
 
+  <!-- ==========================================
+       DOMAIN REDIRECT
+  =========================================== -->
+
   <script>
     if (location.hostname === 'www.banshiwale.com') {
-      location.replace('https://banshiwale.com' + location.pathname + location.search + location.hash);
+      location.replace(
+        'https://banshiwale.com' +
+        location.pathname +
+        location.search +
+        location.hash
+      );
     }
   </script>
 
-  <!-- Meta -->
+
+  <!-- ==========================================
+       BASIC META
+  =========================================== -->
 
   <meta charset="UTF-8" />
 
@@ -18,68 +30,114 @@
     content="width=device-width, initial-scale=1.0"
   />
 
-  <title>Banshiwale | Product Details</title>
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="IE=edge"
+  />
+
+
+  <!-- ==========================================
+       SEO
+  =========================================== -->
+
+  <title>
+    Banshiwale | Product Details
+  </title>
 
   <meta
     name="description"
-    content="Discover handcrafted sterling silver jewellery from banshiwale."
+    content="Discover handcrafted sterling silver jewellery from Banshiwale. Explore timeless designs, premium craftsmanship, and jewellery made for every occasion."
+  />
+
+  <meta
+    name="author"
+    content="Banshiwale"
+  />
+
+  <meta
+    name="robots"
+    content="index, follow, max-image-preview:large"
   />
 
   <!--
-    No canonical tag here on purpose. This file serves every product
-    via ?slug=/?id= (see src/features/productDetails/model.js), so
-    there is no single fixed URL to assert until a product resolves —
-    src/features/productDetails/productDetailsInit.js injects the real
-    per-product canonical at runtime (via src/utils/seo.js#setCanonicalUrl). A
-    crawler that renders this page's JS (Googlebot, given enough
-    budget) will see that real tag land in <head>.
+    IMPORTANT:
+    This page serves multiple products dynamically.
 
-    The <noscript> fallback below only fires for a client that truly
-    never runs JS. It is NOT a fix for crawlers that fetch raw HTML
-    without rendering (Bing, most social/link-preview bots, or
-    Googlebot's first crawl pass before its render pass runs) — a
-    <link rel="canonical"> inside <noscript> is unreliable for that
-    case: some crawlers ignore <noscript> contents entirely, so those
-    clients see no canonical at all here rather than a wrong one.
-    That's the deliberate trade-off (no signal beats a wrong signal
-    pointing every product at the listing page), but it is still a
-    gap. The real fix is per-product static HTML generated at
-    deploy time so the canonical is baked into the raw response —
-    see the TODO in document.md.
+    The actual product-specific canonical URL
+    must be injected by JavaScript after the
+    product resolves.
+
+    Example:
+    https://banshiwale.com/pages/product-details.html?slug=silver-ring
+
+    Do NOT add a fixed canonical pointing to
+    products.html for every product.
   -->
-  <noscript>
-    <link
-      rel="canonical"
-      href="https://banshiwale.com/pages/products.html"
-    />
-  </noscript>
+
 
   <!-- ==========================================
        OPEN GRAPH
   =========================================== -->
 
   <meta
-    property="og:title"
-    content="Product Details | Banshiwale"
-  />
-
-  <meta
-    property="og:description"
-    content="Discover handcrafted sterling silver jewellery from banshiwale."
+    property="og:locale"
+    content="en_IN"
   />
 
   <meta
     property="og:type"
-    content="website"
+    content="product"
   />
+
+  <meta
+    property="og:site_name"
+    content="Banshiwale"
+  />
+
+  <meta
+    property="og:title"
+    content="Banshiwale | Silver Jewellery"
+  />
+
+  <meta
+    property="og:description"
+    content="Discover handcrafted sterling silver jewellery from Banshiwale. Explore timeless designs and exceptional craftsmanship."
+  />
+
+  <!--
+    Product-specific og:url, og:title,
+    og:description, and og:image should be
+    updated dynamically when the product loads.
+  -->
 
   <meta
     property="og:image"
     content="https://banshiwale.com/src/assets/images/og-image.jpg"
   />
 
+  <meta
+    property="og:image:alt"
+    content="Banshiwale silver jewellery"
+  />
+
+  <meta
+    property="og:image:type"
+    content="image/jpeg"
+  />
+
+  <meta
+    property="og:image:width"
+    content="1200"
+  />
+
+  <meta
+    property="og:image:height"
+    content="630"
+  />
+
+
   <!-- ==========================================
-       TWITTER
+       TWITTER / X
   =========================================== -->
 
   <meta
@@ -89,12 +147,12 @@
 
   <meta
     name="twitter:title"
-    content="Product Details | Banshiwale"
+    content="Banshiwale | Silver Jewellery"
   />
 
   <meta
     name="twitter:description"
-    content="Discover handcrafted sterling silver jewellery from banshiwale."
+    content="Discover handcrafted sterling silver jewellery from Banshiwale. Explore timeless designs and exceptional craftsmanship."
   />
 
   <meta
@@ -103,11 +161,24 @@
   />
 
   <meta
+    name="twitter:image:alt"
+    content="Banshiwale silver jewellery"
+  />
+
+
+  <!-- ==========================================
+       THEME
+  =========================================== -->
+
+  <meta
     name="theme-color"
     content="#181818"
   />
 
-  <!-- Favicon -->
+
+  <!-- ==========================================
+       FAVICON
+  =========================================== -->
 
   <link
     rel="icon"
@@ -134,7 +205,10 @@
     href="../apple-touch-icon.png"
   />
 
-  <!-- Fonts -->
+
+  <!-- ==========================================
+       GOOGLE FONTS
+  =========================================== -->
 
   <link
     rel="preconnect"
@@ -148,51 +222,49 @@
   />
 
   <link
-    rel="preload"
-    as="style"
+    rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+  />
+
+
+  <!-- ==========================================
+       CSS
+  =========================================== -->
+
+  <link
+    rel="stylesheet"
+    href="../src/features/animations/animations.css"
   />
 
   <link
     rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
-    media="print"
-    onload="this.media='all'; this.onload=null;"
+    href="../src/features/marquee/marquee.css"
   />
 
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" /></noscript>
+  <link
+    rel="stylesheet"
+    href="../src/features/announcement/announcement.css"
+  />
 
-  <link rel="stylesheet" href="../src/features/animations/animations.css" />
-  <link rel="stylesheet" href="../src/features/marquee/marquee.css" />
-  <link rel="stylesheet" href="../src/features/announcement/announcement.css" />
-  <link rel="stylesheet" href="../src/features/products/priceRangeSlider.css" />
+  <link
+    rel="stylesheet"
+    href="../src/features/products/priceRangeSlider.css"
+  />
 
   <link
     rel="stylesheet"
     href="../src/css/main.css"
   />
 
-  <script src="https://cdn.tailwindcss.com"></script>
 
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: "#A07936",
-            background: "#181818",
-            surface: "#1C1C1C",
-          },
+  <!-- ==========================================
+       TAILWIND
+  =========================================== -->
 
-          fontFamily: {
-            sans: ["Inter", "sans-serif"],
-            serif: ["Cormorant Garamond", "serif"],
-          },
-        },
-      },
-    };
-  </script>
-
+  <link
+    rel="stylesheet"
+    href="../src/css/tailwind.build.css"
+  />
 </head>
 
 <body
