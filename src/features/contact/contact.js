@@ -86,7 +86,7 @@ function createContactForm(contactInfo = {}) {
               uppercase
               tracking-[0.22em]
 
-              text-[#A07936]
+              text-primary
             "
           >
             Get In Touch
@@ -102,7 +102,7 @@ function createContactForm(contactInfo = {}) {
               text-4xl
               leading-tight
 
-              text-[#181818]
+              text-ink
 
               md:text-5xl
             "
@@ -153,7 +153,7 @@ function createContactForm(contactInfo = {}) {
                 block
                 text-sm
                 font-medium
-                text-[#181818]
+                text-ink
               "
             >
               Full Name
@@ -185,7 +185,7 @@ function createContactForm(contactInfo = {}) {
                 px-6
                 py-4
 
-                text-[#181818]
+                text-ink
 
                 outline-none
 
@@ -194,9 +194,9 @@ function createContactForm(contactInfo = {}) {
 
                 placeholder:text-[#A5A09A]
 
-                focus:border-[#A07936]
+                focus:border-primary
                 focus:ring-1
-                focus:ring-[#A07936]
+                focus:ring-primary
               "
             />
 
@@ -215,7 +215,7 @@ function createContactForm(contactInfo = {}) {
                 block
                 text-sm
                 font-medium
-                text-[#181818]
+                text-ink
               "
             >
               Email Address
@@ -245,7 +245,7 @@ function createContactForm(contactInfo = {}) {
                 px-6
                 py-4
 
-                text-[#181818]
+                text-ink
 
                 outline-none
 
@@ -254,9 +254,9 @@ function createContactForm(contactInfo = {}) {
 
                 placeholder:text-[#A5A09A]
 
-                focus:border-[#A07936]
+                focus:border-primary
                 focus:ring-1
-                focus:ring-[#A07936]
+                focus:ring-primary
               "
             />
 
@@ -275,7 +275,7 @@ function createContactForm(contactInfo = {}) {
                 block
                 text-sm
                 font-medium
-                text-[#181818]
+                text-ink
               "
             >
               Phone Number
@@ -307,7 +307,7 @@ function createContactForm(contactInfo = {}) {
                 px-6
                 py-4
 
-                text-[#181818]
+                text-ink
 
                 outline-none
 
@@ -316,9 +316,9 @@ function createContactForm(contactInfo = {}) {
 
                 placeholder:text-[#A5A09A]
 
-                focus:border-[#A07936]
+                focus:border-primary
                 focus:ring-1
-                focus:ring-[#A07936]
+                focus:ring-primary
               "
             />
 
@@ -337,7 +337,7 @@ function createContactForm(contactInfo = {}) {
                 block
                 text-sm
                 font-medium
-                text-[#181818]
+                text-ink
               "
             >
               Message
@@ -366,7 +366,7 @@ function createContactForm(contactInfo = {}) {
                 px-6
                 py-5
 
-                text-[#181818]
+                text-ink
 
                 outline-none
 
@@ -375,9 +375,9 @@ function createContactForm(contactInfo = {}) {
 
                 placeholder:text-[#A5A09A]
 
-                focus:border-[#A07936]
+                focus:border-primary
                 focus:ring-1
-                focus:ring-[#A07936]
+                focus:ring-primary
               "
             ></textarea>
 
@@ -416,7 +416,7 @@ function createContactForm(contactInfo = {}) {
 
               rounded-full
 
-              bg-[#181818]
+              bg-ink
 
               px-10
               py-4
@@ -447,7 +447,7 @@ function createContactForm(contactInfo = {}) {
 
                 rounded-full
 
-                bg-[#A07936]
+                bg-primary
 
                 transition-transform
                 duration-700
@@ -494,7 +494,7 @@ function createContactForm(contactInfo = {}) {
 
           rounded-[32px]
 
-          bg-[#181818]
+          bg-ink
 
           p-8
 
@@ -515,7 +515,7 @@ function createContactForm(contactInfo = {}) {
               uppercase
               tracking-[0.22em]
 
-              text-[#A07936]
+              text-primary
             "
           >
             Contact Banshiwale
@@ -616,7 +616,7 @@ function createContactForm(contactInfo = {}) {
                 border
                 border-white/10
 
-                text-[#A07936]
+                text-primary
               "
             >
 
@@ -640,7 +640,7 @@ function createContactForm(contactInfo = {}) {
                   uppercase
                   tracking-[0.18em]
 
-                  text-[#A07936]
+                  text-primary
                 "
               >
                 WhatsApp
@@ -701,7 +701,7 @@ function createContactForm(contactInfo = {}) {
                 border
                 border-white/10
 
-                text-[#A07936]
+                text-primary
               "
             >
 
@@ -730,7 +730,7 @@ function createContactForm(contactInfo = {}) {
                   uppercase
                   tracking-[0.18em]
 
-                  text-[#A07936]
+                  text-primary
                 "
               >
                 Email
@@ -793,7 +793,7 @@ function createContactForm(contactInfo = {}) {
                 border
                 border-white/10
 
-                text-[#A07936]
+                text-primary
               "
             >
 
@@ -817,7 +817,7 @@ function createContactForm(contactInfo = {}) {
                   uppercase
                   tracking-[0.18em]
 
-                  text-[#A07936]
+                  text-primary
                 "
               >
                 Phone
@@ -871,7 +871,7 @@ function createContactForm(contactInfo = {}) {
               uppercase
               tracking-[0.18em]
 
-              text-[#A07936]
+              text-primary
             "
           >
             Banshiwale Office
@@ -902,7 +902,7 @@ function createContactForm(contactInfo = {}) {
                 border
                 border-white/10
 
-                text-[#A07936]
+                text-primary
               "
             >
 
@@ -981,7 +981,7 @@ function createContactForm(contactInfo = {}) {
                   uppercase
                   tracking-[0.18em]
 
-                  text-[#A07936]
+                  text-primary
                 "
               >
                 Support Hours
@@ -1012,7 +1012,7 @@ function createContactForm(contactInfo = {}) {
 
                 rounded-full
 
-                bg-[#A07936]
+                bg-primary
 
                 shadow-[0_0_0_5px_rgba(160,121,54,.12)]
               "

@@ -87,10 +87,10 @@ export function createFaqCard(faq) {
             class="
               text-xl
               font-medium
-              text-[#181818]
+              text-ink
               transition-colors
               duration-300
-              group-hover:text-[#A07936]
+              group-hover:text-primary
             "
           >
             ${faq.question}
@@ -105,7 +105,7 @@ export function createFaqCard(faq) {
             h-6
             w-6
             shrink-0
-            text-[#A07936]
+            text-primary
             transition-transform
             duration-300
             group-hover:scale-110

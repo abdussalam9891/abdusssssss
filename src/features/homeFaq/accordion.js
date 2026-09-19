@@ -56,7 +56,7 @@ function renderFaqError() {
       "
     >
 
-      <p class="text-[#181818] font-medium">
+      <p class="text-ink font-medium">
         We couldn't load our FAQs right now.
       </p>
 
@@ -64,7 +64,7 @@ function renderFaqError() {
         Please try again shortly, or visit our
         <a
           href="/pages/faq.html"
-          class="text-[#A07936] underline underline-offset-2"
+          class="text-primary underline underline-offset-2"
         >FAQ page</a>
         directly.
       </p>
@@ -103,7 +103,7 @@ function renderShell(listContentHtml) {
               mt-4
               text-4xl
               font-serif
-              text-[#181818]
+              text-ink
             "
           >
             Everything You Need to Know
@@ -145,7 +145,7 @@ function renderShell(listContentHtml) {
               font-medium
               uppercase
               tracking-[0.18em]
-              text-[#A07936]
+              text-primary
               transition-all
               duration-300
               hover:gap-3
@@ -281,7 +281,7 @@ function initHomeFaqAccordion() {
             ?.classList.remove("rotate-45");
 
           faq.classList.remove(
-            "border-[#A07936]",
+            "border-primary",
             "shadow-xl"
           );
 
@@ -304,7 +304,7 @@ function initHomeFaqAccordion() {
         );
 
         item.classList.add(
-          "border-[#A07936]",
+          "border-primary",
           "shadow-xl"
         );
 

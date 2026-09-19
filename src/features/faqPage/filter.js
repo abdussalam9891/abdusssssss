@@ -74,8 +74,8 @@ export function initCategoryFilter() {
             (item) => {
 
               item.classList.remove(
-                "border-[#181818]",
-                "bg-[#181818]",
+                "border-ink",
+                "bg-ink",
                 "text-white"
               );
 
@@ -96,8 +96,8 @@ export function initCategoryFilter() {
           );
 
           button.classList.add(
-            "border-[#181818]",
-            "bg-[#181818]",
+            "border-ink",
+            "bg-ink",
             "text-white"
           );
 

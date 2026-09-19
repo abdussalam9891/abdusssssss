@@ -35,8 +35,8 @@ export function initFAQ() {
         otherItem
           .querySelector(".faq-icon")
           ?.classList.remove(
-            "bg-[#A07936]",
-            "border-[#A07936]",
+            "bg-primary",
+            "border-primary",
             "text-white"
           );
 
@@ -44,7 +44,7 @@ export function initFAQ() {
           .querySelector(".faq-icon")
           ?.classList.add(
             "border-[#E5DED5]",
-            "text-[#181818]"
+            "text-ink"
           );
 
         otherItem
@@ -66,14 +66,14 @@ export function initFAQ() {
         );
 
         icon.classList.remove(
-          "bg-[#A07936]",
-          "border-[#A07936]",
+          "bg-primary",
+          "border-primary",
           "text-white"
         );
 
         icon.classList.add(
           "border-[#E5DED5]",
-          "text-[#181818]"
+          "text-ink"
         );
 
         icon
@@ -95,12 +95,12 @@ export function initFAQ() {
 
         icon.classList.remove(
           "border-[#E5DED5]",
-          "text-[#181818]"
+          "text-ink"
         );
 
         icon.classList.add(
-          "bg-[#A07936]",
-          "border-[#A07936]",
+          "bg-primary",
+          "border-primary",
           "text-white"
         );
 

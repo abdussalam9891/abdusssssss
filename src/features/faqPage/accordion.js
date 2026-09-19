@@ -18,7 +18,7 @@ export function initAccordion() {
         faq.querySelector(".faq-content").classList.add("hidden");
         faq.querySelector(".faq-icon").classList.remove("rotate-45");
         faq.classList.remove(
-          "border-[#A07936]",
+          "border-primary",
           "shadow-xl"
         );
       });
@@ -30,7 +30,7 @@ export function initAccordion() {
       icon.classList.add("rotate-45");
 
       item.classList.add(
-        "border-[#A07936]",
+        "border-primary",
         "shadow-xl"
       );
     });
