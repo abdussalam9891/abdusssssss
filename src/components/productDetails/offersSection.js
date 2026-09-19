@@ -26,7 +26,7 @@ export function createOffersSection() {
 
       tracking-[0.22em]
 
-      text-[#A07936]
+      text-primary
     "
   >
     Offers For You

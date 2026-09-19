@@ -54,7 +54,7 @@ export function initGallery() {
         Number(button.dataset.index) === index;
 
       button.classList.toggle(
-        "border-[#A07936]",
+        "border-primary",
         isActive
       );
 

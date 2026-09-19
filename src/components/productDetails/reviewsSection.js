@@ -128,7 +128,7 @@ export function createReviewsSummary(product) {
 
       italic
 
-      text-[#181818]
+      text-ink
     "
   >
     ${product.averageRating.toFixed(1)}
@@ -192,7 +192,7 @@ export function createReviewsSection(product) {
 
         tracking-[0.28em]
 
-        text-[#A07936]
+        text-primary
       "
     >
       Ratings &amp; Reviews
@@ -226,7 +226,7 @@ export function createReviewsSection(product) {
 
         rounded-full
 
-        bg-[#181818]
+        bg-ink
 
         px-6
         py-3
@@ -259,7 +259,7 @@ export function createReviewsSection(product) {
 
           scale-x-0
 
-          bg-[#A07936]
+          bg-primary
 
           transition-transform
           duration-500

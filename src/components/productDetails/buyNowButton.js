@@ -41,7 +41,7 @@ export function createBuyNowButton(product) {
     border
     border-transparent
 
-    bg-[#181818]
+    bg-ink
 
     px-3
     py-3
@@ -91,7 +91,7 @@ export function createBuyNowButton(product) {
 
       scale-x-0
 
-      bg-[#A07936]
+      bg-primary
 
       transition-transform
       duration-500

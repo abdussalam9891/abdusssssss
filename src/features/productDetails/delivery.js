@@ -71,7 +71,7 @@ export function initDeliveryChecker() {
 
         setResult(
           `This product is not deliverable to ` +
-          `<span class="font-medium text-[#181818]">${escapeHtml(pincode)}</span>.`,
+          `<span class="font-medium text-ink">${escapeHtml(pincode)}</span>.`,
           "error"
         );
 
@@ -89,10 +89,10 @@ export function initDeliveryChecker() {
 
       setResult(
         (location
-          ? `<span class="block font-medium text-[#181818]">Delivering to ${escapeHtml(location)}</span>`
+          ? `<span class="block font-medium text-ink">Delivering to ${escapeHtml(location)}</span>`
           : "") +
         `<span class="block${location ? " mt-1" : ""}">Delivery available for ` +
-        `<span class="font-medium text-[#181818]">${escapeHtml(pincode)}</span></span>`,
+        `<span class="font-medium text-ink">${escapeHtml(pincode)}</span></span>`,
         "success"
       );
 
@@ -103,7 +103,7 @@ export function initDeliveryChecker() {
       // here" message rather than crashing the checker.
       setResult(
         `This product is not deliverable to ` +
-        `<span class="font-medium text-[#181818]">${escapeHtml(pincode)}</span>.`,
+        `<span class="font-medium text-ink">${escapeHtml(pincode)}</span>.`,
         "error"
       );
 

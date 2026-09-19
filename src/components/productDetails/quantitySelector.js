@@ -27,7 +27,7 @@ export function createQuantitySelector(product) {
 
       tracking-[0.22em]
 
-      text-[#A07936]
+      text-primary
     "
   >
     Quantity
@@ -63,7 +63,7 @@ export function createQuantitySelector(product) {
 
       tracking-[0.22em]
 
-      text-[#A07936]
+      text-primary
     "
   >
     Quantity
@@ -121,7 +121,7 @@ export function createQuantitySelector(product) {
           text-[15px]
           sm:text-base
 
-          text-[#181818]
+          text-ink
 
           transition-colors
           duration-300
@@ -152,7 +152,7 @@ export function createQuantitySelector(product) {
 
           font-medium
 
-          text-[#181818]
+          text-ink
         "
       >
         1
@@ -178,7 +178,7 @@ export function createQuantitySelector(product) {
           text-[15px]
           sm:text-base
 
-          text-[#181818]
+          text-ink
 
           transition-colors
           duration-300

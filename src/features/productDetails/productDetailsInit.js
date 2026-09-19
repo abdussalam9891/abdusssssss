@@ -87,7 +87,7 @@ function renderLoading(container) {
 
       border-2
       border-[#ECE5D8]
-      border-t-[#A07936]
+      border-t-primary
     "
   ></span>
 
@@ -110,7 +110,7 @@ function renderNotFound(container) {
 
     text-5xl
 
-    text-[#181818]
+    text-ink
   "
 >
   Product Not Found
@@ -133,7 +133,7 @@ function renderNotFound(container) {
 
     rounded-full
 
-    bg-[#181818]
+    bg-ink
 
     px-8
     py-4
@@ -151,7 +151,7 @@ function renderNotFound(container) {
     transition-colors
     duration-300
 
-    hover:bg-[#A07936]
+    hover:bg-primary
   "
 >
   Browse Collections
@@ -182,7 +182,7 @@ function renderError(container) {
     rounded-full
 
     border
-    border-[#181818]
+    border-ink
 
     px-8
     py-4
@@ -195,13 +195,13 @@ function renderError(container) {
 
     tracking-[0.18em]
 
-    text-[#181818]
+    text-ink
 
     transition-colors
     duration-300
 
-    hover:border-[#A07936]
-    hover:text-[#A07936]
+    hover:border-primary
+    hover:text-primary
   "
 >
   Browse Collections

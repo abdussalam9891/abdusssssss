@@ -261,7 +261,7 @@ export function createPricing(product) {
 
         font-semibold
 
-        text-[#181818]
+        text-ink
       "
     >
       ${finalPrice || "Price on request"}
@@ -312,7 +312,7 @@ export function createPricing(product) {
 
     tracking-[0.14em]
 
-    text-[#A07936]
+    text-primary
   "
 >
   ${escapeHtml(discount)}
@@ -395,7 +395,7 @@ function createVariants(product) {
 
       tracking-[0.22em]
 
-      text-[#A07936]
+      text-primary
     "
   >
     Select Option
@@ -464,13 +464,13 @@ function createVariants(product) {
 
     ${
       isDefault
-        ? "border-[#A07936]"
+        ? "border-primary"
         : "border-[#ECE5D8]"
     }
 
-    text-[#181818]
+    text-ink
 
-    hover:border-[#A07936]
+    hover:border-primary
     active:scale-95
   "
 >
@@ -537,7 +537,7 @@ function createSizes(product) {
 
       tracking-[0.22em]
 
-      text-[#A07936]
+      text-primary
     "
   >
     Select Size
@@ -602,14 +602,14 @@ function createSizes(product) {
 
     ${
       isDefault
-        ? "border-[#181818] bg-[#181818] text-white"
-        : "border-[#ECE5D8] text-[#181818]"
+        ? "border-ink bg-ink text-white"
+        : "border-[#ECE5D8] text-ink"
     }
 
     ${
       outOfStock
         ? "cursor-not-allowed opacity-40 line-through"
-        : "hover:border-[#A07936] active:scale-95"
+        : "hover:border-primary active:scale-95"
     }
   "
 >
@@ -659,7 +659,7 @@ export function createProductInfo(product) {
         leading-[1.1]
         lg:leading-[1.05]
 
-        text-[#181818]
+        text-ink
       "
     >
       ${escapeHtml(product.name)}

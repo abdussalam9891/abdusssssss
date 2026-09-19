@@ -34,12 +34,12 @@ export function initSizeSelector() {
         selectedLabel;
 
       button.classList.toggle(
-        "border-[#181818]",
+        "border-ink",
         isActive
       );
 
       button.classList.toggle(
-        "bg-[#181818]",
+        "bg-ink",
         isActive
       );
 
@@ -56,7 +56,7 @@ export function initSizeSelector() {
         );
 
         button.classList.toggle(
-          "text-[#181818]",
+          "text-ink",
           !isActive
         );
 

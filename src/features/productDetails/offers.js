@@ -80,7 +80,7 @@ function createOfferRow(coupon, index) {
     "
   >
 
-    <span class="text-[13px] font-medium text-[#181818]">
+    <span class="text-[13px] font-medium text-ink">
       ${escapeHtml(title)}
       ${
         subtitle
@@ -131,7 +131,7 @@ function createOfferRow(coupon, index) {
           text-[12px]
           font-semibold
 
-          text-[#181818]
+          text-ink
         "
       >
         ${escapeHtml(code)}
@@ -146,7 +146,7 @@ function createOfferRow(coupon, index) {
           text-[12px]
           font-semibold
 
-          text-[#A07936]
+          text-primary
 
           hover:underline
         "

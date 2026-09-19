@@ -36,7 +36,7 @@ export function createRecentlyViewedSection() {
           tracking-[0.24em]
           sm:tracking-[0.30em]
 
-          text-[#A07936]
+          text-primary
         "
       >
         Continue Exploring
@@ -55,7 +55,7 @@ export function createRecentlyViewedSection() {
 
           italic
 
-          text-[#181818]
+          text-ink
         "
       >
         Recently Viewed

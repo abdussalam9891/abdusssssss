@@ -58,7 +58,7 @@ function createRows(rows) {
 
       font-medium
 
-      text-[#181818]
+      text-ink
     "
   >
     ${escapeHtml(value)}
@@ -271,7 +271,7 @@ export function createProductTabs(product) {
 
         tracking-[0.28em]
 
-        text-[#A07936]
+        text-primary
       "
     >
       Product Details
@@ -318,7 +318,7 @@ ${tabs
 
         italic
 
-        text-[#181818]
+        text-ink
       "
     >
       ${tab.title}
@@ -337,7 +337,7 @@ ${tabs
         h-5
         w-5
 
-        text-[#A07936]
+        text-primary
 
         transition-transform
         duration-300

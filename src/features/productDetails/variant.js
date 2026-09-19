@@ -39,7 +39,7 @@ export function initVariantSelector() {
         selectedId;
 
       button.classList.toggle(
-        "border-[#A07936]",
+        "border-primary",
         isActive
       );
 

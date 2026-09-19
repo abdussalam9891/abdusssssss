@@ -78,7 +78,7 @@ export function createStickyActionBar(product) {
 
           italic
 
-          text-[#181818]
+          text-ink
         "
       >
         ${escapeHtml(product.name)}
@@ -96,7 +96,7 @@ export function createStickyActionBar(product) {
 
     font-medium
 
-    text-[#A07936]
+    text-primary
   "
 >
   ${price}
@@ -128,7 +128,7 @@ export function createStickyActionBar(product) {
         sm:rounded-2xl
 
         border
-        border-[#181818]
+        border-ink
 
         h-11
         w-11
@@ -136,13 +136,13 @@ export function createStickyActionBar(product) {
         sm:h-12
         sm:w-12
 
-        text-[#181818]
+        text-ink
 
         transition-all
         duration-300
 
-        hover:border-[#A07936]
-        hover:text-[#A07936]
+        hover:border-primary
+        hover:text-primary
 
         active:scale-[0.96]
 
@@ -185,7 +185,7 @@ export function createStickyActionBar(product) {
         rounded-xl
         sm:rounded-2xl
 
-        bg-[#181818]
+        bg-ink
 
         px-4
         py-3
@@ -208,7 +208,7 @@ export function createStickyActionBar(product) {
         transition-all
         duration-300
 
-        hover:bg-[#A07936]
+        hover:bg-primary
 
         active:scale-[0.96]
 

@@ -60,7 +60,7 @@ export function createRelatedProductsSection() {
             tracking-[0.24em]
             sm:tracking-[0.28em]
 
-            text-[#A07936]
+            text-primary
           "
         >
           More To Explore
@@ -80,7 +80,7 @@ export function createRelatedProductsSection() {
 
             leading-tight
 
-            text-[#181818]
+            text-ink
           "
         >
           You May Also Like
@@ -110,12 +110,12 @@ export function createRelatedProductsSection() {
 
           tracking-[0.16em]
 
-          text-[#181818]
+          text-ink
 
           transition-colors
           duration-300
 
-          hover:text-[#A07936]
+          hover:text-primary
 
           sm:inline-flex
         "

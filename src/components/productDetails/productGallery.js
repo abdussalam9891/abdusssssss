@@ -169,7 +169,7 @@ export function createProductGallery(product) {
 
     bg-white/85
 
-    text-[#181818]
+    text-ink
 
     opacity-0
 
@@ -213,7 +213,7 @@ export function createProductGallery(product) {
 
     bg-white/85
 
-    text-[#181818]
+    text-ink
 
     opacity-0
 
@@ -322,7 +322,7 @@ export function createProductGallery(product) {
 
     ${
       index === 0
-        ? "border-[#A07936]"
+        ? "border-primary"
         : "border-[#ECE5D8]"
     }
 
@@ -331,7 +331,7 @@ export function createProductGallery(product) {
     transition-all
     duration-300
 
-    hover:border-[#A07936]
+    hover:border-primary
   "
 >
 

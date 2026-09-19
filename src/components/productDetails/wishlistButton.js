@@ -58,7 +58,7 @@ export function createWishlistButton(product) {
     tracking-[0.03em]
     sm:tracking-[0.18em]
 
-    text-[#181818]
+    text-ink
 
     shadow-[0_1px_2px_rgba(0,0,0,0.04)]
 
@@ -66,8 +66,8 @@ export function createWishlistButton(product) {
     duration-300
 
     hover:-translate-y-0.5
-    hover:border-[#A07936]
-    hover:text-[#A07936]
+    hover:border-primary
+    hover:text-primary
     hover:shadow-[0_14px_30px_rgba(0,0,0,0.08)]
 
     active:translate-y-0

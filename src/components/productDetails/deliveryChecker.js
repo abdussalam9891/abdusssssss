@@ -20,7 +20,7 @@ export function createDeliveryChecker() {
 
       tracking-[0.22em]
 
-      text-[#A07936]
+      text-primary
     "
   >
     Check Delivery
@@ -69,7 +69,7 @@ export function createDeliveryChecker() {
         text-[13px]
         sm:text-[14px]
 
-        text-[#181818]
+        text-ink
 
         outline-none
 
@@ -78,7 +78,7 @@ export function createDeliveryChecker() {
 
         placeholder:text-[#B5AE9F]
 
-        focus:border-[#A07936]
+        focus:border-primary
       "
     >
 
@@ -93,7 +93,7 @@ export function createDeliveryChecker() {
         sm:rounded-2xl
 
         border
-        border-[#181818]
+        border-ink
 
         px-4
         py-2.5
@@ -111,13 +111,13 @@ export function createDeliveryChecker() {
         tracking-[0.05em]
         sm:tracking-[0.14em]
 
-        text-[#181818]
+        text-ink
 
         transition-colors
         duration-300
 
-        hover:border-[#A07936]
-        hover:text-[#A07936]
+        hover:border-primary
+        hover:text-primary
 
         active:scale-[0.97]
       "

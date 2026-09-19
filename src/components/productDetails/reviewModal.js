@@ -73,7 +73,7 @@ export function createReviewModal() {
 
           italic
 
-          text-[#181818]
+          text-ink
         "
       >
         Add Your Review
@@ -89,7 +89,7 @@ export function createReviewModal() {
           transition-colors
           duration-300
 
-          hover:text-[#181818]
+          hover:text-ink
         "
       >
         <i data-lucide="x" class="h-5 w-5"></i>
@@ -112,7 +112,7 @@ export function createReviewModal() {
 
             tracking-[0.18em]
 
-            text-[#A07936]
+            text-primary
           "
         >
           Your Rating
@@ -164,7 +164,7 @@ export function createReviewModal() {
 
             tracking-[0.18em]
 
-            text-[#A07936]
+            text-primary
           "
         >
           Your Review
@@ -194,7 +194,7 @@ export function createReviewModal() {
 
             text-[14px]
 
-            text-[#181818]
+            text-ink
 
             outline-none
 
@@ -203,7 +203,7 @@ export function createReviewModal() {
 
             placeholder:text-[#B5AE9F]
 
-            focus:border-[#A07936]
+            focus:border-primary
           "
         ></textarea>
 
@@ -241,12 +241,12 @@ export function createReviewModal() {
 
             tracking-[0.14em]
 
-            text-[#181818]
+            text-ink
 
             transition-colors
             duration-300
 
-            hover:border-[#A07936]
+            hover:border-primary
           "
         >
           Cancel
@@ -261,7 +261,7 @@ export function createReviewModal() {
 
             rounded-full
 
-            bg-[#181818]
+            bg-ink
 
             py-3
 
@@ -278,7 +278,7 @@ export function createReviewModal() {
             transition-colors
             duration-300
 
-            hover:bg-[#A07936]
+            hover:bg-primary
 
             disabled:cursor-not-allowed
             disabled:opacity-60

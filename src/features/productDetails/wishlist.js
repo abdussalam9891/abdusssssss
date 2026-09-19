@@ -19,12 +19,12 @@ function setPressed(button, label, pressed) {
 
 
   button.classList.toggle(
-    "border-[#A07936]",
+    "border-primary",
     pressed
   );
 
   button.classList.toggle(
-    "text-[#A07936]",
+    "text-primary",
     pressed
   );
 

@@ -70,7 +70,7 @@ export function createBenefitsRow() {
 
   ${icon(
     ICONS[benefit.icon] || "sparkles",
-    "h-5 w-5 text-[#A07936]"
+    "h-5 w-5 text-primary"
   )}
 
   <span
