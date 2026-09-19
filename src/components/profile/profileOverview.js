@@ -48,7 +48,7 @@ function createStatCard({ label, count, iconName }) {
 
         text-[32px]
 
-        text-[#181818]
+        text-ink
       "
     >
       ${count}
@@ -69,7 +69,7 @@ function createStatCard({ label, count, iconName }) {
 
       bg-[#FAF7F1]
 
-      text-[#A07936]
+      text-primary
     "
   >
     ${icon(iconName, "h-5 w-5")}
@@ -111,7 +111,7 @@ function createQuickAction({ label, description, iconName, href, tab }) {
     transition-colors
     duration-300
 
-    hover:border-[#A07936]
+    hover:border-primary
   "
 >
 
@@ -128,12 +128,12 @@ function createQuickAction({ label, description, iconName, href, tab }) {
 
       bg-[#FAF7F1]
 
-      text-[#A07936]
+      text-primary
 
       transition-colors
       duration-300
 
-      group-hover:bg-[#181818]
+      group-hover:bg-ink
       group-hover:text-white
     "
   >
@@ -147,7 +147,7 @@ function createQuickAction({ label, description, iconName, href, tab }) {
         text-[14px]
         font-medium
 
-        text-[#181818]
+        text-ink
       "
     >
       ${escapeHtml(label)}
@@ -190,7 +190,7 @@ export function createProfileOverview({
       text-[24px]
       sm:text-[28px]
 
-      text-[#181818]
+      text-ink
     "
   >
     ${fullName ? `Welcome, ${escapeHtml(fullName)}` : "Overview"}

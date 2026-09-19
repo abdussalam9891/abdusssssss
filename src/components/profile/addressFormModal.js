@@ -32,7 +32,7 @@ const INPUT_CLASSES = `
 
   text-[14px]
 
-  text-[#181818]
+  text-ink
 
   outline-none
 
@@ -41,9 +41,9 @@ const INPUT_CLASSES = `
 
   placeholder:text-[#B0AA9D]
 
-  focus:border-[#A07936]
+  focus:border-primary
   focus:ring-1
-  focus:ring-[#A07936]
+  focus:ring-primary
 `;
 
 const LABEL_CLASSES = `
@@ -51,7 +51,7 @@ const LABEL_CLASSES = `
   block
   text-[12px]
   font-medium
-  text-[#181818]
+  text-ink
 `;
 
 
@@ -159,7 +159,7 @@ export function createAddressFormModal() {
 
           italic
 
-          text-[#181818]
+          text-ink
         "
       >
         Add Address
@@ -187,7 +187,7 @@ export function createAddressFormModal() {
           duration-300
 
           hover:bg-[#FAF7F1]
-          hover:text-[#181818]
+          hover:text-ink
         "
       >
         <i data-lucide="x" class="h-5 w-5"></i>
@@ -352,9 +352,9 @@ export function createAddressFormModal() {
 
               border-[#DDD7CF]
 
-              text-[#A07936]
+              text-primary
 
-              focus:ring-[#A07936]
+              focus:ring-primary
             "
           />
           <span class="text-[13px] text-[#55514B]">
@@ -413,12 +413,12 @@ export function createAddressFormModal() {
 
             tracking-[0.14em]
 
-            text-[#181818]
+            text-ink
 
             transition-colors
             duration-300
 
-            hover:border-[#A07936]
+            hover:border-primary
           "
         >
           Cancel
@@ -433,7 +433,7 @@ export function createAddressFormModal() {
 
             rounded-full
 
-            bg-[#181818]
+            bg-ink
 
             py-3.5
 
@@ -450,7 +450,7 @@ export function createAddressFormModal() {
             transition-colors
             duration-300
 
-            hover:bg-[#A07936]
+            hover:bg-primary
 
             disabled:cursor-not-allowed
             disabled:opacity-60

@@ -18,7 +18,7 @@ function navLinkClasses(isActive) {
       items-center
       gap-3
       rounded-2xl
-      bg-[#181818]
+      bg-ink
       px-5
       py-3.5
       text-[14px]
@@ -39,7 +39,7 @@ function navLinkClasses(isActive) {
       transition-colors
       duration-300
       hover:bg-[#FAF7F1]
-      hover:text-[#A07936]
+      hover:text-primary
     `;
 }
 
@@ -58,7 +58,7 @@ function externalLinkClasses() {
     transition-colors
     duration-300
     hover:bg-[#FAF7F1]
-    hover:text-[#A07936]
+    hover:text-primary
   `;
 }
 
@@ -111,7 +111,7 @@ export function createProfileSidebar(user, activeTab = "overview") {
         bg-[#FAF7F1]
         text-[18px]
         font-medium
-        text-[#A07936]
+        text-primary
       "
     >
       ${escapeHtml(initial)}
@@ -124,7 +124,7 @@ export function createProfileSidebar(user, activeTab = "overview") {
           text-[11px]
           uppercase
           tracking-[0.2em]
-          text-[#A07936]
+          text-primary
         "
       >
         Welcome Back
@@ -136,7 +136,7 @@ export function createProfileSidebar(user, activeTab = "overview") {
           truncate
           text-[16px]
           font-medium
-          text-[#181818]
+          text-ink
         "
       >
         ${escapeHtml(fullName)}
@@ -231,8 +231,8 @@ export function createProfileSidebar(user, activeTab = "overview") {
         text-[#6D6861]
         transition-all
         duration-300
-        hover:border-[#181818]
-        hover:bg-[#181818]
+        hover:border-ink
+        hover:bg-ink
         hover:text-white
       "
     >

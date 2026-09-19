@@ -61,7 +61,7 @@ export function createAddressCard(address = {}) {
     rounded-[22px]
 
     border
-    ${isDefault ? "border-[#A07936]" : "border-[#F3EEE6]"}
+    ${isDefault ? "border-primary" : "border-[#F3EEE6]"}
 
     bg-white
 
@@ -90,7 +90,7 @@ export function createAddressCard(address = {}) {
       uppercase
       tracking-[0.14em]
 
-      text-[#A07936]
+      text-primary
     "
   >
     Default
@@ -99,7 +99,7 @@ export function createAddressCard(address = {}) {
       : ""
   }
 
-  <p class="pr-20 text-[15px] font-medium text-[#181818]">
+  <p class="pr-20 text-[15px] font-medium text-ink">
     ${escapeHtml(name)}
   </p>
 
@@ -147,8 +147,8 @@ export function createAddressCard(address = {}) {
         transition-colors
         duration-300
 
-        hover:border-[#A07936]
-        hover:text-[#A07936]
+        hover:border-primary
+        hover:text-primary
       "
     >
       ${icon("pencil", "h-3.5 w-3.5")}

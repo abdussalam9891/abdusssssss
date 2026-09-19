@@ -28,7 +28,7 @@ export function createAddressesPanel() {
           text-[24px]
           sm:text-[28px]
 
-          text-[#181818]
+          text-ink
         "
       >
         Addresses
@@ -53,7 +53,7 @@ export function createAddressesPanel() {
 
         rounded-full
 
-        bg-[#181818]
+        bg-ink
 
         px-6
         py-3
@@ -71,7 +71,7 @@ export function createAddressesPanel() {
         transition-colors
         duration-300
 
-        hover:bg-[#A07936]
+        hover:bg-primary
       "
     >
       ${icon("plus", "h-4 w-4")}

@@ -49,7 +49,7 @@ export function createProfileLayout() {
 
           italic
 
-          text-[#181818]
+          text-ink
         "
       >
         My Account
@@ -112,7 +112,7 @@ export function createProfileLayout() {
 
           rounded-full
 
-          bg-[#181818]
+          bg-ink
 
           px-8
           py-4
@@ -130,7 +130,7 @@ export function createProfileLayout() {
           transition-colors
           duration-300
 
-          hover:bg-[#A07936]
+          hover:bg-primary
         "
       >
         Sign In

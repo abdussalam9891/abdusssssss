@@ -16,7 +16,7 @@ export function createForgotPasswordForm() {
             block
             text-sm
             font-medium
-            text-[#181818]
+            text-ink
           "
         >
           Email Address
@@ -24,7 +24,7 @@ export function createForgotPasswordForm() {
 
         <div class="relative">
 
-          <span class="pointer-events-none absolute left-5 top-1/2 -translate-y-1/2 text-[#A07936]">
+          <span class="pointer-events-none absolute left-5 top-1/2 -translate-y-1/2 text-primary">
             <i data-lucide="mail" class="h-4 w-4"></i>
           </span>
 
@@ -48,10 +48,10 @@ export function createForgotPasswordForm() {
               outline-none
               transition-all
               duration-300
-              focus:border-[#A07936]
+              focus:border-primary
               focus:bg-white
               focus:ring-4
-              focus:ring-[#A07936]/10
+              focus:ring-primary/10
             "
           >
 
@@ -81,7 +81,7 @@ export function createForgotPasswordForm() {
               block
               text-sm
               font-medium
-              text-[#181818]
+              text-ink
             "
           >
             Verification Code
@@ -109,10 +109,10 @@ export function createForgotPasswordForm() {
               outline-none
               transition-all
               duration-300
-              focus:border-[#A07936]
+              focus:border-primary
               focus:bg-white
               focus:ring-4
-              focus:ring-[#A07936]/10
+              focus:ring-primary/10
             "
           >
 
@@ -140,7 +140,7 @@ export function createForgotPasswordForm() {
               block
               text-sm
               font-medium
-              text-[#181818]
+              text-ink
             "
           >
             New Password
@@ -148,7 +148,7 @@ export function createForgotPasswordForm() {
 
           <div class="relative">
 
-            <span class="pointer-events-none absolute left-5 top-1/2 -translate-y-1/2 text-[#A07936]">
+            <span class="pointer-events-none absolute left-5 top-1/2 -translate-y-1/2 text-primary">
               <i data-lucide="lock" class="h-4 w-4"></i>
             </span>
 
@@ -171,10 +171,10 @@ export function createForgotPasswordForm() {
                 outline-none
                 transition-all
                 duration-300
-                focus:border-[#A07936]
+                focus:border-primary
                 focus:bg-white
                 focus:ring-4
-                focus:ring-[#A07936]/10
+                focus:ring-primary/10
               "
             >
 
@@ -194,7 +194,7 @@ export function createForgotPasswordForm() {
               block
               text-sm
               font-medium
-              text-[#181818]
+              text-ink
             "
           >
             Confirm New Password
@@ -202,7 +202,7 @@ export function createForgotPasswordForm() {
 
           <div class="relative">
 
-            <span class="pointer-events-none absolute left-5 top-1/2 -translate-y-1/2 text-[#A07936]">
+            <span class="pointer-events-none absolute left-5 top-1/2 -translate-y-1/2 text-primary">
               <i data-lucide="lock" class="h-4 w-4"></i>
             </span>
 
@@ -225,10 +225,10 @@ export function createForgotPasswordForm() {
                 outline-none
                 transition-all
                 duration-300
-                focus:border-[#A07936]
+                focus:border-primary
                 focus:bg-white
                 focus:ring-4
-                focus:ring-[#A07936]/10
+                focus:ring-primary/10
               "
             >
 
@@ -253,7 +253,7 @@ export function createForgotPasswordForm() {
           justify-center
           overflow-hidden
           rounded-2xl
-          bg-[#181818]
+          bg-ink
           py-4
           text-sm
           font-medium
@@ -273,7 +273,7 @@ export function createForgotPasswordForm() {
             inset-0
             origin-left
             scale-x-0
-            bg-[#A07936]
+            bg-primary
             transition-transform
             duration-500
             group-hover:scale-x-100
@@ -306,7 +306,7 @@ export function createForgotPasswordForm() {
           href="/pages/login.html"
           class="
             font-medium
-            text-[#A07936]
+            text-primary
             hover:underline
           "
         >

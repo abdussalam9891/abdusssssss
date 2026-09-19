@@ -24,7 +24,7 @@ export function createLoginForm() {
 
         -translate-y-1/2
 
-        text-[#A07936]
+        text-primary
       "
     >
 
@@ -68,10 +68,10 @@ export function createLoginForm() {
         transition-all
         duration-300
 
-        focus:border-[#A07936]
+        focus:border-primary
         focus:bg-white
         focus:ring-4
-        focus:ring-[#A07936]/10
+        focus:ring-primary/10
       "
     >
 
@@ -97,7 +97,7 @@ export function createLoginForm() {
         class="
           text-[13px]
 
-          text-[#A07936]
+          text-primary
 
           transition
 
@@ -121,7 +121,7 @@ export function createLoginForm() {
 
           -translate-y-1/2
 
-          text-[#A07936]
+          text-primary
         "
       >
 
@@ -167,10 +167,10 @@ export function createLoginForm() {
           transition-all
           duration-300
 
-          focus:border-[#A07936]
+          focus:border-primary
           focus:bg-white
           focus:ring-4
-          focus:ring-[#A07936]/10
+          focus:ring-primary/10
         "
       >
 
@@ -192,7 +192,7 @@ export function createLoginForm() {
 
           transition
 
-          hover:text-[#A07936]
+          hover:text-primary
         "
       >
 
@@ -228,7 +228,7 @@ export function createLoginForm() {
         h-4
         w-4
 
-        accent-[#A07936]
+        accent-primary
       "
     >
 
@@ -259,7 +259,7 @@ export function createLoginForm() {
 
       rounded-2xl
 
-      bg-[#181818]
+      bg-ink
 
       text-[13px]
       font-medium
@@ -288,7 +288,7 @@ export function createLoginForm() {
 
         scale-x-0
 
-        bg-[#A07936]
+        bg-primary
 
         transition-transform
         duration-500
@@ -368,7 +368,7 @@ export function createLoginForm() {
     transition-all
     duration-300
 
-    hover:border-[#A07936]
+    hover:border-primary
     hover:-translate-y-0.5
     hover:shadow-lg
   "
@@ -406,12 +406,12 @@ export function createLoginForm() {
       text-[14px]
       font-medium
 
-      text-[#181818]
+      text-ink
 
       transition-colors
       duration-300
 
-      group-hover:text-[#A07936]
+      group-hover:text-primary
     "
   >
     Continue with Google
@@ -440,7 +440,7 @@ export function createLoginForm() {
       class="
         font-medium
 
-        text-[#A07936]
+        text-primary
 
         transition
 

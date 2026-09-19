@@ -227,7 +227,7 @@ export function createAuthModal() {
             h-10
             w-10
 
-            text-[#A07936]
+            text-primary
 
             drop-shadow-[0_2px_6px_rgba(0,0,0,.25)]
           "
@@ -274,7 +274,7 @@ export function createAuthModal() {
           text-[30px]
           leading-tight
 
-          text-[#181818]
+          text-ink
         "
       >
       </h2>
@@ -299,7 +299,7 @@ export function createAuthModal() {
             h-px
             w-7
 
-            bg-[#A07936]/50
+            bg-primary/50
           "
         ></span>
 
@@ -310,7 +310,7 @@ export function createAuthModal() {
             h-3
             w-3
 
-            text-[#A07936]
+            text-primary
           "
         ></i>
 
@@ -319,7 +319,7 @@ export function createAuthModal() {
             h-px
             w-7
 
-            bg-[#A07936]/50
+            bg-primary/50
           "
         ></span>
 
@@ -370,9 +370,9 @@ export function createAuthModal() {
           rounded-full
 
           bg-gradient-to-r
-          from-[#181818]
+          from-ink
           via-[#242424]
-          to-[#181818]
+          to-ink
 
           text-[13px]
           font-semibold
@@ -387,7 +387,7 @@ export function createAuthModal() {
           duration-300
 
           hover:-translate-y-0.5
-          hover:from-[#A07936]
+          hover:from-primary
           hover:via-[#B78D46]
           hover:to-[#8C6A2C]
           hover:shadow-[0_14px_34px_rgba(160,121,54,.45)]
@@ -413,12 +413,12 @@ export function createAuthModal() {
           text-[14px]
           font-medium
 
-          text-[#181818]
+          text-ink
 
           transition-colors
           duration-300
 
-          hover:text-[#A07936]
+          hover:text-primary
         "
       >
         Create Account
@@ -446,7 +446,7 @@ export function createAuthModal() {
           transition-colors
           duration-300
 
-          hover:text-[#A07936]
+          hover:text-primary
         "
       >
 

@@ -16,7 +16,7 @@ const INPUT_CLASSES = `
 
   text-[15px]
 
-  text-[#181818]
+  text-ink
 
   outline-none
 
@@ -25,9 +25,9 @@ const INPUT_CLASSES = `
 
   placeholder:text-[#A5A09A]
 
-  focus:border-[#A07936]
+  focus:border-primary
   focus:ring-1
-  focus:ring-[#A07936]
+  focus:ring-primary
 
   disabled:bg-[#FAF8F5]
   disabled:text-[#8A8A8A]
@@ -49,7 +49,7 @@ function field({ id, name, label, type = "text", value = "", disabled = false, e
       text-[13px]
       font-medium
 
-      text-[#181818]
+      text-ink
     "
   >
     ${label}
@@ -127,7 +127,7 @@ export function createProfileInfoForm(user = {}) {
       text-[24px]
       sm:text-[28px]
 
-      text-[#181818]
+      text-ink
     "
   >
     My Profile
@@ -210,7 +210,7 @@ export function createProfileInfoForm(user = {}) {
 
           rounded-full
 
-          bg-[#181818]
+          bg-ink
 
           px-9
           py-3.5
@@ -228,7 +228,7 @@ export function createProfileInfoForm(user = {}) {
           transition-colors
           duration-300
 
-          hover:bg-[#A07936]
+          hover:bg-primary
 
           disabled:cursor-not-allowed
           disabled:opacity-60

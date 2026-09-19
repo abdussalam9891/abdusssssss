@@ -386,9 +386,9 @@ lg:p-4
               transition-all
               duration-300
 
-              hover:border-[#A07936]
+              hover:border-primary
 
-              hover:text-[#A07936]
+              hover:text-primary
             "
           >
 
@@ -471,7 +471,7 @@ lg:p-4
 
               tracking-tight
 
-              text-[#181818]
+              text-ink
             "
           >
 

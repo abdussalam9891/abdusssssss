@@ -11,7 +11,7 @@ export function createRegisterForm() {
   <!-- First Name -->
   <div class="relative">
 
-    <span class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#A07936]">
+    <span class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-primary">
       <i data-lucide="user" class="h-4 w-4"></i>
     </span>
 
@@ -37,10 +37,10 @@ export function createRegisterForm() {
       outline-none
       transition-all
       duration-300
-      focus:border-[#A07936]
+      focus:border-primary
       focus:bg-white
       focus:ring-4
-      focus:ring-[#A07936]/10
+      focus:ring-primary/10
     "
   >
 
@@ -50,7 +50,7 @@ export function createRegisterForm() {
   <!-- Last Name -->
   <div class="relative">
 
-    <span class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#A07936]">
+    <span class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-primary">
       <i data-lucide="user" class="h-4 w-4"></i>
     </span>
 
@@ -76,10 +76,10 @@ export function createRegisterForm() {
       outline-none
       transition-all
       duration-300
-      focus:border-[#A07936]
+      focus:border-primary
       focus:bg-white
       focus:ring-4
-      focus:ring-[#A07936]/10
+      focus:ring-primary/10
     "
   >
 
@@ -90,7 +90,7 @@ export function createRegisterForm() {
       <!-- Email -->
       <div class="relative">
 
-        <span class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#A07936]">
+        <span class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-primary">
           <i data-lucide="mail" class="h-4 w-4"></i>
         </span>
 
@@ -115,10 +115,10 @@ export function createRegisterForm() {
             outline-none
             transition-all
             duration-300
-            focus:border-[#A07936]
+            focus:border-primary
             focus:bg-white
             focus:ring-4
-            focus:ring-[#A07936]/10
+            focus:ring-primary/10
           "
         >
 
@@ -127,7 +127,7 @@ export function createRegisterForm() {
       <!-- Mobile Number -->
       <div class="relative">
 
-        <span class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#A07936]">
+        <span class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-primary">
           <i data-lucide="phone" class="h-4 w-4"></i>
         </span>
 
@@ -154,10 +154,10 @@ export function createRegisterForm() {
       outline-none
       transition-all
       duration-300
-      focus:border-[#A07936]
+      focus:border-primary
       focus:bg-white
       focus:ring-4
-      focus:ring-[#A07936]/10
+      focus:ring-primary/10
     "
   >
 
@@ -166,7 +166,7 @@ export function createRegisterForm() {
       <!-- Password -->
       <div class="relative">
 
-        <span class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#A07936]">
+        <span class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-primary">
           <i data-lucide="lock" class="h-4 w-4"></i>
         </span>
 
@@ -192,10 +192,10 @@ export function createRegisterForm() {
             outline-none
             transition-all
             duration-300
-            focus:border-[#A07936]
+            focus:border-primary
             focus:bg-white
             focus:ring-4
-            focus:ring-[#A07936]/10
+            focus:ring-primary/10
           "
         >
 
@@ -209,7 +209,7 @@ export function createRegisterForm() {
             -translate-y-1/2
             text-[#888]
             transition
-            hover:text-[#A07936]
+            hover:text-primary
           "
           aria-label="Show password"
         >
@@ -224,7 +224,7 @@ export function createRegisterForm() {
       <!-- Confirm Password -->
       <div class="relative">
 
-        <span class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#A07936]">
+        <span class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-primary">
           <i data-lucide="lock" class="h-4 w-4"></i>
         </span>
 
@@ -250,10 +250,10 @@ export function createRegisterForm() {
             outline-none
             transition-all
             duration-300
-            focus:border-[#A07936]
+            focus:border-primary
             focus:bg-white
             focus:ring-4
-            focus:ring-[#A07936]/10
+            focus:ring-primary/10
           "
         >
 
@@ -267,7 +267,7 @@ export function createRegisterForm() {
             -translate-y-1/2
             text-[#888]
             transition
-            hover:text-[#A07936]
+            hover:text-primary
           "
           aria-label="Show password"
         >
@@ -301,7 +301,7 @@ export function createRegisterForm() {
             h-4
             w-4
             shrink-0
-            accent-[#A07936]
+            accent-primary
           "
         >
 
@@ -311,7 +311,7 @@ export function createRegisterForm() {
           <a
             href="/pages/terms-and-conditions.html"
             class="
-              text-[#A07936]
+              text-primary
               hover:underline
             "
           >
@@ -323,7 +323,7 @@ export function createRegisterForm() {
           <a
             href="/pages/privacy-policy.html"
             class="
-              text-[#A07936]
+              text-primary
               hover:underline
             "
           >
@@ -346,7 +346,7 @@ export function createRegisterForm() {
           justify-center
           overflow-hidden
           rounded-2xl
-          bg-[#181818]
+          bg-ink
           text-[13px]
           font-medium
           uppercase
@@ -365,7 +365,7 @@ export function createRegisterForm() {
             inset-0
             origin-left
             scale-x-0
-            bg-[#A07936]
+            bg-primary
             transition-transform
             duration-500
             group-hover:scale-x-100
@@ -430,7 +430,7 @@ export function createRegisterForm() {
           transition-all
           duration-300
           hover:-translate-y-0.5
-          hover:border-[#A07936]
+          hover:border-primary
           hover:shadow-lg
         "
       >
@@ -465,10 +465,10 @@ export function createRegisterForm() {
           class="
             text-[14px]
             font-medium
-            text-[#181818]
+            text-ink
             transition-colors
             duration-300
-            group-hover:text-[#A07936]
+            group-hover:text-primary
           "
         >
           Continue with Google
@@ -490,7 +490,7 @@ export function createRegisterForm() {
           href="/pages/login.html"
           class="
             font-medium
-            text-[#A07936]
+            text-primary
             hover:underline
           "
         >
