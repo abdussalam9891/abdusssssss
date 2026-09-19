@@ -1,45 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
+  
 <head>
 
+  <!-- ==========================================
+       DOMAIN REDIRECT
+  =========================================== -->
+
   <script>
-    if (location.hostname === 'www.banshiwale.com') {
-      location.replace('https://banshiwale.com' + location.pathname + location.search + location.hash);
+    if (location.hostname === "www.banshiwale.com") {
+      location.replace(
+        "https://banshiwale.com" +
+        location.pathname +
+        location.search +
+        location.hash
+      );
     }
   </script>
 
-  <!-- ========================================= -->
-  <!-- Basic Meta -->
-  <!-- ========================================= -->
+  <!-- ==========================================
+       BASIC META
+  =========================================== -->
 
   <meta charset="UTF-8" />
+
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
   />
 
-  <title>
-    Banshiwale | Premium Sterling Silver Jewellery for Men
-  </title>
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="IE=edge"
+  />
+
+  <!-- ==========================================
+       SEO
+  =========================================== -->
+
+  <title>Banshiwale | Premium Sterling Silver Jewellery for Men</title>
 
   <meta
     name="description"
-    content="Discover premium sterling silver jewellery for men. Shop handcrafted chains, rings, bracelets and pendants from banshiwale."
-  />
-
-  <meta
-    name="keywords"
-    content="banshiwale, Sterling Silver Jewellery, Men's Jewellery, Silver Chains, Silver Rings, Silver Bracelets"
+    content="Discover premium sterling silver jewellery for men at Banshiwale. Explore chains, rings, bracelets and pendants designed for modern style."
   />
 
   <meta
     name="author"
-    content="banshiwale"
+    content="Banshiwale"
   />
 
   <meta
     name="robots"
-    content="index,follow"
+    content="index, follow, max-image-preview:large"
+  />
+
+  <link
+    rel="canonical"
+    href="https://banshiwale.com/"
   />
 
   <meta
@@ -47,9 +65,14 @@
     content="#181818"
   />
 
-  <!-- ========================================= -->
-  <!-- Open Graph -->
-  <!-- ========================================= -->
+  <!-- ==========================================
+       OPEN GRAPH
+  =========================================== -->
+
+  <meta
+    property="og:locale"
+    content="en_IN"
+  />
 
   <meta
     property="og:type"
@@ -57,13 +80,23 @@
   />
 
   <meta
+    property="og:site_name"
+    content="Banshiwale"
+  />
+
+  <meta
     property="og:title"
-    content="banshiwale | Premium Sterling Silver Jewellery"
+    content="Banshiwale | Premium Sterling Silver Jewellery for Men"
   />
 
   <meta
     property="og:description"
-    content="Premium sterling silver jewellery crafted exclusively for men."
+    content="Explore premium sterling silver chains, rings, bracelets and pendants designed for men."
+  />
+
+  <meta
+    property="og:url"
+    content="https://banshiwale.com/"
   />
 
   <meta
@@ -72,13 +105,28 @@
   />
 
   <meta
-    property="og:url"
-    content="https://banshiwale.com"
+    property="og:image:alt"
+    content="Banshiwale premium silver jewellery"
   />
 
-  <!-- ========================================= -->
-  <!-- Twitter -->
-  <!-- ========================================= -->
+  <meta
+    property="og:image:type"
+    content="image/jpeg"
+  />
+
+  <meta
+    property="og:image:width"
+    content="1200"
+  />
+
+  <meta
+    property="og:image:height"
+    content="630"
+  />
+
+  <!-- ==========================================
+       TWITTER / X
+  =========================================== -->
 
   <meta
     name="twitter:card"
@@ -87,26 +135,22 @@
 
   <meta
     name="twitter:title"
-    content="banshiwale"
+    content="Banshiwale | Premium Sterling Silver Jewellery for Men"
   />
 
   <meta
     name="twitter:description"
-    content="Premium Sterling Silver Jewellery For Men."
+    content="Explore premium sterling silver jewellery for men, including chains, rings, bracelets and pendants."
   />
 
-  <!-- ========================================= -->
-  <!-- Canonical -->
-  <!-- ========================================= -->
-
-  <link
-    rel="canonical"
-    href="https://banshiwale.com"
+  <meta
+    name="twitter:image"
+    content="https://banshiwale.com/src/assets/images/og-image.jpg"
   />
 
-  <!-- ========================================= -->
-  <!-- Favicon -->
-  <!-- ========================================= -->
+  <!-- ==========================================
+       FAVICON
+  =========================================== -->
 
   <link
     rel="icon"
@@ -133,23 +177,84 @@
     href="./apple-touch-icon.png"
   />
 
-  <!-- ========================================= -->
-  <!-- Preload LCP hero image -->
-  <!-- ========================================= -->
+  <!-- ==========================================
+       STRUCTURED DATA
+  =========================================== -->
+
+  <script type="application/ld+json">
+
+  {
+    "@context": "https://schema.org",
+
+    "@type": "Organization",
+
+    "@id": "https://banshiwale.com/#organization",
+
+    "name": "Banshiwale",
+
+    "url": "https://banshiwale.com/",
+
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://banshiwale.com/src/assets/logo.png"
+    }
+
+  }
+
+  </script>
+
+  <script type="application/ld+json">
+
+  {
+    "@context": "https://schema.org",
+
+    "@type": "WebSite",
+
+    "@id": "https://banshiwale.com/#website",
+
+    "name": "Banshiwale",
+
+    "url": "https://banshiwale.com/",
+
+    "publisher": {
+      "@type": "Organization",
+      "@id": "https://banshiwale.com/#organization"
+    },
+
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://banshiwale.com/pages/products.html?search={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
+
+  }
+
+  </script>
+
+  <!-- ==========================================
+       PRELOAD LCP HERO IMAGE
+  =========================================== -->
 
   <link
     rel="preload"
     as="image"
     type="image/webp"
     href="./src/assets/images/hero-1080.webp"
-    imagesrcset="./src/assets/images/hero-640.webp 640w, ./src/assets/images/hero-1080.webp 1080w, ./src/assets/images/hero-1920.webp 1920w"
+    imagesrcset="
+      ./src/assets/images/hero-640.webp 640w,
+      ./src/assets/images/hero-1080.webp 1080w,
+      ./src/assets/images/hero-1920.webp 1920w
+    "
     imagesizes="100vw"
     fetchpriority="high"
   />
 
-  <!-- ========================================= -->
-  <!-- Google Fonts -->
-  <!-- ========================================= -->
+  <!-- ==========================================
+       GOOGLE FONTS
+  =========================================== -->
 
   <link
     rel="preconnect"
@@ -163,56 +268,51 @@
   />
 
   <link
-    rel="preload"
-    as="style"
+    rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+  />
+
+  <!-- ==========================================
+       FEATURE CSS
+  =========================================== -->
+
+  <link
+    rel="stylesheet"
+    href="./src/features/animations/animations.css"
   />
 
   <link
     rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
-    media="print"
-    onload="this.media='all'; this.onload=null;"
+    href="./src/features/marquee/marquee.css"
   />
 
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" /></noscript>
+  <link
+    rel="stylesheet"
+    href="./src/features/announcement/announcement.css"
+  />
 
+  <link
+    rel="stylesheet"
+    href="./src/features/products/priceRangeSlider.css"
+  />
 
- <link rel="stylesheet" href="./src/features/animations/animations.css" />
- <link rel="stylesheet" href="./src/features/marquee/marquee.css" />
- <link rel="stylesheet" href="./src/features/announcement/announcement.css" />
- <link rel="stylesheet" href="./src/features/products/priceRangeSlider.css" />
+  <!-- ==========================================
+       MAIN CSS
+  =========================================== -->
 
- <link rel="stylesheet" href="./src/css/main.css" />
+  <link
+    rel="stylesheet"
+    href="./src/css/main.css"
+  />
 
-  <!-- ========================================= -->
-  <!-- Tailwind CDN -->
-  <!-- ========================================= -->
+  <!-- ==========================================
+       TAILWIND CSS
+  =========================================== -->
 
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: "#A07936",
-            background: "#181818",
-            surface: "#1C1C1C",
-          },
-
-          fontFamily: {
-            sans: ["Inter", "sans-serif"],
-            serif: ["Cormorant Garamond", "serif"],
-          },
-        },
-      },
-    };
-  </script>
-
-
-
-
+  <link
+    rel="stylesheet"
+    href="./src/css/tailwind.build.css"
+  />
 </head>
 
 <body
@@ -670,7 +770,7 @@
     navigator.clipboard.writeText(code).then(() => {
       const textContainer = button.querySelector('.btn-text');
       const originalHTML = textContainer.innerHTML;
-      
+
       textContainer.innerHTML = `
         <svg class="w-4 h-4 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
