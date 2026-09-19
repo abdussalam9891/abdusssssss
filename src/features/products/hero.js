@@ -190,7 +190,7 @@ export function createProductsHero() {
 
           tracking-[0.28em]
 
-          text-[#A07936]
+          text-primary
         "
       >
         ${hero.label}
@@ -209,7 +209,7 @@ export function createProductsHero() {
 
           tracking-[-0.02em]
 
-          text-[#181818]
+          text-ink
         "
       >
         ${hero.title}

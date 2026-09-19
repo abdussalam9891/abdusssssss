@@ -39,7 +39,7 @@ export function createBestSellersSection() {
 
           leading-tight
 
-          text-[#181818]
+          text-ink
         "
       >
         Best Sellers
@@ -64,12 +64,12 @@ export function createBestSellersSection() {
 
           tracking-wide
 
-          text-[#181818]
+          text-ink
 
           transition-colors
           duration-300
 
-          hover:text-[#A07936]
+          hover:text-primary
         "
       >
         Shop All Best Sellers
@@ -154,7 +154,7 @@ export function createBestSellersSection() {
 
           bg-white
 
-          text-[#181818]
+          text-ink
 
           shadow-[0_10px_25px_rgba(0,0,0,.08)]
 
@@ -205,7 +205,7 @@ export function createBestSellersSection() {
 
           bg-white
 
-          text-[#181818]
+          text-ink
 
           shadow-[0_10px_25px_rgba(0,0,0,.08)]
 

@@ -102,7 +102,7 @@ export function createSocialProofCard({
         text-[13px]
         leading-5
 
-        text-[#181818]
+        text-ink
       "
     >
       <span class="font-semibold">${escapeHtml(customerName)}</span>
@@ -117,7 +117,7 @@ export function createSocialProofCard({
         font-medium
         leading-5
 
-        text-[#A07936]
+        text-primary
       "
     >
       ${escapeHtml(productLabel)}
@@ -168,7 +168,7 @@ export function createSocialProofCard({
       duration-300
 
       hover:bg-[#F3F1EC]
-      hover:text-[#181818]
+      hover:text-ink
     "
   >
     <i data-lucide="x" class="h-3.5 w-3.5"></i>

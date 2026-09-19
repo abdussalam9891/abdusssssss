@@ -86,7 +86,7 @@ function renderBestSellersMessage(message) {
         text-center
       "
     >
-      <p class="text-[#181818] font-medium">
+      <p class="text-ink font-medium">
         ${message}
       </p>
     </div>

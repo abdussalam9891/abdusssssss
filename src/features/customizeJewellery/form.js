@@ -27,7 +27,7 @@ export function createCustomizeJewelleryForm() {
           text-2xl
           font-medium
           tracking-[-0.02em]
-          text-[#181818]
+          text-ink
         "
       >
         Your Details
@@ -38,7 +38,7 @@ export function createCustomizeJewelleryForm() {
           mt-2
           h-px
           w-10
-          bg-[#A07936]
+          bg-primary
         "
       ></div>
     </div>
@@ -68,7 +68,7 @@ export function createCustomizeJewelleryForm() {
           "
         >
           Full Name
-          <span class="text-[#A07936]">*</span>
+          <span class="text-primary">*</span>
         </label>
 
         <input
@@ -87,7 +87,7 @@ export function createCustomizeJewelleryForm() {
             bg-white
             px-4
             text-sm
-            text-[#181818]
+            text-ink
             outline-none
             transition-all
             duration-300
@@ -96,9 +96,9 @@ export function createCustomizeJewelleryForm() {
 
             hover:border-[#C8B99F]
 
-            focus:border-[#A07936]
+            focus:border-primary
             focus:ring-2
-            focus:ring-[#A07936]/10
+            focus:ring-primary/10
           "
         >
 
@@ -121,7 +121,7 @@ export function createCustomizeJewelleryForm() {
           "
         >
           Phone Number
-          <span class="text-[#A07936]">*</span>
+          <span class="text-primary">*</span>
         </label>
 
         <input
@@ -141,7 +141,7 @@ export function createCustomizeJewelleryForm() {
             bg-white
             px-4
             text-sm
-            text-[#181818]
+            text-ink
             outline-none
             transition-all
             duration-300
@@ -150,9 +150,9 @@ export function createCustomizeJewelleryForm() {
 
             hover:border-[#C8B99F]
 
-            focus:border-[#A07936]
+            focus:border-primary
             focus:ring-2
-            focus:ring-[#A07936]/10
+            focus:ring-primary/10
           "
         >
 
@@ -175,7 +175,7 @@ export function createCustomizeJewelleryForm() {
           "
         >
           Email Address
-          <span class="text-[#A07936]">*</span>
+          <span class="text-primary">*</span>
         </label>
 
         <input
@@ -194,7 +194,7 @@ export function createCustomizeJewelleryForm() {
             bg-white
             px-4
             text-sm
-            text-[#181818]
+            text-ink
             outline-none
             transition-all
             duration-300
@@ -203,9 +203,9 @@ export function createCustomizeJewelleryForm() {
 
             hover:border-[#C8B99F]
 
-            focus:border-[#A07936]
+            focus:border-primary
             focus:ring-2
-            focus:ring-[#A07936]/10
+            focus:ring-primary/10
           "
         >
 
@@ -228,7 +228,7 @@ export function createCustomizeJewelleryForm() {
           "
         >
           Jewellery Type
-          <span class="text-[#A07936]">*</span>
+          <span class="text-primary">*</span>
         </label>
 
         <select
@@ -246,16 +246,16 @@ export function createCustomizeJewelleryForm() {
             bg-white
             px-4
             text-sm
-            text-[#181818]
+            text-ink
             outline-none
             transition-all
             duration-300
 
             hover:border-[#C8B99F]
 
-            focus:border-[#A07936]
+            focus:border-primary
             focus:ring-2
-            focus:ring-[#A07936]/10
+            focus:ring-primary/10
           "
         >
 
@@ -322,7 +322,7 @@ export function createCustomizeJewelleryForm() {
             "
           >
             Select Product
-            <span class="text-[#A07936]">*</span>
+            <span class="text-primary">*</span>
           </h4>
 
           <p
@@ -367,7 +367,7 @@ export function createCustomizeJewelleryForm() {
           [&::-webkit-scrollbar]:h-1.5
           [&::-webkit-scrollbar-track]:bg-[#F1ECE5]
           [&::-webkit-scrollbar-thumb]:rounded-full
-          [&::-webkit-scrollbar-thumb]:bg-[#A07936]
+          [&::-webkit-scrollbar-thumb]:bg-primary
         "
       ></div>
 
@@ -442,7 +442,7 @@ export function createCustomizeJewelleryForm() {
           text-2xl
           font-medium
           tracking-[-0.02em]
-          text-[#181818]
+          text-ink
         "
       >
         Design Details
@@ -453,7 +453,7 @@ export function createCustomizeJewelleryForm() {
           mt-2
           h-px
           w-10
-          bg-[#A07936]
+          bg-primary
         "
       ></div>
 
@@ -495,7 +495,7 @@ export function createCustomizeJewelleryForm() {
           py-3.5
           text-sm
           leading-6
-          text-[#181818]
+          text-ink
           outline-none
           transition-all
           duration-300
@@ -504,9 +504,9 @@ export function createCustomizeJewelleryForm() {
 
           hover:border-[#C8B99F]
 
-          focus:border-[#A07936]
+          focus:border-primary
           focus:ring-2
-          focus:ring-[#A07936]/10
+          focus:ring-primary/10
         "
       ></textarea>
 
@@ -568,7 +568,7 @@ export function createCustomizeJewelleryForm() {
       text-center
       transition-all
       duration-300
-      hover:border-[#A07936]
+      hover:border-primary
       hover:bg-[#FCF8F1]
     "
   >
@@ -583,7 +583,7 @@ export function createCustomizeJewelleryForm() {
         justify-center
         rounded-full
         bg-[#F1E8DA]
-        text-[#A07936]
+        text-primary
       "
     >
       <i
@@ -599,7 +599,7 @@ export function createCustomizeJewelleryForm() {
         class="
           text-sm
           font-medium
-          text-[#181818]
+          text-ink
         "
       >
         Upload inspiration photos
@@ -669,7 +669,7 @@ export function createCustomizeJewelleryForm() {
         justify-center
         overflow-hidden
         rounded-lg
-        bg-[#181818]
+        bg-ink
         px-8
         text-[12px]
         font-medium
@@ -680,7 +680,7 @@ export function createCustomizeJewelleryForm() {
         transition-all
         duration-300
 
-       hover:bg-[#A07936]
+       hover:bg-primary
         hover:shadow-md
       "
     >
@@ -691,7 +691,7 @@ export function createCustomizeJewelleryForm() {
           inset-0
           origin-left
           scale-x-0
-          bg-[#A07936]
+          bg-primary
           transition-transform
           duration-500
           ease-[cubic-bezier(0.22,1,0.36,1)]

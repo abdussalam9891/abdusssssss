@@ -90,7 +90,7 @@ export function createProductsToolbar() {
             class="
               mx-1
               font-semibold
-              text-[#181818]
+              text-ink
             "
           >
             0
@@ -167,7 +167,7 @@ export function createProductsToolbar() {
 
               rounded-full
 
-              bg-[#A07936]
+              bg-primary
 
               px-1.5
 

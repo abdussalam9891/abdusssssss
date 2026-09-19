@@ -92,7 +92,7 @@ function updateIndicators(index) {
     );
 
     indicator.classList.toggle(
-      "bg-[#A07936]",
+      "bg-primary",
       i === index
     );
 

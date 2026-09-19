@@ -97,12 +97,12 @@ export function createCategoryCard(category) {
 
             leading-tight
 
-            text-[#181818]
+            text-ink
 
             transition-colors
             duration-300
 
-            group-hover:text-[#A07936]
+            group-hover:text-primary
           "
         >
           ${category.title}

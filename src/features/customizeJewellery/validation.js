@@ -481,7 +481,7 @@ imageInput?.addEventListener("change", () => {
     shadow-md
     transition-all
     duration-200
-    hover:bg-[#A07936]
+    hover:bg-primary
   `;
 
   removeButton.innerHTML = `

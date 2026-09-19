@@ -76,17 +76,17 @@ export function renderProductsPagination(
     border
     border-[#E7DDD3]
 
-    text-[#181818]
+    text-ink
 
     transition
 
     disabled:cursor-not-allowed
     disabled:opacity-40
     disabled:hover:border-[#E7DDD3]
-    disabled:hover:text-[#181818]
+    disabled:hover:text-ink
 
-    hover:border-[#A07936]
-    hover:text-[#A07936]
+    hover:border-primary
+    hover:text-primary
   "
 >
   <svg
@@ -137,8 +137,8 @@ export function renderProductsPagination(
 
     ${
       i === page
-        ? "border-[#A07936] bg-[#A07936] text-white"
-        : "border-[#E7DDD3] text-[#181818] hover:border-[#A07936] hover:text-[#A07936]"
+        ? "border-primary bg-primary text-white"
+        : "border-[#E7DDD3] text-ink hover:border-primary hover:text-primary"
     }
   "
 >
@@ -177,17 +177,17 @@ export function renderProductsPagination(
     border
     border-[#E7DDD3]
 
-    text-[#181818]
+    text-ink
 
     transition
 
     disabled:cursor-not-allowed
     disabled:opacity-40
     disabled:hover:border-[#E7DDD3]
-    disabled:hover:text-[#181818]
+    disabled:hover:text-ink
 
-    hover:border-[#A07936]
-    hover:text-[#A07936]
+    hover:border-primary
+    hover:text-primary
   "
 >
   <svg

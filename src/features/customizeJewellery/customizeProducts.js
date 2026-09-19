@@ -217,9 +217,9 @@ export function initCustomizeProducts() {
                   (item) => {
 
                     item.classList.remove(
-                      "border-[#A07936]",
+                      "border-primary",
                       "ring-2",
-                      "ring-[#A07936]/20"
+                      "ring-primary/20"
                     );
 
                     item.classList.add(
@@ -260,9 +260,9 @@ export function initCustomizeProducts() {
                 );
 
                 card.classList.add(
-                  "border-[#A07936]",
+                  "border-primary",
                   "ring-2",
-                  "ring-[#A07936]/20"
+                  "ring-primary/20"
                 );
 
 

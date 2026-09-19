@@ -118,7 +118,7 @@ export function renderPolicySections(
               class="
                 font-serif
                 text-3xl
-                text-[#181818]
+                text-ink
               "
             >
               ${escapeHTML(heading)}

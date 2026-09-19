@@ -28,8 +28,8 @@ const ICONS = {
 const THEME = {
   success: {
     iconBg: "bg-[#FBF4E7]",
-    iconText: "text-[#A07936]",
-    bar: "bg-[#A07936]",
+    iconText: "text-primary",
+    bar: "bg-primary",
   },
   error: {
     iconBg: "bg-[#FBEAEA]",
@@ -43,8 +43,8 @@ const THEME = {
   },
   info: {
     iconBg: "bg-[#F3F1EC]",
-    iconText: "text-[#181818]",
-    bar: "bg-[#181818]",
+    iconText: "text-ink",
+    bar: "bg-ink",
   },
 };
 
@@ -138,7 +138,7 @@ class="h-5 w-5"
 <h4
 class="
 font-medium
-text-[#181818]
+text-ink
 "
 >
 ${escapeHtml(title)}
@@ -169,7 +169,7 @@ text-[#B0AA9D]
 transition
 duration-300
 
-hover:text-[#181818]
+hover:text-ink
 "
 >
 

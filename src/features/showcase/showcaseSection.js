@@ -44,7 +44,7 @@ export function createShowcaseSection() {
 
     tracking-[-0.03em]
 
-    text-[#181818]
+    text-ink
   "
 >
   Our Showcase
@@ -118,8 +118,8 @@ export function createShowcaseSection() {
 
     ${
       index === 0
-        ? "text-[#181818]"
-        : "text-[#8A8A8A] hover:text-[#181818]"
+        ? "text-ink"
+        : "text-[#8A8A8A] hover:text-ink"
     }
   "
 
@@ -138,7 +138,7 @@ export function createShowcaseSection() {
 
       rounded-full
 
-      bg-[#A07936]
+      bg-primary
 
       transition-all
       duration-500

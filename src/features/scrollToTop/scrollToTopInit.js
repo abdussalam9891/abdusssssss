@@ -29,7 +29,7 @@ function createScrollToTopButton() {
 
     rounded-full
 
-    bg-[#181818]
+    bg-ink
 
     text-white
 
@@ -43,12 +43,12 @@ function createScrollToTopButton() {
     duration-300
 
     hover:scale-110
-    hover:bg-[#A07936]
+    hover:bg-primary
 
     focus-visible:outline
     focus-visible:outline-2
     focus-visible:outline-offset-2
-    focus-visible:outline-[#A07936]
+    focus-visible:outline-primary
   "
 >
 

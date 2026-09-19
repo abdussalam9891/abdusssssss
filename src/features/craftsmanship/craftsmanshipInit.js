@@ -61,12 +61,12 @@ function createCraftsmanshipSection() {
 
             leading-tight
 
-            text-[#181818]
+            text-ink
           "
         >
           Sterling Silver,
           <br />
-          <span class="text-[#A07936]">Made To Last A Lifetime.</span>
+          <span class="text-primary">Made To Last A Lifetime.</span>
         </h2>
 
         <!-- Description -->
@@ -86,7 +86,7 @@ function createCraftsmanshipSection() {
           "
         >
           Every banshiwale piece starts out as
-          <span class="font-semibold text-[#A07936]">certified 925 sterling silver</span>
+          <span class="font-semibold text-primary">certified 925 sterling silver</span>
           — cut, shaped and finished entirely by hand under the eye of
           skilled artisans. No shortcuts, no cheap plating that fades in
           a few months. Just jewellery you can wear every single day and
@@ -113,7 +113,7 @@ function createCraftsmanshipSection() {
                 text-xl
                 lg:text-2xl
 
-                text-[#181818]
+                text-ink
               "
             >
               Highest Quality
@@ -132,7 +132,7 @@ function createCraftsmanshipSection() {
             >
               We're picky about our materials, and even pickier about
               the finishing. Every piece goes through
-              <span class="font-semibold text-[#A07936]">careful, precise hand-finishing</span>
+              <span class="font-semibold text-primary">careful, precise hand-finishing</span>
               before it ever reaches you — because "good enough" just
               isn't good enough for us.
             </p>
@@ -148,7 +148,7 @@ function createCraftsmanshipSection() {
                 text-xl
                 lg:text-2xl
 
-                text-[#181818]
+                text-ink
               "
             >
               Fair Pricing
@@ -168,7 +168,7 @@ function createCraftsmanshipSection() {
               Luxury shouldn't feel like a rip-off. We cut out the
               middlemen and work directly with our artisans, so the price
               you pay
-              <span class="font-semibold text-[#A07936]">actually reflects the craftsmanship</span>
+              <span class="font-semibold text-primary">actually reflects the craftsmanship</span>
               — not a marketing budget.
             </p>
           </div>
@@ -183,7 +183,7 @@ function createCraftsmanshipSection() {
                 text-xl
                 lg:text-2xl
 
-                text-[#181818]
+                text-ink
               "
             >
               Crafted To Last
@@ -202,7 +202,7 @@ function createCraftsmanshipSection() {
             >
               Trends come and go — good jewellery doesn't. Every piece
               is made for
-              <span class="font-semibold text-[#A07936]">everyday wear and special moments alike</span>,
+              <span class="font-semibold text-primary">everyday wear and special moments alike</span>,
               with settings that actually hold and detailing that ages
               well, so it stays part of your story for years.
             </p>
@@ -231,7 +231,7 @@ function createCraftsmanshipSection() {
             rounded-md
 
             border
-            border-[#A07936]
+            border-primary
 
             px-8
             py-4
@@ -241,7 +241,7 @@ function createCraftsmanshipSection() {
             uppercase
             tracking-[0.18em]
 
-            text-[#181818]
+            text-ink
 
             transition-[border-radius]
             duration-500
@@ -263,7 +263,7 @@ function createCraftsmanshipSection() {
 
               scale-x-0
 
-              bg-[#A07936]
+              bg-primary
 
               transition-transform
               duration-500
@@ -426,7 +426,7 @@ function createCraftsmanshipSection() {
 
                 bg-[#FBF3E2]
 
-                text-[#A07936]
+                text-primary
               "
             >
               <svg
@@ -451,7 +451,7 @@ function createCraftsmanshipSection() {
             </span>
 
             <div>
-              <p class="text-xs font-semibold text-[#181818]">
+              <p class="text-xs font-semibold text-ink">
                 Hand-finished in-house
               </p>
               <p class="text-[11px] text-[#6B6B6B]">

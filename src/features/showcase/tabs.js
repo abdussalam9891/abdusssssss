@@ -32,7 +32,7 @@ export function initShowcaseTabs() {
       .forEach((tab) => {
 
         tab.classList.remove(
-          "text-[#181818]"
+          "text-ink"
         );
 
         tab.classList.add(
@@ -65,7 +65,7 @@ export function initShowcaseTabs() {
     );
 
     button.classList.add(
-      "text-[#181818]"
+      "text-ink"
     );
 
     const activeUnderline =

@@ -95,7 +95,7 @@ function createAnnouncementBar(marquees = []) {
 
                 <span
                   class="
-                    text-[#A07936]
+                    text-primary
                     transition-transform
                     duration-300
                     group-hover:rotate-45
@@ -103,7 +103,7 @@ function createAnnouncementBar(marquees = []) {
                 >
 
                   <svg
-                    class="h-3.5 w-3.5 text-[#A07936]"
+                    class="h-3.5 w-3.5 text-primary"
                     viewBox="0 0 24 24"
                     fill="currentColor"
                   >

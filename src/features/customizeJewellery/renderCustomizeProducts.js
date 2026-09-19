@@ -52,9 +52,9 @@ export function createCustomizeProductCard(
         ${
           selected
             ? `
-              border-[#A07936]
+              border-primary
               ring-2
-              ring-[#A07936]/20
+              ring-primary/20
             `
             : `
               border-[#E4DDD4]
@@ -87,7 +87,7 @@ export function createCustomizeProductCard(
 
           rounded-full
 
-          bg-[#A07936]
+          bg-primary
 
           text-white
 
@@ -169,7 +169,7 @@ export function createCustomizeProductCard(
 
             leading-tight
 
-            text-[#181818]
+            text-ink
           "
         >
           ${product.name}
@@ -191,7 +191,7 @@ export function createCustomizeProductCard(
             class="
               text-sm
               font-semibold
-              text-[#181818]
+              text-ink
             "
           >
             ₹${Number(product.price).toLocaleString("en-IN")}

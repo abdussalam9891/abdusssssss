@@ -104,7 +104,7 @@ function createQuickAddModal() {
 
           italic
 
-          text-[#181818]
+          text-ink
         "
       >
         Select Size
@@ -120,7 +120,7 @@ function createQuickAddModal() {
           transition-colors
           duration-300
 
-          hover:text-[#181818]
+          hover:text-ink
         "
       >
         <i data-lucide="x" class="h-5 w-5"></i>
@@ -284,7 +284,7 @@ function renderLoading() {
 
       border-2
       border-[#ECE5D8]
-      border-t-[#A07936]
+      border-t-primary
     "
   ></span>
 
@@ -350,14 +350,14 @@ function createSizeOption(size, isActive) {
 
     ${
       isActive
-        ? "border-[#181818] bg-[#181818] text-white"
-        : "border-[#ECE5D8] text-[#181818]"
+        ? "border-ink bg-ink text-white"
+        : "border-[#ECE5D8] text-ink"
     }
 
     ${
       outOfStock
         ? "cursor-not-allowed opacity-40 line-through"
-        : "hover:border-[#A07936] active:scale-95"
+        : "hover:border-primary active:scale-95"
     }
   "
 >
@@ -407,13 +407,13 @@ function createVariantOption(variant, isActive) {
 
     ${
       isActive
-        ? "border-[#A07936]"
+        ? "border-primary"
         : "border-[#ECE5D8]"
     }
 
-    text-[#181818]
+    text-ink
 
-    hover:border-[#A07936]
+    hover:border-primary
     active:scale-95
   "
 >
@@ -524,7 +524,7 @@ function renderProduct(product) {
 
         text-[15px]
 
-        text-[#181818]
+        text-ink
       "
     >
       ${escapeHtml(product.name)}
@@ -538,7 +538,7 @@ function renderProduct(product) {
 
         font-semibold
 
-        text-[#181818]
+        text-ink
       "
     >
       ${formatPrice(product.finalPrice)}
@@ -563,7 +563,7 @@ ${
 
       tracking-[0.22em]
 
-      text-[#A07936]
+      text-primary
     "
   >
     Select Option
@@ -611,7 +611,7 @@ ${
 
       tracking-[0.22em]
 
-      text-[#A07936]
+      text-primary
     "
   >
     Select Size
@@ -668,7 +668,7 @@ ${
 
     rounded-full
 
-    bg-[#181818]
+    bg-ink
 
     py-3.5
 
@@ -685,7 +685,7 @@ ${
     transition-colors
     duration-300
 
-    hover:bg-[#A07936]
+    hover:bg-primary
 
     disabled:cursor-not-allowed
     disabled:opacity-60
@@ -1047,12 +1047,12 @@ export function initQuickAdd() {
               button === sizeOption;
 
             button.classList.toggle(
-              "border-[#181818]",
+              "border-ink",
               isActive
             );
 
             button.classList.toggle(
-              "bg-[#181818]",
+              "bg-ink",
               isActive
             );
 
@@ -1069,7 +1069,7 @@ export function initQuickAdd() {
               );
 
               button.classList.toggle(
-                "text-[#181818]",
+                "text-ink",
                 !isActive
               );
 

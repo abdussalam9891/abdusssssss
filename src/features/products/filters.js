@@ -90,7 +90,7 @@ function createCategoryOptionsMarkup() {
       h-4
       w-4
 
-      accent-[#A07936]
+      accent-primary
     "
   >
 
@@ -193,10 +193,10 @@ function createPriceFilterMarkup() {
       py-2
 
       text-sm
-      text-[#181818]
+      text-ink
 
       focus:outline-none
-      focus:border-[#A07936]
+      focus:border-primary
     "
   >
 
@@ -227,10 +227,10 @@ function createPriceFilterMarkup() {
       py-2
 
       text-sm
-      text-[#181818]
+      text-ink
 
       focus:outline-none
-      focus:border-[#A07936]
+      focus:border-primary
     "
   >
 
@@ -413,7 +413,7 @@ export function createProductsFilters() {
       class="
         text-xl
         font-semibold
-        text-[#181818]
+        text-ink
       "
     >
       Filters
@@ -444,7 +444,7 @@ export function createProductsFilters() {
         border
         border-[#ECE6DF]
 
-        text-[#181818]
+        text-ink
       "
     >
       <i
@@ -592,7 +592,7 @@ export function createProductsFilters() {
       h-4
       w-4
 
-      accent-[#A07936]
+      accent-primary
     "
   >
 
@@ -646,7 +646,7 @@ export function createProductsFilters() {
         lg:rounded-lg
 
         border
-        border-[#181818]
+        border-ink
 
         px-6
         lg:px-5
@@ -659,7 +659,7 @@ export function createProductsFilters() {
 
         transition
 
-        hover:bg-[#181818]
+        hover:bg-ink
         hover:text-white
       "
     >
@@ -684,7 +684,7 @@ export function createProductsFilters() {
 
         rounded-full
 
-        bg-[#181818]
+        bg-ink
 
         px-6
 

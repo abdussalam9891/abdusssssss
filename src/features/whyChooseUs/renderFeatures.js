@@ -55,7 +55,7 @@ function createFeatureCard(feature) {
           from-[#FBF3E2]
           to-[#F1E1BC]
           ring-1
-          ring-[#A07936]/25
+          ring-primary/25
           shadow-[0_8px_20px_-6px_rgba(160,121,54,0.35)]
           transition-transform
           duration-300
@@ -70,7 +70,7 @@ function createFeatureCard(feature) {
     `
             h-5
             w-5
-            text-[#A07936]
+            text-primary
             sm:h-8
             sm:w-8
           `
@@ -84,7 +84,7 @@ function createFeatureCard(feature) {
             font-serif
             text-sm
             font-semibold
-            text-[#181818]
+            text-ink
             sm:text-2xl
           "
         >
@@ -122,10 +122,10 @@ function createFeatureCard(feature) {
           justify-center
           rounded-full
           bg-[#FBF3E2]
-          text-[#A07936]
+          text-primary
           transition-colors
           duration-300
-          group-hover:bg-[#A07936]
+          group-hover:bg-primary
           group-hover:text-white
           sm:mt-6
           sm:h-10

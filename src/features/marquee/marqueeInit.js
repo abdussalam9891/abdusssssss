@@ -80,13 +80,13 @@ function createMarqueeSection(items = []) {
                     font-medium
                     uppercase
                     tracking-[0.18em]
-                    text-[#181818]
+                    text-ink
                   "
                 >
 
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="h-4 w-4 text-[#A07936]"
+                    class="h-4 w-4 text-primary"
                     viewBox="0 0 24 24"
                     fill="currentColor"
                   >

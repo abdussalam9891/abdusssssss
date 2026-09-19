@@ -45,7 +45,7 @@ function createCompactRating(rating, reviewCount) {
 
       font-medium
 
-      text-[#181818]
+      text-ink
     "
   >
     ${rating.toFixed(1)}
@@ -119,7 +119,7 @@ function createDiscount(product) {
 
     tracking-[0.14em]
 
-    text-[#A07936]
+    text-primary
 
     shadow-[0_8px_20px_rgba(0,0,0,.06)]
   "
@@ -160,7 +160,7 @@ function createWishlistButton(product) {
 
     bg-white/95
 
-    text-[#181818]
+    text-ink
 
     backdrop-blur
 
@@ -497,12 +497,12 @@ ${
 
     tracking-[-0.025em]
 
-    text-[#181818]
+    text-ink
 
     transition-colors
     duration-300
 
-    group-hover:text-[#A07936]
+    group-hover:text-primary
   "
 >
       ${product.name || "Untitled Product"}
@@ -537,7 +537,7 @@ ${
 
           tracking-tight
 
-          text-[#181818]
+          text-ink
         "
       >
         ₹${price.toLocaleString("en-IN", {
@@ -583,7 +583,7 @@ ${
         rounded-lg
         lg:rounded-xl
 
-        bg-[#181818]
+        bg-ink
 
         text-[11px]
         sm:text-[12px]
@@ -601,7 +601,7 @@ ${
         transition-colors
         duration-300
 
-        hover:bg-[#A07936]
+        hover:bg-primary
       "
     >
       <i

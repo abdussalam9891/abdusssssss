@@ -146,7 +146,7 @@ export function createCustomizeJewelleryModal() {
     relative
     shrink-0
     overflow-hidden
-    bg-[#181818]
+    bg-ink
     px-6
     py-7
     sm:px-10
@@ -167,7 +167,7 @@ export function createCustomizeJewelleryModal() {
           h-48
           w-48
           rounded-full
-          bg-[#A07936]/10
+          bg-primary/10
           blur-3xl
         "
       ></div>
@@ -243,7 +243,7 @@ export function createCustomizeJewelleryModal() {
     left-0
     right-0
     h-[2px]
-    bg-[#A07936]
+    bg-primary
   "
 ></div>
 

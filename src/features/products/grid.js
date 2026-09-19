@@ -27,7 +27,7 @@ function createEmptyState() {
 
       text-4xl
 
-      text-[#181818]
+      text-ink
     "
   >
     No Products Found
@@ -93,7 +93,7 @@ export function renderProductsLoading() {
 
       border-2
       border-[#ECE5D8]
-      border-t-[#A07936]
+      border-t-primary
     "
   ></span>
 

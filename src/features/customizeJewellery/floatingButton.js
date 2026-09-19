@@ -21,7 +21,7 @@ export function createCustomizeJewelleryButton() {
 
     rounded-l-2xl
 
-    bg-[#181818]
+    bg-ink
 
     px-1
     py-5
@@ -43,7 +43,7 @@ export function createCustomizeJewelleryButton() {
 
       scale-y-0
 
-      bg-[#A07936]
+      bg-primary
 
       transition-transform
       duration-700
