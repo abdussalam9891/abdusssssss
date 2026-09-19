@@ -6,8 +6,29 @@ import {
   createFaqCard,
 } from "../../components/faq/faqCard.js";
 
+import {
+  setJsonLd,
+} from "../../utils/seo.js";
+
 
 let faqData = [];
+
+
+function buildFaqJsonLd(faqs) {
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: String(faq.answer || "").trim(),
+      },
+    })),
+  };
+}
 
 
 // ==========================================
@@ -116,6 +137,8 @@ export async function renderFaqs() {
       faqData
         .map(createFaqCard)
         .join("");
+
+    setJsonLd("faq-jsonld", buildFaqJsonLd(faqData));
 
 
   } catch (error) {
