@@ -70,7 +70,7 @@
 }
 
 .wishlist-btn:hover svg{
-  stroke:#A07936;
+  stroke:var(--color-primary);
   transform:scale(1.08);
 }
 
@@ -91,7 +91,7 @@
 }
 
 .group:hover .product-title{
-  color:#A07936;
+  color:var(--color-primary);
 }
 
 /* ==========================================
