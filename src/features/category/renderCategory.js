@@ -28,12 +28,40 @@ function buildLocalCategories() {
   }));
 }
 
+function renderCategoryCards(container, categories) {
+
+  container.innerHTML =
+    categories
+      .map(createCategoryCard)
+      .join("");
+
+  if (window.lucide) {
+    window.lucide.createIcons();
+  }
+
+}
+
 export async function initCategory() {
 
   const container =
     document.getElementById("categoryGrid");
 
   if (!container) return;
+
+  // The card art is entirely local (CATEGORY_IMAGES) and these
+  // names are the site's real, current categories — not a
+  // placeholder — so there's no reason to block the section on a
+  // network round trip. Render them immediately, then only touch
+  // the DOM again if the backend actually disagrees (e.g. a
+  // category was added/renamed), which is rare enough that the
+  // quiet background swap is preferable to a skeleton on every load.
+  const localCategories =
+    buildLocalCategories();
+
+  renderCategoryCards(
+    container,
+    localCategories
+  );
 
   try {
 
@@ -44,19 +72,6 @@ export async function initCategory() {
       !Array.isArray(categories) ||
       !categories.length
     ) {
-      console.warn(
-        "[Category] No categories found. Using local fallback."
-      );
-
-      container.innerHTML =
-        buildLocalCategories()
-          .map(createCategoryCard)
-          .join("");
-
-      if (window.lucide) {
-        window.lucide.createIcons();
-      }
-
       return;
     }
 
@@ -86,47 +101,28 @@ export async function initCategory() {
         }));
 
     if (!categoryCards.length) {
-      console.warn(
-        "[Category] No backend categories matched local images. Using local fallback."
-      );
-
-      container.innerHTML =
-        buildLocalCategories()
-          .map(createCategoryCard)
-          .join("");
-
-      if (window.lucide) {
-        window.lucide.createIcons();
-      }
-
       return;
     }
 
-    container.innerHTML =
-      categoryCards
-        .map(createCategoryCard)
-        .join("");
+    const matchesLocal =
+      JSON.stringify(categoryCards.map((c) => c.title)) ===
+      JSON.stringify(localCategories.map((c) => c.title));
 
-    // If you're using Lucide
-    if (window.lucide) {
-      window.lucide.createIcons();
+    if (matchesLocal) {
+      return;
     }
+
+    renderCategoryCards(
+      container,
+      categoryCards
+    );
 
   } catch (error) {
 
     console.error(
-      "[Category] Failed to load categories. Using local fallback.",
+      "[Category] Failed to load categories from backend. Local categories already shown.",
       error
     );
-
-    container.innerHTML =
-      buildLocalCategories()
-        .map(createCategoryCard)
-        .join("");
-
-    if (window.lucide) {
-      window.lucide.createIcons();
-    }
 
   }
 }
