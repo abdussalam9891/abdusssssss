@@ -4,6 +4,12 @@ import {
 
 import { productsState } from "./state.js";
 
+import {
+  createProductGridSkeleton,
+  createFetchErrorState,
+  setSkeletonBusy,
+} from "../../components/skeleton/skeleton.js";
+
 
 function createEmptyState() {
 
@@ -65,48 +71,20 @@ export function renderProductsLoading() {
   if (!container) return;
 
 
-  container.innerHTML = `
-<div
-  class="
-    flex
+  setSkeletonBusy(container, true);
 
-    flex-col
-
-    items-center
-
-    gap-5
-
-    py-24
-  "
-  role="status"
-  aria-live="polite"
->
-
-  <span
-    class="
-      h-10
-      w-10
-
-      animate-spin
-
-      rounded-full
-
-      border-2
-      border-[#ECE5D8]
-      border-t-primary
-    "
-  ></span>
-
-  <p class="text-[#777]">
-    Loading products…
-  </p>
-
-</div>
-`;
+  container.innerHTML =
+    createProductGridSkeleton({
+      count: productsState.limit || 12,
+      label: "Loading products",
+    });
 }
 
 
-export function renderProductsError() {
+// `onRetry` re-runs the same load that just failed. Owned by the
+// caller (productsInit.js) so this module doesn't need to know how
+// products are fetched.
+export function renderProductsError(onRetry) {
 
   const container =
     document.getElementById(
@@ -117,22 +95,28 @@ export function renderProductsError() {
   if (!container) return;
 
 
-  container.innerHTML = `
-<p
-  class="
-    w-full
+  setSkeletonBusy(container, false);
 
-    py-24
+  const retryId = "productsGridRetry";
 
-    text-center
+  container.innerHTML =
+    createFetchErrorState({
+      message:
+        "Unable to load products right now. Please try again.",
+      retryId,
+    });
 
-    text-red-600
-  "
->
-  Unable to load products.
-  Please try again later.
-</p>
-`;
+  if (typeof onRetry === "function") {
+
+    document
+      .getElementById(retryId)
+      ?.addEventListener(
+        "click",
+        onRetry,
+        { once: true }
+      );
+
+  }
 }
 
 
@@ -145,6 +129,9 @@ export function renderProductsGrid() {
 
 
   if (!container) return;
+
+
+  setSkeletonBusy(container, false);
 
 
   if (
