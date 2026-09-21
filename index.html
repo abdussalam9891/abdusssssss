@@ -253,6 +253,62 @@
   />
 
   <!-- ==========================================
+       MODULEPRELOAD CORE JS
+       No bundler here, so main.js's top-level imports
+       are otherwise discovered one-by-one only after
+       main.js itself downloads and parses (it also sits
+       at the end of <body>, so without this the browser
+       doesn't even start fetching it until the whole page
+       is parsed). Preloading them here lets the browser
+       fetch the whole first-paint module graph in parallel
+       from the very start of <head>, instead of a serial
+       waterfall — this is what navbar/footer/category wait on.
+  =========================================== -->
+
+  <link rel="modulepreload" href="./src/main.js" />
+  <link rel="modulepreload" href="./src/features/navbar/navbarInit.js" />
+  <link rel="modulepreload" href="./src/features/animations/reveal.js" />
+  <link rel="modulepreload" href="./src/features/footer/footer.js" />
+  <link rel="modulepreload" href="./src/features/footer/footerAccordion.js" />
+  <link rel="modulepreload" href="./src/features/footer/hydrateSocialLinks.js" />
+  <link rel="modulepreload" href="./src/features/footer/newsletter.js" />
+  <link rel="modulepreload" href="./src/features/contact/hydrateContactInfo.js" />
+  <link rel="modulepreload" href="./src/features/toast/toastInit.js" />
+  <link rel="modulepreload" href="./src/features/whatsapp/whatsappInit.js" />
+  <link rel="modulepreload" href="./src/features/scrollToTop/scrollToTopInit.js" />
+  <link rel="modulepreload" href="./src/features/socialProof/socialProofInit.js" />
+  <link rel="modulepreload" href="./src/features/cart/cartBadge.js" />
+  <link rel="modulepreload" href="./src/features/cart/cartState.js" />
+  <link rel="modulepreload" href="./src/features/wishlist/wishlistBadge.js" />
+  <link rel="modulepreload" href="./src/features/wishlist/wishlistButtons.js" />
+  <link rel="modulepreload" href="./src/features/wishlist/wishlistState.js" />
+  <link rel="modulepreload" href="./src/features/quickAdd/quickAddInit.js" />
+  <link rel="modulepreload" href="./src/features/auth/authTriggers.js" />
+  <link rel="modulepreload" href="./src/features/auth/guestEngagement.js" />
+  <link rel="modulepreload" href="./src/features/auth/authState.js" />
+  <link rel="modulepreload" href="./src/pages/homePage.js" />
+  <link rel="modulepreload" href="./src/features/category/renderCategory.js" />
+  <link rel="modulepreload" href="./src/features/hero/heroInit.js" />
+  <link rel="modulepreload" href="./src/features/showcase/showcaseInit.js" />
+  <link rel="modulepreload" href="./src/features/bestSellers/bestSellersInit.js" />
+  <link rel="modulepreload" href="./src/features/announcement/announcementInit.js" />
+  <link rel="modulepreload" href="./src/features/homeFaq/accordion.js" />
+
+  <!-- ==========================================
+       BACKEND API
+       Category, showcase and best-sellers all hit this origin
+       within the first moment of page load — preconnecting lets
+       DNS/TLS resolve in parallel with everything else instead of
+       only starting once the first fetch() call fires.
+  =========================================== -->
+
+  <link
+    rel="preconnect"
+    href="https://backend.globalshopify.com"
+    crossorigin
+  />
+
+  <!-- ==========================================
        GOOGLE FONTS
   =========================================== -->
 
