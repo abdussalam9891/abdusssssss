@@ -8,6 +8,11 @@ import { STORE_DOMAIN } from "../../config.js";
 
 import { isActiveProduct } from "../../utils/productStatus.js";
 
+import {
+  createProductCarouselSkeleton,
+  setSkeletonBusy,
+} from "../../components/skeleton/skeleton.js";
+
 
 /*
  * Only backend product ids are stored locally; the products
@@ -127,6 +132,14 @@ export async function initRecentlyViewed() {
   }
 
 
+  setSkeletonBusy(container, true);
+
+  container.innerHTML =
+    createProductCarouselSkeleton({
+      count: Math.min(ids.length, 4),
+    });
+
+
   const results =
     await Promise.allSettled(
       ids.map(
@@ -175,6 +188,8 @@ export async function initRecentlyViewed() {
     return;
   }
 
+
+  setSkeletonBusy(container, false);
 
   container.innerHTML =
     products
