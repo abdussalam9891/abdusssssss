@@ -3,7 +3,6 @@
 # root. These were previously removed from history in commit 3955c58 after
 # leaking unfixed backend gaps and another client's name; keep them untracked.
 rules.md
-changes.md
 doubt or question.md
 
 node_modules/
