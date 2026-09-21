@@ -16,9 +16,8 @@ export const HERO_SLIDES = [
 
   {
     id: 2,
-    image: "./src/assets/images/hero2.png",
-    webpSrcset:
-      "./src/assets/images/hero2-640.webp 640w, ./src/assets/images/hero2-1080.webp 1080w, ./src/assets/images/hero2-1920.webp 1920w",
+    image: "./src/assets/images/hero2.webp",
+    webpSrcset: "./src/assets/images/hero2.webp",
     focusX: 58,
     title: "Discover Timeless Elegance",
     description:
