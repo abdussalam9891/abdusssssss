@@ -8,18 +8,10 @@
     "build:css": "tailwindcss -i ./src/css/tailwind.input.css -o ./src/css/tailwind.build.css --minify",
     "watch:css": "tailwindcss -i ./src/css/tailwind.input.css -o ./src/css/tailwind.build.css --watch"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/abdussalam9891/banshiwala.git"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/abdussalam9891/banshiwala/issues"
-  },
-  "homepage": "https://github.com/abdussalam9891/banshiwala#readme",
   "devDependencies": {
     "@tailwindcss/cli": "^4.3.3",
     "tailwindcss": "^4.3.3"
