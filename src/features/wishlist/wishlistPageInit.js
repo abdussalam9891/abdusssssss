@@ -13,6 +13,13 @@ import {
 import { createWishlistLayout } from "./wishlistLayout.js";
 import { createWishlistCard } from "./wishlistCard.js";
 
+import {
+  createSkeletonBlock,
+  createSkeletonImage,
+  createSkeletonTextLine,
+  setSkeletonBusy,
+} from "../../components/skeleton/skeleton.js";
+
 
 /*
  * Every card on this page is, by definition, already saved, so
@@ -54,21 +61,87 @@ function updateCount(count) {
 }
 
 
+// Mirrors wishlistCard.js's exact box model (image, rating line,
+// price line, name line, action row) so the skeleton never shifts
+// layout when real cards swap in.
+function createWishlistCardSkeleton() {
+  return `
+    <div aria-hidden="true">
+
+      ${createSkeletonImage({
+        aspect: "aspect-square",
+        rounded: "rounded-2xl",
+      })}
+
+      <div class="mt-4 px-0.5">
+
+        ${createSkeletonTextLine({
+          width: "w-1/3",
+          height: "h-6 sm:h-7",
+        })}
+
+        <div class="mt-2">
+          ${createSkeletonTextLine({
+            width: "w-2/3",
+            height: "h-5 sm:h-6",
+          })}
+        </div>
+
+        <div class="mt-4 flex gap-2 sm:gap-3">
+          ${createSkeletonBlock({
+            className:
+              "h-10 w-10 sm:h-12 sm:w-12 shrink-0 rounded-full",
+          })}
+          ${createSkeletonBlock({
+            className: "h-10 sm:h-12 flex-1 rounded-lg",
+          })}
+        </div>
+
+      </div>
+
+    </div>
+  `;
+}
+
+function renderWishlistSkeleton() {
+
+  const container =
+    document.getElementById("wishlistLoadingState");
+
+  if (!container) return;
+
+  setSkeletonBusy(container, true);
+
+  container.innerHTML =
+    Array.from({ length: 8 }, createWishlistCardSkeleton)
+      .join("");
+
+}
+
+
 function showState(name) {
 
   const states = {
+    loading: document.getElementById("wishlistLoadingState"),
     login: document.getElementById("wishlistLoginState"),
     empty: document.getElementById("wishlistEmptyState"),
     items: document.getElementById("wishlistItems"),
   };
 
   if (
+    !states.loading ||
     !states.login ||
     !states.empty ||
     !states.items
   ) {
     return null;
   }
+
+
+  setSkeletonBusy(
+    states.loading,
+    name === "loading"
+  );
 
 
   Object.entries(states).forEach(
@@ -224,6 +297,11 @@ export function initWishlistPage() {
   container.innerHTML =
     createWishlistLayout();
 
+
+  // Visible by default (see wishlistLayout.js) so the grid is never
+  // blank while the initial saved-products fetch is in flight;
+  // renderWishlist() below replaces it with login/empty/items.
+  renderWishlistSkeleton();
 
   renderWishlist();
 
