@@ -71,6 +71,34 @@ export function createWishlistLayout() {
     </div>
 
 
+    <!-- Loading State -->
+
+    <div
+      id="wishlistLoadingState"
+
+      aria-live="polite"
+
+      class="
+        mt-10
+        sm:mt-16
+
+        grid
+
+        grid-cols-2
+
+        gap-x-4
+        gap-y-8
+
+        sm:grid-cols-3
+        sm:gap-x-6
+        sm:gap-y-10
+
+        lg:grid-cols-4
+        lg:gap-8
+      "
+    ></div>
+
+
     <!-- Sign-In Required State -->
 
     <div
