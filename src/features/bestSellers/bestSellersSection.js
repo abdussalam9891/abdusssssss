@@ -96,6 +96,8 @@ export function createBestSellersSection() {
         <div
           id="bestSellersProducts"
 
+          aria-live="polite"
+
           class="
             flex
 
