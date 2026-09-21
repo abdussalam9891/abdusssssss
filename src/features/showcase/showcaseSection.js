@@ -184,6 +184,8 @@ export function createShowcaseSection() {
 
           id="showcaseProducts"
 
+          aria-live="polite"
+
           class="
             flex
 
