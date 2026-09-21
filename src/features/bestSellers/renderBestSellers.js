@@ -1,6 +1,11 @@
 import { createShowcaseCard } from "../showcase/showcaseCard.js";
 import { productService } from "../../services/productService.js";
 import { isActiveProduct } from "../../utils/productStatus.js";
+import {
+  createProductCarouselSkeleton,
+  createFetchErrorState,
+  setSkeletonBusy,
+} from "../../components/skeleton/skeleton.js";
 
 const MAX_PRODUCTS = 10;
 
@@ -22,75 +27,23 @@ function byRatingThenReviews(a, b) {
   );
 }
 
-function createBestSellersSkeletonCard() {
-  return `
-    <div
-      class="
-        animate-pulse
-
-        flex-shrink-0
-
-        w-[72%]
-        sm:w-[48%]
-        md:w-[34%]
-        lg:w-[24%]
-        xl:w-[21%]
-      "
-    >
-      <div
-        class="
-          aspect-square
-          lg:aspect-[1/1.02]
-
-          rounded-2xl
-          lg:rounded-[26px]
-
-          border
-          border-[#F2ECE3]
-
-          bg-[#F5F1EA]
-        "
-      ></div>
-
-      <div class="mt-4 h-5 w-3/4 rounded bg-[#F5F1EA]"></div>
-      <div class="mt-3 h-6 w-1/3 rounded bg-[#F5F1EA]"></div>
-    </div>
-  `;
-}
-
 export function renderBestSellersSkeleton() {
   const container =
     document.getElementById("bestSellersProducts");
 
   if (!container) return;
 
+  setSkeletonBusy(container, true);
+
   container.innerHTML =
-    Array.from({ length: 4 }, createBestSellersSkeletonCard)
-      .join("");
+    createProductCarouselSkeleton({ count: 4 });
 }
 
-function renderBestSellersMessage(message) {
-  return `
-    <div
-      class="
-        w-full
-
-        rounded-3xl
-        border
-        border-dashed
-        border-[#E8E2DA]
-
-        px-8
-        py-14
-
-        text-center
-      "
-    >
-      <p class="text-ink font-medium">
-        ${message}
-      </p>
-    </div>
-  `;
+function renderBestSellersMessage(message, { retryable = false } = {}) {
+  return createFetchErrorState({
+    message,
+    retryId: retryable ? "bestSellersRetry" : "",
+  });
 }
 
 export async function loadAndRenderBestSellers() {
@@ -98,6 +51,8 @@ export async function loadAndRenderBestSellers() {
     document.getElementById("bestSellersProducts");
 
   if (!container) return;
+
+  let failed = false;
 
   try {
     const response =
@@ -117,6 +72,8 @@ export async function loadAndRenderBestSellers() {
       .sort(byRatingThenReviews)
       .slice(0, MAX_PRODUCTS);
 
+    setSkeletonBusy(container, false);
+
     container.innerHTML =
       topProducts.length
         ? topProducts
@@ -133,9 +90,29 @@ export async function loadAndRenderBestSellers() {
       error
     );
 
+    failed = true;
+
+    setSkeletonBusy(container, false);
+
     container.innerHTML = renderBestSellersMessage(
-      "We couldn't load our best sellers right now. Please try again shortly."
+      "We couldn't load our best sellers right now. Please try again shortly.",
+      { retryable: true }
     );
+
+  }
+
+  if (failed) {
+
+    document
+      .getElementById("bestSellersRetry")
+      ?.addEventListener(
+        "click",
+        () => {
+          renderBestSellersSkeleton();
+          loadAndRenderBestSellers();
+        },
+        { once: true }
+      );
 
   }
 
