@@ -273,7 +273,7 @@ async function loadProducts() {
     productsState.totalPages = 0;
 
 
-    renderProductsError();
+    renderProductsError(loadProducts);
 
 
     renderProductsToolbar();
