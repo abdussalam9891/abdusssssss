@@ -67,6 +67,8 @@ export function createRecentlyViewedSection() {
 
       id="recentlyViewedProducts"
 
+      aria-live="polite"
+
       class="
         mt-6
         sm:mt-10
