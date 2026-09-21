@@ -6,6 +6,11 @@ import { createShowcaseCard } from "../../features/showcase/showcaseCard.js";
 
 import { isActiveProduct } from "../../utils/productStatus.js";
 
+import {
+  createProductCarouselSkeleton,
+  setSkeletonBusy,
+} from "../../components/skeleton/skeleton.js";
+
 
 const RELATED_LIMIT = 8;
 
@@ -67,6 +72,12 @@ export async function initRelatedProducts() {
     productState.product;
 
   if (!current) return;
+
+
+  setSkeletonBusy(container, true);
+
+  container.innerHTML =
+    createProductCarouselSkeleton({ count: 4 });
 
 
   let products = [];
@@ -131,6 +142,8 @@ export async function initRelatedProducts() {
     return;
   }
 
+
+  setSkeletonBusy(container, false);
 
   container.innerHTML =
     products
