@@ -2,6 +2,11 @@ import { SHOWCASE_TABS } from "../../constants/showcaseProducts.js";
 import { createShowcaseCard } from "./showcaseCard.js";
 import { productService } from "../../services/productService.js";
 import { isActiveProduct } from "../../utils/productStatus.js";
+import {
+  createProductCarouselSkeleton,
+  createFetchErrorState,
+  setSkeletonBusy,
+} from "../../components/skeleton/skeleton.js";
 
 let products = [];
 let loadFailed = false;
@@ -10,79 +15,27 @@ let loadFailed = false;
 // SKELETON / LOADING STATE
 // ==========================================
 
-function createShowcaseSkeletonCard() {
-  return `
-    <div
-      class="
-        animate-pulse
-
-        flex-shrink-0
-
-        w-[72%]
-        sm:w-[48%]
-        md:w-[34%]
-        lg:w-[24%]
-        xl:w-[21%]
-      "
-    >
-      <div
-        class="
-          aspect-square
-          lg:aspect-[1/1.02]
-
-          rounded-2xl
-          lg:rounded-[26px]
-
-          border
-          border-[#F2ECE3]
-
-          bg-[#F5F1EA]
-        "
-      ></div>
-
-      <div class="mt-4 h-5 w-3/4 rounded bg-[#F5F1EA]"></div>
-      <div class="mt-3 h-6 w-1/3 rounded bg-[#F5F1EA]"></div>
-    </div>
-  `;
-}
-
 export function renderShowcaseSkeleton() {
   const container =
     document.getElementById("showcaseProducts");
 
   if (!container) return;
 
+  setSkeletonBusy(container, true);
+
   container.innerHTML =
-    Array.from({ length: 4 }, createShowcaseSkeletonCard)
-      .join("");
+    createProductCarouselSkeleton({ count: 4 });
 }
 
 // ==========================================
 // EMPTY / ERROR STATE
 // ==========================================
 
-function renderShowcaseMessage(message) {
-  return `
-    <div
-      class="
-        w-full
-
-        rounded-3xl
-        border
-        border-dashed
-        border-[#E8E2DA]
-
-        px-8
-        py-14
-
-        text-center
-      "
-    >
-      <p class="text-ink font-medium">
-        ${message}
-      </p>
-    </div>
-  `;
+function renderShowcaseMessage(message, { retryable = false } = {}) {
+  return createFetchErrorState({
+    message,
+    retryId: retryable ? "showcaseRetry" : "",
+  });
 }
 
 export async function loadShowcaseProducts() {
@@ -107,6 +60,17 @@ export async function loadShowcaseProducts() {
   }
 }
 
+// Retries the fetch from scratch (skeleton -> load -> render) rather
+// than just re-rendering, since a failed load left `products` empty.
+async function retryShowcase(activeTab) {
+
+  renderShowcaseSkeleton();
+
+  await loadShowcaseProducts();
+
+  renderShowcase(activeTab);
+}
+
 export function renderShowcase(activeTab = "trending") {
   const container =
     document.getElementById("showcaseProducts");
@@ -120,10 +84,21 @@ export function renderShowcase(activeTab = "trending") {
 
   if (!selectedTab) return;
 
+  setSkeletonBusy(container, false);
+
   if (loadFailed) {
     container.innerHTML = renderShowcaseMessage(
-      "We couldn't load our showcase right now. Please try again shortly."
+      "We couldn't load our showcase right now. Please try again shortly.",
+      { retryable: true }
     );
+
+    document
+      .getElementById("showcaseRetry")
+      ?.addEventListener(
+        "click",
+        () => retryShowcase(activeTab),
+        { once: true }
+      );
 
     return;
   }
