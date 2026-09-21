@@ -6,6 +6,15 @@ import {
 import { apiClient } from "./apiClient.js";
 
 
+// Showcase and Best Sellers both call getPublicProducts() with the
+// same default params on every homepage load, firing two identical
+// requests at once. Dedupe by endpoint so concurrent identical
+// requests share one in-flight promise instead of double-hitting
+// the backend; the entry clears once it settles, so this is not a
+// long-lived cache and differently-filtered calls (search, category
+// pages, pagination) are never affected.
+const inFlightProductRequests = new Map();
+
 /*
  * Heads-up for any listing/filter UI: of the options accepted
  * below, the public store endpoint only really applies
@@ -171,9 +180,32 @@ export const productService = {
       )}?${params.toString()}`;
 
 
-    return apiClient.get(
-      endpoint
+    if (
+      inFlightProductRequests.has(endpoint)
+    ) {
+      return inFlightProductRequests.get(
+        endpoint
+      );
+    }
+
+
+    const request =
+      apiClient
+        .get(endpoint)
+        .finally(() => {
+          inFlightProductRequests.delete(
+            endpoint
+          );
+        });
+
+
+    inFlightProductRequests.set(
+      endpoint,
+      request
     );
+
+
+    return request;
   },
 
 
