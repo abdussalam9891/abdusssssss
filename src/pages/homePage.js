@@ -4,9 +4,6 @@ import { initHomeFaq }
 import { initCategory }
   from "../features/category/renderCategory.js";
 
-import { initCraftsmanship }
-  from "../features/craftsmanship/craftsmanshipInit.js";
-
 import { initHero }
   from "../features/hero/heroInit.js";
 
@@ -15,9 +12,6 @@ import { initShowcase }
 
 import { initBestSellers }
   from "../features/bestSellers/bestSellersInit.js";
-
-import { renderWhyChooseUs }
-  from "../features/whyChooseUs/renderFeatures.js";
 
 import { initAnnouncementBar }
   from "../features/announcement/announcementInit.js";
@@ -105,16 +99,6 @@ export async function initHomePage() {
     [
       "initShowcase",
       initShowcase,
-    ],
-
-    [
-      "renderWhyChooseUs",
-      renderWhyChooseUs,
-    ],
-
-    [
-      "initCraftsmanship",
-      initCraftsmanship,
     ],
 
     [

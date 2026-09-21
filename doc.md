@@ -341,7 +341,6 @@ behavior/state — see the naming convention above.
 | `contact/contact.js` | `initContact()` — renders the contact form (markup built inline, single consumer) and wires its submit flow. |
 | `contact/faq.js` | `initFAQ()` — an FAQ accordion used within the contact page (distinct from the dedicated FAQ page/homepage widget below). |
 | `contact/hydrateContactInfo.js` | `hydrateContactInfo()` — fills in contact page details (address/phone/email) from the backend. |
-| `craftsmanship/craftsmanshipInit.js` | `initCraftsmanship()` — renders the homepage craftsmanship/process section (markup built inline, single consumer). |
 | `customizeJewellery/customizeJewelleryInit.js` | `initCustomizeJewellery()` — wires the floating "Customize Jewellery" button + modal together. |
 | `customizeJewellery/customizeProducts.js` | `initCustomizeProducts()` — loads/renders the product picker shown inside the customize modal. |
 | `customizeJewellery/modal.js` | `openCustomizeModal`, `initCustomizeModal` — open/close and submit wiring for the customize modal. |
@@ -428,7 +427,6 @@ behavior/state — see the naming convention above.
 | `socialProof/socialProofWidget.js` | `createSocialProofContainer()`, `createSocialProofCard({...})` — the rotating "X just explored Y" toast markup. |
 | `toast/toastInit.js` | `initToast()` — global toast container (markup built inline, single consumer) init, listens for toast-trigger events from `src/utils/toast.js`. |
 | `whatsapp/whatsappInit.js` | `initFloatingWhatsAppButton()` — the floating WhatsApp contact button (markup built inline, single consumer) + its wiring. |
-| `whyChooseUs/renderFeatures.js` | `renderWhyChooseUs()` — renders the "why choose us" feature cards (markup built inline, single consumer) from `src/constants/whyChooseUs.js`. |
 | `wishlist/wishlistBadge.js` | `initWishlistBadgeSync()` — keeps the navbar wishlist-count badge in sync. |
 | `wishlist/wishlistButtons.js` | `initWishlistButtons()` — wires heart/toggle buttons on product cards sitewide. |
 | `wishlist/wishlistPageInit.js` | `initWishlistPage()` — wires the `/wishlist` page. |
