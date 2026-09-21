@@ -153,6 +153,8 @@ export function createRelatedProductsSection() {
 
       id="relatedProducts"
 
+      aria-live="polite"
+
       class="
         mt-6
         sm:mt-8
