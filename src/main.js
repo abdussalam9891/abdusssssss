@@ -62,6 +62,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   // GLOBAL
   // =========================================
 
+  // Renders icons for markup that ships statically in index.html
+  // (e.g. the "why choose us" cards and craftsmanship section) —
+  // sections rendered dynamically by JS call this themselves too.
+  window.lucide?.createIcons();
+
   // Navbar must render immediately.
   // It must NOT wait for API requests.
   initNavbar();
