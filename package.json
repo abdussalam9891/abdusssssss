@@ -2,7 +2,6 @@
   "name": "banshiwala-live",
   "version": "1.0.0",
   "description": "",
-  "main": "sw.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:css": "tailwindcss -i ./src/css/tailwind.input.css -o ./src/css/tailwind.build.css --minify",
@@ -17,3 +16,4 @@
     "tailwindcss": "^4.3.3"
   }
 }
+
