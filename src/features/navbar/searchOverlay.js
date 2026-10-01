@@ -2,6 +2,8 @@ import { productService } from "../../services/productService.js";
 
 import { isActiveProduct } from "../../utils/productStatus.js";
 
+import { createRingLoader } from "../../components/loader/ringLoader.js";
+
 import {
   formatPrice,
   getProductDetailsHref,
@@ -195,21 +197,8 @@ export function initSearchOverlay() {
 
   function renderLoading() {
     resultsContainer.innerHTML = `
-<div class="flex justify-center py-16">
-  <span
-    class="
-      h-9
-      w-9
-
-      animate-spin
-
-      rounded-full
-
-      border-2
-      border-[#F2ECE3]
-      border-t-primary
-    "
-  ></span>
+<div class="flex justify-center py-16" role="status" aria-live="polite">
+  ${createRingLoader({ message: "Searching", size: "sm" })}
 </div>
 `;
   }

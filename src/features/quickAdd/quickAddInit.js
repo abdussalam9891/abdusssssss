@@ -17,6 +17,7 @@ import { addToCart } from "../cart/cartState.js";
 import { removeFromWishlist } from "../wishlist/wishlistState.js";
 import { requireAuth } from "../auth/authGuard.js";
 import { showToast } from "../../utils/toast.js";
+import { createRingLoader } from "../../components/loader/ringLoader.js";
 import { buildCartSize } from "../../utils/cartLine.js";
 
 /*
@@ -272,25 +273,10 @@ function renderLoading() {
 
     py-10
   "
+  role="status"
+  aria-live="polite"
 >
-  <span
-    class="
-      h-8
-      w-8
-
-      animate-spin
-
-      rounded-full
-
-      border-2
-      border-[#ECE5D8]
-      border-t-primary
-    "
-  ></span>
-
-  <p class="text-[13px] text-[#8A8A8A]">
-    Loading product…
-  </p>
+  ${createRingLoader({ message: "Loading product", size: "sm" })}
 </div>
 `;
 

@@ -21,6 +21,7 @@ import { initShareButton } from "./share.js";
 import { initOffers } from "./offers.js";
 import { initReviews } from "./reviews.js";
 
+import { createRingLoader } from "../../components/loader/ringLoader.js";
 import { createProductDetailsLayout } from "../../components/productDetails/productDetailsLayout.js";
 import { createProductGallery } from "../../components/productDetails/productGallery.js";
 import { createProductInfo } from "../../components/productDetails/productInfo.js";
@@ -79,24 +80,7 @@ function renderLoading(container) {
   aria-live="polite"
 >
 
-  <span
-    class="
-      h-10
-      w-10
-
-      animate-spin
-
-      rounded-full
-
-      border-2
-      border-[#ECE5D8]
-      border-t-primary
-    "
-  ></span>
-
-  <p class="text-[#777]">
-    Loading product details…
-  </p>
+  ${createRingLoader({ message: "Polishing your piece" })}
 
 </div>
 `);

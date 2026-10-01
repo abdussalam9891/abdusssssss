@@ -6,6 +6,9 @@
  * ids so it never collides with the standalone orders page.
  */
 
+import { createRingLoader } from "../loader/ringLoader.js";
+
+
 export function createProfileOrdersPanel() {
 
   return `
@@ -53,24 +56,7 @@ export function createProfileOrdersPanel() {
     aria-live="polite"
   >
 
-    <span
-      class="
-        h-10
-        w-10
-
-        animate-spin
-
-        rounded-full
-
-        border-2
-        border-[#ECE5D8]
-        border-t-primary
-      "
-    ></span>
-
-    <p class="text-[#777]">
-      Loading your orders…
-    </p>
+    ${createRingLoader({ message: "Gathering your orders" })}
 
   </div>
 

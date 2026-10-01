@@ -131,3 +131,123 @@
   background: var(--color-primary);
   transform: scale(1.25);
 }
+
+
+
+/* ==========================================
+   RING LOADER (src/components/loader/ringLoader.js)
+========================================== */
+
+.ring-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+
+  /* Held invisible briefly so fast responses never flash it */
+  animation: ringLoaderIn .4s ease .25s both;
+}
+
+.ring-loader__stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  perspective: 400px;
+}
+
+.ring-loader__ring {
+  display: block;
+  width: 84px;
+  height: 84px;
+  animation: ringLoaderSpin 2.8s linear infinite;
+}
+
+.ring-loader__shadow {
+  display: block;
+  width: 60px;
+  height: 6px;
+  border-radius: 9999px;
+  background: #181818;
+  opacity: .12;
+  animation: ringLoaderShadow 2.8s linear infinite;
+}
+
+.ring-loader__glint {
+  animation: ringLoaderGlint 2.8s ease-in-out infinite;
+}
+
+.ring-loader__text {
+  font-family: var(--font-serif, "Cormorant Garamond", serif);
+  font-style: italic;
+  font-size: 19px;
+  color: #666;
+}
+
+.ring-loader__dots {
+  /* Fixed width + clip (not a growing width) so the centred
+     message doesn't shift sideways as each dot appears */
+  display: inline-block;
+  width: 1.1em;
+  text-align: left;
+  clip-path: inset(0 100% 0 0);
+  animation: ringLoaderDots 1.4s steps(4, end) infinite;
+}
+
+.ring-loader--sm {
+  gap: 12px;
+}
+
+.ring-loader--sm .ring-loader__ring {
+  width: 48px;
+  height: 48px;
+}
+
+.ring-loader--sm .ring-loader__shadow {
+  width: 34px;
+  height: 4px;
+}
+
+.ring-loader--sm .ring-loader__text {
+  font-size: 16px;
+}
+
+@keyframes ringLoaderIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes ringLoaderSpin {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(360deg); }
+}
+
+/* Narrowest when the ring is edge-on (90deg / 270deg) */
+@keyframes ringLoaderShadow {
+  0%, 50%, 100% { transform: scaleX(1); opacity: .12; }
+  25%, 75% { transform: scaleX(.3); opacity: .06; }
+}
+
+@keyframes ringLoaderGlint {
+  0%, 40% { transform: translateX(-140px); }
+  100% { transform: translateX(160px); }
+}
+
+@keyframes ringLoaderDots {
+  to { clip-path: inset(0 0 0 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .ring-loader__ring,
+  .ring-loader__shadow,
+  .ring-loader__glint,
+  .ring-loader__dots {
+    animation: none;
+  }
+
+  .ring-loader__dots {
+    clip-path: none;
+  }
+
+}
