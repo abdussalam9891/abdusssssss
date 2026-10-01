@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <script>
+    if (location.hostname === 'www.banshiwale.com') {
+      location.replace('https://banshiwale.com' + location.pathname + location.search + location.hash);
+    }
+  </script>
+
+  <!-- Meta -->
+
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>Banshiwale | Page Not Found</title>
+
+  <meta
+    name="description"
+    content="The page you were looking for doesn't exist or has moved. Explore Banshiwale's handcrafted 925 sterling silver jewellery for men."
+  />
+
+  <meta
+    name="robots"
+    content="noindex, follow"
+  />
+
+  <meta
+    name="theme-color"
+    content="#181818"
+  />
+
+  <!--
+    Every path on this page is root-absolute ("/src/...", not "../src/...")
+    because it's served for *any* missing URL, at any depth — Apache's
+    ErrorDocument (see .htaccess) and Live Server's 404 fallback (see
+    .vscode/settings.json) both keep the requested URL in the address bar,
+    so relative paths would resolve against that and break.
+  -->
+
+  <!-- Favicon -->
+
+  <link
+    rel="icon"
+    href="/favicon.ico"
+    sizes="any"
+  />
+
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="96x96"
+    href="/favicon-96x96.png"
+  />
+
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="512x512"
+    href="/favicon-512x512.png"
+  />
+
+  <link
+    rel="apple-touch-icon"
+    href="/apple-touch-icon.png"
+  />
+
+  <!-- Fonts -->
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  />
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  />
+
+  <link
+    rel="preload"
+    as="style"
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+  />
+
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+    media="print"
+    onload="this.media='all'; this.onload=null;"
+  />
+
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" /></noscript>
+
+  <link rel="stylesheet" href="/src/features/animations/animations.css" />
+  <link rel="stylesheet" href="/src/features/marquee/marquee.css" />
+  <link rel="stylesheet" href="/src/features/announcement/announcement.css" />
+  <link rel="stylesheet" href="/src/css/pages/notFound.css" />
+
+  <link
+    rel="stylesheet"
+    href="/src/css/main.css"
+  />
+
+  <link
+    rel="stylesheet"
+    href="/src/css/tailwind.build.css"
+  />
+</head>
+
+<body
+  class="
+    min-h-screen
+    bg-[#FAF7F1]
+    font-sans
+    text-ink
+    antialiased
+  "
+>
+
+  <!-- Navbar -->
+
+  <div
+    id="navbar-container"
+    data-theme="dark"
+    data-announcement="false"
+  ></div>
+
+  <!-- Main -->
+
+  <main>
+
+    <section
+      class="
+        relative
+        isolate
+        overflow-hidden
+
+        bg-[#FAF7F1]
+
+        pt-28
+        pb-4
+
+        sm:pt-32
+        sm:pb-6
+
+        lg:pt-40
+        lg:pb-8
+      "
+    >
+
+      <!-- Decorative motifs (desktop/tablet only) -->
+
+      <div
+        aria-hidden="true"
+        class="
+          pointer-events-none
+          absolute
+          inset-0
+          -z-10
+          hidden
+          sm:block
+          text-[#D8CBB0]
+        "
+      >
+        <i data-lucide="gem" class="nf-drift absolute left-[8%] top-[22%] h-10 w-10 stroke-[1.2]"></i>
+        <i data-lucide="link" class="nf-drift-slow absolute left-[14%] top-[62%] h-9 w-9 stroke-[1.2]"></i>
+        <i data-lucide="crown" class="nf-drift-slow absolute left-[30%] top-[14%] h-7 w-7 stroke-[1.2]"></i>
+        <i data-lucide="sparkles" class="nf-drift absolute left-[24%] bottom-[10%] h-8 w-8 stroke-[1.2]"></i>
+        <i data-lucide="diamond" class="nf-drift absolute right-[9%] top-[26%] h-9 w-9 stroke-[1.2]"></i>
+        <i data-lucide="circle-dot" class="nf-drift-slow absolute right-[15%] top-[64%] h-10 w-10 stroke-[1.2]"></i>
+        <i data-lucide="sparkle" class="nf-drift absolute right-[30%] top-[12%] h-6 w-6 stroke-[1.2]"></i>
+        <i data-lucide="link-2" class="nf-drift-slow absolute right-[26%] bottom-[8%] h-8 w-8 stroke-[1.2]"></i>
+      </div>
+
+      <!-- Soft gold glow behind the numerals -->
+
+      <div
+        aria-hidden="true"
+        class="
+          pointer-events-none
+          absolute
+          left-1/2
+          top-[38%]
+          -z-10
+          h-[320px]
+          w-[320px]
+          -translate-x-1/2
+          -translate-y-1/2
+          rounded-full
+          bg-[#F1E1BC]
+          opacity-50
+          blur-3xl
+
+          sm:h-[460px]
+          sm:w-[460px]
+        "
+      ></div>
+
+      <div
+        class="
+          mx-auto
+
+          flex
+          max-w-4xl
+          flex-col
+          items-center
+
+          px-5
+          sm:px-6
+          lg:px-8
+
+          text-center
+        "
+      >
+
+        <p
+          class="
+            text-[11px]
+            sm:text-[12px]
+
+            font-medium
+            uppercase
+            tracking-[0.32em]
+
+            text-primary
+          "
+        >
+          Error 404
+        </p>
+
+        <!-- 4 [ring] 4 -->
+
+        <h1
+          aria-label="404"
+          class="
+            mt-3
+
+            flex
+            items-center
+            justify-center
+            gap-1
+            sm:gap-3
+
+            font-serif
+            font-medium
+            leading-none
+
+            text-[120px]
+            sm:text-[180px]
+            lg:text-[220px]
+
+            text-ink
+          "
+        >
+
+          <span aria-hidden="true">4</span>
+
+          <span
+            aria-hidden="true"
+            class="
+              relative
+              inline-block
+
+              w-[104px]
+              sm:w-[156px]
+              lg:w-[190px]
+            "
+          >
+
+            <svg
+              viewBox="0 0 200 230"
+              class="block h-auto w-full overflow-visible"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+
+              <defs>
+
+                <linearGradient id="nfSilver" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#FDFDFD" />
+                  <stop offset="0.35" stop-color="#C4C4C4" />
+                  <stop offset="0.55" stop-color="#EDEDED" />
+                  <stop offset="0.8" stop-color="#9A9A9A" />
+                  <stop offset="1" stop-color="#D6D6D6" />
+                </linearGradient>
+
+                <linearGradient id="nfGold" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#E9CF8F" />
+                  <stop offset="0.5" stop-color="#C9A45C" />
+                  <stop offset="1" stop-color="#A07936" />
+                </linearGradient>
+
+                <linearGradient id="nfGlintFill" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" stop-color="#FFFFFF" stop-opacity="0" />
+                  <stop offset="0.5" stop-color="#FFFFFF" stop-opacity="0.95" />
+                  <stop offset="1" stop-color="#FFFFFF" stop-opacity="0" />
+                </linearGradient>
+
+                <mask id="nfBandMask">
+                  <circle cx="100" cy="135" r="62" fill="none" stroke="#fff" stroke-width="16" />
+                  <rect x="64" y="38" width="72" height="42" rx="12" fill="#fff" />
+                </mask>
+
+              </defs>
+
+              <!-- Ground shadow (stays put while the ring floats) -->
+
+              <ellipse
+                class="nf-ring-shadow"
+                cx="100"
+                cy="222"
+                rx="58"
+                ry="6"
+                fill="#181818"
+                opacity="0.5"
+                style="transform-box: fill-box;"
+              />
+
+              <g class="nf-ring">
+
+                <!-- Band -->
+
+                <circle cx="100" cy="135" r="62" fill="none" stroke="url(#nfSilver)" stroke-width="16" />
+                <circle cx="100" cy="135" r="70" fill="none" stroke="#8A8A8A" stroke-opacity="0.45" stroke-width="1" />
+                <circle cx="100" cy="135" r="54" fill="none" stroke="#8A8A8A" stroke-opacity="0.35" stroke-width="1" />
+
+                <!-- Shoulders -->
+
+                <path d="M70 76 Q62 88 56 96" fill="none" stroke="url(#nfSilver)" stroke-width="10" stroke-linecap="round" />
+                <path d="M130 76 Q138 88 144 96" fill="none" stroke="url(#nfSilver)" stroke-width="10" stroke-linecap="round" />
+
+                <!-- Signet head -->
+
+                <rect x="64" y="38" width="72" height="42" rx="12" fill="url(#nfSilver)" stroke="#8A8A8A" stroke-opacity="0.6" stroke-width="1" />
+                <rect x="73" y="46" width="54" height="26" rx="7" fill="url(#nfGold)" />
+
+                <text
+                  x="100"
+                  y="66"
+                  text-anchor="middle"
+                  font-family="Cormorant Garamond, serif"
+                  font-size="22"
+                  font-weight="700"
+                  fill="#5E4520"
+                >B</text>
+
+                <!-- Glint -->
+
+                <g mask="url(#nfBandMask)">
+                  <g transform="rotate(18 100 120)">
+                    <rect class="nf-glint" x="40" y="0" width="28" height="240" fill="url(#nfGlintFill)" />
+                  </g>
+                </g>
+
+              </g>
+
+              <!-- Sparkles -->
+
+              <path
+                class="nf-twinkle"
+                d="M172 40 L176 52 L188 56 L176 60 L172 72 L168 60 L156 56 L168 52 Z"
+                fill="#C9A45C"
+                style="transform-box: fill-box; transform-origin: center;"
+              />
+
+              <path
+                class="nf-twinkle nf-twinkle-delay"
+                d="M24 96 L27 104 L35 107 L27 110 L24 118 L21 110 L13 107 L21 104 Z"
+                fill="#C9A45C"
+                style="transform-box: fill-box; transform-origin: center;"
+              />
+
+            </svg>
+
+          </span>
+
+          <span aria-hidden="true">4</span>
+
+        </h1>
+
+        <h2
+          class="
+            mt-6
+            sm:mt-8
+
+            font-serif
+            italic
+
+            text-[28px]
+            sm:text-[40px]
+            lg:text-[48px]
+
+            leading-tight
+            text-balance
+
+            text-ink
+          "
+        >
+          This piece slipped off the chain.
+        </h2>
+
+        <p
+          class="
+            mt-4
+
+            max-w-lg
+
+            text-[14px]
+            sm:text-[15px]
+
+            leading-relaxed
+
+            text-[#666]
+          "
+        >
+          The page you were looking for doesn't exist or has moved.
+          Let's get you back to something handcrafted in 925 sterling silver.
+        </p>
+
+        <!-- Actions -->
+
+        <div
+          class="
+            mt-8
+            sm:mt-10
+
+            flex
+            w-full
+            flex-col
+            items-center
+            justify-center
+            gap-3
+
+            sm:w-auto
+            sm:flex-row
+            sm:gap-4
+          "
+        >
+
+          <a
+            href="/"
+
+            class="
+              inline-flex
+              w-full
+              sm:w-auto
+
+              items-center
+              justify-center
+              gap-2
+
+              rounded-full
+
+              bg-ink
+
+              px-8
+              py-4
+
+              text-[13px]
+
+              font-medium
+
+              uppercase
+
+              tracking-[0.18em]
+
+              text-white
+
+              transition-colors
+              duration-300
+
+              hover:bg-primary
+            "
+          >
+            <i data-lucide="house" class="h-4 w-4"></i>
+            Back to Home
+          </a>
+
+          <a
+            href="/pages/products.html"
+
+            class="
+              group
+
+              inline-flex
+              w-full
+              sm:w-auto
+
+              items-center
+              justify-center
+              gap-2
+
+              rounded-full
+
+              border
+              border-ink
+
+              px-8
+              py-4
+
+              text-[13px]
+
+              font-medium
+
+              uppercase
+
+              tracking-[0.18em]
+
+              text-ink
+
+              transition-colors
+              duration-300
+
+              hover:border-primary
+              hover:bg-primary
+              hover:text-white
+            "
+          >
+            Shop Collections
+            <i
+              data-lucide="arrow-right"
+              class="
+                h-4
+                w-4
+
+                transition-transform
+                duration-300
+
+                group-hover:translate-x-1
+              "
+            ></i>
+          </a>
+
+        </div>
+
+        <!-- Quick links -->
+
+        <div
+          class="
+            mt-10
+            sm:mt-12
+
+            flex
+            flex-wrap
+            items-center
+            justify-center
+            gap-2
+            sm:gap-3
+          "
+        >
+
+          <span
+            class="
+              w-full
+              sm:w-auto
+
+              mb-1
+              sm:mb-0
+              sm:mr-1
+
+              text-[13px]
+
+              text-[#8A8A8A]
+            "
+          >
+            Or explore:
+          </span>
+
+          <a href="/pages/products.html?category=chains" class="rounded-full border border-[#ECE5D8] bg-white px-5 py-2 text-[13px] text-ink transition-colors duration-300 hover:border-primary hover:text-primary">Chains</a>
+          <a href="/pages/products.html?category=bracelets" class="rounded-full border border-[#ECE5D8] bg-white px-5 py-2 text-[13px] text-ink transition-colors duration-300 hover:border-primary hover:text-primary">Bracelets</a>
+          <a href="/pages/products.html?category=rings" class="rounded-full border border-[#ECE5D8] bg-white px-5 py-2 text-[13px] text-ink transition-colors duration-300 hover:border-primary hover:text-primary">Rings</a>
+          <a href="/pages/products.html?category=pendants" class="rounded-full border border-[#ECE5D8] bg-white px-5 py-2 text-[13px] text-ink transition-colors duration-300 hover:border-primary hover:text-primary">Pendants</a>
+          <a href="/pages/products.html?tag=new" class="rounded-full border border-[#ECE5D8] bg-white px-5 py-2 text-[13px] text-ink transition-colors duration-300 hover:border-primary hover:text-primary">New Arrivals</a>
+          <a href="/pages/contact.html" class="rounded-full border border-[#ECE5D8] bg-white px-5 py-2 text-[13px] text-ink transition-colors duration-300 hover:border-primary hover:text-primary">Contact</a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+
+  <div id="footer"></div>
+
+  <script
+    src="https://unpkg.com/lucide@1.40.0"
+    defer
+  ></script>
+
+  <script
+    type="module"
+    src="/src/main.js"
+  ></script>
+
+</body>
+
+</html>

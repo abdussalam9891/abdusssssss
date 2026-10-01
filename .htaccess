@@ -1,5 +1,8 @@
 RewriteEngine On
 
+# Branded "not found" page for any missing URL (keeps the real 404 status).
+ErrorDocument 404 /404.html
+
 # 1. Canonicalize domain: force non-www (your existing rule)
 RewriteCond %{HTTP_HOST} ^www\.banshiwale\.com$ [NC]
 RewriteRule ^(.*)$ https://banshiwale.com/$1 [L,R=301]
